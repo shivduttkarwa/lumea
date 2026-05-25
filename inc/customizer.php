@@ -389,8 +389,8 @@ function lumea_customize_register( $wp_customize ) {
 		1 => array(
 			'title'  => 'Cleanse',
 			'text'   => 'Begin with pure intention. Our gentle botanical cleansers dissolve impurities without stripping the skin\'s natural balance, leaving a fresh, receptive canvas.',
-			'image1' => LUMEA_THEME_URI . '/assets/images/1.jpg',
-			'image2' => LUMEA_THEME_URI . '/assets/images/2.jpg',
+			'image1' => LUMEA_THEME_URI . '/assets/images/ritual/a1.jpg',
+			'image2' => LUMEA_THEME_URI . '/assets/images/ritual/a2.jpg',
 		),
 		2 => array(
 			'title'  => 'Tone & Prep',

@@ -1445,7 +1445,7 @@ a {
 .lumea-ritual-intro {
   max-width: 640px;
   margin: 28px 0 0;
-  font-size: 17px;
+  font-size: 20px;
   line-height: 1.5;
   font-weight: 500;
   color: var(--lumea-muted);
@@ -1457,12 +1457,12 @@ a {
   margin-top: 46px;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 34px;
 }
 
 .lumea-ritual-acc {
-  opacity: 0.38;
-  transition: opacity 0.45s ease;
+  opacity: 0.35;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .lumea-ritual-acc.is-active {
@@ -1471,7 +1471,7 @@ a {
 
 .lumea-ritual-acc-head {
   width: 100%;
-  padding: 0 0 10px;
+  padding: 0 0 12px;
   margin: 0;
   border: 0;
   border-bottom: 1px solid var(--lumea-border);
@@ -1489,41 +1489,33 @@ a {
 
 .lumea-ritual-acc-title {
   display: block;
-  font-size: 13px;
-  line-height: 16px;
-  letter-spacing: 0.1em;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.08em;
   font-weight: 700;
   text-transform: uppercase;
-  transition: padding-left 0.42s cubic-bezier(.22, .61, .36, 1);
+  transition:
+    padding-left 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    font-size    0.5s  cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .lumea-ritual-acc.is-active .lumea-ritual-acc-title {
   padding-left: 44px;
+  font-size: 19px;
 }
 
+/* Panel — height + opacity driven by GSAP in ritual.js */
 .lumea-ritual-panel {
-  max-height: 0;
   overflow: hidden;
+  height: 0;
   opacity: 0;
-  transform: translateY(-8px);
-  transition:
-    max-height 0.55s cubic-bezier(.22, .61, .36, 1),
-    opacity 0.35s ease,
-    transform 0.35s ease;
-}
-
-.lumea-ritual-acc.is-active .lumea-ritual-panel {
-  max-height: 220px;
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .lumea-ritual-panel p {
-  max-width: 600px;
   margin: 0;
-  padding-top: 14px;
+  padding-top: 16px;
   padding-left: 44px;
-  font-size: 16px;
+  font-size: 19px;
   line-height: 1.6;
   letter-spacing: 0.01em;
   font-weight: 400;

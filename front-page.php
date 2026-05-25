@@ -209,10 +209,10 @@ $ritual_steps = array(
 	),
 );
 $ritual_img_defaults = array(
-	1 => array( 'lumea-cleanse', LUMEA_THEME_URI . '/assets/images/1.jpg',    LUMEA_THEME_URI . '/assets/images/2.jpg' ),
-	2 => array( 'lumea-tone',    LUMEA_THEME_URI . '/assets/images/hero.jpg', LUMEA_THEME_URI . '/assets/images/4.jpg' ),
-	3 => array( 'lumea-treat',   LUMEA_THEME_URI . '/assets/images/6.jpg',    LUMEA_THEME_URI . '/assets/images/her02.jpg' ),
-	4 => array( 'lumea-restore', LUMEA_THEME_URI . '/assets/images/he.jpg',   LUMEA_THEME_URI . '/assets/images/hero1.jpg' ),
+	1 => array( 'lumea-cleanse', LUMEA_THEME_URI . '/assets/images/ritual/a1.jpg', LUMEA_THEME_URI . '/assets/images/ritual/a2.jpg' ),
+	2 => array( 'lumea-tone',    LUMEA_THEME_URI . '/assets/images/ritual/b1.jpg', LUMEA_THEME_URI . '/assets/images/ritual/b2.jpg' ),
+	3 => array( 'lumea-treat',   LUMEA_THEME_URI . '/assets/images/ritual/c1.jpg',    LUMEA_THEME_URI . '/assets/images/ritual/c2.jpg' ),
+	4 => array( 'lumea-restore', LUMEA_THEME_URI . '/assets/images/ritual/d1.jpg',   LUMEA_THEME_URI . '/assets/images/ritual/d2.jpg' ),
 );
 ?>
 <section class="lumea-ritual" id="lumeaRitual" aria-label="<?php esc_attr_e( 'Luméa skincare ritual', 'lumea' ); ?>">

@@ -1,7 +1,7 @@
 /**
  * Luméa — The Ritual Section
  * Sticky left accordion driven by right-column scroll position.
- * Requires GSAP + ScrollTrigger (loaded via enqueue.php on front-page).
+ * Uses GSAP height:'auto' for smooth panel animation (no max-height hack).
  */
 ( function () {
   'use strict';
@@ -18,32 +18,74 @@
 
   if ( ! accordions.length || ! imageGroups.length ) return;
 
+  /* ── Initialise panel states ──────────────────────────── */
+
+  accordions.forEach( function ( item ) {
+    var panel = item.querySelector( '.lumea-ritual-panel' );
+    if ( ! panel ) return;
+    if ( item.classList.contains( 'is-active' ) ) {
+      gsap.set( panel, { height: 'auto', opacity: 1 } );
+    } else {
+      gsap.set( panel, { height: 0, opacity: 0 } );
+    }
+  } );
+
+  /* ── Active state setter ──────────────────────────────── */
+
   function setActive( id ) {
     accordions.forEach( function ( item ) {
-      item.classList.toggle( 'is-active', item.dataset.target === id );
+      var isActive  = item.dataset.target === id;
+      var wasActive = item.classList.contains( 'is-active' );
+      var panel     = item.querySelector( '.lumea-ritual-panel' );
+
+      item.classList.toggle( 'is-active', isActive );
+
+      if ( ! panel ) return;
+
+      if ( isActive && ! wasActive ) {
+        /* Open */
+        gsap.to( panel, {
+          height: 'auto',
+          opacity: 1,
+          duration: 0.65,
+          ease: 'expo.out',
+          overwrite: true,
+        } );
+      } else if ( ! isActive && wasActive ) {
+        /* Close */
+        gsap.to( panel, {
+          height: 0,
+          opacity: 0,
+          duration: 0.4,
+          ease: 'power3.inOut',
+          overwrite: true,
+        } );
+      }
     } );
 
-    const active = section.querySelector( '.lumea-ritual-acc[data-target="' + id + '"]' );
+    /* Animate the newly active item's title + body text */
+    var active = section.querySelector( '.lumea-ritual-acc[data-target="' + id + '"]' );
     if ( ! active ) return;
 
-    const title = active.querySelector( '.lumea-ritual-acc-title' );
-    const text  = active.querySelector( '.lumea-ritual-panel p' );
+    var title = active.querySelector( '.lumea-ritual-acc-title' );
+    var text  = active.querySelector( '.lumea-ritual-panel p' );
 
     if ( title ) {
       gsap.fromTo( title,
-        { x: -14, opacity: 0.4 },
-        { x: 0, opacity: 1, duration: 0.45, ease: 'power3.out', overwrite: true }
+        { x: -20, opacity: 0.3 },
+        { x: 0, opacity: 1, duration: 0.6, ease: 'expo.out', overwrite: true }
       );
     }
     if ( text ) {
       gsap.fromTo( text,
-        { y: 12, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5, delay: 0.05, ease: 'power3.out', overwrite: true }
+        { y: 18, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, delay: 0.07, ease: 'expo.out', overwrite: true }
       );
     }
   }
 
-  /* Scroll-driven activation */
+  /* ── Scroll-driven activation ─────────────────────────── */
+
   imageGroups.forEach( function ( group ) {
     ScrollTrigger.create( {
       trigger: group,
@@ -54,7 +96,8 @@
     } );
   } );
 
-  /* Click to scroll */
+  /* ── Click to scroll ──────────────────────────────────── */
+
   accordions.forEach( function ( item ) {
     var btn = item.querySelector( '.lumea-ritual-acc-head' );
     if ( ! btn ) return;
@@ -69,16 +112,17 @@
     } );
   } );
 
-  /* Image reveal on scroll */
+  /* ── Image reveal on scroll ───────────────────────────── */
+
   gsap.utils.toArray( '.lumea-ritual-image-wrap' ).forEach( function ( wrap ) {
     var img = wrap.querySelector( 'img' );
     if ( ! img ) return;
     gsap.fromTo( img,
-      { scale: 1.055, y: 34, opacity: 0.88 },
+      { scale: 1.06, y: 40, opacity: 0.85 },
       {
         scale: 1, y: 0, opacity: 1,
-        duration: 1.15, ease: 'power3.out',
-        scrollTrigger: { trigger: wrap, start: 'top 86%', once: true },
+        duration: 1.2, ease: 'expo.out',
+        scrollTrigger: { trigger: wrap, start: 'top 88%', once: true },
       }
     );
   } );
