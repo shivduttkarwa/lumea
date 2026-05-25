@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme Customizer settings.
+ * Theme Customizer — all front-page content and images.
  *
  * @package Lumea
  */
@@ -12,39 +12,376 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Register Customizer settings.
  *
- * @param WP_Customize_Manager $wp_customize Customizer instance.
+ * @param WP_Customize_Manager $wp_customize
  */
 function lumea_customize_register( $wp_customize ) {
 
-	/* ── Hero Section ─────────────────────────────── */
+	/* ── Master panel ─────────────────────────────────────── */
+	$wp_customize->add_panel(
+		'lumea_theme',
+		array(
+			'title'    => esc_html__( 'Luméa Theme', 'lumea' ),
+			'priority' => 10,
+		)
+	);
+
+	/* ════════════════════════════════════════════════════════
+	   1. HERO SECTION
+	   ════════════════════════════════════════════════════════ */
 	$wp_customize->add_section(
 		'lumea_hero',
 		array(
-			'title'    => esc_html__( 'Hero Section', 'lumea' ),
-			'priority' => 30,
+			'title' => esc_html__( 'Hero', 'lumea' ),
+			'panel' => 'lumea_theme',
 		)
 	);
 
-	/* Hero background image */
-	$wp_customize->add_setting(
-		'lumea_hero_image',
+	// Background image
+	$wp_customize->add_setting( 'lumea_hero_image', array(
+		'default'           => LUMEA_THEME_URI . '/assets/images/hero1.jpg',
+		'sanitize_callback' => 'esc_url_raw',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'lumea_hero_image', array(
+		'label'   => esc_html__( 'Background Image', 'lumea' ),
+		'section' => 'lumea_hero',
+	) ) );
+
+	// Label ("Glow")
+	$wp_customize->add_setting( 'lumea_hero_label', array(
+		'default'           => 'Glow',
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_hero_label', array(
+		'label'   => esc_html__( 'Label (above title)', 'lumea' ),
+		'section' => 'lumea_hero',
+		'type'    => 'text',
+	) );
+
+	// Subtitle pills
+	foreach ( array(
+		'lumea_hero_subtitle_1' => array( 'Skincare', 'Subtitle 1' ),
+		'lumea_hero_subtitle_2' => array( 'Cosmetics', 'Subtitle 2' ),
+		'lumea_hero_subtitle_3' => array( 'Beauty', 'Subtitle 3' ),
+	) as $key => $info ) {
+		$wp_customize->add_setting( $key, array(
+			'default'           => $info[0],
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $key, array(
+			'label'   => esc_html__( $info[1], 'lumea' ),
+			'section' => 'lumea_hero',
+			'type'    => 'text',
+		) );
+	}
+
+	// CTA button text
+	$wp_customize->add_setting( 'lumea_hero_cta_text', array(
+		'default'           => 'Shop Collection',
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_hero_cta_text', array(
+		'label'   => esc_html__( 'CTA Button Text', 'lumea' ),
+		'section' => 'lumea_hero',
+		'type'    => 'text',
+	) );
+
+	/* ════════════════════════════════════════════════════════
+	   2. EDITORIAL SLIDER
+	   ════════════════════════════════════════════════════════ */
+	$wp_customize->add_section(
+		'lumea_slider',
 		array(
-			'default'           => '',
+			'title' => esc_html__( 'Editorial Slider', 'lumea' ),
+			'panel' => 'lumea_theme',
+		)
+	);
+
+	// Section intro
+	foreach ( array(
+		'lumea_slider_eyebrow' => array( 'Editorial Collection', 'Eyebrow Label' ),
+		'lumea_slider_title'   => array( 'The Edit', 'Section Title' ),
+	) as $key => $info ) {
+		$wp_customize->add_setting( $key, array(
+			'default'           => $info[0],
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $key, array(
+			'label'   => esc_html__( $info[1], 'lumea' ),
+			'section' => 'lumea_slider',
+			'type'    => 'text',
+		) );
+	}
+
+	$wp_customize->add_setting( 'lumea_slider_desc', array(
+		'default'           => 'Curated botanicals and skin-first formulas for luminous, everyday beauty.',
+		'sanitize_callback' => 'sanitize_textarea_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_slider_desc', array(
+		'label'   => esc_html__( 'Section Description', 'lumea' ),
+		'section' => 'lumea_slider',
+		'type'    => 'textarea',
+	) );
+
+	// "Shop All" button text
+	$wp_customize->add_setting( 'lumea_slider_cta_text', array(
+		'default'           => 'Shop All',
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_slider_cta_text', array(
+		'label'   => esc_html__( '"Shop All" Button Text', 'lumea' ),
+		'section' => 'lumea_slider',
+		'type'    => 'text',
+	) );
+
+	// Slides 1–6
+	$slide_defaults = array(
+		1 => array(
+			'text'  => 'Botanical skincare rituals designed for luminous skin, soft texture, and everyday radiance.',
+			'image' => LUMEA_THEME_URI . '/assets/images/1.jpg',
+		),
+		2 => array(
+			'text'  => 'Clean formulas, soft botanicals, and refined essentials for a calm beauty routine.',
+			'image' => LUMEA_THEME_URI . '/assets/images/2.jpg',
+		),
+		3 => array(
+			'text'  => 'A curated edit of everyday glow products made for modern skincare rituals.',
+			'image' => LUMEA_THEME_URI . '/assets/images/hero.jpg',
+		),
+		4 => array(
+			'text'  => 'Soft hydration, botanical balance, and skin-first essentials for natural radiance.',
+			'image' => LUMEA_THEME_URI . '/assets/images/4.jpg',
+		),
+		5 => array(
+			'text'  => 'A fresh beauty wardrobe made for skin that feels balanced, bright, and alive.',
+			'image' => LUMEA_THEME_URI . '/assets/images/he.jpg',
+		),
+		6 => array(
+			'text'  => 'Glow-focused skincare where timeless botanicals meet a modern beauty edge.',
+			'image' => LUMEA_THEME_URI . '/assets/images/6.jpg',
+		),
+	);
+
+	foreach ( $slide_defaults as $n => $defaults ) {
+		$img_key  = 'lumea_slide_' . $n . '_image';
+		$text_key = 'lumea_slide_' . $n . '_text';
+
+		$wp_customize->add_setting( $img_key, array(
+			'default'           => $defaults['image'],
 			'sanitize_callback' => 'esc_url_raw',
 			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $img_key, array(
+			/* translators: %d: slide number */
+			'label'   => sprintf( esc_html__( 'Slide %d Image', 'lumea' ), $n ),
+			'section' => 'lumea_slider',
+		) ) );
+
+		$wp_customize->add_setting( $text_key, array(
+			'default'           => $defaults['text'],
+			'sanitize_callback' => 'sanitize_textarea_field',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $text_key, array(
+			/* translators: %d: slide number */
+			'label'   => sprintf( esc_html__( 'Slide %d Caption', 'lumea' ), $n ),
+			'section' => 'lumea_slider',
+			'type'    => 'textarea',
+		) );
+	}
+
+	/* ════════════════════════════════════════════════════════
+	   3. CURATED GLOW
+	   ════════════════════════════════════════════════════════ */
+	$wp_customize->add_section(
+		'lumea_curated',
+		array(
+			'title' => esc_html__( 'Curated Glow', 'lumea' ),
+			'panel' => 'lumea_theme',
 		)
 	);
 
-	$wp_customize->add_control(
-		new WP_Customize_Image_Control(
-			$wp_customize,
-			'lumea_hero_image',
-			array(
-				'label'    => esc_html__( 'Hero Background Image', 'lumea' ),
-				'section'  => 'lumea_hero',
-				'settings' => 'lumea_hero_image',
-			)
+	// Section intro
+	$wp_customize->add_setting( 'lumea_curated_eyebrow', array(
+		'default'           => 'Bestsellers',
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_curated_eyebrow', array(
+		'label'   => esc_html__( 'Eyebrow Label', 'lumea' ),
+		'section' => 'lumea_curated',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'lumea_curated_title', array(
+		'default'           => 'Curated Glow',
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_curated_title', array(
+		'label'   => esc_html__( 'Section Title', 'lumea' ),
+		'section' => 'lumea_curated',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'lumea_curated_desc', array(
+		'default'           => 'Handpicked essentials for a luminous, skin-first daily ritual.',
+		'sanitize_callback' => 'sanitize_textarea_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_curated_desc', array(
+		'label'   => esc_html__( 'Section Description', 'lumea' ),
+		'section' => 'lumea_curated',
+		'type'    => 'textarea',
+	) );
+
+	// Products 1 & 2
+	$product_defaults = array(
+		1 => array(
+			'image' => LUMEA_THEME_URI . '/assets/images/hero1.jpg',
+			'name'  => 'Radiance Serum',
+			'price' => '$48.00',
+			'desc'  => 'A lightweight botanical serum for dewy, luminous, everyday skin.',
+			'url'   => '',
+		),
+		2 => array(
+			'image' => LUMEA_THEME_URI . '/assets/images/her02.jpg',
+			'name'  => 'Velvet Cream',
+			'price' => '$42.00',
+			'desc'  => 'Rich daily moisture with a soft-touch finish and botanical comfort.',
+			'url'   => '',
+		),
+	);
+
+	foreach ( $product_defaults as $n => $defaults ) {
+		$prefix = 'lumea_product' . $n;
+
+		$wp_customize->add_setting( $prefix . '_image', array(
+			'default'           => $defaults['image'],
+			'sanitize_callback' => 'esc_url_raw',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $prefix . '_image', array(
+			/* translators: %d: product number */
+			'label'   => sprintf( esc_html__( 'Product %d Image', 'lumea' ), $n ),
+			'section' => 'lumea_curated',
+		) ) );
+
+		$wp_customize->add_setting( $prefix . '_name', array(
+			'default'           => $defaults['name'],
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $prefix . '_name', array(
+			/* translators: %d: product number */
+			'label'   => sprintf( esc_html__( 'Product %d Name', 'lumea' ), $n ),
+			'section' => 'lumea_curated',
+			'type'    => 'text',
+		) );
+
+		$wp_customize->add_setting( $prefix . '_price', array(
+			'default'           => $defaults['price'],
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $prefix . '_price', array(
+			/* translators: %d: product number */
+			'label'   => sprintf( esc_html__( 'Product %d Price', 'lumea' ), $n ),
+			'section' => 'lumea_curated',
+			'type'    => 'text',
+		) );
+
+		$wp_customize->add_setting( $prefix . '_desc', array(
+			'default'           => $defaults['desc'],
+			'sanitize_callback' => 'sanitize_textarea_field',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $prefix . '_desc', array(
+			/* translators: %d: product number */
+			'label'   => sprintf( esc_html__( 'Product %d Description', 'lumea' ), $n ),
+			'section' => 'lumea_curated',
+			'type'    => 'textarea',
+		) );
+
+		$wp_customize->add_setting( $prefix . '_url', array(
+			'default'           => $defaults['url'],
+			'sanitize_callback' => 'esc_url_raw',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $prefix . '_url', array(
+			/* translators: %d: product number */
+			'label'       => sprintf( esc_html__( 'Product %d Link URL (leave blank for shop)', 'lumea' ), $n ),
+			'section'     => 'lumea_curated',
+			'type'        => 'url',
+		) );
+	}
+
+	/* ════════════════════════════════════════════════════════
+	   4. MANIFEST SECTION
+	   ════════════════════════════════════════════════════════ */
+	$wp_customize->add_section(
+		'lumea_manifest',
+		array(
+			'title' => esc_html__( 'Manifest Section', 'lumea' ),
+			'panel' => 'lumea_theme',
 		)
 	);
+
+	// Background image
+	$wp_customize->add_setting( 'lumea_manifest_image', array(
+		'default'           => LUMEA_THEME_URI . '/assets/images/he.jpg',
+		'sanitize_callback' => 'esc_url_raw',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'lumea_manifest_image', array(
+		'label'   => esc_html__( 'Background Image', 'lumea' ),
+		'section' => 'lumea_manifest',
+	) ) );
+
+	// Kicker lines
+	$kicker_defaults = array(
+		1 => '.make your skin comfortable',
+		2 => 'trust your glow and feel calm',
+		3 => 'in every skincare ritual+',
+	);
+	foreach ( $kicker_defaults as $n => $default ) {
+		$wp_customize->add_setting( 'lumea_manifest_kicker_' . $n, array(
+			'default'           => $default,
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( 'lumea_manifest_kicker_' . $n, array(
+			/* translators: %d: line number */
+			'label'   => sprintf( esc_html__( 'Kicker Line %d', 'lumea' ), $n ),
+			'section' => 'lumea_manifest',
+			'type'    => 'text',
+		) );
+	}
+
+	// Title lines
+	$title_defaults = array(
+		1 => 'modern ritual',
+		2 => 'for timeless',
+		3 => 'radiance',
+	);
+	foreach ( $title_defaults as $n => $default ) {
+		$wp_customize->add_setting( 'lumea_manifest_title_' . $n, array(
+			'default'           => $default,
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( 'lumea_manifest_title_' . $n, array(
+			/* translators: %d: line number */
+			'label'   => sprintf( esc_html__( 'Heading Line %d', 'lumea' ), $n ),
+			'section' => 'lumea_manifest',
+			'type'    => 'text',
+		) );
+	}
 }
 add_action( 'customize_register', 'lumea_customize_register' );

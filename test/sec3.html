@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Luméa Manifest Section</title>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&display=swap");
+
+    :root {
+      --lumea-white: #ffffff;
+      --lumea-muted: #829797;
+      --lumea-ease: cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: #e8f0f0;
+      font-family: "Inter", system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .lumea-manifest {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 720px;
+      overflow: hidden;
+      isolation: isolate;
+      background: #dce8e7;
+    }
+
+    .lumea-manifest-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      background: #dce8e7;
+    }
+
+    .lumea-manifest-bg img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      transform: translate3d(0, 6%, 0) scale(1.2);
+      opacity: 0;
+      animation: lumeaBgEnter 1600ms var(--lumea-ease) forwards;
+      will-change: transform, opacity;
+    }
+
+    .lumea-manifest-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background:
+        linear-gradient(
+          to top left,
+          rgba(165, 190, 186, 0.28) 0%,
+          rgba(205, 225, 222, 0.18) 35%,
+          rgba(255, 255, 255, 0.08) 100%
+        );
+      pointer-events: none;
+    }
+
+    .lumea-manifest-bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.22), transparent 42%),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0));
+      pointer-events: none;
+    }
+
+    .lumea-manifest-content {
+      position: relative;
+      z-index: 4;
+      height: 100%;
+      width: 100%;
+      padding: 74px 8.4vw 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .lumea-kicker {
+      margin: 0;
+      max-width: 650px;
+      color: var(--lumea-muted);
+      font-size: clamp(28px, 2.3vw, 47px);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+    }
+
+    .lumea-title {
+      width: 60%;
+      align-self: flex-end;
+      margin: 0;
+      color: var(--lumea-white);
+      font-size: clamp(90px, 8.35vw, 168px);
+      font-weight: 200;
+      line-height: 0.76;
+      letter-spacing: -0.065em;
+      text-align: left;
+      text-shadow: 0 20px 80px rgba(55, 75, 78, 0.16);
+    }
+
+    .lumea-line {
+      display: block;
+      white-space: nowrap;
+      overflow: visible;
+    }
+
+    .lumea-word {
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .lumea-space {
+      display: inline-block;
+      width: 0.28em;
+    }
+
+    .lumea-char {
+      display: inline-block;
+      opacity: 0;
+      transform: translate3d(-42px, 0, 0);
+      filter: blur(6px);
+      animation: lumeaCharFromLeft 1200ms var(--lumea-ease) forwards;
+      will-change: transform, opacity, filter;
+    }
+
+    .lumea-kicker .lumea-char {
+      transform: translate3d(-24px, 0, 0);
+      filter: blur(4px);
+      animation-duration: 950ms;
+    }
+
+    @keyframes lumeaBgEnter {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, 7%, 0) scale(1.22);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 4%, 0) scale(1.17);
+      }
+    }
+
+    @keyframes lumeaCharFromLeft {
+      0% {
+        opacity: 0;
+        transform: translate3d(-42px, 0, 0);
+        filter: blur(6px);
+      }
+
+      58% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+        filter: blur(0);
+      }
+    }
+
+    @media (max-width: 1200px) {
+      .lumea-manifest-content {
+        padding: 64px 28px 64px;
+      }
+
+      .lumea-title {
+        width: 100%;
+        font-size: clamp(78px, 13vw, 140px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .lumea-manifest {
+        min-height: 680px;
+      }
+
+      .lumea-manifest-content {
+        padding: 50px 22px 54px;
+      }
+
+      .lumea-kicker {
+        font-size: clamp(22px, 6vw, 34px);
+        line-height: 1.18;
+      }
+
+      .lumea-title {
+        font-size: clamp(64px, 17vw, 110px);
+        line-height: 0.82;
+      }
+
+      .lumea-line {
+        white-space: normal;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .lumea-manifest {
+        min-height: 620px;
+      }
+
+      .lumea-title {
+        font-size: clamp(54px, 18vw, 82px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section class="lumea-manifest" id="lumeaManifest">
+    <div class="lumea-manifest-bg">
+      <img src="he.png" alt="Soft Luméa skincare texture background" />
+    </div>
+
+    <div class="lumea-manifest-content">
+      <p class="lumea-kicker">
+        <span class="lumea-line" data-split>.make your skin comfortable</span>
+        <span class="lumea-line" data-split>trust your glow and feel calm</span>
+        <span class="lumea-line" data-split>in every skincare ritual+</span>
+      </p>
+
+      <h2 class="lumea-title" aria-label="modern ritual for timeless radiance">
+        <span class="lumea-line" data-split>modern ritual</span>
+        <span class="lumea-line" data-split>for timeless</span>
+        <span class="lumea-line" data-split>radiance</span>
+      </h2>
+    </div>
+  </section>
+
+  <script>
+    const splitLines = document.querySelectorAll("[data-split]");
+
+    function splitLineToLetters(line, baseDelay, speed) {
+      const text = line.textContent;
+      line.textContent = "";
+
+      let charCount = 0;
+      const words = text.split(" ");
+
+      words.forEach((word, wordIndex) => {
+        const wordSpan = document.createElement("span");
+        wordSpan.className = "lumea-word";
+
+        word.split("").forEach((letter) => {
+          const char = document.createElement("span");
+          char.className = "lumea-char";
+          char.textContent = letter;
+          char.style.animationDelay = `${baseDelay + charCount * speed}s`;
+
+          wordSpan.appendChild(char);
+          charCount++;
+        });
+
+        line.appendChild(wordSpan);
+
+        if (wordIndex !== words.length - 1) {
+          const space = document.createElement("span");
+          space.className = "lumea-space";
+          space.innerHTML = "&nbsp;";
+          line.appendChild(space);
+        }
+      });
+    }
+
+    splitLines.forEach((line, index) => {
+      const isTitle = line.closest(".lumea-title");
+      const baseDelay = isTitle ? 0.5 + index * 0.1 : 0.16 + index * 0.06;
+      const speed = isTitle ? 0.022 : 0.014;
+
+      splitLineToLetters(line, baseDelay, speed);
+    });
+
+    const bgImage = document.querySelector(".lumea-manifest-bg img");
+    const section = document.querySelector(".lumea-manifest");
+
+    window.addEventListener("scroll", () => {
+      const rect = section.getBoundingClientRect();
+      const progress = Math.min(Math.max(-rect.top / window.innerHeight, 0), 1);
+
+      bgImage.style.transform =
+        `translate3d(0, ${4 - progress * 5}%, 0) scale(${1.17 - progress * 0.04})`;
+    });
+  </script>
+</body>
+</html>
