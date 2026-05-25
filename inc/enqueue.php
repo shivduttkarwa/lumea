@@ -118,6 +118,29 @@ function lumea_enqueue_assets() {
 		}
 
 		wp_localize_script( 'lumea-slider', 'lumea_slider', array( 'slides' => $lumea_slides ) );
+
+		/* GSAP + ScrollTrigger (ritual section) */
+		wp_enqueue_script(
+			'gsap',
+			'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js',
+			array(),
+			null,
+			true
+		);
+		wp_enqueue_script(
+			'gsap-scrolltrigger',
+			'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js',
+			array( 'gsap' ),
+			null,
+			true
+		);
+		wp_enqueue_script(
+			'lumea-ritual',
+			LUMEA_THEME_URI . '/assets/js/ritual.js',
+			array( 'gsap-scrolltrigger' ),
+			LUMEA_VERSION,
+			true
+		);
 	}
 }
 add_action( 'wp_enqueue_scripts', 'lumea_enqueue_assets' );

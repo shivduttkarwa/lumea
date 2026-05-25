@@ -1,6 +1,7 @@
 /**
- * Luméa Hero — Canvas cursor deformation + background slider.
- * Image URLs passed from PHP via lumea_hero.images[] (or legacy .imageUrl).
+ * Luméa Hero — Canvas cursor deformation + fluid background slider.
+ * Transition: wavy clip-path sweep (left → right) for a liquid reveal.
+ * Image URLs passed from PHP via lumea_hero.images[].
  */
 ( function () {
   'use strict';
@@ -11,7 +12,7 @@
   const baseLayer = document.createElement( 'canvas' );
   const baseCtx   = baseLayer.getContext( '2d', { alpha: false } );
 
-  /* ── Resolve image list ────────────────────────────────── */
+  /* ── Resolve image list ──────────────────────────────────────── */
 
   const rawUrls = ( function () {
     if ( typeof lumea_hero === 'undefined' ) return [];
@@ -23,39 +24,35 @@
 
   if ( ! rawUrls.length ) return;
 
-  /* ── Preload all images ─────────────────────────────────── */
+  /* ── Preload ─────────────────────────────────────────────────── */
 
-  const imgs       = new Array( rawUrls.length ).fill( null );
-  let   readyCount = 0;
+  const imgs = new Array( rawUrls.length ).fill( null );
+  let readyCount = 0;
 
   rawUrls.forEach( function ( url, i ) {
     const image   = new Image();
-    image.onload  = function () {
-      imgs[ i ] = image;
-      readyCount++;
-      if ( i === 0 ) resizeCanvas();
-    };
+    image.onload  = function () { imgs[i] = image; readyCount++; if ( i === 0 ) resizeCanvas(); };
     image.onerror = function () { readyCount++; };
-    image.src = url;
+    image.src     = url;
   } );
 
-  /* ── Slide state ────────────────────────────────────────── */
+  /* ── Slide state ─────────────────────────────────────────────── */
 
   let currentIndex    = 0;
   let nextIndex       = 1;
-  let crossfade       = 0;
+  let crossfade       = 0;     // 0 = fully current, 1 = fully next
   let isTransitioning = false;
-  let lastSlideTime   = 0;
+  let lastSlideTime   = -1;    // -1 triggers init on first frame
   let fadeStartTime   = 0;
 
-  const SLIDE_DURATION = 5500;   // ms each image is shown
-  const FADE_DURATION  = 1600;   // ms for the crossfade
+  const SLIDE_DURATION = 6000;   // ms each image is displayed
+  const FADE_DURATION  = 2400;   // ms for the fluid transition
 
   function easeInOut( t ) {
     return t < 0.5 ? 2 * t * t : -1 + ( 4 - 2 * t ) * t;
   }
 
-  /* ── Canvas + pointer state ─────────────────────────────── */
+  /* ── Canvas state ────────────────────────────────────────────── */
 
   let width  = 0;
   let height = 0;
@@ -69,13 +66,13 @@
     lastMoveTime: -Infinity,
   };
 
-  /* ── Resize ─────────────────────────────────────────────── */
+  /* ── Resize ──────────────────────────────────────────────────── */
 
   function resizeCanvas() {
-    const rect = canvas.getBoundingClientRect();
-    width  = rect.width;
-    height = rect.height;
-    dpr    = Math.min( window.devicePixelRatio || 1, 2 );
+    const rect  = canvas.getBoundingClientRect();
+    width       = rect.width;
+    height      = rect.height;
+    dpr         = Math.min( window.devicePixelRatio || 1, 2 );
 
     canvas.width  = Math.floor( width  * dpr );
     canvas.height = Math.floor( height * dpr );
@@ -88,7 +85,7 @@
     pointer.radius = Math.min( width, height ) * pointer.radiusRatio;
   }
 
-  /* ── Helpers ────────────────────────────────────────────── */
+  /* ── Cover-fit helper ────────────────────────────────────────── */
 
   function getCoverRect( image, cw, ch ) {
     const ir = image.width / image.height;
@@ -99,46 +96,106 @@
     return { dx, dy, dw, dh };
   }
 
-  function applyOverlay( targetCtx ) {
-    const g = targetCtx.createLinearGradient( 0, 0, width, height );
+  /* ── Tone overlay ────────────────────────────────────────────── */
+
+  function applyOverlay( tCtx ) {
+    const g = tCtx.createLinearGradient( 0, 0, width, height );
     g.addColorStop( 0,    'rgba(11, 42, 31, 0.42)' );
     g.addColorStop( 0.45, 'rgba(0,  0,  0,  0.02)' );
     g.addColorStop( 1,    'rgba(0,  0,  0,  0.34)' );
-    targetCtx.fillStyle = g;
-    targetCtx.fillRect( 0, 0, width, height );
+    tCtx.fillStyle = g;
+    tCtx.fillRect( 0, 0, width, height );
   }
 
-  /* ── Draw base layer with crossfade ─────────────────────── */
+  /* ── Base image with fluid transition ────────────────────────── */
 
-  function drawBaseImage( targetCtx ) {
+  function drawBaseImage( tCtx ) {
     const curr = imgs[ currentIndex ];
     if ( ! curr ) return;
 
     const c = getCoverRect( curr, width, height );
 
-    targetCtx.save();
-    targetCtx.clearRect( 0, 0, width, height );
+    tCtx.save();
+    tCtx.clearRect( 0, 0, width, height );
 
-    // Current image (full opacity)
-    targetCtx.globalAlpha = 1;
-    targetCtx.drawImage( curr, c.dx, c.dy, c.dw, c.dh );
+    if ( ! isTransitioning ) {
+      /* ── Static display ─────────────────────────────────────── */
+      tCtx.drawImage( curr, c.dx, c.dy, c.dw, c.dh );
 
-    // Blend next image on top during transition
-    if ( isTransitioning ) {
+    } else {
+      /* ── Fluid transition ───────────────────────────────────── */
       const next = imgs[ nextIndex ];
+      const t    = performance.now() * 0.001;
+
+      /*  Wave amplitude peaks at the midpoint of the transition,
+          zero at start and end — so the edge is straight when still,
+          most wavy when the images are evenly blended.             */
+      const amp = height * 0.092 * Math.sin( Math.PI * crossfade );
+
+      /*  Sweep position: the boundary travels left → right.
+          We over-travel by ±amp so the wave never gets clamped.   */
+      const sweepX = crossfade * ( width + amp * 2 ) - amp;
+
+      /* Draw old image as the base layer */
+      tCtx.drawImage( curr, c.dx, c.dy, c.dw, c.dh );
+
       if ( next && next.naturalWidth ) {
         const n = getCoverRect( next, width, height );
-        targetCtx.globalAlpha = crossfade;
-        targetCtx.drawImage( next, n.dx, n.dy, n.dw, n.dh );
+
+        /*  Build a wavy clip path.
+            Everything to the LEFT of the wave is the new image.
+            Path: top-left  →  sweep-top  →  wave down  →  bottom-left  →  close */
+        tCtx.save();
+        tCtx.beginPath();
+        tCtx.moveTo( -2, -2 );
+
+        /* top edge to wave start */
+        const waveTopX = sweepX + amp * (
+          0.65 * Math.sin( 0 * 0.010 + t * 1.9 ) +
+          0.35 * Math.sin( 0 * 0.025 - t * 2.3 )
+        );
+        tCtx.lineTo( waveTopX, -2 );
+
+        /* wave follows down the right edge of the new-image territory */
+        for ( let y = 0; y <= height + 2; y += 2 ) {
+          const wx = sweepX + amp * (
+            0.65 * Math.sin( y * 0.010 + t * 1.9 ) +
+            0.35 * Math.sin( y * 0.025 - t * 2.3 )
+          );
+          tCtx.lineTo( wx, y );
+        }
+
+        tCtx.lineTo( -2, height + 2 );
+        tCtx.closePath();
+        tCtx.clip();
+
+        tCtx.drawImage( next, n.dx, n.dy, n.dw, n.dh );
+        tCtx.restore();
+
+        /*  Soft luminance glow along the seam.
+            A narrow semi-transparent white strip gives the impression
+            of light refracting through moving water.                */
+        const glowW = Math.max( 12, height * 0.04 * Math.sin( Math.PI * crossfade ) );
+        for ( let y = 0; y < height; y += 2 ) {
+          const wx = sweepX + amp * (
+            0.65 * Math.sin( y * 0.010 + t * 1.9 ) +
+            0.35 * Math.sin( y * 0.025 - t * 2.3 )
+          );
+          const glowGrad = tCtx.createLinearGradient( wx - glowW, y, wx + glowW, y );
+          glowGrad.addColorStop( 0,   'rgba(255,255,255,0)' );
+          glowGrad.addColorStop( 0.5, 'rgba(255,255,255,0.07)' );
+          glowGrad.addColorStop( 1,   'rgba(255,255,255,0)' );
+          tCtx.fillStyle = glowGrad;
+          tCtx.fillRect( wx - glowW, y, glowW * 2, 2 );
+        }
       }
     }
 
-    targetCtx.globalAlpha = 1;
-    applyOverlay( targetCtx );
-    targetCtx.restore();
+    applyOverlay( tCtx );
+    tCtx.restore();
   }
 
-  /* ── Cursor deformation (unchanged) ────────────────────── */
+  /* ── Cursor deformation (unchanged from original) ────────────── */
 
   function drawCursorDeformation() {
     if ( ! pointer.moved ) return;
@@ -157,17 +214,17 @@
     if ( pointer.strength < 0.01 ) return;
 
     const time = now * 0.0012;
-    const sourceScaleX = baseLayer.width  / width;
-    const sourceScaleY = baseLayer.height / height;
-    const speed  = Math.hypot( pointer.velocityX, pointer.velocityY );
-    const flow   = Math.min( 1, speed / 36 );
+    const ssx  = baseLayer.width  / width;
+    const ssy  = baseLayer.height / height;
+    const speed = Math.hypot( pointer.velocityX, pointer.velocityY );
+    const flow  = Math.min( 1, speed / 36 );
 
     const rx             = pointer.radius * ( 1   + 0.04 * pointer.strength );
     const ry             = pointer.radius * ( 0.9 + 0.02 * Math.sin( time * 1.1 ) );
     const stripH         = 1;
-    const swirlStrength  = rx * ( 0.028 + 0.01 * pointer.strength );
-    const pressureStrength = rx * ( 0.017 + 0.01 * flow );
-    const trailStrength  = 0.28 + flow * 0.34;
+    const swirlS         = rx * ( 0.028 + 0.01 * pointer.strength );
+    const pressureS      = rx * ( 0.017 + 0.01 * flow );
+    const trailS         = 0.28 + flow * 0.34;
 
     ctx.save();
     ctx.imageSmoothingEnabled = true;
@@ -182,35 +239,35 @@
       const halfW = rx * Math.sqrt( core );
       if ( halfW < 1.2 ) continue;
 
-      const stripX = pointer.x - halfW;
-      const stripW = halfW * 2;
+      const stripX  = pointer.x - halfW;
+      const stripW  = halfW * 2;
       const falloff = Math.pow( core, 2.5 );
 
-      const swirl = Math.sin( dy * 0.018 - time * 2.4 + pointer.x * 0.0018 ) * swirlStrength * falloff;
-      const pressure = Math.cos( dy * 0.031 + time * 1.55 ) * pressureStrength * falloff;
-      const microRipple = Math.sin( dy * 0.011 - time * 1.15 ) * ( pressureStrength * 0.35 ) * falloff;
-      const trailX = pointer.velocityX * trailStrength * falloff;
-      const trailY = pointer.velocityY * ( trailStrength * 0.1 ) * falloff;
-      const shear  = ny * pointer.velocityX * 0.06 * falloff;
+      const swirl       = Math.sin( dy * 0.018 - time * 2.4 + pointer.x * 0.0018 ) * swirlS * falloff;
+      const pressure    = Math.cos( dy * 0.031 + time * 1.55 ) * pressureS * falloff;
+      const microRipple = Math.sin( dy * 0.011 - time * 1.15 ) * ( pressureS * 0.35 ) * falloff;
+      const trailX      = pointer.velocityX * trailS * falloff;
+      const trailY      = pointer.velocityY * ( trailS * 0.1 ) * falloff;
+      const shear       = ny * pointer.velocityX * 0.06 * falloff;
 
       const offsetX = swirl + pressure + microRipple + trailX + shear;
       const offsetY = Math.sin( dy * 0.02 - time * 2.1 ) * ( ry * 0.012 ) * falloff + trailY;
 
-      const sourceX = ( stripX - offsetX ) * sourceScaleX;
-      const sourceY = ( y      - offsetY ) * sourceScaleY;
-      const sourceW = stripW * sourceScaleX;
-      const sourceH = stripH * sourceScaleY;
+      const srcX = ( stripX - offsetX ) * ssx;
+      const srcY = ( y      - offsetY ) * ssy;
+      const srcW = stripW  * ssx;
+      const srcH = stripH  * ssy;
 
-      if ( sourceX < 0 || sourceY < 0 || sourceX + sourceW > baseLayer.width || sourceY + sourceH > baseLayer.height ) continue;
+      if ( srcX < 0 || srcY < 0 || srcX + srcW > baseLayer.width || srcY + srcH > baseLayer.height ) continue;
 
       ctx.globalAlpha = 0.92 + falloff * 0.08;
-      ctx.drawImage( baseLayer, sourceX, sourceY, sourceW, sourceH, stripX, y, stripW, stripH + 0.2 );
+      ctx.drawImage( baseLayer, srcX, srcY, srcW, srcH, stripX, y, stripW, stripH + 0.2 );
     }
 
     ctx.restore();
   }
 
-  /* ── Noise grain ────────────────────────────────────────── */
+  /* ── Noise grain ─────────────────────────────────────────────── */
 
   function drawNoise() {
     ctx.save();
@@ -222,14 +279,19 @@
     ctx.restore();
   }
 
-  /* ── Render loop ────────────────────────────────────────── */
+  /* ── Render loop ─────────────────────────────────────────────── */
 
   function render( timestamp ) {
+
+    /* Initialise slide timer on very first frame */
+    if ( lastSlideTime < 0 ) lastSlideTime = timestamp;
+
     if ( imgs[0] && imgs[0].naturalWidth ) {
 
-      /* ── Advance slide timing ────────────────────────── */
+      /* ── Slide timing ──────────────────────────────────────── */
       const activeCount = imgs.filter( Boolean ).length;
       if ( activeCount > 1 ) {
+
         if ( ! isTransitioning && ( timestamp - lastSlideTime ) > SLIDE_DURATION ) {
           isTransitioning = true;
           fadeStartTime   = timestamp;
@@ -237,8 +299,8 @@
         }
 
         if ( isTransitioning ) {
-          const raw = Math.min( 1, ( timestamp - fadeStartTime ) / FADE_DURATION );
-          crossfade = easeInOut( raw );
+          const raw  = Math.min( 1, ( timestamp - fadeStartTime ) / FADE_DURATION );
+          crossfade  = easeInOut( raw );
 
           if ( raw >= 1 ) {
             currentIndex    = nextIndex;
@@ -249,6 +311,7 @@
         }
       }
 
+      /* ── Composite ─────────────────────────────────────────── */
       drawBaseImage( baseCtx );
 
       ctx.clearRect( 0, 0, width, height );
@@ -265,7 +328,7 @@
     requestAnimationFrame( render );
   }
 
-  /* ── Pointer events ─────────────────────────────────────── */
+  /* ── Pointer events ──────────────────────────────────────────── */
 
   function setPointer( e ) {
     const rect        = canvas.getBoundingClientRect();

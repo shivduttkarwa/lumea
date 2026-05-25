@@ -1395,3 +1395,237 @@ a {
     font-size: clamp(54px, 18vw, 82px);
   }
 }
+
+/* ════════════════════════════════════════════════════════
+   THE RITUAL SECTION
+   ════════════════════════════════════════════════════════ */
+
+.lumea-ritual {
+  background: #111a14;
+  color: #fffaf3;
+  position: relative;
+}
+
+.lumea-ritual-desktop {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(380px, 0.82fr);
+  gap: clamp(55px, 5.5vw, 105px);
+  padding: 100px 48px 120px;
+  align-items: start;
+}
+
+.lumea-ritual-left {
+  position: sticky;
+  top: 100px;
+  align-self: start;
+  min-height: calc(100vh - 120px);
+  padding-bottom: 100px;
+}
+
+.lumea-ritual-heading {
+  font-family: "ClashDisplay-Variable", "Clash Display", sans-serif;
+  font-size: clamp(62px, 4.2vw, 80px);
+  line-height: 0.92;
+  letter-spacing: -0.012em;
+  font-weight: 500;
+  margin: 0;
+  color: #fffaf3;
+}
+
+.lumea-ritual-heading em {
+  display: block;
+  font-weight: 400;
+  font-style: normal;
+  color: rgba(255, 250, 243, 0.45);
+}
+
+.lumea-ritual-intro {
+  max-width: 480px;
+  margin: 28px 0 0;
+  font-size: 17px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: rgba(255, 250, 243, 0.65);
+}
+
+/* Accordion */
+
+.lumea-ritual-accordion {
+  margin-top: 46px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 560px;
+}
+
+.lumea-ritual-acc {
+  opacity: 0.38;
+  transition: opacity 0.45s ease;
+}
+
+.lumea-ritual-acc.is-active {
+  opacity: 1;
+}
+
+.lumea-ritual-acc-head {
+  width: 100%;
+  padding: 0 0 10px;
+  margin: 0;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 250, 243, 0.2);
+  background: transparent;
+  color: #fffaf3;
+  text-align: left;
+  cursor: pointer;
+  font-family: Inter, sans-serif;
+}
+
+.lumea-ritual-acc-head:focus-visible {
+  outline: 2px solid rgba(255, 250, 243, 0.5);
+  outline-offset: 4px;
+}
+
+.lumea-ritual-acc-title {
+  display: block;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: padding-left 0.42s cubic-bezier(.22, .61, .36, 1);
+}
+
+.lumea-ritual-acc.is-active .lumea-ritual-acc-title {
+  padding-left: 44px;
+}
+
+.lumea-ritual-panel {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    max-height 0.55s cubic-bezier(.22, .61, .36, 1),
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.lumea-ritual-acc.is-active .lumea-ritual-panel {
+  max-height: 220px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lumea-ritual-panel p {
+  max-width: 600px;
+  margin: 0;
+  padding-top: 14px;
+  padding-left: 44px;
+  font-size: 16px;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  font-weight: 400;
+  color: rgba(255, 250, 243, 0.72);
+}
+
+/* Right: image stack */
+
+.lumea-ritual-right {
+  min-width: 0;
+}
+
+.lumea-ritual-image-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.lumea-ritual-image-group {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  scroll-margin-top: 115px;
+}
+
+.lumea-ritual-image-wrap {
+  width: 100%;
+  overflow: hidden;
+  background: #0a1209;
+}
+
+.lumea-ritual-image-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* Mobile */
+
+.lumea-ritual-mobile {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .lumea-ritual-desktop {
+    display: none;
+  }
+
+  .lumea-ritual-mobile {
+    display: block;
+    padding: 72px 20px 88px;
+  }
+
+  .lumea-ritual-mobile .lumea-ritual-heading {
+    font-size: clamp(50px, 13vw, 68px);
+    line-height: 0.95;
+  }
+
+  .lumea-ritual-mobile .lumea-ritual-intro {
+    font-size: 15px;
+    max-width: 360px;
+    margin-top: 22px;
+  }
+
+  .lumea-ritual-mobile-list {
+    margin-top: 42px;
+    display: flex;
+    flex-direction: column;
+    gap: 52px;
+  }
+
+  .lumea-ritual-mobile-card {
+    display: grid;
+    gap: 16px;
+  }
+
+  .lumea-ritual-mobile-card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+
+  .lumea-ritual-mobile-title {
+    margin: 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 250, 243, 0.2);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fffaf3;
+  }
+
+  .lumea-ritual-mobile-text {
+    margin: 14px 0 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(255, 250, 243, 0.72);
+  }
+}

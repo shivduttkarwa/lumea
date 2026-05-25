@@ -184,6 +184,110 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 	</div>
 </section>
 
+<!-- The Ritual Section -->
+<?php
+$ritual_steps = array(
+	1 => array(
+		'id'    => 'lumea-cleanse',
+		'title' => get_theme_mod( 'lumea_ritual_step1_title', 'Cleanse' ),
+		'text'  => get_theme_mod( 'lumea_ritual_step1_text', 'Begin with pure intention. Our gentle botanical cleansers dissolve impurities without stripping the skin\'s natural balance, leaving a fresh, receptive canvas.' ),
+	),
+	2 => array(
+		'id'    => 'lumea-tone',
+		'title' => get_theme_mod( 'lumea_ritual_step2_title', 'Tone & Prep' ),
+		'text'  => get_theme_mod( 'lumea_ritual_step2_text', 'Restore skin\'s equilibrium. Botanical tonics and essence waters refine pores, balance pH, and prime skin to absorb every active that follows.' ),
+	),
+	3 => array(
+		'id'    => 'lumea-treat',
+		'title' => get_theme_mod( 'lumea_ritual_step3_title', 'Treat & Correct' ),
+		'text'  => get_theme_mod( 'lumea_ritual_step3_text', 'Targeted actives where they matter most. Concentrated serums address luminosity, firmness, and even tone at the cellular level.' ),
+	),
+	4 => array(
+		'id'    => 'lumea-restore',
+		'title' => get_theme_mod( 'lumea_ritual_step4_title', 'Restore & Protect' ),
+		'text'  => get_theme_mod( 'lumea_ritual_step4_text', 'Seal the ritual with nourishment. Rich creams and facial oils lock in actives, rebuild the moisture barrier, and leave skin visibly calm, plump, and glowing.' ),
+	),
+);
+$ritual_img_defaults = array(
+	1 => array( 'lumea-cleanse', LUMEA_THEME_URI . '/assets/images/1.jpg',    LUMEA_THEME_URI . '/assets/images/2.jpg' ),
+	2 => array( 'lumea-tone',    LUMEA_THEME_URI . '/assets/images/hero.jpg', LUMEA_THEME_URI . '/assets/images/4.jpg' ),
+	3 => array( 'lumea-treat',   LUMEA_THEME_URI . '/assets/images/6.jpg',    LUMEA_THEME_URI . '/assets/images/her02.jpg' ),
+	4 => array( 'lumea-restore', LUMEA_THEME_URI . '/assets/images/he.jpg',   LUMEA_THEME_URI . '/assets/images/hero1.jpg' ),
+);
+?>
+<section class="lumea-ritual" id="lumeaRitual" aria-label="<?php esc_attr_e( 'Luméa skincare ritual', 'lumea' ); ?>">
+
+	<!-- Desktop -->
+	<div class="lumea-ritual-desktop">
+
+		<aside class="lumea-ritual-left">
+			<h2 class="lumea-ritual-heading">
+				<?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_1', 'your daily' ) ); ?>
+				<em><?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_2', 'skin ritual' ) ); ?></em>
+			</h2>
+			<p class="lumea-ritual-intro">
+				<?php echo esc_html( get_theme_mod( 'lumea_ritual_intro', 'Four intentional steps, one luminous result. A complete routine designed around the skin you have.' ) ); ?>
+			</p>
+			<div class="lumea-ritual-accordion">
+				<?php foreach ( $ritual_steps as $n => $step ) : ?>
+				<div class="lumea-ritual-acc<?php echo $n === 1 ? ' is-active' : ''; ?>" data-target="<?php echo esc_attr( $step['id'] ); ?>">
+					<button class="lumea-ritual-acc-head" type="button">
+						<span class="lumea-ritual-acc-title"><?php echo esc_html( $step['title'] ); ?></span>
+					</button>
+					<div class="lumea-ritual-panel">
+						<p><?php echo esc_html( $step['text'] ); ?></p>
+					</div>
+				</div>
+				<?php endforeach; ?>
+			</div>
+		</aside>
+
+		<div class="lumea-ritual-right">
+			<div class="lumea-ritual-image-stack">
+				<?php foreach ( $ritual_img_defaults as $n => $grp ) :
+					$img1 = esc_url( get_theme_mod( 'lumea_ritual_step' . $n . '_image1', $grp[1] ) );
+					$img2 = esc_url( get_theme_mod( 'lumea_ritual_step' . $n . '_image2', $grp[2] ) );
+				?>
+				<div class="lumea-ritual-image-group" id="<?php echo esc_attr( $grp[0] ); ?>">
+					<div class="lumea-ritual-image-wrap">
+						<img src="<?php echo $img1; ?>" alt="<?php echo esc_attr( $ritual_steps[ $n ]['title'] ); ?> skincare step" loading="lazy" />
+					</div>
+					<div class="lumea-ritual-image-wrap">
+						<img src="<?php echo $img2; ?>" alt="<?php echo esc_attr( $ritual_steps[ $n ]['title'] ); ?> ritual detail" loading="lazy" />
+					</div>
+				</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Mobile -->
+	<div class="lumea-ritual-mobile">
+		<h2 class="lumea-ritual-heading">
+			<?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_1', 'your daily' ) ); ?>
+			<em><?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_2', 'skin ritual' ) ); ?></em>
+		</h2>
+		<p class="lumea-ritual-intro">
+			<?php echo esc_html( get_theme_mod( 'lumea_ritual_intro', 'Four intentional steps, one luminous result. A complete routine designed around the skin you have.' ) ); ?>
+		</p>
+		<div class="lumea-ritual-mobile-list">
+			<?php foreach ( $ritual_steps as $n => $step ) :
+				$img1 = esc_url( get_theme_mod( 'lumea_ritual_step' . $n . '_image1', $ritual_img_defaults[ $n ][1] ) );
+			?>
+			<article class="lumea-ritual-mobile-card">
+				<img src="<?php echo $img1; ?>" alt="<?php echo esc_attr( $step['title'] ); ?>" loading="lazy" />
+				<div>
+					<h3 class="lumea-ritual-mobile-title"><?php echo esc_html( $step['title'] ); ?></h3>
+					<p class="lumea-ritual-mobile-text"><?php echo esc_html( $step['text'] ); ?></p>
+				</div>
+			</article>
+			<?php endforeach; ?>
+		</div>
+	</div>
+
+</section>
+
 <!-- Manifest Section -->
 <?php
 $manifest_bg = get_theme_mod( 'lumea_manifest_image', LUMEA_THEME_URI . '/assets/images/he.jpg' );

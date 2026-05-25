@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Core Atelier Scroll Section</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --core-brown: #744c32;
+      --core-brown-dark: #5f3b26;
+      --core-cream: #f2dfca;
+      --core-white: #fffaf3;
+      --core-line: rgba(255, 255, 255, 0.55);
+      --font-serif: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "Albert Sans", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: auto;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--core-brown);
+      color: var(--core-white);
+      overflow-x: hidden;
+    }
+
+    .dummy-section {
+      min-height: 100vh;
+      padding: 40px;
+      display: grid;
+      place-items: center;
+      background: var(--core-cream);
+      color: var(--core-brown);
+    }
+
+    .dummy-section.dark {
+      background: #2e211b;
+      color: var(--core-cream);
+    }
+
+    .dummy-inner {
+      max-width: 900px;
+      text-align: center;
+    }
+
+    .dummy-kicker {
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    .dummy-title {
+      font-family: var(--font-serif);
+      font-size: clamp(56px, 8vw, 132px);
+      line-height: 0.9;
+      font-weight: 400;
+      margin: 0;
+    }
+
+    .dummy-text {
+      max-width: 560px;
+      margin: 28px auto 0;
+      font-size: 18px;
+      line-height: 1.55;
+    }
+
+    .ca-scroll-section {
+      position: relative;
+      background: var(--core-brown);
+      color: var(--core-white);
+    }
+
+    .ca-desktop {
+      width: 100%;
+      max-width: 1920px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.18fr) minmax(420px, 0.82fr);
+      gap: clamp(55px, 5.5vw, 105px);
+      padding: 100px 32px 120px;
+      align-items: start;
+    }
+
+    .ca-left {
+      position: sticky;
+      top: 100px;
+      align-self: start;
+      min-height: calc(100vh - 120px);
+      padding-bottom: 100px;
+    }
+
+    .ca-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(70px, 4.2vw, 80px);
+      line-height: 0.9;
+      letter-spacing: -0.012em;
+      font-weight: 500;
+      margin: 0;
+      color: var(--core-white);
+    }
+
+    .ca-heading em {
+      display: block;
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    .ca-intro {
+      max-width: 500px;
+      margin: 26px 0 0;
+      font-size: 18px;
+      line-height: 1.4;
+      font-weight: 500;
+      color: var(--core-white);
+    }
+
+    .ca-accordion {
+      margin-top: 42px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      max-width: 1010px;
+    }
+
+    .ca-acc {
+      opacity: 0.42;
+      transition: opacity 0.45s ease;
+    }
+
+    .ca-acc.is-active {
+      opacity: 1;
+    }
+
+    .ca-acc-head {
+      width: 100%;
+      padding: 0 0 10px;
+      margin: 0;
+      border: 0;
+      border-bottom: 1px solid var(--core-line);
+      background: transparent;
+      color: var(--core-white);
+      text-align: left;
+      cursor: pointer;
+      font-family: var(--font-sans);
+    }
+
+    .ca-acc-title {
+      display: block;
+      font-size: 14px;
+      line-height: 16px;
+      letter-spacing: 0.01em;
+      font-weight: 700;
+      text-transform: uppercase;
+      transition: padding-left 0.42s cubic-bezier(.22, .61, .36, 1), opacity 0.35s ease;
+    }
+
+    .ca-acc.is-active .ca-acc-title {
+      padding-left: 48px;
+    }
+
+    .ca-panel {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition:
+        max-height 0.55s cubic-bezier(.22, .61, .36, 1),
+        opacity 0.35s ease,
+        transform 0.35s ease;
+    }
+
+    .ca-acc.is-active .ca-panel {
+      max-height: 190px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .ca-panel p {
+      max-width: 672px;
+      margin: 0;
+      padding-top: 12px;
+      padding-left: 48px;
+      font-size: 18px;
+      line-height: 1.42;
+      letter-spacing: 0.01em;
+      font-weight: 500;
+      color: var(--core-white);
+    }
+
+    .ca-right {
+      min-width: 0;
+    }
+
+    .ca-image-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .ca-image-group {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      scroll-margin-top: 115px;
+    }
+
+    .ca-image-wrap {
+      width: 100%;
+      overflow: hidden;
+      background: var(--core-brown-dark);
+    }
+
+    .ca-image-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      transform-origin: center;
+      will-change: transform;
+    }
+
+    .ca-mobile {
+      display: none;
+    }
+
+    @media (max-width: 991px) {
+      .ca-desktop {
+        display: none;
+      }
+
+      .ca-mobile {
+        display: block;
+        padding: 80px 16px;
+      }
+
+      .ca-mobile .ca-heading {
+        font-size: clamp(55px, 13vw, 70px);
+        line-height: 0.95;
+      }
+
+      .ca-mobile .ca-intro {
+        font-size: 15px;
+        line-height: 1.4;
+        max-width: 340px;
+      }
+
+      .ca-mobile-list {
+        margin-top: 38px;
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+      }
+
+      .ca-mobile-card {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .ca-mobile-card img {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        display: block;
+      }
+
+      .ca-mobile-title {
+        margin: 0;
+        padding-bottom: 6px;
+        border-bottom: 1px solid var(--core-line);
+        font-size: 13px;
+        line-height: 20px;
+        letter-spacing: 0.03em;
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+
+      .ca-mobile-text {
+        margin: 16px 0 0;
+        font-size: 15px;
+        line-height: 1.45;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="dummy-section">
+    <div class="dummy-inner">
+      <div class="dummy-kicker">Dummy section above</div>
+      <h1 class="dummy-title">Scroll down</h1>
+      <p class="dummy-text">
+        This top section is only here so you can test the sticky scroll effect exactly like a real website page.
+      </p>
+    </div>
+  </section>
+
+  <section class="ca-scroll-section" id="classes-section">
+
+    <div class="ca-desktop">
+
+      <aside class="ca-left">
+        <h2 class="ca-heading">
+          semi private
+          <em>small group classes</em>
+        </h2>
+
+        <p class="ca-intro">
+          Enjoy focused, personalized attention in semi-private classes for up to 3 participants.
+        </p>
+
+        <div class="ca-accordion">
+
+          <div class="ca-acc is-active" data-target="reformer">
+            <button class="ca-acc-head" type="button">
+              <span class="ca-acc-title">Reformer</span>
+            </button>
+            <div class="ca-panel">
+              <p>
+                Discover the Reformer’s versatility to build strength, improve flexibility, and refine alignment.
+                This dynamic class offers a full-body workout that leaves you feeling balanced and strong.
+              </p>
+            </div>
+          </div>
+
+          <div class="ca-acc" data-target="stability-chair">
+            <button class="ca-acc-head" type="button">
+              <span class="ca-acc-title">Stability Chair</span>
+            </button>
+            <div class="ca-panel">
+              <p>
+                Experience control and precision with the Stability Chair. Strengthen your core, improve balance,
+                and target smaller muscles for stability and functional movement. Perfect for improving coordination
+                and practice depth.
+              </p>
+            </div>
+          </div>
+
+          <div class="ca-acc" data-target="tower-arc-barrel">
+            <button class="ca-acc-head" type="button">
+              <span class="ca-acc-title">Tower &amp; Arc Barrel</span>
+            </button>
+            <div class="ca-panel">
+              <p>
+                Elevate your Pilates journey with the Tower and Arc Barrel. Combine the Tower’s resistance with the
+                Arc Barrel’s curves to stretch, strengthen, and lengthen your body. Perfect for challenge and restorative movement.
+              </p>
+            </div>
+          </div>
+
+          <div class="ca-acc" data-target="curated-by-core">
+            <button class="ca-acc-head" type="button">
+              <span class="ca-acc-title">Curated by Core</span>
+            </button>
+            <div class="ca-panel">
+              <p>
+                Step into the studio with an open mind and let your instructor guide you. Inspired by omakase, this
+                class uses the apparatus of the day—Reformer, Chair, Tower, or Barrel—for a tailored, thoughtfully crafted session.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+      <div class="ca-right">
+        <div class="ca-image-stack">
+
+          <div class="ca-image-group" id="reformer">
+            <div class="ca-image-wrap">
+              <img src="https://coreatelierpilates.com/wp-content/uploads/2025/12/semi-private-1.png" alt="Reformer pilates class">
+            </div>
+            <div class="ca-image-wrap">
+              <img src="https://coreatelierpilates.com/wp-content/uploads/2025/12/semi-private-2.png" alt="Semi private pilates movement">
+            </div>
+          </div>
+
+          <div class="ca-image-group" id="stability-chair">
+            <div class="ca-image-wrap">
+              <img src="https://coreatelierpilates.com/wp-content/uploads/2025/12/stability-1-1.png" alt="Stability chair pilates class">
+            </div>
+            <div class="ca-image-wrap">
+              <img src="https://coreatelierpilates.com/wp-content/uploads/2025/12/stability-2-1.png" alt="Pilates stability chair equipment">
+            </div>
+          </div>
+
+          <div class="ca-image-group" id="tower-arc-barrel">
+            <div class="ca-image-wrap">
+              <img src="https://coreatelierpilates.com/wp-content/uploads/2025/10/core-tower-arc.png" alt="Tower and arc barrel pilates">
+            </div>
+            <div class="ca-image-wrap">
+              <img src="https://coreatelierpilates.com/wp-content/uploads/2025/10/core-tower-arc-2.png" alt="Tower arc barrel movement">
+            </div>
+          </div>
+
+          <div class="ca-image-group" id="curated-by-core">
+            <div class="ca-image-wrap">
+              <img src="https://coreatelierpilates.com/wp-content/uploads/2025/10/core-curated.png" alt="Curated by Core pilates">
+            </div>
+            <div class="ca-image-wrap">
+              <img src="https://coreatelierpilates.com/wp-content/uploads/2025/12/curated-2.png" alt="Core Atelier studio movement">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="ca-mobile">
+      <h2 class="ca-heading">
+        semi private
+        <em>small group classes</em>
+      </h2>
+
+      <p class="ca-intro">
+        Enjoy focused, personalized attention in semi-private classes for up to 3 participants.
+      </p>
+
+      <div class="ca-mobile-list">
+
+        <article class="ca-mobile-card">
+          <img src="https://coreatelierpilates.com/wp-content/uploads/2025/12/semi-private-mb.png" alt="">
+          <div>
+            <h3 class="ca-mobile-title">Reformer</h3>
+            <p class="ca-mobile-text">
+              Discover the Reformer’s versatility to build strength, improve flexibility, and refine alignment.
+              This dynamic class offers a full-body workout that leaves you feeling balanced and strong.
+            </p>
+          </div>
+        </article>
+
+        <article class="ca-mobile-card">
+          <img src="https://coreatelierpilates.com/wp-content/uploads/2025/12/tower-arc-mb-1.png" alt="">
+          <div>
+            <h3 class="ca-mobile-title">Stability Chair</h3>
+            <p class="ca-mobile-text">
+              Experience control and precision with the Stability Chair. Strengthen your core, improve balance,
+              and target smaller muscles for stability and functional movement.
+            </p>
+          </div>
+        </article>
+
+        <article class="ca-mobile-card">
+          <img src="https://coreatelierpilates.com/wp-content/uploads/2025/12/tower-arc-mb-2.png" alt="">
+          <div>
+            <h3 class="ca-mobile-title">Tower &amp; Arc Barrel</h3>
+            <p class="ca-mobile-text">
+              Elevate your Pilates journey with the Tower and Arc Barrel. Combine the Tower’s resistance with the
+              Arc Barrel’s curves to stretch, strengthen, and lengthen your body.
+            </p>
+          </div>
+        </article>
+
+        <article class="ca-mobile-card">
+          <img src="https://coreatelierpilates.com/wp-content/uploads/2025/12/curated-2-mb-1.png" alt="">
+          <div>
+            <h3 class="ca-mobile-title">Curated by Core</h3>
+            <p class="ca-mobile-text">
+              Step into the studio with an open mind and let your instructor guide you. Inspired by omakase,
+              this class uses the apparatus of the day for a tailored session.
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+  </section>
+
+  <section class="dummy-section dark">
+    <div class="dummy-inner">
+      <div class="dummy-kicker">Dummy section below</div>
+      <h2 class="dummy-title">Next section</h2>
+      <p class="dummy-text">
+        This lower section helps you confirm that the pinned left side releases naturally after the gallery ends.
+      </p>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const lenis = new Lenis({
+      duration: 1.2,
+      lerp: 0.08,
+      smoothWheel: true,
+      wheelMultiplier: 0.85,
+      touchMultiplier: 1.4
+    });
+
+    lenis.on("scroll", ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+
+    gsap.ticker.lagSmoothing(0);
+
+    const accordions = Array.from(document.querySelectorAll(".ca-acc"));
+    const imageGroups = Array.from(document.querySelectorAll(".ca-image-group"));
+
+    function setActiveAccordion(id) {
+      accordions.forEach((item) => {
+        const isActive = item.dataset.target === id;
+        item.classList.toggle("is-active", isActive);
+      });
+
+      const activeItem = document.querySelector(`.ca-acc[data-target="${id}"]`);
+
+      if (activeItem) {
+        const title = activeItem.querySelector(".ca-acc-title");
+        const text = activeItem.querySelector(".ca-panel p");
+
+        gsap.fromTo(
+          title,
+          { x: -14, opacity: 0.45 },
+          { x: 0, opacity: 1, duration: 0.45, ease: "power3.out", overwrite: true }
+        );
+
+        gsap.fromTo(
+          text,
+          { y: 12, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.5, delay: 0.05, ease: "power3.out", overwrite: true }
+        );
+      }
+    }
+
+    imageGroups.forEach((group) => {
+      ScrollTrigger.create({
+        trigger: group,
+        start: "top center",
+        end: "bottom center",
+        onEnter: () => setActiveAccordion(group.id),
+        onEnterBack: () => setActiveAccordion(group.id)
+      });
+    });
+
+    accordions.forEach((item) => {
+      const button = item.querySelector(".ca-acc-head");
+
+      button.addEventListener("click", () => {
+        const targetId = item.dataset.target;
+        const target = document.getElementById(targetId);
+
+        setActiveAccordion(targetId);
+
+        if (target) {
+          lenis.scrollTo(target, {
+            offset: -100,
+            duration: 1.15,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+          });
+        }
+      });
+    });
+
+    gsap.utils.toArray(".ca-image-wrap").forEach((wrap) => {
+      const img = wrap.querySelector("img");
+
+      gsap.fromTo(
+        img,
+        {
+          scale: 1.055,
+          y: 34,
+          opacity: 0.88
+        },
+        {
+          scale: 1,
+          y: 0,
+          opacity: 1,
+          duration: 1.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: wrap,
+            start: "top 86%",
+            once: true
+          }
+        }
+      );
+    });
+
+    window.addEventListener("load", () => {
+      ScrollTrigger.refresh();
+    });
+  </script>
+
+</body>
+</html>

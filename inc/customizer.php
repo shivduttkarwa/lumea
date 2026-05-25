@@ -339,7 +339,131 @@ function lumea_customize_register( $wp_customize ) {
 	}
 
 	/* ════════════════════════════════════════════════════════
-	   4. MANIFEST SECTION
+	   4. THE RITUAL SECTION
+	   ════════════════════════════════════════════════════════ */
+	$wp_customize->add_section(
+		'lumea_ritual',
+		array(
+			'title' => esc_html__( 'The Ritual', 'lumea' ),
+			'panel' => 'lumea_theme',
+		)
+	);
+
+	// Heading lines
+	$wp_customize->add_setting( 'lumea_ritual_heading_1', array(
+		'default'           => 'your daily',
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_ritual_heading_1', array(
+		'label'   => esc_html__( 'Heading Line 1', 'lumea' ),
+		'section' => 'lumea_ritual',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'lumea_ritual_heading_2', array(
+		'default'           => 'skin ritual',
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_ritual_heading_2', array(
+		'label'   => esc_html__( 'Heading Line 2 (faded)', 'lumea' ),
+		'section' => 'lumea_ritual',
+		'type'    => 'text',
+	) );
+
+	// Intro paragraph
+	$wp_customize->add_setting( 'lumea_ritual_intro', array(
+		'default'           => 'Four intentional steps, one luminous result. A complete routine designed around the skin you have.',
+		'sanitize_callback' => 'sanitize_textarea_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_ritual_intro', array(
+		'label'   => esc_html__( 'Intro Paragraph', 'lumea' ),
+		'section' => 'lumea_ritual',
+		'type'    => 'textarea',
+	) );
+
+	// Steps 1–4
+	$ritual_step_defaults = array(
+		1 => array(
+			'title'  => 'Cleanse',
+			'text'   => 'Begin with pure intention. Our gentle botanical cleansers dissolve impurities without stripping the skin\'s natural balance, leaving a fresh, receptive canvas.',
+			'image1' => LUMEA_THEME_URI . '/assets/images/1.jpg',
+			'image2' => LUMEA_THEME_URI . '/assets/images/2.jpg',
+		),
+		2 => array(
+			'title'  => 'Tone & Prep',
+			'text'   => 'Restore skin\'s equilibrium. Botanical tonics and essence waters refine pores, balance pH, and prime skin to absorb every active that follows.',
+			'image1' => LUMEA_THEME_URI . '/assets/images/hero.jpg',
+			'image2' => LUMEA_THEME_URI . '/assets/images/4.jpg',
+		),
+		3 => array(
+			'title'  => 'Treat & Correct',
+			'text'   => 'Targeted actives where they matter most. Concentrated serums address luminosity, firmness, and even tone at the cellular level.',
+			'image1' => LUMEA_THEME_URI . '/assets/images/6.jpg',
+			'image2' => LUMEA_THEME_URI . '/assets/images/her02.jpg',
+		),
+		4 => array(
+			'title'  => 'Restore & Protect',
+			'text'   => 'Seal the ritual with nourishment. Rich creams and facial oils lock in actives, rebuild the moisture barrier, and leave skin visibly calm, plump, and glowing.',
+			'image1' => LUMEA_THEME_URI . '/assets/images/he.jpg',
+			'image2' => LUMEA_THEME_URI . '/assets/images/hero1.jpg',
+		),
+	);
+
+	foreach ( $ritual_step_defaults as $n => $defaults ) {
+		$prefix = 'lumea_ritual_step' . $n;
+
+		$wp_customize->add_setting( $prefix . '_title', array(
+			'default'           => $defaults['title'],
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $prefix . '_title', array(
+			/* translators: %d: step number */
+			'label'   => sprintf( esc_html__( 'Step %d Title', 'lumea' ), $n ),
+			'section' => 'lumea_ritual',
+			'type'    => 'text',
+		) );
+
+		$wp_customize->add_setting( $prefix . '_text', array(
+			'default'           => $defaults['text'],
+			'sanitize_callback' => 'sanitize_textarea_field',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $prefix . '_text', array(
+			/* translators: %d: step number */
+			'label'   => sprintf( esc_html__( 'Step %d Description', 'lumea' ), $n ),
+			'section' => 'lumea_ritual',
+			'type'    => 'textarea',
+		) );
+
+		$wp_customize->add_setting( $prefix . '_image1', array(
+			'default'           => $defaults['image1'],
+			'sanitize_callback' => 'esc_url_raw',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $prefix . '_image1', array(
+			/* translators: %d: step number */
+			'label'   => sprintf( esc_html__( 'Step %d — Image 1', 'lumea' ), $n ),
+			'section' => 'lumea_ritual',
+		) ) );
+
+		$wp_customize->add_setting( $prefix . '_image2', array(
+			'default'           => $defaults['image2'],
+			'sanitize_callback' => 'esc_url_raw',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $prefix . '_image2', array(
+			/* translators: %d: step number */
+			'label'   => sprintf( esc_html__( 'Step %d — Image 2', 'lumea' ), $n ),
+			'section' => 'lumea_ritual',
+		) ) );
+	}
+
+	/* ════════════════════════════════════════════════════════
+	   5. MANIFEST SECTION
 	   ════════════════════════════════════════════════════════ */
 	$wp_customize->add_section(
 		'lumea_manifest',
