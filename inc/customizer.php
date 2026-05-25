@@ -36,16 +36,32 @@ function lumea_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Background image
-	$wp_customize->add_setting( 'lumea_hero_image', array(
-		'default'           => LUMEA_THEME_URI . '/assets/images/hero1.jpg',
-		'sanitize_callback' => 'esc_url_raw',
-		'transport'         => 'refresh',
-	) );
-	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'lumea_hero_image', array(
-		'label'   => esc_html__( 'Background Image', 'lumea' ),
-		'section' => 'lumea_hero',
-	) ) );
+	// Background images — slide 1 (required) + slides 2–5 (optional)
+	$hero_image_defaults = array(
+		1 => LUMEA_THEME_URI . '/assets/images/hero1.jpg',
+		2 => '',
+		3 => '',
+		4 => '',
+		5 => '',
+	);
+
+	foreach ( $hero_image_defaults as $n => $default ) {
+		$key   = ( $n === 1 ) ? 'lumea_hero_image' : 'lumea_hero_image_' . $n;
+		$label = ( $n === 1 )
+			? esc_html__( 'Slide 1 Image (required)', 'lumea' )
+			/* translators: %d: slide number */
+			: sprintf( esc_html__( 'Slide %d Image (optional)', 'lumea' ), $n );
+
+		$wp_customize->add_setting( $key, array(
+			'default'           => $default,
+			'sanitize_callback' => 'esc_url_raw',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $key, array(
+			'label'   => $label,
+			'section' => 'lumea_hero',
+		) ) );
+	}
 
 	// Label ("Glow")
 	$wp_customize->add_setting( 'lumea_hero_label', array(

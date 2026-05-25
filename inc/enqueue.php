@@ -57,13 +57,29 @@ function lumea_enqueue_assets() {
 			true
 		);
 
-		$lumea_hero_image = get_theme_mod( 'lumea_hero_image', LUMEA_THEME_URI . '/assets/images/hero1.jpg' );
+		// Collect hero slider images (slot 1 is required, 2–5 are optional)
+		$lumea_hero_images = array();
+
+		$lumea_hero_image_keys = array(
+			1 => array( 'lumea_hero_image',   LUMEA_THEME_URI . '/assets/images/hero1.jpg' ),
+			2 => array( 'lumea_hero_image_2', '' ),
+			3 => array( 'lumea_hero_image_3', '' ),
+			4 => array( 'lumea_hero_image_4', '' ),
+			5 => array( 'lumea_hero_image_5', '' ),
+		);
+
+		foreach ( $lumea_hero_image_keys as $slot ) {
+			$url = get_theme_mod( $slot[0], $slot[1] );
+			if ( $url ) {
+				$lumea_hero_images[] = esc_url( $url );
+			}
+		}
 
 		wp_localize_script(
 			'lumea-hero',
 			'lumea_hero',
 			array(
-				'imageUrl' => esc_url( $lumea_hero_image ),
+				'images' => $lumea_hero_images,
 			)
 		);
 
