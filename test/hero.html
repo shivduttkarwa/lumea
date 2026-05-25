@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>L'Oiseau Dé Hero Replica</title>
+
+  <title>Luméa Hero</title>
 
   <style>
     @import url("https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600&display=swap");
@@ -29,10 +30,7 @@
       background: #111;
       font-family: "Inter", system-ui, sans-serif;
       overflow-x: hidden;
-    }
-
-    body {
-      cursor: none;
+      cursor: auto;
     }
 
     .hero {
@@ -66,9 +64,9 @@
       z-index: 1;
       pointer-events: none;
       background:
-        radial-gradient(circle at 50% 55%, rgba(255,255,255,0.03), transparent 36%),
-        linear-gradient(to bottom, rgba(0,0,0,0.04), rgba(0,0,0,0.15)),
-        linear-gradient(to right, rgba(0,0,0,0.05), transparent 28%, transparent 72%, rgba(0,0,0,0.18));
+        radial-gradient(circle at 50% 55%, rgba(255, 255, 255, 0.025), transparent 36%),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.15)),
+        linear-gradient(to right, rgba(0, 0, 0, 0.05), transparent 28%, transparent 72%, rgba(0, 0, 0, 0.18));
     }
 
     .hero-content {
@@ -78,6 +76,7 @@
       padding: 15px 30px 18px;
       display: flex;
       flex-direction: column;
+      pointer-events: none;
     }
 
     .topbar {
@@ -122,7 +121,7 @@
       margin-left: auto;
     }
 
-    .paradis {
+    .hero-label {
       position: absolute;
       top: 125px;
       right: 29px;
@@ -175,7 +174,7 @@
       margin: 0;
       color: var(--white);
       font-family: "Clash Display", "Inter", sans-serif;
-      font-size: clamp(72px, 15.2vw, 294px);
+      font-size: clamp(78px, 17vw, 320px);
       font-weight: 400;
       line-height: 0.78;
       letter-spacing: -0.095em;
@@ -205,11 +204,13 @@
       flex-direction: column;
       align-items: flex-end;
       gap: 10px;
+      pointer-events: auto;
     }
 
     .cta {
-      width: 166px;
+      min-width: 166px;
       height: 42px;
+      padding: 0 18px;
       background: #050505;
       border: 1px solid rgba(255, 255, 255, 0.1);
       color: var(--green);
@@ -223,7 +224,6 @@
       text-transform: uppercase;
       text-decoration: none;
       transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
-      pointer-events: auto;
     }
 
     .cta:hover {
@@ -239,57 +239,6 @@
       margin-top: -2px;
     }
 
-    .framer-badge {
-      height: 35px;
-      min-width: 137px;
-      padding: 0 12px;
-      border-radius: 9px;
-      background: #fff;
-      color: #161616;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 12px;
-      font-weight: 800;
-      text-decoration: none;
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16);
-      pointer-events: auto;
-    }
-
-    .framer-icon {
-      width: 18px;
-      height: 18px;
-      background: #111;
-      border-radius: 4px;
-      clip-path: polygon(0 0, 100% 0, 60% 34%, 100% 34%, 100% 100%, 0 55%);
-    }
-
-    .custom-cursor {
-      position: fixed;
-      left: 0;
-      top: 0;
-      z-index: 9999;
-      width: 22px;
-      height: 22px;
-      border-radius: 999px;
-      pointer-events: none;
-      transform: translate3d(-50%, -50%, 0);
-      border: 1px solid rgba(255, 255, 255, 0.75);
-      mix-blend-mode: difference;
-      opacity: 0;
-      transition: opacity 0.2s ease, width 0.25s ease, height 0.25s ease;
-    }
-
-    .custom-cursor.is-active {
-      opacity: 1;
-    }
-
-    .custom-cursor.is-hover {
-      width: 48px;
-      height: 48px;
-    }
-
     @media (max-width: 900px) {
       .hero-content {
         padding: 14px 18px 18px;
@@ -299,7 +248,7 @@
         width: 230px;
       }
 
-      .paradis {
+      .hero-label {
         top: 90px;
         right: 18px;
       }
@@ -315,7 +264,7 @@
         left: 18px;
         right: 18px;
         bottom: 145px;
-        font-size: clamp(64px, 18vw, 150px);
+        font-size: clamp(72px, 21vw, 170px);
         white-space: normal;
       }
 
@@ -333,21 +282,13 @@
     }
 
     @media (max-width: 560px) {
-      body {
-        cursor: auto;
-      }
-
-      .custom-cursor {
-        display: none;
-      }
-
       .brand-pill {
         width: 190px;
         height: 40px;
         font-size: 14px;
       }
 
-      .paradis {
+      .hero-label {
         font-size: 34px;
         top: 85px;
       }
@@ -376,7 +317,7 @@
       }
 
       .cta {
-        width: 150px;
+        min-width: 150px;
       }
     }
   </style>
@@ -391,7 +332,8 @@
     <div class="hero-content">
       <div class="topbar">
         <div class="brand-pill">
-          <span>L'OISEAU DÉ</span>
+          <span>LUMÉA</span>
+
           <span class="menu-icon" aria-hidden="true">
             <span></span>
             <span></span>
@@ -399,45 +341,37 @@
         </div>
       </div>
 
-      <h3 class="paradis">Paradis</h3>
+      <h3 class="hero-label">Glow</h3>
 
       <div class="subtitles">
-        <span>E-commerce</span>
+        <span>Skincare</span>
         <span>Cosmetics</span>
         <span>Beauty</span>
       </div>
 
       <div class="corner-mark" aria-hidden="true"></div>
 
-      <h1 class="hero-title">L'OISEAU DÉ</h1>
+      <h1 class="hero-title">LUMÉA</h1>
 
       <div class="cta-wrap">
         <a href="#" class="cta">
-          <span>Get for free</span>
+          <span>Shop Collection</span>
           <span class="cta-plus">+</span>
-        </a>
-
-        <a href="#" class="framer-badge">
-          <span class="framer-icon"></span>
-          <span>Made in Framer</span>
         </a>
       </div>
     </div>
   </section>
 
-  <div class="custom-cursor" id="customCursor"></div>
-
   <script>
     const canvas = document.getElementById("heroCanvas");
     const ctx = canvas.getContext("2d", { alpha: false });
-    const cursor = document.getElementById("customCursor");
     const hero = document.querySelector(".hero");
+    const baseLayer = document.createElement("canvas");
+    const baseCtx = baseLayer.getContext("2d", { alpha: false });
 
-    const imageUrl =
-      "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=2400&q=90";
+    const imageUrl = "hero1.png";
 
     const img = new Image();
-    img.crossOrigin = "anonymous";
     img.src = imageUrl;
 
     let width = 0;
@@ -449,16 +383,21 @@
       y: 0,
       tx: 0,
       ty: 0,
-      active: false,
+      inside: false,
       moved: false,
-      radius: 135,
-      strength: 0
+      radiusRatio: 0.11,
+      radius: 0,
+      strength: 0,
+      lastX: 0,
+      lastY: 0,
+      velocityX: 0,
+      velocityY: 0,
+      lastMoveTime: -Infinity
     };
-
-    const trail = [];
 
     function resizeCanvas() {
       const rect = canvas.getBoundingClientRect();
+
       width = rect.width;
       height = rect.height;
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -467,6 +406,12 @@
       canvas.height = Math.floor(height * dpr);
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      baseLayer.width = canvas.width;
+      baseLayer.height = canvas.height;
+      baseCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      pointer.radius = Math.min(width, height) * pointer.radiusRatio;
     }
 
     function getCoverRect(image, canvasW, canvasH) {
@@ -493,150 +438,151 @@
       return { drawX, drawY, drawW, drawH };
     }
 
-    function drawBaseImage() {
+    function drawBaseImage(targetCtx) {
       const cover = getCoverRect(img, width, height);
 
-      ctx.save();
+      targetCtx.save();
+      targetCtx.clearRect(0, 0, width, height);
 
-      ctx.drawImage(img, cover.drawX, cover.drawY, cover.drawW, cover.drawH);
+      targetCtx.drawImage(img, cover.drawX, cover.drawY, cover.drawW, cover.drawH);
 
-      const gradient = ctx.createLinearGradient(0, 0, width, height);
+      const gradient = targetCtx.createLinearGradient(0, 0, width, height);
       gradient.addColorStop(0, "rgba(11, 42, 31, 0.42)");
       gradient.addColorStop(0.45, "rgba(0, 0, 0, 0.02)");
       gradient.addColorStop(1, "rgba(0, 0, 0, 0.34)");
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, width, height);
 
-      ctx.restore();
+      targetCtx.fillStyle = gradient;
+      targetCtx.fillRect(0, 0, width, height);
+
+      targetCtx.restore();
 
       return cover;
     }
 
-    function drawCursorLens(cover) {
+    function drawCursorDeformation() {
       if (!pointer.moved) return;
 
-      pointer.x += (pointer.tx - pointer.x) * 0.13;
-      pointer.y += (pointer.ty - pointer.y) * 0.13;
+      pointer.x += (pointer.tx - pointer.x) * 0.16;
+      pointer.y += (pointer.ty - pointer.y) * 0.16;
 
-      pointer.strength += ((pointer.active ? 1 : 0) - pointer.strength) * 0.08;
+      pointer.velocityX = pointer.x - pointer.lastX;
+      pointer.velocityY = pointer.y - pointer.lastY;
 
-      const r = pointer.radius * pointer.strength;
-      if (r < 2) return;
+      pointer.lastX = pointer.x;
+      pointer.lastY = pointer.y;
 
-      trail.unshift({
-        x: pointer.x,
-        y: pointer.y,
-        r,
-        a: 0.32 * pointer.strength
-      });
+      const now = performance.now();
+      const isMoving = pointer.inside && (now - pointer.lastMoveTime < 72);
 
-      if (trail.length > 8) trail.pop();
+      pointer.strength += ((isMoving ? 1 : 0) - pointer.strength) * 0.14;
 
-      for (let i = trail.length - 1; i >= 0; i--) {
-        const t = trail[i];
-        const fade = t.a * (1 - i / trail.length);
-        const rr = t.r * (1 - i * 0.045);
+      if (pointer.strength < 0.01) return;
 
-        ctx.save();
-        ctx.globalAlpha = fade;
-        ctx.beginPath();
-        ctx.arc(t.x, t.y, rr, 0, Math.PI * 2);
-        ctx.clip();
+      const time = now * 0.0012;
 
-        const dx = (t.x - width / 2) * 0.018;
-        const dy = (t.y - height / 2) * 0.018;
+      const sourceScaleX = baseLayer.width / width;
+      const sourceScaleY = baseLayer.height / height;
+      const speed = Math.hypot(pointer.velocityX, pointer.velocityY);
+      const flow = Math.min(1, speed / 36);
 
-        ctx.drawImage(
-          img,
-          cover.drawX - dx,
-          cover.drawY - dy,
-          cover.drawW * 1.018,
-          cover.drawH * 1.018
-        );
+      const rx = pointer.radius * (1 + 0.04 * pointer.strength);
+      const ry = pointer.radius * (0.9 + 0.02 * Math.sin(time * 1.1));
+      const stripH = 1;
+      const swirlStrength = rx * (0.028 + 0.01 * pointer.strength);
+      const pressureStrength = rx * (0.017 + 0.01 * flow);
+      const trailStrength = 0.28 + flow * 0.34;
 
-        ctx.restore();
+      ctx.save();
+      ctx.imageSmoothingEnabled = true;
+      if ("imageSmoothingQuality" in ctx) {
+        ctx.imageSmoothingQuality = "high";
       }
 
-      ctx.save();
+      for (let y = pointer.y - ry; y <= pointer.y + ry; y += stripH) {
+        const dy = y - pointer.y;
+        const ny = dy / ry;
 
-      ctx.beginPath();
-      ctx.arc(pointer.x, pointer.y, r, 0, Math.PI * 2);
-      ctx.clip();
+        if (Math.abs(ny) >= 1) continue;
 
-      const wobbleX = Math.sin(Date.now() * 0.002) * 7;
-      const wobbleY = Math.cos(Date.now() * 0.0024) * 7;
+        const core = Math.max(0, 1 - ny * ny);
+        const halfW = rx * Math.sqrt(core);
 
-      ctx.globalAlpha = 0.72;
-      ctx.drawImage(
-        img,
-        cover.drawX - (pointer.x - width / 2) * 0.035 + wobbleX,
-        cover.drawY - (pointer.y - height / 2) * 0.035 + wobbleY,
-        cover.drawW * 1.045,
-        cover.drawH * 1.045
-      );
+        if (halfW < 1.2) continue;
 
-      ctx.globalCompositeOperation = "screen";
-      ctx.globalAlpha = 0.18;
-      ctx.drawImage(
-        img,
-        cover.drawX + 8,
-        cover.drawY,
-        cover.drawW,
-        cover.drawH
-      );
+        const stripX = pointer.x - halfW;
+        const stripW = halfW * 2;
+        const falloff = Math.pow(core, 2.5);
 
-      ctx.globalCompositeOperation = "multiply";
-      ctx.globalAlpha = 0.10;
-      ctx.drawImage(
-        img,
-        cover.drawX - 8,
-        cover.drawY,
-        cover.drawW,
-        cover.drawH
-      );
+        const swirl =
+          Math.sin(dy * 0.018 - time * 2.4 + pointer.x * 0.0018) *
+          swirlStrength *
+          falloff;
 
-      ctx.restore();
+        const pressure =
+          Math.cos(dy * 0.031 + time * 1.55) *
+          pressureStrength *
+          falloff;
 
-      ctx.save();
+        const microRipple =
+          Math.sin(dy * 0.011 - time * 1.15) *
+          (pressureStrength * 0.35) *
+          falloff;
 
-      const ring = ctx.createRadialGradient(
-        pointer.x,
-        pointer.y,
-        r * 0.35,
-        pointer.x,
-        pointer.y,
-        r
-      );
+        const trailX = pointer.velocityX * trailStrength * falloff;
+        const trailY = pointer.velocityY * (trailStrength * 0.1) * falloff;
+        const shear = ny * pointer.velocityX * 0.06 * falloff;
 
-      ring.addColorStop(0, "rgba(255,255,255,0)");
-      ring.addColorStop(0.72, "rgba(255,255,255,0.02)");
-      ring.addColorStop(0.88, "rgba(255,255,255,0.18)");
-      ring.addColorStop(1, "rgba(255,255,255,0)");
+        const offsetX = swirl + pressure + microRipple + trailX + shear;
+        const offsetY =
+          Math.sin(dy * 0.02 - time * 2.1) *
+            (ry * 0.012) *
+            falloff +
+          trailY;
 
-      ctx.fillStyle = ring;
-      ctx.beginPath();
-      ctx.arc(pointer.x, pointer.y, r, 0, Math.PI * 2);
-      ctx.fill();
+        const sourceX = (stripX - offsetX) * sourceScaleX;
+        const sourceY = (y - offsetY) * sourceScaleY;
+        const sourceW = stripW * sourceScaleX;
+        const sourceH = stripH * sourceScaleY;
 
-      ctx.strokeStyle = "rgba(255,255,255,0.26)";
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.arc(pointer.x, pointer.y, r * 0.98, 0, Math.PI * 2);
-      ctx.stroke();
+        if (
+          sourceX < 0 ||
+          sourceY < 0 ||
+          sourceX + sourceW > baseLayer.width ||
+          sourceY + sourceH > baseLayer.height
+        ) {
+          continue;
+        }
+
+        ctx.globalAlpha = 0.92 + falloff * 0.08;
+
+        ctx.drawImage(
+          baseLayer,
+          sourceX,
+          sourceY,
+          sourceW,
+          sourceH,
+          stripX,
+          y,
+          stripW,
+          stripH + 0.2
+        );
+      }
 
       ctx.restore();
     }
 
     function drawNoise() {
-      const amount = 100;
+      const amount = 90;
+
       ctx.save();
-      ctx.globalAlpha = 0.045;
+      ctx.globalAlpha = 0.03;
       ctx.fillStyle = "#fff";
 
       for (let i = 0; i < amount; i++) {
         const x = Math.random() * width;
         const y = Math.random() * height;
-        const s = Math.random() * 1.2;
+        const s = Math.random() * 1.1;
+
         ctx.fillRect(x, y, s, s);
       }
 
@@ -645,8 +591,12 @@
 
     function render() {
       if (img.complete && img.naturalWidth) {
-        const cover = drawBaseImage();
-        drawCursorLens(cover);
+        drawBaseImage(baseCtx);
+
+        ctx.clearRect(0, 0, width, height);
+        ctx.drawImage(baseLayer, 0, 0, baseLayer.width, baseLayer.height, 0, 0, width, height);
+
+        drawCursorDeformation();
         drawNoise();
       } else {
         ctx.fillStyle = "#183b2e";
@@ -661,12 +611,8 @@
 
       pointer.tx = event.clientX - rect.left;
       pointer.ty = event.clientY - rect.top;
-      pointer.active = true;
       pointer.moved = true;
-
-      cursor.classList.add("is-active");
-      cursor.style.transform =
-        "translate3d(" + event.clientX + "px," + event.clientY + "px,0) translate(-50%, -50%)";
+      pointer.lastMoveTime = performance.now();
     }
 
     window.addEventListener("resize", resizeCanvas);
@@ -674,18 +620,14 @@
     hero.addEventListener("pointermove", setPointer);
 
     hero.addEventListener("pointerenter", function (event) {
-      pointer.active = true;
-      setPointer(event);
+      pointer.inside = true;
+      const rect = canvas.getBoundingClientRect();
+      pointer.tx = event.clientX - rect.left;
+      pointer.ty = event.clientY - rect.top;
     });
 
     hero.addEventListener("pointerleave", function () {
-      pointer.active = false;
-      cursor.classList.remove("is-active");
-    });
-
-    document.querySelectorAll("a, button, .brand-pill").forEach((el) => {
-      el.addEventListener("pointerenter", () => cursor.classList.add("is-hover"));
-      el.addEventListener("pointerleave", () => cursor.classList.remove("is-hover"));
+      pointer.inside = false;
     });
 
     img.onload = function () {
