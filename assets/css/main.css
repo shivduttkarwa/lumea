@@ -1,0 +1,1488 @@
+/* ============================================================
+   LUMEA — Premium Beauty & Skincare WordPress Theme
+   ============================================================ */
+
+/* 1. Design Tokens
+   ============================================================ */
+:root {
+  /* Dark palette */
+  --lumea-dark:           #0A0907;
+  --lumea-dark-2:         #16120E;
+  --lumea-dark-3:         #2B221B;
+
+  /* Light palette */
+  --lumea-cream:          #FAF8F5;
+  --lumea-cream-2:        #F3EDE5;
+  --lumea-white:          #FFFFFF;
+
+  /* Accents */
+  --lumea-accent:         #C98578;
+  --lumea-accent-dark:    #9B5D52;
+  --lumea-gold:           #BFA06A;
+
+  /* Semantic text */
+  --lumea-text:           #0A0907;
+  --lumea-text-light:     #FAF8F5;
+  --lumea-muted:          #6B5B52;
+  --lumea-muted-light:    rgba(250, 248, 245, 0.52);
+
+  /* Borders */
+  --lumea-border:         rgba(10, 9, 7, 0.10);
+  --lumea-border-dark:    rgba(250, 248, 245, 0.10);
+
+  /* Typography */
+  --lumea-font-display:   'Playfair Display', Georgia, 'Times New Roman', serif;
+  --lumea-font-body:      'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Spacing */
+  --lumea-section-y:      clamp(88px, 13vw, 168px);
+  --lumea-gap:            clamp(20px, 2.5vw, 40px);
+
+  /* Layout */
+  --lumea-container:      1320px;
+  --lumea-radius:         3px;
+  --lumea-radius-lg:      12px;
+  --lumea-radius-xl:      24px;
+
+  /* Motion */
+  --lumea-ease:           cubic-bezier(0.16, 1, 0.3, 1);
+  --lumea-dur:            0.65s;
+  --lumea-dur-fast:       0.25s;
+
+  /* Z-index scale */
+  --lumea-z-base:         10;
+  --lumea-z-dropdown:     20;
+  --lumea-z-overlay:      30;
+  --lumea-z-modal:        50;
+  --lumea-z-header:       40;
+}
+
+/* 2. Reset & Base
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--lumea-cream);
+  color: var(--lumea-text);
+  font-family: var(--lumea-font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, video { max-width: 100%; height: auto; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+ul, ol { list-style: none; }
+
+/* 3. Layout Utilities
+   ============================================================ */
+.lumea-container {
+  width: min(100% - 48px, var(--lumea-container));
+  margin-inline: auto;
+}
+
+.lumea-container--sm {
+  width: min(100% - 48px, 880px);
+  margin-inline: auto;
+}
+
+.lumea-section {
+  padding-block: var(--lumea-section-y);
+}
+
+.lumea-section--dark {
+  background: var(--lumea-dark);
+  color: var(--lumea-text-light);
+}
+
+.lumea-section--cream {
+  background: var(--lumea-cream);
+  color: var(--lumea-text);
+}
+
+.lumea-section--cream-2 {
+  background: var(--lumea-cream-2);
+  color: var(--lumea-text);
+}
+
+/* 4. Typography
+   ============================================================ */
+.lumea-display {
+  font-family: var(--lumea-font-display);
+  font-weight: 500;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+}
+
+.lumea-display--xl {
+  font-size: clamp(56px, 9vw, 128px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.lumea-display--lg {
+  font-size: clamp(40px, 6.5vw, 88px);
+  line-height: 1.0;
+}
+
+.lumea-display--md {
+  font-size: clamp(28px, 4vw, 56px);
+}
+
+.lumea-display--sm {
+  font-size: clamp(22px, 3vw, 36px);
+}
+
+.lumea-eyebrow {
+  font-family: var(--lumea-font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.lumea-body-lg {
+  font-size: clamp(16px, 1.6vw, 20px);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* 5. Buttons
+   ============================================================ */
+.lumea-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  font-family: var(--lumea-font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  transition: background var(--lumea-dur-fast) var(--lumea-ease),
+              color var(--lumea-dur-fast) var(--lumea-ease),
+              transform var(--lumea-dur-fast) var(--lumea-ease);
+  border-radius: var(--lumea-radius);
+  text-decoration: none;
+}
+
+.lumea-btn:focus-visible {
+  outline: 2px solid var(--lumea-accent);
+  outline-offset: 3px;
+}
+
+.lumea-btn--primary {
+  background: var(--lumea-text-light);
+  color: var(--lumea-dark);
+}
+
+.lumea-btn--primary:hover {
+  background: var(--lumea-cream-2);
+  transform: translateY(-1px);
+}
+
+.lumea-btn--primary-dark {
+  background: var(--lumea-dark);
+  color: var(--lumea-text-light);
+}
+
+.lumea-btn--primary-dark:hover {
+  background: var(--lumea-dark-3);
+  transform: translateY(-1px);
+}
+
+.lumea-btn--outline {
+  background: transparent;
+  color: var(--lumea-text-light);
+  border: 1px solid var(--lumea-border-dark);
+}
+
+.lumea-btn--outline:hover {
+  background: rgba(250, 248, 245, 0.08);
+}
+
+.lumea-btn--outline-dark {
+  background: transparent;
+  color: var(--lumea-text);
+  border: 1px solid var(--lumea-border);
+}
+
+.lumea-btn--outline-dark:hover {
+  background: rgba(10, 9, 7, 0.05);
+}
+
+.lumea-btn--accent {
+  background: var(--lumea-accent);
+  color: var(--lumea-white);
+}
+
+.lumea-btn--accent:hover {
+  background: var(--lumea-accent-dark);
+  transform: translateY(-1px);
+}
+
+/* 6. Site Header
+   ============================================================ */
+.lumea-site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--lumea-z-header);
+  padding: 0;
+  transition: background var(--lumea-dur-fast) var(--lumea-ease),
+              border-color var(--lumea-dur-fast) var(--lumea-ease);
+}
+
+.lumea-site-header.is-scrolled {
+  background: rgba(10, 9, 7, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--lumea-border-dark);
+}
+
+.lumea-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 76px;
+}
+
+.lumea-logo-text {
+  font-family: var(--lumea-font-display);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--lumea-text-light);
+  text-transform: uppercase;
+}
+
+.lumea-site-nav {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.lumea-nav-link {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lumea-muted-light);
+  transition: color var(--lumea-dur-fast);
+}
+
+.lumea-nav-link:hover,
+.lumea-nav-link:focus-visible {
+  color: var(--lumea-text-light);
+}
+
+.lumea-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.lumea-header-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--lumea-text-light);
+  transition: background var(--lumea-dur-fast);
+  cursor: pointer;
+}
+
+.lumea-header-icon-btn:hover,
+.lumea-header-icon-btn:focus-visible {
+  background: rgba(250, 248, 245, 0.1);
+  outline: none;
+}
+
+.lumea-mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--lumea-text-light);
+}
+
+.lumea-mobile-menu-btn span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform var(--lumea-dur-fast), opacity var(--lumea-dur-fast);
+}
+
+.lumea-mobile-menu-btn[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.lumea-mobile-menu-btn[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.lumea-mobile-menu-btn[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* Mobile nav drawer */
+.lumea-mobile-nav {
+  position: fixed;
+  inset: 0;
+  background: var(--lumea-dark);
+  z-index: calc(var(--lumea-z-header) - 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  transform: translateY(-100%);
+  transition: transform var(--lumea-dur) var(--lumea-ease);
+  pointer-events: none;
+}
+
+.lumea-mobile-nav.is-open {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.lumea-mobile-nav .lumea-nav-link {
+  font-size: 28px;
+  letter-spacing: 0.04em;
+  color: var(--lumea-text-light);
+  font-family: var(--lumea-font-display);
+  font-weight: 400;
+  text-transform: none;
+}
+
+/* 7. Hero Section
+   ============================================================ */
+.lumea-hero-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  opacity: 0.26;
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+.lumea-hero {
+  position: relative;
+  min-height: 100svh;
+  background: var(--lumea-dark);
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: clamp(60px, 8vw, 112px);
+  overflow: hidden;
+}
+
+.lumea-hero-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201, 133, 120, 0.12) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 80% at 20% 80%, rgba(191, 160, 106, 0.07) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.lumea-hero-ornament {
+  position: absolute;
+  top: 10%;
+  right: 6%;
+  width: clamp(160px, 22vw, 340px);
+  height: clamp(160px, 22vw, 340px);
+  border-radius: 50%;
+  border: 1px solid rgba(250, 248, 245, 0.06);
+  pointer-events: none;
+}
+
+.lumea-hero-ornament::before {
+  content: '';
+  position: absolute;
+  inset: 20px;
+  border-radius: 50%;
+  border: 1px solid rgba(250, 248, 245, 0.04);
+}
+
+.lumea-hero-content {
+  position: relative;
+  z-index: var(--lumea-z-base);
+  width: 100%;
+}
+
+.lumea-hero-eyebrow {
+  color: var(--lumea-muted-light);
+  margin-bottom: 28px;
+}
+
+.lumea-hero-title {
+  font-family: var(--lumea-font-display);
+  font-size: clamp(60px, 10vw, 148px);
+  font-weight: 500;
+  line-height: 0.93;
+  letter-spacing: -0.035em;
+  color: var(--lumea-text-light);
+  max-width: 16ch;
+}
+
+.lumea-hero-title em {
+  font-style: italic;
+  color: var(--lumea-accent);
+}
+
+.lumea-hero-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-top: clamp(48px, 6vw, 80px);
+  flex-wrap: wrap;
+}
+
+.lumea-hero-desc {
+  max-width: 380px;
+  color: var(--lumea-muted-light);
+  font-size: clamp(15px, 1.4vw, 18px);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.lumea-hero-ctas {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.lumea-hero-scroll {
+  position: absolute;
+  bottom: clamp(28px, 4vw, 48px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--lumea-muted-light);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.lumea-hero-scroll-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, var(--lumea-muted-light), transparent);
+  animation: lumea-scroll-line 1.8s var(--lumea-ease) infinite;
+}
+
+@keyframes lumea-scroll-line {
+  0%   { transform: scaleY(0); transform-origin: top; opacity: 1; }
+  50%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+  51%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+  100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+}
+
+/* 8. Marquee Strip
+   ============================================================ */
+.lumea-marquee-strip {
+  background: var(--lumea-dark-3);
+  border-top: 1px solid var(--lumea-border-dark);
+  border-bottom: 1px solid var(--lumea-border-dark);
+  padding: 18px 0;
+  overflow: hidden;
+}
+
+.lumea-marquee-track {
+  display: flex;
+  gap: 0;
+  width: max-content;
+  animation: lumea-marquee 28s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lumea-marquee-track { animation: none; }
+}
+
+@keyframes lumea-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.lumea-marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 0 28px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lumea-muted-light);
+  white-space: nowrap;
+}
+
+.lumea-marquee-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--lumea-accent);
+  flex-shrink: 0;
+}
+
+/* 9. Section Headers
+   ============================================================ */
+.lumea-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: clamp(48px, 6vw, 80px);
+  flex-wrap: wrap;
+}
+
+.lumea-section-header--center {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.lumea-section-kicker {
+  display: block;
+  margin-bottom: 16px;
+}
+
+/* 10. Featured Products
+   ============================================================ */
+.lumea-products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--lumea-gap);
+}
+
+.lumea-product-card {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform var(--lumea-dur-fast) var(--lumea-ease);
+}
+
+.lumea-product-card:hover {
+  transform: translateY(-4px);
+}
+
+.lumea-product-img-wrap {
+  position: relative;
+  aspect-ratio: 3/4;
+  background: var(--lumea-dark-3);
+  border-radius: var(--lumea-radius-lg);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.lumea-product-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--lumea-ease);
+}
+
+.lumea-product-card:hover .lumea-product-img-wrap img {
+  transform: scale(1.04);
+}
+
+.lumea-product-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--lumea-accent);
+  color: var(--lumea-white);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 2px;
+}
+
+.lumea-product-quick-add {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  padding: 12px;
+  background: rgba(10, 9, 7, 0.82);
+  backdrop-filter: blur(8px);
+  color: var(--lumea-text-light);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: var(--lumea-radius);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--lumea-dur-fast), transform var(--lumea-dur-fast);
+  cursor: pointer;
+}
+
+.lumea-product-card:hover .lumea-product-quick-add {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lumea-product-category {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lumea-muted-light);
+  margin-bottom: 6px;
+}
+
+.lumea-product-name {
+  font-family: var(--lumea-font-display);
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--lumea-text-light);
+  margin-bottom: 8px;
+}
+
+.lumea-product-price {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--lumea-muted-light);
+}
+
+.lumea-product-price .lumea-price-sale {
+  color: var(--lumea-accent);
+  margin-right: 6px;
+}
+
+.lumea-product-price .lumea-price-original {
+  text-decoration: line-through;
+  opacity: 0.45;
+}
+
+/* Light variant product card */
+.lumea-product-card--light .lumea-product-img-wrap {
+  background: var(--lumea-cream-2);
+}
+
+.lumea-product-card--light .lumea-product-name {
+  color: var(--lumea-text);
+}
+
+.lumea-product-card--light .lumea-product-category {
+  color: var(--lumea-muted);
+}
+
+.lumea-product-card--light .lumea-product-price {
+  color: var(--lumea-muted);
+}
+
+/* 11. Skin Concern Cards
+   ============================================================ */
+.lumea-concerns-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.lumea-concern-card {
+  position: relative;
+  aspect-ratio: 2/3;
+  border-radius: var(--lumea-radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform var(--lumea-dur-fast) var(--lumea-ease);
+}
+
+.lumea-concern-card:hover {
+  transform: scale(1.02);
+}
+
+.lumea-concern-card:focus-visible {
+  outline: 2px solid var(--lumea-accent);
+  outline-offset: 3px;
+}
+
+.lumea-concern-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--lumea-dark-2);
+  transition: transform 0.9s var(--lumea-ease);
+}
+
+.lumea-concern-card:hover .lumea-concern-bg {
+  transform: scale(1.05);
+}
+
+.lumea-concern-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 9, 7, 0.92) 0%, rgba(10, 9, 7, 0.45) 50%, rgba(10, 9, 7, 0.15) 100%);
+}
+
+img.lumea-testimonial-avatar {
+  object-fit: cover;
+  object-position: center top;
+}
+
+.lumea-concern-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 20px;
+}
+
+.lumea-concern-icon {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.lumea-concern-name {
+  font-family: var(--lumea-font-display);
+  font-size: clamp(14px, 1.5vw, 18px);
+  font-weight: 500;
+  color: var(--lumea-text-light);
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.lumea-concern-count {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--lumea-muted-light);
+  text-transform: uppercase;
+}
+
+/* 12. Ingredient Spotlight
+   ============================================================ */
+.lumea-ingredient {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 70vh;
+}
+
+.lumea-ingredient-visual {
+  position: relative;
+  background: var(--lumea-dark-2);
+  overflow: hidden;
+  min-height: 480px;
+}
+
+.lumea-ingredient-visual-inner {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 70% at 50% 50%,
+    rgba(201, 133, 120, 0.18) 0%,
+    rgba(191, 160, 106, 0.08) 50%,
+    transparent 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lumea-ingredient-circle {
+  width: clamp(180px, 25vw, 340px);
+  height: clamp(180px, 25vw, 340px);
+  border-radius: 50%;
+  border: 1px solid rgba(250, 248, 245, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.lumea-ingredient-circle::before {
+  content: '';
+  position: absolute;
+  inset: -30px;
+  border-radius: 50%;
+  border: 1px solid rgba(250, 248, 245, 0.04);
+}
+
+.lumea-ingredient-letter {
+  font-family: var(--lumea-font-display);
+  font-size: clamp(80px, 12vw, 160px);
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(250, 248, 245, 0.12);
+  line-height: 1;
+  user-select: none;
+}
+
+.lumea-ingredient-content {
+  background: var(--lumea-cream);
+  padding: clamp(48px, 8vw, 112px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 32px;
+}
+
+.lumea-ingredient-title {
+  font-family: var(--lumea-font-display);
+  font-size: clamp(32px, 4.5vw, 64px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.lumea-ingredient-desc {
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: var(--lumea-muted);
+  line-height: 1.75;
+  font-weight: 300;
+  max-width: 48ch;
+}
+
+.lumea-ingredient-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 8px;
+  border-top: 1px solid var(--lumea-border);
+}
+
+.lumea-ingredient-fact {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: 14px;
+  color: var(--lumea-muted);
+}
+
+.lumea-ingredient-fact-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lumea-accent);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+/* 13. Bestsellers (Alternating Layout)
+   ============================================================ */
+.lumea-bestseller-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  min-height: 560px;
+}
+
+.lumea-bestseller-item:nth-child(even) { direction: rtl; }
+.lumea-bestseller-item:nth-child(even) > * { direction: ltr; }
+
+.lumea-bestseller-visual {
+  position: relative;
+  background: var(--lumea-dark-2);
+  overflow: hidden;
+}
+
+.lumea-bestseller-visual img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s var(--lumea-ease);
+}
+
+.lumea-bestseller-item:hover .lumea-bestseller-visual img {
+  transform: scale(1.04);
+}
+
+.lumea-bestseller-content {
+  padding: clamp(40px, 7vw, 96px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  background: var(--lumea-cream-2);
+}
+
+.lumea-bestseller-num {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lumea-muted);
+}
+
+.lumea-bestseller-name {
+  font-family: var(--lumea-font-display);
+  font-size: clamp(26px, 3.5vw, 48px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.lumea-bestseller-tagline {
+  font-size: clamp(14px, 1.3vw, 17px);
+  color: var(--lumea-muted);
+  font-weight: 300;
+  line-height: 1.7;
+  max-width: 38ch;
+}
+
+.lumea-bestseller-meta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.lumea-bestseller-price {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.lumea-star-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--lumea-gold);
+  font-size: 12px;
+}
+
+.lumea-star-rating span {
+  color: var(--lumea-muted);
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+/* 14. Brand Story
+   ============================================================ */
+.lumea-story {
+  background: var(--lumea-dark);
+  padding-block: var(--lumea-section-y);
+  overflow: hidden;
+}
+
+.lumea-story-inner {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: clamp(48px, 7vw, 112px);
+  align-items: center;
+}
+
+.lumea-story-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  color: var(--lumea-muted-light);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  align-self: flex-start;
+  padding-top: 8px;
+}
+
+.lumea-story-text {
+  font-family: var(--lumea-font-display);
+  font-size: clamp(26px, 4vw, 52px);
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--lumea-text-light);
+  letter-spacing: -0.01em;
+}
+
+.lumea-story-text em {
+  font-style: italic;
+  color: var(--lumea-accent);
+}
+
+.lumea-story-caption {
+  margin-top: 40px;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--lumea-muted-light);
+  line-height: 1.75;
+  max-width: 52ch;
+}
+
+.lumea-story-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lumea-text-light);
+  border-bottom: 1px solid rgba(250, 248, 245, 0.3);
+  padding-bottom: 2px;
+  transition: border-color var(--lumea-dur-fast);
+}
+
+.lumea-story-link:hover { border-color: var(--lumea-text-light); }
+
+/* 15. Testimonials
+   ============================================================ */
+.lumea-testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--lumea-gap);
+}
+
+.lumea-testimonial-card {
+  background: var(--lumea-white);
+  border: 1px solid var(--lumea-border);
+  border-radius: var(--lumea-radius-lg);
+  padding: clamp(28px, 3vw, 44px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: box-shadow var(--lumea-dur-fast);
+}
+
+.lumea-testimonial-card:hover {
+  box-shadow: 0 8px 40px rgba(10, 9, 7, 0.06);
+}
+
+.lumea-testimonial-stars {
+  display: flex;
+  gap: 3px;
+  color: var(--lumea-gold);
+  font-size: 13px;
+}
+
+.lumea-testimonial-quote {
+  font-family: var(--lumea-font-display);
+  font-size: clamp(16px, 1.6vw, 20px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--lumea-text);
+  flex: 1;
+}
+
+.lumea-testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.lumea-testimonial-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--lumea-cream-2);
+  flex-shrink: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--lumea-font-display);
+  font-size: 18px;
+  color: var(--lumea-muted);
+}
+
+.lumea-testimonial-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--lumea-text);
+}
+
+.lumea-testimonial-handle {
+  font-size: 12px;
+  color: var(--lumea-muted);
+}
+
+/* 16. Ritual Steps
+   ============================================================ */
+.lumea-ritual {
+  background: var(--lumea-dark);
+  padding-block: var(--lumea-section-y);
+}
+
+.lumea-ritual-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--lumea-border-dark);
+  border: 1px solid var(--lumea-border-dark);
+  border-radius: var(--lumea-radius-lg);
+  overflow: hidden;
+  margin-top: clamp(48px, 6vw, 80px);
+}
+
+.lumea-ritual-step {
+  background: var(--lumea-dark);
+  padding: clamp(32px, 4vw, 56px) clamp(24px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: background var(--lumea-dur-fast);
+}
+
+.lumea-ritual-step:hover {
+  background: var(--lumea-dark-2);
+}
+
+.lumea-ritual-num {
+  font-family: var(--lumea-font-display);
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 400;
+  color: rgba(250, 248, 245, 0.08);
+  line-height: 1;
+}
+
+.lumea-ritual-step-title {
+  font-family: var(--lumea-font-display);
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 500;
+  color: var(--lumea-text-light);
+}
+
+.lumea-ritual-step-desc {
+  font-size: 14px;
+  color: var(--lumea-muted-light);
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+/* 17. Newsletter CTA
+   ============================================================ */
+.lumea-newsletter {
+  background: var(--lumea-dark-2);
+  border-top: 1px solid var(--lumea-border-dark);
+  border-bottom: 1px solid var(--lumea-border-dark);
+  padding-block: var(--lumea-section-y);
+}
+
+.lumea-newsletter-inner {
+  max-width: 640px;
+  margin-inline: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.lumea-newsletter-title {
+  font-family: var(--lumea-font-display);
+  font-size: clamp(32px, 5vw, 64px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--lumea-text-light);
+}
+
+.lumea-newsletter-sub {
+  font-size: 15px;
+  color: var(--lumea-muted-light);
+  font-weight: 300;
+  max-width: 44ch;
+}
+
+.lumea-newsletter-form {
+  display: flex;
+  gap: 0;
+  width: 100%;
+  max-width: 480px;
+  border: 1px solid var(--lumea-border-dark);
+  border-radius: var(--lumea-radius);
+  overflow: hidden;
+}
+
+.lumea-newsletter-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 16px 20px;
+  font-family: var(--lumea-font-body);
+  font-size: 14px;
+  color: var(--lumea-text-light);
+  outline: none;
+}
+
+.lumea-newsletter-input::placeholder {
+  color: var(--lumea-muted-light);
+}
+
+.lumea-newsletter-submit {
+  padding: 16px 24px;
+  background: var(--lumea-accent);
+  color: var(--lumea-white);
+  font-family: var(--lumea-font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  transition: background var(--lumea-dur-fast);
+  white-space: nowrap;
+}
+
+.lumea-newsletter-submit:hover { background: var(--lumea-accent-dark); }
+.lumea-newsletter-submit:focus-visible {
+  outline: 2px solid var(--lumea-accent);
+  outline-offset: 2px;
+}
+
+.lumea-newsletter-note {
+  font-size: 12px;
+  color: var(--lumea-muted-light);
+  opacity: 0.7;
+}
+
+/* 18. Site Footer
+   ============================================================ */
+.lumea-site-footer {
+  background: var(--lumea-dark);
+  padding-top: clamp(56px, 8vw, 112px);
+  padding-bottom: clamp(32px, 5vw, 56px);
+  color: var(--lumea-text-light);
+  border-top: 1px solid var(--lumea-border-dark);
+}
+
+.lumea-footer-main {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: clamp(32px, 5vw, 80px);
+  padding-bottom: clamp(48px, 6vw, 80px);
+  border-bottom: 1px solid var(--lumea-border-dark);
+}
+
+.lumea-footer-brand-text {
+  font-family: var(--lumea-font-display);
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--lumea-text-light);
+  display: block;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.lumea-footer-tagline {
+  font-size: 14px;
+  color: var(--lumea-muted-light);
+  font-weight: 300;
+  line-height: 1.7;
+  max-width: 30ch;
+  margin-bottom: 28px;
+}
+
+.lumea-footer-socials {
+  display: flex;
+  gap: 12px;
+}
+
+.lumea-footer-social-link {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--lumea-border-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--lumea-muted-light);
+  transition: color var(--lumea-dur-fast), border-color var(--lumea-dur-fast);
+}
+
+.lumea-footer-social-link:hover,
+.lumea-footer-social-link:focus-visible {
+  color: var(--lumea-text-light);
+  border-color: rgba(250, 248, 245, 0.3);
+  outline: none;
+}
+
+.lumea-footer-col-title {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lumea-text-light);
+  margin-bottom: 20px;
+}
+
+.lumea-footer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lumea-footer-nav-link {
+  font-size: 14px;
+  color: var(--lumea-muted-light);
+  font-weight: 300;
+  transition: color var(--lumea-dur-fast);
+}
+
+.lumea-footer-nav-link:hover,
+.lumea-footer-nav-link:focus-visible {
+  color: var(--lumea-text-light);
+  outline: none;
+}
+
+.lumea-footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 28px;
+  flex-wrap: wrap;
+}
+
+.lumea-footer-copy {
+  font-size: 12px;
+  color: var(--lumea-muted-light);
+  opacity: 0.6;
+}
+
+.lumea-footer-legal {
+  display: flex;
+  gap: 24px;
+}
+
+.lumea-footer-legal a {
+  font-size: 12px;
+  color: var(--lumea-muted-light);
+  opacity: 0.6;
+  transition: opacity var(--lumea-dur-fast);
+}
+
+.lumea-footer-legal a:hover { opacity: 1; }
+
+/* 19. Scroll Reveal Animations
+   ============================================================ */
+.lumea-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity var(--lumea-dur) var(--lumea-ease),
+              transform var(--lumea-dur) var(--lumea-ease);
+}
+
+.lumea-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lumea-reveal--delay-1 { transition-delay: 0.1s; }
+.lumea-reveal--delay-2 { transition-delay: 0.2s; }
+.lumea-reveal--delay-3 { transition-delay: 0.3s; }
+.lumea-reveal--delay-4 { transition-delay: 0.4s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lumea-reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* 20. Responsive
+   ============================================================ */
+@media (max-width: 1100px) {
+  .lumea-footer-main { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .lumea-concerns-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .lumea-ritual-steps { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .lumea-products-grid { grid-template-columns: repeat(2, 1fr); }
+  .lumea-ingredient { grid-template-columns: 1fr; }
+  .lumea-ingredient-visual { min-height: 320px; }
+  .lumea-bestseller-item { grid-template-columns: 1fr; min-height: auto; }
+  .lumea-bestseller-item:nth-child(even) { direction: ltr; }
+  .lumea-bestseller-visual { aspect-ratio: 16/9; position: relative; min-height: 280px; }
+  .lumea-testimonials-grid { grid-template-columns: 1fr 1fr; }
+  .lumea-story-inner { grid-template-columns: 1fr; }
+  .lumea-story-label { writing-mode: horizontal-tb; transform: none; }
+}
+
+@media (max-width: 680px) {
+  .lumea-site-nav { display: none; }
+  .lumea-mobile-menu-btn { display: flex; }
+  .lumea-products-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .lumea-concerns-grid { grid-template-columns: repeat(2, 1fr); }
+  .lumea-testimonials-grid { grid-template-columns: 1fr; }
+  .lumea-ritual-steps { grid-template-columns: 1fr; }
+  .lumea-footer-main { grid-template-columns: 1fr 1fr; }
+  .lumea-hero-footer { flex-direction: column; align-items: flex-start; }
+  .lumea-bestseller-item { grid-template-columns: 1fr; }
+  .lumea-newsletter-form { flex-direction: column; border-radius: var(--lumea-radius); }
+  .lumea-newsletter-submit { text-align: center; }
+}
+
+@media (max-width: 400px) {
+  .lumea-products-grid { grid-template-columns: 1fr; }
+  .lumea-concerns-grid { grid-template-columns: 1fr 1fr; }
+  .lumea-footer-main { grid-template-columns: 1fr; }
+}
+
+/* 21. Legacy / Page fallback (non-front-page)
+   ============================================================ */
+.lumea-site-main {
+  min-height: 60vh;
+  padding-top: 76px;
+}
+
+.lumea-page-section { padding: 80px 0; }
+
+.lumea-empty-state {
+  max-width: 760px;
+  background: var(--lumea-white);
+  border: 1px solid var(--lumea-border);
+  border-radius: var(--lumea-radius-xl);
+  padding: 48px;
+}
+
+.lumea-empty-state h1 {
+  font-family: var(--lumea-font-display);
+  font-size: clamp(42px, 7vw, 84px);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+  margin-bottom: 16px;
+}
+
+.lumea-empty-state p {
+  color: var(--lumea-muted);
+  font-size: 18px;
+  max-width: 520px;
+}
+
+.lumea-post-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.lumea-post-card {
+  background: var(--lumea-white);
+  border: 1px solid var(--lumea-border);
+  border-radius: var(--lumea-radius-xl);
+  padding: 28px;
+}
+
+.lumea-post-title { font-size: 24px; line-height: 1.2; margin-bottom: 12px; }
+.lumea-post-excerpt { color: var(--lumea-muted); }
+
+@media (max-width: 768px) {
+  .lumea-post-grid { grid-template-columns: 1fr; }
+}

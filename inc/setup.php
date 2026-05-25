@@ -1,0 +1,96 @@
+<?php
+/**
+ * Theme setup.
+ *
+ * @package Lumea
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Sets up theme defaults and registers WordPress features.
+ */
+function lumea_theme_setup() {
+
+	/**
+	 * Make theme available for translation.
+	 */
+	load_theme_textdomain( 'lumea', get_template_directory() . '/languages' );
+
+	/**
+	 * Core WordPress supports.
+	 */
+	add_theme_support( 'title-tag' );
+	add_theme_support( 'post-thumbnails' );
+	add_theme_support( 'automatic-feed-links' );
+	add_theme_support( 'responsive-embeds' );
+	add_theme_support( 'align-wide' );
+
+	/**
+	 * Custom logo support.
+	 */
+	add_theme_support(
+		'custom-logo',
+		array(
+			'height'      => 80,
+			'width'       => 220,
+			'flex-height' => true,
+			'flex-width'  => true,
+		)
+	);
+
+	/**
+	 * HTML5 markup support.
+	 */
+	add_theme_support(
+		'html5',
+		array(
+			'search-form',
+			'comment-form',
+			'comment-list',
+			'gallery',
+			'caption',
+			'style',
+			'script',
+		)
+	);
+
+	/**
+	 * WooCommerce support.
+	 */
+	add_theme_support(
+		'woocommerce',
+		array(
+			'thumbnail_image_width' => 600,
+			'single_image_width'    => 900,
+			'product_grid'          => array(
+				'default_rows'    => 4,
+				'min_rows'        => 2,
+				'max_rows'        => 8,
+				'default_columns' => 4,
+				'min_columns'     => 2,
+				'max_columns'     => 5,
+			),
+		)
+	);
+
+	/**
+	 * WooCommerce product gallery features.
+	 */
+	add_theme_support( 'wc-product-gallery-zoom' );
+	add_theme_support( 'wc-product-gallery-lightbox' );
+	add_theme_support( 'wc-product-gallery-slider' );
+
+	/**
+	 * Navigation menus.
+	 */
+	register_nav_menus(
+		array(
+			'primary' => esc_html__( 'Primary Menu', 'lumea' ),
+			'footer'  => esc_html__( 'Footer Menu', 'lumea' ),
+		)
+	);
+}
+add_action( 'after_setup_theme', 'lumea_theme_setup' );
