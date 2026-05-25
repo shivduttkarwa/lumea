@@ -4,7 +4,8 @@ param(
 )
 
 if (-not $Message) {
-    $Message = Read-Host "Enter commit message"
+    Write-Host "Enter commit message: " -NoNewline -ForegroundColor Green
+    $Message = Read-Host
 }
 
 if ([string]::IsNullOrWhiteSpace($Message)) {
@@ -41,6 +42,10 @@ if ($LASTEXITCODE -eq 0) {
     git push
 } else {
     git push -u origin $currentBranch
+}
+
+if ($LASTEXITCODE -eq 0) {
+    Write-Host "Success: commit pushed to origin/$currentBranch." -ForegroundColor Green
 }
 
 exit $LASTEXITCODE
