@@ -119,6 +119,28 @@ function lumea_enqueue_assets() {
 
 		wp_localize_script( 'lumea-slider', 'lumea_slider', array( 'slides' => $lumea_slides ) );
 
+		/* Swiper (bestsellers section) */
+		wp_enqueue_style(
+			'swiper',
+			'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css',
+			array(),
+			null
+		);
+		wp_enqueue_script(
+			'swiper',
+			'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js',
+			array(),
+			null,
+			true
+		);
+		wp_enqueue_script(
+			'lumea-bestsellers',
+			LUMEA_THEME_URI . '/assets/js/bestsellers.js',
+			array( 'swiper' ),
+			LUMEA_VERSION,
+			true
+		);
+
 		/* GSAP + ScrollTrigger (ritual section) */
 		wp_enqueue_script(
 			'gsap',

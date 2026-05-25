@@ -339,7 +339,129 @@ function lumea_customize_register( $wp_customize ) {
 	}
 
 	/* ════════════════════════════════════════════════════════
-	   4. THE RITUAL SECTION
+	   4. SHOP BESTSELLERS
+	   ════════════════════════════════════════════════════════ */
+	$wp_customize->add_section(
+		'lumea_bestsellers',
+		array(
+			'title' => esc_html__( 'Shop Bestsellers', 'lumea' ),
+			'panel' => 'lumea_theme',
+		)
+	);
+
+	// Section intro
+	foreach ( array(
+		'lumea_best_eyebrow' => array( 'Customer Favourites', 'Eyebrow Label' ),
+		'lumea_best_title'   => array( 'Shop Bestsellers',    'Section Title' ),
+	) as $key => $info ) {
+		$wp_customize->add_setting( $key, array(
+			'default'           => $info[0],
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $key, array(
+			'label'   => esc_html__( $info[1], 'lumea' ),
+			'section' => 'lumea_bestsellers',
+			'type'    => 'text',
+		) );
+	}
+
+	$wp_customize->add_setting( 'lumea_best_desc', array(
+		'default'           => 'Our most-loved formulas, trusted by thousands worldwide.',
+		'sanitize_callback' => 'sanitize_textarea_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_best_desc', array(
+		'label'   => esc_html__( 'Section Description', 'lumea' ),
+		'section' => 'lumea_bestsellers',
+		'type'    => 'textarea',
+	) );
+
+	// Products 1–5
+	$best_defaults = array(
+		1 => array( 'Radiance Serum',          '$48.00', 'No. 1' ),
+		2 => array( 'Velvet Face Cream',        '$42.00', 'No. 2' ),
+		3 => array( 'Botanical Cleansing Oil',  '$38.00', 'No. 3' ),
+		4 => array( 'Luminous Glow Toner',      '$34.00', 'No. 4' ),
+		5 => array( 'Skin Glow Face Oil',       '$52.00', 'No. 5' ),
+	);
+
+	foreach ( $best_defaults as $n => $d ) {
+		$p = 'lumea_best' . $n;
+
+		$wp_customize->add_setting( $p . '_name', array(
+			'default'           => $d[0],
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $p . '_name', array(
+			/* translators: %d: product number */
+			'label'   => sprintf( esc_html__( 'Product %d Name', 'lumea' ), $n ),
+			'section' => 'lumea_bestsellers',
+			'type'    => 'text',
+		) );
+
+		$wp_customize->add_setting( $p . '_price', array(
+			'default'           => $d[1],
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $p . '_price', array(
+			/* translators: %d: product number */
+			'label'   => sprintf( esc_html__( 'Product %d Price', 'lumea' ), $n ),
+			'section' => 'lumea_bestsellers',
+			'type'    => 'text',
+		) );
+
+		$wp_customize->add_setting( $p . '_badge', array(
+			'default'           => $d[2],
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $p . '_badge', array(
+			/* translators: %d: product number */
+			'label'       => sprintf( esc_html__( 'Product %d Badge (leave blank to hide)', 'lumea' ), $n ),
+			'section'     => 'lumea_bestsellers',
+			'type'        => 'text',
+		) );
+
+		$wp_customize->add_setting( $p . '_main_image', array(
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $p . '_main_image', array(
+			/* translators: %d: product number */
+			'label'   => sprintf( esc_html__( 'Product %d — Main Image', 'lumea' ), $n ),
+			'section' => 'lumea_bestsellers',
+		) ) );
+
+		$wp_customize->add_setting( $p . '_hover_image', array(
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $p . '_hover_image', array(
+			/* translators: %d: product number */
+			'label'   => sprintf( esc_html__( 'Product %d — Hover Image', 'lumea' ), $n ),
+			'section' => 'lumea_bestsellers',
+		) ) );
+
+		$wp_customize->add_setting( $p . '_url', array(
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $p . '_url', array(
+			/* translators: %d: product number */
+			'label'   => sprintf( esc_html__( 'Product %d Link URL (blank = shop)', 'lumea' ), $n ),
+			'section' => 'lumea_bestsellers',
+			'type'    => 'url',
+		) );
+	}
+
+	/* ════════════════════════════════════════════════════════
+	   5. THE RITUAL SECTION
 	   ════════════════════════════════════════════════════════ */
 	$wp_customize->add_section(
 		'lumea_ritual',

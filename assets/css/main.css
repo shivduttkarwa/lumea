@@ -1397,6 +1397,227 @@ a {
 }
 
 /* ════════════════════════════════════════════════════════
+   SHOP BESTSELLERS
+   ════════════════════════════════════════════════════════ */
+
+.lumea-best-section {
+  background: var(--lumea-bg);
+  padding: 0 0 96px;
+  overflow: hidden;
+}
+
+.lumea-best-inner {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.lumea-best-slider-area {
+  position: relative;
+}
+
+/* Swiper overrides */
+
+.lumea-best-swiper {
+  overflow: visible;
+}
+
+.lumea-best-swiper .swiper-wrapper {
+  align-items: stretch;
+}
+
+.lumea-best-swiper .swiper-slide {
+  height: auto;
+}
+
+/* Product card */
+
+.lumea-best-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.lumea-best-media-link {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: #ffffff;
+  text-decoration: none;
+}
+
+.lumea-best-media {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.lumea-best-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  transition: opacity 0.4s ease;
+  backface-visibility: hidden;
+}
+
+.lumea-best-img--main {
+  opacity: 1;
+  z-index: 1;
+}
+
+.lumea-best-img--hover {
+  opacity: 0;
+  z-index: 2;
+}
+
+.lumea-best-card:hover .lumea-best-img--main {
+  opacity: 0;
+}
+
+.lumea-best-card:hover .lumea-best-img--hover {
+  opacity: 1;
+}
+
+/* Badge */
+
+.lumea-best-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 8;
+  background: var(--lumea-text);
+  color: var(--lumea-bg);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  pointer-events: none;
+  font-family: Inter, sans-serif;
+}
+
+/* Product info */
+
+.lumea-best-info {
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 6px;
+}
+
+.lumea-best-name {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  font-family: Inter, sans-serif;
+}
+
+.lumea-best-name a {
+  color: var(--lumea-text);
+  text-decoration: none;
+}
+
+.lumea-best-price {
+  margin: 0;
+  font-size: 14px;
+  color: var(--lumea-muted);
+  font-weight: 500;
+}
+
+.lumea-best-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--lumea-border);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lumea-text);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.lumea-best-btn:hover {
+  color: var(--lumea-accent);
+}
+
+/* Nav arrows */
+
+.lumea-best-nav {
+  position: absolute;
+  top: 38%;
+  right: -12px;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.lumea-best-nav-btn {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--lumea-border);
+  background: var(--lumea-bg);
+  color: var(--lumea-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease;
+}
+
+.lumea-best-nav-btn:hover {
+  background: var(--lumea-text);
+  color: var(--lumea-bg);
+  border-color: var(--lumea-text);
+}
+
+.lumea-best-nav-btn.swiper-button-disabled {
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+@media (max-width: 1199px) {
+  .lumea-best-inner {
+    padding: 0 24px;
+  }
+
+  .lumea-best-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .lumea-best-section {
+    padding-bottom: 64px;
+  }
+
+  .lumea-best-inner {
+    padding: 0 20px;
+  }
+
+  .lumea-best-badge {
+    font-size: 9px;
+    padding: 4px 8px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════
    THE RITUAL SECTION
    ════════════════════════════════════════════════════════ */
 
@@ -1512,6 +1733,7 @@ a {
 }
 
 .lumea-ritual-panel p {
+  max-width: 700px;
   margin: 0;
   padding-top: 16px;
   padding-left: 44px;
@@ -1596,11 +1818,40 @@ a {
     gap: 16px;
   }
 
-  .lumea-ritual-mobile-card img {
+  .lumea-ritual-xfade-wrap {
+    position: relative;
     width: 100%;
     aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .lumea-ritual-xfade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     display: block;
+  }
+
+  .lumea-ritual-xfade--a {
+    animation: lumea-xfade-a 6s ease-in-out infinite;
+  }
+
+  .lumea-ritual-xfade--b {
+    animation: lumea-xfade-b 6s ease-in-out infinite;
+  }
+
+  @keyframes lumea-xfade-a {
+    0%, 38%  { opacity: 1; }
+    50%, 88% { opacity: 0; }
+    100%     { opacity: 1; }
+  }
+
+  @keyframes lumea-xfade-b {
+    0%, 38%  { opacity: 0; }
+    50%, 88% { opacity: 1; }
+    100%     { opacity: 0; }
   }
 
   .lumea-ritual-mobile-title {

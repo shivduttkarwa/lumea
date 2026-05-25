@@ -1,0 +1,47 @@
+Here's a master style brief + 8 individual prompts (one per image slot):
+
+Master style to include in every prompt:
+
+luxury skincare editorial photography, dark forest green and warm cream tones, soft directional studio lighting, shallow depth of field, botanical aesthetic, premium minimalist, 3:4 portrait, no text, no watermark, photorealistic --ar 3:4
+
+Step 1 — Cleanse
+
+Image 1:
+
+close-up of hands holding a glass bottle of botanical facial cleanser, foam texture, water droplets on dark green marble surface, warm cream and green color palette, luxury skincare editorial photography, soft studio lighting, shallow depth of field, 3:4 portrait, photorealistic, no text --ar 3:4
+
+Image 2:
+
+flat lay of fresh botanical ingredients — chamomile flowers, aloe vera slice, green leaves — arranged on dark matte surface with a minimal cleanser tube, luxury beauty editorial, overhead shot, warm natural tones, 3:4 portrait, photorealistic, no text --ar 3:4
+
+Step 2 — Tone & Prep
+
+Image 1:
+
+elegant glass toner bottle with mist spray, dewdrops suspended in air, dark moody background with soft rim lighting, botanical essence, luxury skincare editorial photography, 3:4 portrait, photorealistic, no text --ar 3:4
+
+Image 2:
+
+cotton pad soaked in clear botanical essence, rose petals and green herb leaves beside it, dark ceramic surface, close-up macro, warm studio light, luxury skincare editorial, 3:4 portrait, photorealistic, no text --ar 3:4
+
+Step 3 — Treat & Correct
+
+Image 1:
+
+luxury serum glass dropper bottle with amber golden liquid, single drop falling, dark green background, soft backlight creating glow through the liquid, editorial beauty photography, 3:4 portrait, photorealistic, no text --ar 3:4
+
+Image 2:
+
+close-up of a woman's dewy luminous skin, fingertip pressing serum into cheekbone, soft warm studio light, blurred botanical background, luxury skincare editorial, 3:4 portrait, photorealistic, no text --ar 3:4
+
+Step 4 — Restore & Protect
+
+Image 1:
+
+premium moisturiser cream in a wide-mouth glass jar with gold spatula, rich creamy texture, botanical leaf and petal beside it, dark matte surface, luxury beauty editorial, soft moody lighting, 3:4 portrait, photorealistic, no text --ar 3:4
+
+Image 2:
+
+woman's glowing luminous skin, hands gently cupping her face, eyes closed, warm soft light, dewy finish, botanical blurred background, luxury skincare editorial photography, 3:4 portrait, photorealistic, no text --ar 3:4
+
+Use these in Midjourney, Ideogram, or DALL-E 3. For Midjourney add --style raw to avoid the oversaturated look and keep it editorial.

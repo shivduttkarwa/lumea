@@ -184,6 +184,110 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 	</div>
 </section>
 
+<!-- Section Intro: Bestsellers -->
+<div class="lumea-section-intro">
+	<div class="lumea-container">
+		<span class="lumea-eyebrow"><?php echo esc_html( get_theme_mod( 'lumea_best_eyebrow', 'Customer Favourites' ) ); ?></span>
+		<h2 class="lumea-section-title"><?php echo esc_html( get_theme_mod( 'lumea_best_title', 'Shop Bestsellers' ) ); ?></h2>
+		<p class="lumea-section-desc"><?php echo esc_html( get_theme_mod( 'lumea_best_desc', 'Our most-loved formulas, trusted by thousands worldwide.' ) ); ?></p>
+	</div>
+</div>
+
+<!-- Bestsellers Slider -->
+<?php
+$lumea_best_defaults = array(
+	1 => array(
+		'name'        => 'Radiance Serum',
+		'price'       => '$48.00',
+		'badge'       => 'No. 1',
+		'main_image'  => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main1.jpg',
+		'hover_image' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover1a.jpg',
+		'url'         => '',
+	),
+	2 => array(
+		'name'        => 'Velvet Face Cream',
+		'price'       => '$42.00',
+		'badge'       => 'No. 2',
+		'main_image'  => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main2.jpg',
+		'hover_image' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover2.jpg',
+		'url'         => '',
+	),
+	3 => array(
+		'name'        => 'Botanical Cleansing Oil',
+		'price'       => '$38.00',
+		'badge'       => 'No. 3',
+		'main_image'  => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main3.jpg',
+		'hover_image' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover3.jpg',
+		'url'         => '',
+	),
+	4 => array(
+		'name'        => 'Luminous Glow Toner',
+		'price'       => '$34.00',
+		'badge'       => 'No. 4',
+		'main_image'  => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main4.jpg',
+		'hover_image' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover4.jpg',
+		'url'         => '',
+	),
+	5 => array(
+		'name'        => 'Skin Glow Face Oil',
+		'price'       => '$52.00',
+		'badge'       => 'No. 5',
+		'main_image'  => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main5.jpg',
+		'hover_image' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover5.jpg',
+		'url'         => '',
+	),
+);
+?>
+<section class="lumea-best-section" aria-label="<?php esc_attr_e( 'Shop Bestsellers', 'lumea' ); ?>">
+	<div class="lumea-best-inner">
+		<div class="lumea-best-slider-area">
+
+			<div class="swiper lumea-best-swiper">
+				<div class="swiper-wrapper">
+					<?php foreach ( $lumea_best_defaults as $n => $d ) :
+						$name        = esc_html( get_theme_mod( 'lumea_best' . $n . '_name',        $d['name'] ) );
+						$price       = esc_html( get_theme_mod( 'lumea_best' . $n . '_price',       $d['price'] ) );
+						$badge       = esc_html( get_theme_mod( 'lumea_best' . $n . '_badge',       $d['badge'] ) );
+						$main_img    = esc_url(  get_theme_mod( 'lumea_best' . $n . '_main_image',  $d['main_image'] ) );
+						$hover_img   = esc_url(  get_theme_mod( 'lumea_best' . $n . '_hover_image', $d['hover_image'] ) );
+						$product_url = lumea_product_url( 'lumea_best' . $n . '_url' );
+					?>
+					<div class="swiper-slide">
+						<article class="lumea-best-card">
+							<a href="<?php echo $product_url; ?>" class="lumea-best-media-link">
+								<?php if ( $badge ) : ?>
+								<span class="lumea-best-badge" aria-hidden="true"><?php echo $badge; ?></span>
+								<?php endif; ?>
+								<div class="lumea-best-media">
+									<img class="lumea-best-img lumea-best-img--main" src="<?php echo $main_img; ?>" alt="<?php echo $name; ?>" loading="lazy" />
+									<img class="lumea-best-img lumea-best-img--hover" src="<?php echo $hover_img; ?>" alt="" loading="lazy" aria-hidden="true" />
+								</div>
+							</a>
+							<div class="lumea-best-info">
+								<h3 class="lumea-best-name"><a href="<?php echo $product_url; ?>"><?php echo $name; ?></a></h3>
+								<p class="lumea-best-price"><?php echo $price; ?></p>
+								<a href="<?php echo $product_url; ?>" class="lumea-best-btn"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></a>
+							</div>
+						</article>
+					</div>
+					<?php endforeach; ?>
+				</div>
+			</div>
+
+			<div class="lumea-best-nav" aria-hidden="true">
+				<button class="lumea-best-nav-btn lumea-best-prev" type="button" aria-label="<?php esc_attr_e( 'Previous', 'lumea' ); ?>">
+					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+				</button>
+				<button class="lumea-best-nav-btn lumea-best-next" type="button" aria-label="<?php esc_attr_e( 'Next', 'lumea' ); ?>">
+					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+				</button>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+
 <!-- The Ritual Section -->
 <?php
 $ritual_steps = array(
@@ -274,9 +378,13 @@ $ritual_img_defaults = array(
 		<div class="lumea-ritual-mobile-list">
 			<?php foreach ( $ritual_steps as $n => $step ) :
 				$img1 = esc_url( get_theme_mod( 'lumea_ritual_step' . $n . '_image1', $ritual_img_defaults[ $n ][1] ) );
+				$img2 = esc_url( get_theme_mod( 'lumea_ritual_step' . $n . '_image2', $ritual_img_defaults[ $n ][2] ) );
 			?>
 			<article class="lumea-ritual-mobile-card">
-				<img src="<?php echo $img1; ?>" alt="<?php echo esc_attr( $step['title'] ); ?>" loading="lazy" />
+				<div class="lumea-ritual-xfade-wrap">
+					<img src="<?php echo $img1; ?>" alt="<?php echo esc_attr( $step['title'] ); ?>" class="lumea-ritual-xfade lumea-ritual-xfade--a" loading="lazy" />
+					<img src="<?php echo $img2; ?>" alt="" class="lumea-ritual-xfade lumea-ritual-xfade--b" loading="lazy" aria-hidden="true" />
+				</div>
 				<div>
 					<h3 class="lumea-ritual-mobile-title"><?php echo esc_html( $step['title'] ); ?></h3>
 					<p class="lumea-ritual-mobile-text"><?php echo esc_html( $step['text'] ); ?></p>
