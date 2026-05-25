@@ -21,3 +21,4 @@ define( 'LUMEA_THEME_URI', get_template_directory_uri() );
  */
 require LUMEA_THEME_DIR . '/inc/setup.php';
 require LUMEA_THEME_DIR . '/inc/enqueue.php';
+require LUMEA_THEME_DIR . '/inc/customizer.php';

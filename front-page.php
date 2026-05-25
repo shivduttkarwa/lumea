@@ -59,6 +59,47 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 </section>
 
+<!-- Products Section Intro -->
+<div class="lumea-products-intro">
+	<div class="lumea-container">
+		<span class="lumea-eyebrow"><?php esc_html_e( 'Editorial Collection', 'lumea' ); ?></span>
+		<h2 class="lumea-products-title"><?php esc_html_e( 'The Edit', 'lumea' ); ?></h2>
+		<p class="lumea-products-desc"><?php esc_html_e( 'Curated botanicals and skin-first formulas for luminous, everyday beauty.', 'lumea' ); ?></p>
+	</div>
+</div>
+
+<!-- Editorial Product Slider -->
+<section class="lumea-slider-section" aria-label="<?php esc_attr_e( 'Luméa editorial product drops', 'lumea' ); ?>">
+	<div class="lumea-slider-stage is-loading" id="lumeaSlider">
+		<div class="lumea-slides" id="lumeaSlides"></div>
+
+		<div class="lumea-hit-area" aria-hidden="true">
+			<button type="button" data-direction="prev"></button>
+			<button type="button" data-direction="next"></button>
+		</div>
+
+		<article class="lumea-content-card" id="lumeaCard">
+			<div class="lumea-card-body">
+				<span class="lumea-slide-number" id="lumeaNumber">01</span>
+				<p class="lumea-card-text" id="lumeaText">
+					<?php esc_html_e( 'Botanical skincare rituals designed for luminous skin, soft texture, and everyday radiance.', 'lumea' ); ?>
+				</p>
+			</div>
+			<a href="<?php echo esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : '#' ); ?>"
+			   class="lumea-card-button"><?php esc_html_e( 'Shop All', 'lumea' ); ?></a>
+		</article>
+
+		<div class="lumea-mobile-arrows" aria-label="<?php esc_attr_e( 'Slider controls', 'lumea' ); ?>">
+			<button type="button" class="lumea-mobile-arrow lumea-mobile-arrow--prev" data-direction="prev"
+			        aria-label="<?php esc_attr_e( 'Previous slide', 'lumea' ); ?>"></button>
+			<button type="button" class="lumea-mobile-arrow lumea-mobile-arrow--next" data-direction="next"
+			        aria-label="<?php esc_attr_e( 'Next slide', 'lumea' ); ?>"></button>
+		</div>
+
+		<div class="lumea-cursor-arrow" id="lumeaCursorArrow" aria-hidden="true"></div>
+	</div>
+</section>
+
 <?php wp_footer(); ?>
 </body>
 </html>
