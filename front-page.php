@@ -194,32 +194,27 @@ get_header();
 				array(
 					'name'  => __( 'Hydration', 'lumea' ),
 					'count' => 14,
-					'color' => '#2a3d5e',
-					'letter' => 'H',
+					'image' => 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=600&q=75',
 				),
 				array(
 					'name'  => __( 'Brightening', 'lumea' ),
 					'count' => 9,
-					'color' => '#5e4a2a',
-					'letter' => 'B',
+					'image' => 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=600&q=75',
 				),
 				array(
 					'name'  => __( 'Anti-Aging', 'lumea' ),
 					'count' => 11,
-					'color' => '#3d2a5e',
-					'letter' => 'A',
+					'image' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=600&q=75',
 				),
 				array(
 					'name'  => __( 'Sensitive', 'lumea' ),
 					'count' => 8,
-					'color' => '#2a5e4a',
-					'letter' => 'S',
+					'image' => 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=600&q=75',
 				),
 				array(
 					'name'  => __( 'Acne Care', 'lumea' ),
 					'count' => 7,
-					'color' => '#5e2a2a',
-					'letter' => 'C',
+					'image' => 'https://images.unsplash.com/photo-1526413232644-8a40f03cc03b?auto=format&fit=crop&w=600&q=75',
 				),
 			);
 
@@ -233,7 +228,7 @@ get_header();
 				   class="lumea-concern-card lumea-reveal lumea-reveal--delay-<?php echo esc_attr( $lumea_i + 1 ); ?>"
 				   aria-label="<?php echo esc_attr( sprintf( __( 'Shop %s — %d products', 'lumea' ), $lumea_concern['name'], $lumea_concern['count'] ) ); ?>">
 					<div class="lumea-concern-bg"
-					     style="background:<?php echo esc_attr( $lumea_concern['color'] ); ?>;"
+					     style="background-image:url('<?php echo esc_url( $lumea_concern['image'] ); ?>');background-size:cover;background-position:center top;"
 					     aria-hidden="true"></div>
 					<div class="lumea-concern-gradient" aria-hidden="true"></div>
 					<div class="lumea-concern-body">
@@ -259,6 +254,11 @@ get_header();
      ═══════════════════════════════════════════ -->
 <section class="lumea-ingredient" aria-labelledby="lumea-ingredient-heading">
 	<div class="lumea-ingredient-visual" aria-hidden="true">
+		<img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=900&q=80"
+		     alt=""
+		     aria-hidden="true"
+		     loading="lazy"
+		     style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.45;">
 		<div class="lumea-ingredient-visual-inner">
 			<div class="lumea-ingredient-circle">
 				<span class="lumea-ingredient-letter">R</span>
@@ -493,19 +493,19 @@ get_header();
 					'quote'  => __( '"I\'ve tried everything for my dry, sensitive skin. Nothing compares to the Barrier Repair Moisturiser. Three weeks in and my skin has completely transformed."', 'lumea' ),
 					'name'   => 'Sarah M.',
 					'handle' => __( 'Verified Buyer', 'lumea' ),
-					'initial'=> 'S',
+					'avatar' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=88&h=88&q=80',
 				),
 				array(
 					'quote'  => __( '"The Vitamin C serum is genuinely the best I\'ve used. Bright, even, glowing — and no irritation whatsoever. It\'s earned a permanent spot in my morning routine."', 'lumea' ),
 					'name'   => 'Priya K.',
 					'handle' => __( 'Verified Buyer', 'lumea' ),
-					'initial'=> 'P',
+					'avatar' => 'https://images.unsplash.com/photo-1494790108755-2616b5b99d58?auto=format&fit=crop&w=88&h=88&q=80',
 				),
 				array(
 					'quote'  => __( '"Finally, skincare that delivers on its promises. The Retinol Night Cream has visibly softened my fine lines in just six weeks. I\'m completely converted."', 'lumea' ),
 					'name'   => 'Amelia T.',
 					'handle' => __( 'Verified Buyer', 'lumea' ),
-					'initial'=> 'A',
+					'avatar' => 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=88&h=88&q=80',
 				),
 			);
 
@@ -521,9 +521,13 @@ get_header();
 						<?php echo esc_html( $lumea_t['quote'] ); ?>
 					</blockquote>
 					<footer class="lumea-testimonial-author">
-						<div class="lumea-testimonial-avatar" aria-hidden="true">
-							<?php echo esc_html( $lumea_t['initial'] ); ?>
-						</div>
+						<img class="lumea-testimonial-avatar"
+						     src="<?php echo esc_url( $lumea_t['avatar'] ); ?>"
+						     alt=""
+						     aria-hidden="true"
+						     loading="lazy"
+						     width="44"
+						     height="44">
 						<div>
 							<div class="lumea-testimonial-name"><?php echo esc_html( $lumea_t['name'] ); ?></div>
 							<div class="lumea-testimonial-handle"><?php echo esc_html( $lumea_t['handle'] ); ?></div>
@@ -587,9 +591,24 @@ get_header();
  */
 function lumea_fp_placeholder_products( $lumea_count = 3, $lumea_theme = 'dark' ) {
 	$lumea_placeholders = array(
-		array( 'name' => __( 'Brightening Vitamin C Serum', 'lumea' ), 'cat' => __( 'Serums', 'lumea' ), 'price' => '$68' ),
-		array( 'name' => __( 'Barrier Repair Moisturiser', 'lumea' ), 'cat' => __( 'Moisturisers', 'lumea' ), 'price' => '$54' ),
-		array( 'name' => __( 'Retinol Night Cream', 'lumea' ), 'cat' => __( 'Treatments', 'lumea' ), 'price' => '$76' ),
+		array(
+			'name'  => __( 'Brightening Vitamin C Serum', 'lumea' ),
+			'cat'   => __( 'Serums', 'lumea' ),
+			'price' => '$68',
+			'image' => 'https://images.unsplash.com/photo-1570194065650-d99fb4c15e99?auto=format&fit=crop&w=600&q=80',
+		),
+		array(
+			'name'  => __( 'Barrier Repair Moisturiser', 'lumea' ),
+			'cat'   => __( 'Moisturisers', 'lumea' ),
+			'price' => '$54',
+			'image' => 'https://images.unsplash.com/photo-1556228578-626b5cf0f42d?auto=format&fit=crop&w=600&q=80',
+		),
+		array(
+			'name'  => __( 'Retinol Night Cream', 'lumea' ),
+			'cat'   => __( 'Treatments', 'lumea' ),
+			'price' => '$76',
+			'image' => 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=600&q=80',
+		),
 	);
 	$lumea_light_mod = ( 'light' === $lumea_theme ) ? ' lumea-product-card--light' : '';
 	for ( $lumea_i = 0; $lumea_i < $lumea_count; $lumea_i++ ) :
@@ -597,9 +616,9 @@ function lumea_fp_placeholder_products( $lumea_count = 3, $lumea_theme = 'dark' 
 		?>
 		<article class="lumea-product-card<?php echo esc_attr( $lumea_light_mod ); ?> lumea-reveal lumea-reveal--delay-<?php echo esc_attr( $lumea_i + 1 ); ?>">
 			<div class="lumea-product-img-wrap">
-				<div style="width:100%;height:100%;background:var(--lumea-dark-3);display:flex;align-items:center;justify-content:center;">
-					<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(250,248,245,0.12)" stroke-width="1" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
-				</div>
+				<img src="<?php echo esc_url( $lumea_p['image'] ); ?>"
+				     alt="<?php echo esc_attr( $lumea_p['name'] ); ?>"
+				     loading="lazy">
 			</div>
 			<div class="lumea-product-category"><?php echo esc_html( $lumea_p['cat'] ); ?></div>
 			<h3 class="lumea-product-name"><?php echo esc_html( $lumea_p['name'] ); ?></h3>
@@ -617,20 +636,22 @@ function lumea_fp_placeholder_bestsellers() {
 			'name'    => __( 'Brightening Vitamin C Serum', 'lumea' ),
 			'tagline' => __( 'A potent 20% L-ascorbic acid formula stabilised with ferulic acid and vitamin E. Visibly brightens and protects against environmental damage within weeks.', 'lumea' ),
 			'price'   => '$68',
+			'image'   => 'https://images.unsplash.com/photo-1611080626919-7cf5a9dbab12?auto=format&fit=crop&w=900&q=80',
 		),
 		array(
 			'name'    => __( 'Retinol Renewal Night Cream', 'lumea' ),
 			'tagline' => __( 'Microencapsulated retinol delivers overnight transformation without the irritation. Wake up to smoother, firmer, more luminous skin every morning.', 'lumea' ),
 			'price'   => '$76',
+			'image'   => 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&w=900&q=80',
 		),
 	);
 	foreach ( $lumea_items as $lumea_i => $lumea_item ) :
 		?>
 		<article class="lumea-bestseller-item">
-			<div class="lumea-bestseller-visual" style="background:var(--lumea-dark-2);">
-				<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
-					<svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="rgba(250,248,245,0.08)" stroke-width="0.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="5"/></svg>
-				</div>
+			<div class="lumea-bestseller-visual">
+				<img src="<?php echo esc_url( $lumea_item['image'] ); ?>"
+				     alt="<?php echo esc_attr( $lumea_item['name'] ); ?>"
+				     loading="lazy">
 			</div>
 			<div class="lumea-bestseller-content">
 				<div class="lumea-bestseller-num lumea-reveal">
