@@ -1401,8 +1401,8 @@ a {
    ════════════════════════════════════════════════════════ */
 
 .lumea-ritual {
-  background: #111a14;
-  color: #fffaf3;
+  background: var(--lumea-bg);
+  color: var(--lumea-text);
   position: relative;
 }
 
@@ -1432,23 +1432,23 @@ a {
   letter-spacing: -0.012em;
   font-weight: 500;
   margin: 0;
-  color: #fffaf3;
+  color: var(--lumea-text);
 }
 
 .lumea-ritual-heading em {
   display: block;
   font-weight: 400;
   font-style: normal;
-  color: rgba(255, 250, 243, 0.45);
+  color: var(--lumea-muted);
 }
 
 .lumea-ritual-intro {
-  max-width: 480px;
+  max-width: 640px;
   margin: 28px 0 0;
   font-size: 17px;
   line-height: 1.5;
   font-weight: 500;
-  color: rgba(255, 250, 243, 0.65);
+  color: var(--lumea-muted);
 }
 
 /* Accordion */
@@ -1458,7 +1458,6 @@ a {
   display: flex;
   flex-direction: column;
   gap: 28px;
-  max-width: 560px;
 }
 
 .lumea-ritual-acc {
@@ -1475,16 +1474,16 @@ a {
   padding: 0 0 10px;
   margin: 0;
   border: 0;
-  border-bottom: 1px solid rgba(255, 250, 243, 0.2);
+  border-bottom: 1px solid var(--lumea-border);
   background: transparent;
-  color: #fffaf3;
+  color: var(--lumea-text);
   text-align: left;
   cursor: pointer;
   font-family: Inter, sans-serif;
 }
 
 .lumea-ritual-acc-head:focus-visible {
-  outline: 2px solid rgba(255, 250, 243, 0.5);
+  outline: 2px solid var(--lumea-accent);
   outline-offset: 4px;
 }
 
@@ -1528,7 +1527,7 @@ a {
   line-height: 1.6;
   letter-spacing: 0.01em;
   font-weight: 400;
-  color: rgba(255, 250, 243, 0.72);
+  color: var(--lumea-muted);
 }
 
 /* Right: image stack */
@@ -1552,13 +1551,14 @@ a {
 
 .lumea-ritual-image-wrap {
   width: 100%;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
-  background: #0a1209;
+  background: #ede8e3;
 }
 
 .lumea-ritual-image-wrap img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   object-fit: cover;
   transform-origin: center;
@@ -1614,18 +1614,138 @@ a {
   .lumea-ritual-mobile-title {
     margin: 0;
     padding-bottom: 8px;
-    border-bottom: 1px solid rgba(255, 250, 243, 0.2);
+    border-bottom: 1px solid var(--lumea-border);
     font-size: 12px;
     letter-spacing: 0.1em;
     font-weight: 700;
     text-transform: uppercase;
-    color: #fffaf3;
+    color: var(--lumea-text);
   }
 
   .lumea-ritual-mobile-text {
     margin: 14px 0 0;
     font-size: 15px;
     line-height: 1.6;
-    color: rgba(255, 250, 243, 0.72);
+    color: var(--lumea-muted);
+  }
+}
+
+/* ════════════════════════════════════════════════════════
+   FOOTER
+   ════════════════════════════════════════════════════════ */
+
+.lumea-footer {
+  background: #0e1410;
+  border-top: none;
+  padding: 64px 0 40px;
+}
+
+.lumea-footer-inner {
+  width: min(100% - 96px, var(--lumea-container));
+  margin-inline: auto;
+}
+
+.lumea-footer-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  padding-bottom: 48px;
+}
+
+.lumea-footer-logo {
+  font-family: "ClashDisplay-Variable", "Clash Display", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #fffaf3;
+  display: block;
+}
+
+.lumea-footer-tagline {
+  margin: 10px 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(255, 250, 243, 0.5);
+  max-width: 240px;
+}
+
+.lumea-footer-nav {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 2px;
+}
+
+.lumea-footer-nav a {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 250, 243, 0.75);
+  transition: color 0.2s ease;
+}
+
+.lumea-footer-nav a:hover {
+  color: #fffaf3;
+}
+
+.lumea-footer-bottom {
+  border-top: 1px solid rgba(255, 250, 243, 0.1);
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.lumea-footer-copy {
+  margin: 0;
+  font-size: 12px;
+  color: rgba(255, 250, 243, 0.38);
+  letter-spacing: 0.02em;
+}
+
+.lumea-footer-social {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.lumea-footer-social a {
+  color: rgba(255, 250, 243, 0.5);
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease;
+}
+
+.lumea-footer-social a:hover {
+  color: #fffaf3;
+}
+
+@media (max-width: 768px) {
+  .lumea-footer {
+    padding: 48px 0 32px;
+  }
+
+  .lumea-footer-inner {
+    width: min(100% - 40px, var(--lumea-container));
+  }
+
+  .lumea-footer-top {
+    flex-direction: column;
+    gap: 28px;
+    padding-bottom: 36px;
+  }
+
+  .lumea-footer-nav {
+    gap: 16px 28px;
+  }
+
+  .lumea-footer-bottom {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 16px;
   }
 }

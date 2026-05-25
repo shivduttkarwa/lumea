@@ -523,5 +523,89 @@ function lumea_customize_register( $wp_customize ) {
 			'type'    => 'text',
 		) );
 	}
+	/* ════════════════════════════════════════════════════════
+	   6. FOOTER
+	   ════════════════════════════════════════════════════════ */
+	$wp_customize->add_section(
+		'lumea_footer',
+		array(
+			'title' => esc_html__( 'Footer', 'lumea' ),
+			'panel' => 'lumea_theme',
+		)
+	);
+
+	// Tagline
+	$wp_customize->add_setting( 'lumea_footer_tagline', array(
+		'default'           => 'Botanical skincare for luminous living.',
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_footer_tagline', array(
+		'label'   => esc_html__( 'Brand Tagline', 'lumea' ),
+		'section' => 'lumea_footer',
+		'type'    => 'text',
+	) );
+
+	// Copyright text
+	$wp_customize->add_setting( 'lumea_footer_copy', array(
+		'default'           => 'Luméa. All rights reserved.',
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_footer_copy', array(
+		'label'       => esc_html__( 'Copyright Text (year prepended automatically)', 'lumea' ),
+		'section'     => 'lumea_footer',
+		'type'        => 'text',
+	) );
+
+	// Nav links
+	$footer_link_defaults = array(
+		1 => array( 'Shop',    '#' ),
+		2 => array( 'Journal', '#' ),
+		3 => array( 'About',   '#' ),
+		4 => array( 'Contact', '#' ),
+	);
+	foreach ( $footer_link_defaults as $n => $defaults ) {
+		$wp_customize->add_setting( 'lumea_footer_link' . $n . '_label', array(
+			'default'           => $defaults[0],
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( 'lumea_footer_link' . $n . '_label', array(
+			/* translators: %d: link number */
+			'label'   => sprintf( esc_html__( 'Nav Link %d Label', 'lumea' ), $n ),
+			'section' => 'lumea_footer',
+			'type'    => 'text',
+		) );
+		$wp_customize->add_setting( 'lumea_footer_link' . $n . '_url', array(
+			'default'           => $defaults[1],
+			'sanitize_callback' => 'esc_url_raw',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( 'lumea_footer_link' . $n . '_url', array(
+			/* translators: %d: link number */
+			'label'   => sprintf( esc_html__( 'Nav Link %d URL', 'lumea' ), $n ),
+			'section' => 'lumea_footer',
+			'type'    => 'url',
+		) );
+	}
+
+	// Social links
+	foreach ( array(
+		'lumea_footer_instagram'  => 'Instagram URL',
+		'lumea_footer_tiktok'     => 'TikTok URL',
+		'lumea_footer_pinterest'  => 'Pinterest URL',
+	) as $key => $label ) {
+		$wp_customize->add_setting( $key, array(
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $key, array(
+			'label'   => esc_html__( $label, 'lumea' ),
+			'section' => 'lumea_footer',
+			'type'    => 'url',
+		) );
+	}
 }
 add_action( 'customize_register', 'lumea_customize_register' );
