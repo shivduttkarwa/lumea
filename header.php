@@ -57,12 +57,48 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</nav>
 
 		<div class="lumea-header-actions">
+
+			<!-- Search -->
+			<button class="lumea-header-icon-btn" aria-label="<?php esc_attr_e( 'Search', 'lumea' ); ?>" data-lumea-search-trigger>
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+			</button>
+
+			<!-- Account -->
+			<div class="lumea-account-wrap" data-lumea-account-wrap>
+				<button class="lumea-header-icon-btn" aria-label="<?php esc_attr_e( 'My account', 'lumea' ); ?>" aria-expanded="false" aria-haspopup="true" data-lumea-account-trigger>
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+				</button>
+				<div class="lumea-account-dropdown" aria-hidden="true" data-lumea-account-dropdown>
+					<?php if ( is_user_logged_in() ) : ?>
+					<a href="<?php echo esc_url( class_exists( 'WooCommerce' ) ? wc_get_account_endpoint_url( 'dashboard' ) : admin_url() ); ?>"><?php esc_html_e( 'My Account', 'lumea' ); ?></a>
+					<?php if ( class_exists( 'WooCommerce' ) ) : ?>
+					<a href="<?php echo esc_url( wc_get_account_endpoint_url( 'orders' ) ); ?>"><?php esc_html_e( 'Orders', 'lumea' ); ?></a>
+					<?php endif; ?>
+					<div class="lumea-account-divider"></div>
+					<a href="<?php echo esc_url( wp_logout_url( home_url( '/' ) ) ); ?>"><?php esc_html_e( 'Sign Out', 'lumea' ); ?></a>
+					<?php else : ?>
+					<a href="<?php echo esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'myaccount' ) : wp_login_url() ); ?>"><?php esc_html_e( 'Sign In', 'lumea' ); ?></a>
+					<a href="<?php echo esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'myaccount' ) : wp_registration_url() ); ?>"><?php esc_html_e( 'Create Account', 'lumea' ); ?></a>
+					<?php endif; ?>
+				</div>
+			</div>
+
+			<!-- Wishlist -->
+			<div class="lumea-wishlist-wrap">
+				<button class="lumea-header-icon-btn" aria-label="<?php esc_attr_e( 'Favourites', 'lumea' ); ?>" data-lumea-wishlist-trigger>
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+					<span class="lumea-wishlist-count" aria-hidden="true"></span>
+				</button>
+			</div>
+
+			<!-- Cart -->
 			<?php if ( class_exists( 'WooCommerce' ) ) : ?>
 			<button class="lumea-cart-trigger" aria-label="<?php esc_attr_e( 'Open cart', 'lumea' ); ?>" data-lumea-cart-trigger>
 				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
 				<span class="lumea-cart-count<?php echo WC()->cart->get_cart_contents_count() ? ' lumea-cart-count--visible' : ''; ?>"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
 			</button>
 			<?php endif; ?>
+
 			<button class="lumea-nav-toggle" aria-label="<?php esc_attr_e( 'Open menu', 'lumea' ); ?>" aria-expanded="false" aria-controls="lumeaMobileNav" data-lumea-nav-toggle>
 				<span class="lumea-nav-toggle-bar"></span>
 				<span class="lumea-nav-toggle-bar"></span>
@@ -71,6 +107,45 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	</div>
 </header>
+
+<!-- Search Overlay -->
+<div class="lumea-search-overlay" id="lumeaSearchOverlay" aria-hidden="true" data-lumea-search-overlay>
+	<button class="lumea-search-overlay-close" aria-label="<?php esc_attr_e( 'Close search', 'lumea' ); ?>" data-lumea-search-close>
+		<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+	</button>
+	<div class="lumea-search-overlay-inner">
+		<p class="lumea-search-overlay-label"><?php esc_html_e( 'Search', 'lumea' ); ?></p>
+		<form class="lumea-search-overlay-form" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+			<input type="search" class="lumea-search-overlay-input" name="s" placeholder="<?php esc_attr_e( 'Search products, articles…', 'lumea' ); ?>" autocomplete="off" aria-label="<?php esc_attr_e( 'Search', 'lumea' ); ?>">
+			<button type="submit" class="lumea-search-overlay-submit" aria-label="<?php esc_attr_e( 'Submit search', 'lumea' ); ?>">
+				<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+			</button>
+		</form>
+		<p class="lumea-search-overlay-hint"><?php esc_html_e( 'Press Enter to search · Esc to close', 'lumea' ); ?></p>
+	</div>
+</div>
+
+<!-- Wishlist Drawer -->
+<div class="lumea-wishlist-drawer" id="lumeaWishlistDrawer" aria-hidden="true" data-lumea-wishlist-drawer>
+	<div class="lumea-wishlist-drawer-header">
+		<h2 class="lumea-wishlist-drawer-title"><?php esc_html_e( 'Favourites', 'lumea' ); ?></h2>
+		<button class="lumea-wishlist-drawer-close" aria-label="<?php esc_attr_e( 'Close favourites', 'lumea' ); ?>" data-lumea-wishlist-close>
+			<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+		</button>
+	</div>
+	<div class="lumea-wishlist-body">
+		<div class="lumea-wishlist-items" data-lumea-wishlist-items></div>
+		<div class="lumea-wishlist-empty-state" data-lumea-wishlist-empty hidden>
+			<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+			<p class="lumea-wishlist-empty-title"><?php esc_html_e( 'No saved items yet', 'lumea' ); ?></p>
+			<p class="lumea-wishlist-empty-text"><?php esc_html_e( 'Save products you love and find them here.', 'lumea' ); ?></p>
+			<?php if ( class_exists( 'WooCommerce' ) ) : ?>
+			<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="lumea-404-btn lumea-404-btn--primary"><?php esc_html_e( 'Shop All', 'lumea' ); ?></a>
+			<?php endif; ?>
+		</div>
+	</div>
+</div>
+<div class="lumea-wishlist-overlay" data-lumea-wishlist-overlay aria-hidden="true"></div>
 
 <!-- Mobile Nav -->
 <div class="lumea-mobile-nav" id="lumeaMobileNav" aria-hidden="true" data-lumea-mobile-nav>

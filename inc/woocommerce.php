@@ -138,6 +138,34 @@ add_action( 'after_switch_theme', 'lumea_ensure_classic_wc_pages' );
 add_action( 'admin_init',         'lumea_ensure_classic_wc_pages' );
 
 /**
+ * AJAX handler — return product data for wishlist IDs stored in localStorage.
+ */
+function lumea_get_wishlist_items() {
+	check_ajax_referer( 'lumea_wishlist', 'nonce' );
+
+	$ids   = isset( $_POST['ids'] ) ? array_map( 'absint', (array) $_POST['ids'] ) : array();
+	$items = array();
+
+	foreach ( $ids as $id ) {
+		$product = wc_get_product( $id );
+		if ( ! $product || ! $product->is_visible() ) {
+			continue;
+		}
+		$items[] = array(
+			'id'    => $id,
+			'name'  => $product->get_name(),
+			'url'   => get_permalink( $id ),
+			'price' => wp_strip_all_tags( $product->get_price_html() ),
+			'image' => wp_get_attachment_image_url( $product->get_image_id(), 'woocommerce_thumbnail' ) ?: '',
+		);
+	}
+
+	wp_send_json_success( $items );
+}
+add_action( 'wp_ajax_lumea_wishlist_items',        'lumea_get_wishlist_items' );
+add_action( 'wp_ajax_nopriv_lumea_wishlist_items', 'lumea_get_wishlist_items' );
+
+/**
  * Front-end fallback: if cart/checkout pages still have blocks on the
  * first front-end visit (before any admin visit), convert and redirect once.
  */

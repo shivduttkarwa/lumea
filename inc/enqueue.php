@@ -47,6 +47,16 @@ function lumea_enqueue_assets() {
 		true
 	);
 
+	wp_localize_script(
+		'lumea-main',
+		'lumeaData',
+		array(
+			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+			'nonce'   => wp_create_nonce( 'lumea_wishlist' ),
+			'shopUrl' => function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' ),
+		)
+	);
+
 	/* Hero canvas script + editorial slider — front page only */
 	if ( is_front_page() ) {
 		wp_enqueue_script(
