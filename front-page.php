@@ -46,6 +46,12 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 					<span></span>
 				</span>
 			</div>
+			<?php if ( class_exists( 'WooCommerce' ) ) : ?>
+			<button class="lumea-cart-trigger" aria-label="<?php esc_attr_e( 'Open cart', 'lumea' ); ?>" data-lumea-cart-trigger>
+				<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+				<span class="lumea-cart-count<?php echo WC()->cart->get_cart_contents_count() ? ' lumea-cart-count--visible' : ''; ?>"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+			</button>
+			<?php endif; ?>
 		</div>
 
 		<h3 class="hero-label"><?php echo esc_html( get_theme_mod( 'lumea_hero_label', 'Glow' ) ); ?></h3>
@@ -237,6 +243,49 @@ $lumea_best_defaults = array(
 		'url'         => '',
 	),
 );
+
+/* WooCommerce product query — tag: bestseller, fallback: top sellers */
+$lumea_best_products = array();
+if ( class_exists( 'WooCommerce' ) ) {
+	$_bq = new WP_Query( array(
+		'post_type'      => 'product',
+		'posts_per_page' => 5,
+		'post_status'    => 'publish',
+		'tax_query'      => array( array(
+			'taxonomy' => 'product_tag',
+			'field'    => 'slug',
+			'terms'    => 'bestseller',
+		) ),
+	) );
+	if ( ! $_bq->have_posts() ) {
+		$_bq = new WP_Query( array(
+			'post_type'      => 'product',
+			'posts_per_page' => 5,
+			'post_status'    => 'publish',
+			'meta_key'       => 'total_sales',
+			'orderby'        => 'meta_value_num',
+			'order'          => 'DESC',
+		) );
+	}
+	while ( $_bq->have_posts() ) {
+		$_bq->the_post();
+		$_bp      = wc_get_product( get_the_ID() );
+		$_bpgal   = $_bp->get_gallery_image_ids();
+		$_bpterms = get_the_terms( get_the_ID(), 'product_cat' );
+		$lumea_best_products[] = array(
+			'id'          => get_the_ID(),
+			'name'        => get_the_title(),
+			'price'       => $_bp->get_price_html(),
+			'badge'       => $_bp->is_on_sale() ? esc_html__( 'Sale', 'lumea' ) : ( ! empty( $_bpterms ) ? $_bpterms[0]->name : '' ),
+			'is_sale'     => $_bp->is_on_sale(),
+			'main_image'  => get_the_post_thumbnail_url( get_the_ID(), 'woocommerce_single' ),
+			'hover_image' => ! empty( $_bpgal ) ? wp_get_attachment_image_url( $_bpgal[0], 'woocommerce_single' ) : '',
+			'url'         => get_permalink(),
+			'type'        => $_bp->get_type(),
+		);
+	}
+	wp_reset_postdata();
+}
 ?>
 <section class="lumea-best-section" aria-label="<?php esc_attr_e( 'Shop Bestsellers', 'lumea' ); ?>">
 	<div class="lumea-best-inner">
@@ -244,29 +293,59 @@ $lumea_best_defaults = array(
 
 			<div class="swiper lumea-best-swiper">
 				<div class="swiper-wrapper">
-					<?php foreach ( $lumea_best_defaults as $n => $d ) :
-						$name        = esc_html( get_theme_mod( 'lumea_best' . $n . '_name',        $d['name'] ) );
-						$price       = esc_html( get_theme_mod( 'lumea_best' . $n . '_price',       $d['price'] ) );
-						$badge       = esc_html( get_theme_mod( 'lumea_best' . $n . '_badge',       $d['badge'] ) );
-						$main_img    = esc_url(  get_theme_mod( 'lumea_best' . $n . '_main_image',  $d['main_image'] ) );
-						$hover_img   = esc_url(  get_theme_mod( 'lumea_best' . $n . '_hover_image', $d['hover_image'] ) );
-						$product_url = lumea_product_url( 'lumea_best' . $n . '_url' );
+					<?php
+					$lumea_best_source = ( class_exists( 'WooCommerce' ) && ! empty( $lumea_best_products ) ) ? $lumea_best_products : array();
+					if ( empty( $lumea_best_source ) ) :
+						foreach ( $lumea_best_defaults as $n => $d ) :
+							$lumea_best_source[] = array(
+								'id'          => 0,
+								'name'        => esc_html( get_theme_mod( 'lumea_best' . $n . '_name',        $d['name'] ) ),
+								'price'       => esc_html( get_theme_mod( 'lumea_best' . $n . '_price',       $d['price'] ) ),
+								'badge'       => esc_html( get_theme_mod( 'lumea_best' . $n . '_badge',       $d['badge'] ) ),
+								'is_sale'     => false,
+								'main_image'  => esc_url( get_theme_mod( 'lumea_best' . $n . '_main_image',  $d['main_image'] ) ),
+								'hover_image' => esc_url( get_theme_mod( 'lumea_best' . $n . '_hover_image', $d['hover_image'] ) ),
+								'url'         => lumea_product_url( 'lumea_best' . $n . '_url' ),
+								'type'        => 'simple',
+							);
+						endforeach;
+					endif;
+					?>
+					<?php foreach ( $lumea_best_source as $bp ) :
+						$bp_id    = (int) $bp['id'];
+						$bp_name  = esc_html( $bp['name'] );
+						$bp_url   = esc_url( $bp['url'] );
+						$bp_badge = $bp['badge'];
+						$bp_main  = esc_url( $bp['main_image'] );
+						$bp_hover = esc_url( isset( $bp['hover_image'] ) ? $bp['hover_image'] : '' );
 					?>
 					<div class="swiper-slide">
 						<article class="lumea-best-card">
-							<a href="<?php echo $product_url; ?>" class="lumea-best-media-link">
-								<?php if ( $badge ) : ?>
-								<span class="lumea-best-badge" aria-hidden="true"><?php echo $badge; ?></span>
+							<a href="<?php echo $bp_url; ?>" class="lumea-best-media-link">
+								<?php if ( $bp_badge ) : ?>
+								<span class="lumea-best-badge<?php echo ! empty( $bp['is_sale'] ) ? ' lumea-best-badge--sale' : ''; ?>" aria-hidden="true"><?php echo esc_html( $bp_badge ); ?></span>
 								<?php endif; ?>
 								<div class="lumea-best-media">
-									<img class="lumea-best-img lumea-best-img--main" src="<?php echo $main_img; ?>" alt="<?php echo $name; ?>" loading="lazy" />
-									<img class="lumea-best-img lumea-best-img--hover" src="<?php echo $hover_img; ?>" alt="" loading="lazy" aria-hidden="true" />
+									<img class="lumea-best-img lumea-best-img--main" src="<?php echo $bp_main; ?>" alt="<?php echo $bp_name; ?>" loading="lazy" />
+									<?php if ( $bp_hover ) : ?>
+									<img class="lumea-best-img lumea-best-img--hover" src="<?php echo $bp_hover; ?>" alt="" loading="lazy" aria-hidden="true" />
+									<?php endif; ?>
 								</div>
 							</a>
 							<div class="lumea-best-info">
-								<h3 class="lumea-best-name"><a href="<?php echo $product_url; ?>"><?php echo $name; ?></a></h3>
-								<p class="lumea-best-price"><?php echo $price; ?></p>
-								<a href="<?php echo $product_url; ?>" class="lumea-best-btn"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></a>
+								<h3 class="lumea-best-name"><a href="<?php echo $bp_url; ?>"><?php echo $bp_name; ?></a></h3>
+								<p class="lumea-best-price"><?php echo isset( $bp['price'] ) ? wp_kses_post( $bp['price'] ) : ''; ?></p>
+								<?php if ( $bp_id && class_exists( 'WooCommerce' ) ) : ?>
+								<a href="<?php echo esc_url( add_query_arg( 'add-to-cart', $bp_id, $bp_url ) ); ?>"
+								   class="lumea-best-btn add_to_cart_button ajax_add_to_cart"
+								   data-product_id="<?php echo $bp_id; ?>"
+								   data-product_type="<?php echo esc_attr( $bp['type'] ); ?>"
+								   data-quantity="1"
+								   aria-label="<?php echo esc_attr( sprintf( __( 'Add %s to cart', 'lumea' ), $bp_name ) ); ?>"
+								   rel="nofollow"><?php esc_html_e( 'Add to Cart', 'lumea' ); ?></a>
+								<?php else : ?>
+								<a href="<?php echo $bp_url; ?>" class="lumea-best-btn"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></a>
+								<?php endif; ?>
 							</div>
 						</article>
 					</div>
@@ -403,29 +482,92 @@ $lumea_latest = array(
 			</a>
 		</div>
 
+		<?php
+		$lumea_lp_source = array();
+		if ( class_exists( 'WooCommerce' ) ) {
+			$lumea_lp_query = new WP_Query( array(
+				'post_type'      => 'product',
+				'posts_per_page' => 8,
+				'orderby'        => 'date',
+				'order'          => 'DESC',
+				'post_status'    => 'publish',
+			) );
+			while ( $lumea_lp_query->have_posts() ) {
+				$lumea_lp_query->the_post();
+				$_lp           = wc_get_product( get_the_ID() );
+				$_lp_gallery   = $_lp->get_gallery_image_ids();
+				$lumea_lp_source[] = array(
+					'id'        => get_the_ID(),
+					'name'      => get_the_title(),
+					'price'     => $_lp->get_price_html(),
+					'old_price' => $_lp->is_on_sale() ? wc_price( $_lp->get_regular_price() ) : '',
+					'is_sale'   => $_lp->is_on_sale(),
+					'badge'     => $_lp->is_on_sale() ? esc_html__( 'Sale', 'lumea' ) : esc_html__( 'New', 'lumea' ),
+					'image'     => get_the_post_thumbnail_url( get_the_ID(), 'woocommerce_single' ),
+					'hover'     => ! empty( $_lp_gallery ) ? wp_get_attachment_image_url( $_lp_gallery[0], 'woocommerce_single' ) : '',
+					'url'       => get_permalink(),
+					'type'      => $_lp->get_type(),
+				);
+			}
+			wp_reset_postdata();
+		}
+		if ( empty( $lumea_lp_source ) ) {
+			foreach ( $lumea_latest as $p ) {
+				$lumea_lp_source[] = array(
+					'id'        => 0,
+					'name'      => $p['name'],
+					'price'     => $p['price'],
+					'old_price' => $p['old_price'],
+					'is_sale'   => ! empty( $p['old_price'] ),
+					'badge'     => $p['badge'],
+					'image'     => $p['image'],
+					'hover'     => $p['hover'],
+					'url'       => $p['url'],
+					'type'      => 'simple',
+				);
+			}
+		}
+		?>
 		<div class="lumea-latest-grid">
-			<?php foreach ( $lumea_latest as $p ) :
-				$lp_badge     = $p['badge'];
-				$lp_old_price = $p['old_price'];
-				$lp_is_sale   = ! empty( $lp_old_price );
+			<?php foreach ( $lumea_lp_source as $lp ) :
+				$lp_id       = (int) $lp['id'];
+				$lp_name     = esc_html( $lp['name'] );
+				$lp_url      = esc_url( $lp['url'] );
+				$lp_badge    = $lp['badge'];
+				$lp_is_sale  = ! empty( $lp['is_sale'] );
+				$lp_old      = $lp['old_price'];
+				$lp_img      = esc_url( $lp['image'] );
+				$lp_hover    = esc_url( $lp['hover'] );
 			?>
 			<article class="lumea-lp-card">
-				<a href="<?php echo esc_url( $p['url'] ); ?>" class="lumea-lp-media">
+				<a href="<?php echo $lp_url; ?>" class="lumea-lp-media">
 					<?php if ( $lp_badge ) : ?>
 					<span class="lumea-lp-badge<?php echo $lp_is_sale ? ' lumea-lp-badge--sale' : ''; ?>"><?php echo esc_html( $lp_badge ); ?></span>
 					<?php endif; ?>
-					<img src="<?php echo esc_url( $p['image'] ); ?>" alt="<?php echo esc_attr( $p['name'] ); ?>" class="lumea-lp-img lumea-lp-img--main" loading="lazy" />
-					<img src="<?php echo esc_url( $p['hover'] ); ?>" alt="" class="lumea-lp-img lumea-lp-img--hover" loading="lazy" aria-hidden="true" />
+					<img src="<?php echo $lp_img; ?>" alt="<?php echo $lp_name; ?>" class="lumea-lp-img lumea-lp-img--main" loading="lazy" />
+					<?php if ( $lp_hover ) : ?>
+					<img src="<?php echo $lp_hover; ?>" alt="" class="lumea-lp-img lumea-lp-img--hover" loading="lazy" aria-hidden="true" />
+					<?php endif; ?>
 				</a>
 				<div class="lumea-lp-body">
-					<h3 class="lumea-lp-name"><a href="<?php echo esc_url( $p['url'] ); ?>"><?php echo esc_html( $p['name'] ); ?></a></h3>
+					<h3 class="lumea-lp-name"><a href="<?php echo $lp_url; ?>"><?php echo $lp_name; ?></a></h3>
 					<div class="lumea-lp-pricing">
-						<?php if ( $lp_is_sale ) : ?>
-						<s class="lumea-lp-old"><?php echo esc_html( $lp_old_price ); ?></s>
+						<?php if ( $lp_is_sale && $lp_old ) : ?>
+						<s class="lumea-lp-old"><?php echo wp_kses_post( $lp_old ); ?></s>
 						<?php endif; ?>
-						<span class="lumea-lp-price<?php echo $lp_is_sale ? ' lumea-lp-price--sale' : ''; ?>"><?php echo esc_html( $p['price'] ); ?></span>
+						<span class="lumea-lp-price<?php echo $lp_is_sale ? ' lumea-lp-price--sale' : ''; ?>"><?php echo wp_kses_post( $lp['price'] ); ?></span>
 					</div>
-					<a href="<?php echo esc_url( $p['url'] ); ?>" class="lumea-lp-btn">Shop Now</a>
+					<?php if ( $lp_id && class_exists( 'WooCommerce' ) ) : ?>
+					<a href="<?php echo esc_url( add_query_arg( 'add-to-cart', $lp_id, $lp_url ) ); ?>"
+					   class="lumea-lp-btn add_to_cart_button ajax_add_to_cart"
+					   data-product_id="<?php echo $lp_id; ?>"
+					   data-product_type="<?php echo esc_attr( $lp['type'] ); ?>"
+					   data-quantity="1"
+					   aria-label="<?php echo esc_attr( sprintf( __( 'Add %s to cart', 'lumea' ), $lp_name ) ); ?>"
+					   rel="nofollow"><?php esc_html_e( 'Add to Cart', 'lumea' ); ?></a>
+					<?php else : ?>
+					<a href="<?php echo $lp_url; ?>" class="lumea-lp-btn"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></a>
+					<?php endif; ?>
 				</div>
 			</article>
 			<?php endforeach; ?>
@@ -641,6 +783,33 @@ $footer_pin = get_theme_mod( 'lumea_footer_pinterest', '' );
 
 	</div>
 </footer>
+
+
+<?php if ( class_exists( 'WooCommerce' ) ) : ?>
+<!-- Cart Drawer -->
+<div class="lumea-cart-overlay" data-lumea-cart-overlay aria-hidden="true"></div>
+<aside class="lumea-cart-drawer" id="lumeaCartDrawer" aria-label="<?php esc_attr_e( 'Shopping cart', 'lumea' ); ?>" aria-hidden="true" data-lumea-cart-drawer>
+	<div class="lumea-drawer-head">
+		<h2 class="lumea-drawer-title"><?php esc_html_e( 'Your Cart', 'lumea' ); ?></h2>
+		<button class="lumea-drawer-close" aria-label="<?php esc_attr_e( 'Close cart', 'lumea' ); ?>" data-lumea-cart-close>
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+		</button>
+	</div>
+	<div class="lumea-drawer-body">
+		<?php lumea_mini_cart_items(); ?>
+	</div>
+	<?php if ( ! WC()->cart->is_empty() ) : ?>
+	<div class="lumea-drawer-footer">
+		<div class="lumea-drawer-subtotal">
+			<span><?php esc_html_e( 'Subtotal', 'lumea' ); ?></span>
+			<span><?php echo WC()->cart->get_cart_subtotal(); ?></span>
+		</div>
+		<a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="lumea-drawer-cart-btn"><?php esc_html_e( 'View Cart', 'lumea' ); ?></a>
+		<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="lumea-drawer-checkout-btn"><?php esc_html_e( 'Checkout', 'lumea' ); ?></a>
+	</div>
+	<?php endif; ?>
+</aside>
+<?php endif; ?>
 
 <?php wp_footer(); ?>
 </body>
