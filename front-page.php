@@ -32,27 +32,87 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<!-- Sticky Header -->
+<header class="lumea-header" id="lumeaHeader" role="banner">
+	<div class="lumea-header-inner">
+
+		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="lumea-header-logo">LUMÉA</a>
+
+		<nav class="lumea-header-nav" aria-label="<?php esc_attr_e( 'Primary navigation', 'lumea' ); ?>">
+			<?php
+			wp_nav_menu( array(
+				'theme_location' => 'primary',
+				'container'      => false,
+				'menu_class'     => 'lumea-nav-list',
+				'fallback_cb'    => function() {
+					echo '<ul class="lumea-nav-list">';
+					$links = array(
+						array( esc_html__( 'Shop',        'lumea' ), wc_get_page_id( 'shop' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : '#' ),
+						array( esc_html__( 'Bestsellers', 'lumea' ), '#' ),
+						array( esc_html__( 'Ritual',      'lumea' ), '#lumeaRitual' ),
+						array( esc_html__( 'Journal',     'lumea' ), '#' ),
+						array( esc_html__( 'About',       'lumea' ), '#' ),
+					);
+					foreach ( $links as $l ) {
+						echo '<li><a href="' . esc_url( $l[1] ) . '">' . $l[0] . '</a></li>';
+					}
+					echo '</ul>';
+				},
+			) );
+			?>
+		</nav>
+
+		<div class="lumea-header-actions">
+			<?php if ( class_exists( 'WooCommerce' ) ) : ?>
+			<button class="lumea-cart-trigger" aria-label="<?php esc_attr_e( 'Open cart', 'lumea' ); ?>" data-lumea-cart-trigger>
+				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+				<span class="lumea-cart-count<?php echo WC()->cart->get_cart_contents_count() ? ' lumea-cart-count--visible' : ''; ?>"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+			</button>
+			<?php endif; ?>
+			<button class="lumea-nav-toggle" aria-label="<?php esc_attr_e( 'Open menu', 'lumea' ); ?>" aria-expanded="false" aria-controls="lumeaMobileNav" data-lumea-nav-toggle>
+				<span class="lumea-nav-toggle-bar"></span>
+				<span class="lumea-nav-toggle-bar"></span>
+			</button>
+		</div>
+
+	</div>
+</header>
+
+<!-- Mobile Nav -->
+<div class="lumea-mobile-nav" id="lumeaMobileNav" aria-hidden="true" data-lumea-mobile-nav>
+	<div class="lumea-mobile-nav-inner">
+		<nav aria-label="<?php esc_attr_e( 'Mobile navigation', 'lumea' ); ?>">
+			<?php
+			wp_nav_menu( array(
+				'theme_location' => 'primary',
+				'container'      => false,
+				'menu_class'     => 'lumea-mobile-nav-list',
+				'fallback_cb'    => function() {
+					echo '<ul class="lumea-mobile-nav-list">';
+					$links = array(
+						array( esc_html__( 'Shop',        'lumea' ), wc_get_page_id( 'shop' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : '#' ),
+						array( esc_html__( 'Bestsellers', 'lumea' ), '#' ),
+						array( esc_html__( 'Ritual',      'lumea' ), '#lumeaRitual' ),
+						array( esc_html__( 'Journal',     'lumea' ), '#' ),
+						array( esc_html__( 'About',       'lumea' ), '#' ),
+					);
+					foreach ( $links as $l ) {
+						echo '<li><a href="' . esc_url( $l[1] ) . '">' . $l[0] . '</a></li>';
+					}
+					echo '</ul>';
+				},
+			) );
+			?>
+		</nav>
+	</div>
+</div>
+
 <section class="hero" id="hero-home">
 	<div class="hero-canvas-wrap">
 		<canvas id="heroCanvas"></canvas>
 	</div>
 
 	<div class="hero-content">
-		<div class="topbar">
-			<div class="brand-pill">
-				<span>LUMÉA</span>
-				<span class="menu-icon" aria-hidden="true">
-					<span></span>
-					<span></span>
-				</span>
-			</div>
-			<?php if ( class_exists( 'WooCommerce' ) ) : ?>
-			<button class="lumea-cart-trigger" aria-label="<?php esc_attr_e( 'Open cart', 'lumea' ); ?>" data-lumea-cart-trigger>
-				<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-				<span class="lumea-cart-count<?php echo WC()->cart->get_cart_contents_count() ? ' lumea-cart-count--visible' : ''; ?>"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
-			</button>
-			<?php endif; ?>
-		</div>
 
 		<h3 class="hero-label"><?php echo esc_html( get_theme_mod( 'lumea_hero_label', 'Glow' ) ); ?></h3>
 

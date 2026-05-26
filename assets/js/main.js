@@ -7,6 +7,61 @@
 
   document.documentElement.classList.add('lumea-js-ready');
 
+  /* ── Sticky Header ─────────────────────────────────────── */
+
+  var header    = document.getElementById('lumeaHeader');
+  var mobileNav = document.querySelector('[data-lumea-mobile-nav]');
+  var navToggle = document.querySelector('[data-lumea-nav-toggle]');
+
+  if (header) {
+    var lastScroll = 0;
+
+    function updateHeader() {
+      var current = window.scrollY;
+
+      /* Scrolled state (solid bg) */
+      header.classList.toggle('is-scrolled', current > 40);
+
+      /* Hide on scroll down, show on scroll up */
+      if (current > 60) {
+        if (current > lastScroll) {
+          header.classList.add('is-hidden');
+        } else {
+          header.classList.remove('is-hidden');
+        }
+      } else {
+        header.classList.remove('is-hidden');
+      }
+
+      lastScroll = current;
+    }
+
+    updateHeader();
+    window.addEventListener('scroll', updateHeader, { passive: true });
+  }
+
+  /* ── Mobile Nav ─────────────────────────────────────────── */
+
+  if (navToggle && mobileNav) {
+    navToggle.addEventListener('click', function () {
+      var isOpen = mobileNav.classList.toggle('is-open');
+      navToggle.classList.toggle('is-open', isOpen);
+      navToggle.setAttribute('aria-expanded', isOpen);
+      mobileNav.setAttribute('aria-hidden', !isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    mobileNav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        mobileNav.classList.remove('is-open');
+        navToggle.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
   /* ── Cart Drawer ────────────────────────────────────────── */
 
   var drawer   = document.querySelector('[data-lumea-cart-drawer]');
