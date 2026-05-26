@@ -76,3 +76,24 @@ function lumea_wc_body_class( $classes ) {
 	return $classes;
 }
 add_filter( 'body_class', 'lumea_wc_body_class' );
+
+/**
+ * Remove default WooCommerce styles — we use our own.
+ */
+add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
+
+/**
+ * Remove default WooCommerce breadcrumb on shop — we have the banner.
+ */
+add_action( 'init', function () {
+	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
+	remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
+	remove_action( 'woocommerce_after_main_content',  'woocommerce_output_content_wrapper_end', 10 );
+} );
+
+/**
+ * Set 4 products per row on archive pages.
+ */
+add_filter( 'loop_shop_columns', function () {
+	return 4;
+} );

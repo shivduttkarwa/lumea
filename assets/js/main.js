@@ -107,3 +107,38 @@
   });
 
 })();
+
+/* ── Shop filter dropdowns ──────────────────────────────────── */
+(function () {
+  'use strict';
+
+  var dropdowns = document.querySelectorAll('[data-lumea-dropdown]');
+  if (!dropdowns.length) return;
+
+  function closeAll(except) {
+    dropdowns.forEach(function (d) {
+      if (d !== except) d.classList.remove('is-open');
+    });
+  }
+
+  dropdowns.forEach(function (dropdown) {
+    var trigger = dropdown.querySelector('[data-lumea-dropdown-trigger]');
+    if (!trigger) return;
+
+    trigger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var wasOpen = dropdown.classList.contains('is-open');
+      closeAll();
+      dropdown.classList.toggle('is-open', !wasOpen);
+    });
+  });
+
+  document.addEventListener('click', function () {
+    closeAll();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeAll();
+  });
+
+})();

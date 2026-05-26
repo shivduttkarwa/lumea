@@ -1,0 +1,90 @@
+<?php
+/**
+ * Product card — shop loop.
+ *
+ * @package Lumea
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+global $product;
+
+if ( ! $product || ! $product->is_visible() ) return;
+
+$product_id    = $product->get_id();
+$product_url   = get_permalink( $product_id );
+$product_name  = get_the_title();
+$gallery_ids   = $product->get_gallery_image_ids();
+$main_img      = get_the_post_thumbnail_url( $product_id, 'woocommerce_single' );
+$hover_img     = ! empty( $gallery_ids ) ? wp_get_attachment_image_url( $gallery_ids[0], 'woocommerce_single' ) : '';
+$is_on_sale    = $product->is_on_sale();
+$is_new        = ( time() - get_post_time( 'U', false, $product_id ) ) < ( 30 * DAY_IN_SECONDS );
+$cats          = get_the_terms( $product_id, 'product_cat' );
+$cat_name      = ( ! is_wp_error( $cats ) && ! empty( $cats ) ) ? $cats[0]->name : '';
+?>
+<li class="lumea-shop-card <?php echo esc_attr( implode( ' ', wc_get_product_class( '', $product ) ) ); ?>">
+
+	<!-- Image -->
+	<a href="<?php echo esc_url( $product_url ); ?>" class="lumea-shop-media">
+
+		<?php if ( $is_on_sale ) : ?>
+		<span class="lumea-shop-badge lumea-shop-badge--sale"><?php esc_html_e( 'Sale', 'lumea' ); ?></span>
+		<?php elseif ( $is_new ) : ?>
+		<span class="lumea-shop-badge"><?php esc_html_e( 'New', 'lumea' ); ?></span>
+		<?php elseif ( $cat_name ) : ?>
+		<span class="lumea-shop-badge"><?php echo esc_html( $cat_name ); ?></span>
+		<?php endif; ?>
+
+		<?php if ( $main_img ) : ?>
+		<img src="<?php echo esc_url( $main_img ); ?>"
+		     alt="<?php echo esc_attr( $product_name ); ?>"
+		     class="lumea-shop-img lumea-shop-img--main"
+		     loading="lazy" />
+		<?php else : ?>
+		<div class="lumea-shop-img-placeholder"></div>
+		<?php endif; ?>
+
+		<?php if ( $hover_img ) : ?>
+		<img src="<?php echo esc_url( $hover_img ); ?>"
+		     alt=""
+		     class="lumea-shop-img lumea-shop-img--hover"
+		     loading="lazy"
+		     aria-hidden="true" />
+		<?php endif; ?>
+
+	</a>
+
+	<!-- Info -->
+	<div class="lumea-shop-info">
+
+		<?php if ( $cat_name ) : ?>
+		<p class="lumea-shop-cat"><?php echo esc_html( $cat_name ); ?></p>
+		<?php endif; ?>
+
+		<h2 class="lumea-shop-name">
+			<a href="<?php echo esc_url( $product_url ); ?>"><?php echo esc_html( $product_name ); ?></a>
+		</h2>
+
+		<div class="lumea-shop-pricing">
+			<?php if ( $is_on_sale ) : ?>
+			<s class="lumea-shop-old"><?php echo wc_price( $product->get_regular_price() ); ?></s>
+			<?php endif; ?>
+			<span class="lumea-shop-price<?php echo $is_on_sale ? ' lumea-shop-price--sale' : ''; ?>">
+				<?php echo wp_kses_post( $product->get_price_html() ); ?>
+			</span>
+		</div>
+
+		<?php
+		woocommerce_template_loop_add_to_cart( array(
+			'class' => implode( ' ', array_filter( array(
+				'lumea-shop-btn',
+				'button',
+				$product->is_purchasable() && $product->is_in_stock() ? 'add_to_cart_button' : '',
+				$product->supports( 'ajax_add_to_cart' ) && $product->is_purchasable() && $product->is_in_stock() ? 'ajax_add_to_cart' : '',
+			) ) ),
+		) );
+		?>
+
+	</div>
+
+</li>
