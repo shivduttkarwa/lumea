@@ -841,6 +841,11 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   .hero-title { left: 1.5rem; right: 1.5rem; bottom: 8.5rem; font-size: clamp(3.9rem, 13.6vw, 16rem); }
   .corner-mark { right: 3rem; bottom: 11.75rem; }
   .cta-wrap { right: 1.5rem; bottom: 5.2rem; }
+
+  .lumea-content-card {
+    width: min(17rem, 46.4vw);
+    min-height: 17.6rem;
+  }
 }
 
 /* Very large screens */
@@ -982,7 +987,7 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 
 .lumea-slide.is-active {
   --x: 0vw;
-  --slide-scale: 1;
+  --slide-scale: 0.9;
   z-index: 5;
   filter: saturate(1);
 }
@@ -1248,6 +1253,14 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 .lumea-slider-stage.is-loading .lumea-slide-inner {
   transition: none;
   animation: none;
+}
+
+/* Desktop (includes 1280): reduce editorial info card size by 20% */
+@media (min-width: 992px) and (max-width: 1439.98px) {
+  .lumea-content-card {
+    width: min(17rem, 46.4vw);
+    min-height: 17.6rem;
+  }
 }
 
 @media (max-width: 1200px) {
