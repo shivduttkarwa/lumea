@@ -201,7 +201,7 @@ $lumea_best_defaults = array(
 		'price'       => '$48.00',
 		'badge'       => 'No. 1',
 		'main_image'  => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main1.jpg',
-		'hover_image' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover1a.jpg',
+		'hover_image' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover1.jpg',
 		'url'         => '',
 	),
 	2 => array(

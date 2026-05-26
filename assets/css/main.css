@@ -1401,7 +1401,7 @@ a {
    ════════════════════════════════════════════════════════ */
 
 .lumea-best-section {
-  background: var(--lumea-bg);
+  background: #ffffff;
   padding: 0 0 96px;
   overflow: hidden;
 }
@@ -1415,6 +1415,7 @@ a {
 
 .lumea-best-slider-area {
   position: relative;
+  background: #ffffff;
 }
 
 /* Swiper overrides */
@@ -1437,6 +1438,7 @@ a {
   display: flex;
   flex-direction: column;
   height: 100%;
+  background: #ffffff;
 }
 
 .lumea-best-media-link {
