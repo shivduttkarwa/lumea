@@ -158,15 +158,19 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 
 <!-- Section Intro: Editorial Slider -->
 <div class="lumea-section-intro">
-	<div class="lumea-container">
-		<span class="lumea-eyebrow"><?php echo esc_html( get_theme_mod( 'lumea_slider_eyebrow', 'Editorial Collection' ) ); ?></span>
-		<h2 class="lumea-section-title"><?php echo esc_html( get_theme_mod( 'lumea_slider_title', 'The Edit' ) ); ?></h2>
-		<p class="lumea-section-desc"><?php echo esc_html( get_theme_mod( 'lumea_slider_desc', 'Curated botanicals and skin-first formulas for luminous, everyday beauty.' ) ); ?></p>
+	<div class="lumea-container-wide container-fluid">
+		<div class="row">
+			<div class="col-12 col-xl-10">
+				<span class="lumea-eyebrow"><?php echo esc_html( get_theme_mod( 'lumea_slider_eyebrow', 'Editorial Collection' ) ); ?></span>
+				<h2 class="lumea-section-title"><?php echo esc_html( get_theme_mod( 'lumea_slider_title', 'The Edit' ) ); ?></h2>
+				<p class="lumea-section-desc"><?php echo esc_html( get_theme_mod( 'lumea_slider_desc', 'Curated botanicals and skin-first formulas for luminous, everyday beauty.' ) ); ?></p>
+			</div>
+		</div>
 	</div>
 </div>
 
 <!-- Editorial Product Slider -->
-<section class="lumea-slider-section" aria-label="<?php esc_attr_e( 'Luméa editorial product drops', 'lumea' ); ?>">
+<section class="lumea-slider-section container-fluid px-0" aria-label="<?php esc_attr_e( 'Luméa editorial product drops', 'lumea' ); ?>">
 	<div class="lumea-slider-stage is-loading" id="lumeaSlider">
 		<div class="lumea-slides" id="lumeaSlides"></div>
 
@@ -183,7 +187,8 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 				</p>
 			</div>
 			<a href="<?php echo $shop_url; ?>"
-			   class="lumea-card-button"><?php echo esc_html( get_theme_mod( 'lumea_slider_cta_text', 'Shop All' ) ); ?></a>
+			   id="lumeaCardButton"
+			   class="lumea-card-button"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></a>
 		</article>
 
 		<div class="lumea-mobile-arrows" aria-label="<?php esc_attr_e( 'Slider controls', 'lumea' ); ?>">

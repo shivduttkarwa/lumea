@@ -157,11 +157,13 @@ function lumea_enqueue_assets() {
 		);
 
 		$lumea_slides = array();
+		$lumea_shop_fallback = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' );
 		foreach ( $lumea_slide_defaults as $n => $d ) {
 			$lumea_slides[] = array(
 				'number' => str_pad( $n, 2, '0', STR_PAD_LEFT ),
 				'text'   => sanitize_textarea_field( get_theme_mod( 'lumea_slide_' . $n . '_text',  $d[1] ) ),
 				'image'  => esc_url( get_theme_mod( 'lumea_slide_' . $n . '_image', $d[0] ) ),
+				'url'    => esc_url( get_theme_mod( 'lumea_slide_' . $n . '_url', $lumea_shop_fallback ) ),
 			);
 		}
 

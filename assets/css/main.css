@@ -929,7 +929,7 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   position: relative;
   width: 100%;
   height: 100vh;
-  min-height: 720px;
+  min-height: 45rem;
   background: #ffffff;
   overflow: hidden;
 }
@@ -1044,9 +1044,9 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 
 .lumea-slide img {
   width: 100%;
-  max-width: 680px;
+  max-width: 42.5rem;
   height: 82vh;
-  max-height: 790px;
+  max-height: 49.375rem;
   object-fit: cover;
   display: block;
   pointer-events: none;
@@ -1076,8 +1076,8 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   top: 38%;
   left: 64%;
   z-index: 22;
-  width: min(340px, 58vw);
-  min-height: 440px;
+  width: min(21.25rem, 58vw);
+  min-height: 22rem;
   display: flex;
   flex-direction: column;
   transform: translate3d(-8%, 0, 0);
@@ -1095,30 +1095,30 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 
 .lumea-content-card.is-changing {
   opacity: 0;
-  transform: translate3d(-8%, 18px, 0);
+  transform: translate3d(-8%, 1.125rem, 0);
 }
 
 .lumea-card-body {
   flex: 1 1 auto;
-  padding: 48px 24px 34px;
+  padding: 2.25rem 1.5rem 1.5rem;
 }
 
 .lumea-slide-number {
   display: block;
-  font-family: "Times New Roman", serif;
-  font-size: clamp(86px, 7.2vw, 132px);
+  font-family: var(--lumea-font-heading);
+  font-size: clamp(5.375rem, 7.2vw, 8.25rem);
   font-weight: 400;
   line-height: 0.72;
   letter-spacing: -0.09em;
-  margin: 0 0 34px;
+  margin: 0 0 2.125rem;
 }
 
 .lumea-card-text {
-  max-width: 250px;
+  max-width: 15.625rem;
   margin: 0;
-  font-family: "Courier New", monospace;
-  font-size: 15px;
-  font-weight: 700;
+  font-family: var(--lumea-font-body);
+  font-size: 1rem;
+  font-weight: 400;
   line-height: 1.45;
   letter-spacing: -0.03em;
 }
@@ -1127,11 +1127,11 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   flex: 0 0 auto;
   display: block;
   width: 100%;
-  padding: 14px 18px;
+  padding: 0.875rem 1.125rem;
   border-top: 1px solid var(--lumea-border);
   color: var(--lumea-black);
-  font-family: "Courier New", monospace;
-  font-size: 14px;
+  font-family: var(--lumea-font-body);
+  font-size: 1rem;
   font-weight: 500;
   text-align: center;
   text-decoration: none;
@@ -1150,8 +1150,8 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   left: 0;
   top: 0;
   z-index: 90;
-  width: 130px;
-  height: 28px;
+  width: 8.125rem;
+  height: 1.75rem;
   pointer-events: none;
   opacity: 0;
   transform: translate3d(-50%, -50%, 0) scale(0.7);
@@ -1189,8 +1189,8 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   position: absolute;
   right: 0;
   top: 50%;
-  width: 13px;
-  height: 13px;
+  width: 0.8125rem;
+  height: 0.8125rem;
   border-top: 1px solid var(--lumea-black);
   border-right: 1px solid var(--lumea-black);
   transform: translateY(-50%) rotate(45deg);
@@ -1199,9 +1199,9 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 .lumea-mobile-arrows {
   position: absolute;
   left: 50%;
-  bottom: 34px;
+  bottom: 2.125rem;
   z-index: 35;
-  width: min(420px, 84vw);
+  width: min(26.25rem, 84vw);
   display: none;
   justify-content: space-between;
   transform: translateX(-50%);
@@ -1209,8 +1209,8 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 }
 
 .lumea-mobile-arrow {
-  width: 92px;
-  height: 34px;
+  width: 5.75rem;
+  height: 2.125rem;
   border: 0;
   background: transparent;
   position: relative;
@@ -1232,8 +1232,8 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   position: absolute;
   right: 0;
   top: 50%;
-  width: 11px;
-  height: 11px;
+  width: 0.6875rem;
+  height: 0.6875rem;
   border-top: 1px solid var(--lumea-black);
   border-right: 1px solid var(--lumea-black);
   transform: translateY(-50%) rotate(45deg);
@@ -1279,23 +1279,23 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 
 @media (max-width: 768px) {
   .lumea-slider-section {
-    min-height: 780px;
+    min-height: 48.75rem;
     height: 92vh;
   }
 
   .lumea-section-intro {
-    padding: 60px 0 36px;
+    padding: 3.75rem 0 2.25rem;
   }
 
   .lumea-slide {
     width: 78vw;
     align-items: flex-start;
-    padding-top: 40px;
+    padding-top: 2.5rem;
   }
 
   .lumea-slide img {
     height: 45vh;
-    max-height: 460px;
+    max-height: 28.75rem;
   }
 
   .lumea-slide.is-prev {
@@ -1309,41 +1309,41 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   .lumea-content-card {
     top: 49%;
     left: 62%;
-    width: min(300px, calc(100vw - 44px));
-    min-height: 350px;
+    width: min(18.75rem, calc(100vw - 2.75rem));
+    min-height: 18.5rem;
     transform: translate3d(-36%, 0, 0);
   }
 
   .lumea-content-card.is-changing {
-    transform: translate3d(-36%, 18px, 0);
+    transform: translate3d(-36%, 1.125rem, 0);
   }
 
   .lumea-card-body {
-    padding: 26px 22px 20px;
+    padding: 1.25rem 1.125rem 1rem;
   }
 
   .lumea-slide-number {
-    font-size: 84px;
-    margin-bottom: 28px;
+    font-size: 5.25rem;
+    margin-bottom: 1.75rem;
   }
 
   .lumea-card-text {
-    font-size: 13px;
+    font-size: 0.8125rem;
   }
 
   .lumea-card-button {
-    padding: 13px 16px;
-    font-size: 13px;
+    padding: 0.8125rem 1rem;
+    font-size: 0.8125rem;
   }
 
   .lumea-mobile-arrows {
-    bottom: 72px;
+    bottom: 4.5rem;
   }
 }
 
 @media (max-width: 480px) {
   .lumea-slider-section {
-    min-height: 720px;
+    min-height: 45rem;
   }
 
   .lumea-slide {

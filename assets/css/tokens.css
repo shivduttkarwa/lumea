@@ -16,4 +16,6 @@
 
   --lumea-font-heading: "Clash Display", Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --lumea-font-body: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --lumea-font-serif: "Times New Roman", Times, serif;
+  --lumea-font-mono: "Courier New", Courier, monospace;
 }

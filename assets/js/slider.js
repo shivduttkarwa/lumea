@@ -16,6 +16,7 @@
   const card        = document.getElementById( 'lumeaCard' );
   const numberEl    = document.getElementById( 'lumeaNumber' );
   const textEl      = document.getElementById( 'lumeaText' );
+  const cardButton  = document.getElementById( 'lumeaCardButton' );
   const cursorArrow = document.getElementById( 'lumeaCursorArrow' );
 
   let activeIndex      = 0;
@@ -85,6 +86,9 @@
     window.setTimeout( function () {
       numberEl.textContent = currentSlide.number;
       textEl.textContent   = currentSlide.text;
+      if ( cardButton && currentSlide.url ) {
+        cardButton.setAttribute( 'href', currentSlide.url );
+      }
       requestAnimationFrame( function () {
         card.classList.remove( 'is-changing' );
       } );

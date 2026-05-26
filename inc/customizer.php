@@ -187,6 +187,7 @@ function lumea_customize_register( $wp_customize ) {
 	foreach ( $slide_defaults as $n => $defaults ) {
 		$img_key  = 'lumea_slide_' . $n . '_image';
 		$text_key = 'lumea_slide_' . $n . '_text';
+		$url_key  = 'lumea_slide_' . $n . '_url';
 
 		$wp_customize->add_setting( $img_key, array(
 			'default'           => $defaults['image'],
@@ -209,6 +210,18 @@ function lumea_customize_register( $wp_customize ) {
 			'label'   => sprintf( esc_html__( 'Slide %d Caption', 'lumea' ), $n ),
 			'section' => 'lumea_slider',
 			'type'    => 'textarea',
+		) );
+
+		$wp_customize->add_setting( $url_key, array(
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $url_key, array(
+			/* translators: %d: slide number */
+			'label'   => sprintf( esc_html__( 'Slide %d Product URL (blank = shop)', 'lumea' ), $n ),
+			'section' => 'lumea_slider',
+			'type'    => 'url',
 		) );
 	}
 
