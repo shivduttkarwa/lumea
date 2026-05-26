@@ -22,10 +22,7 @@
   let activeIndex      = 0;
   let isAnimating      = false;
   let cursorSide       = 'right';
-  let cursorX          = 0;
-  let cursorY          = 0;
-  let renderedCursorX  = 0;
-  let renderedCursorY  = 0;
+  let isCursorBlocked  = false;
   let activeAnimations = [];
 
   function createSlides() {
@@ -133,22 +130,19 @@
   }
 
   function moveCursor( event ) {
+    if ( isCursorBlocked || event.target.closest( '.lumea-card-button' ) ) {
+      cursorArrow.classList.remove( 'is-visible', 'is-left', 'is-right' );
+      return;
+    }
+
     const rect   = slider.getBoundingClientRect();
     const isLeft = ( event.clientX - rect.left ) < rect.width / 2;
     cursorSide   = isLeft ? 'left' : 'right';
-    cursorX      = event.clientX;
-    cursorY      = event.clientY;
+    cursorArrow.style.left = event.clientX + 'px';
+    cursorArrow.style.top  = event.clientY + 'px';
     cursorArrow.classList.add( 'is-visible' );
     cursorArrow.classList.toggle( 'is-left',  isLeft );
     cursorArrow.classList.toggle( 'is-right', ! isLeft );
-  }
-
-  function renderCursor() {
-    renderedCursorX += ( cursorX - renderedCursorX ) * 0.22;
-    renderedCursorY += ( cursorY - renderedCursorY ) * 0.22;
-    cursorArrow.style.left = renderedCursorX + 'px';
-    cursorArrow.style.top  = renderedCursorY + 'px';
-    requestAnimationFrame( renderCursor );
   }
 
   slider.addEventListener( 'mousemove', moveCursor );
@@ -156,6 +150,16 @@
   slider.addEventListener( 'mouseleave', function () {
     cursorArrow.classList.remove( 'is-visible', 'is-left', 'is-right' );
   } );
+
+  if ( cardButton ) {
+    cardButton.addEventListener( 'mouseenter', function () {
+      isCursorBlocked = true;
+      cursorArrow.classList.remove( 'is-visible', 'is-left', 'is-right' );
+    } );
+    cardButton.addEventListener( 'mouseleave', function () {
+      isCursorBlocked = false;
+    } );
+  }
 
   slider.addEventListener( 'click', function ( event ) {
     if ( event.target.closest( '.lumea-content-card, .lumea-mobile-arrows' ) ) return;
@@ -172,7 +176,6 @@
   createSlides();
   updateSlides();
   updateCard();
-  renderCursor();
 
   preloadImages().then( function () {
     requestAnimationFrame( function () {
