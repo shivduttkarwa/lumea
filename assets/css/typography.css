@@ -25,7 +25,7 @@ html {
 }
 
 @media (min-width: 1200px) and (max-width: 1439.98px) {
-  html { font-size: 16.5px; }
+  html { font-size: 15px; }
 }
 
 @media (min-width: 1440px) and (max-width: 1599.98px) {
@@ -41,15 +41,15 @@ html {
 }
 
 @media (min-width: 2240px) and (max-width: 2559.98px) {
-  html { font-size: 19px; }
+  html { font-size: 21px; }
 }
 
 @media (min-width: 2560px) and (max-width: 3199.98px) {
-  html { font-size: 20px; }
+  html { font-size: 23px; }
 }
 
 @media (min-width: 3200px) {
-  html { font-size: 21px; }
+  html { font-size: 27px; }
 }
 
 .entry-content h1,
