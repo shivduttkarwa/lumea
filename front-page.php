@@ -139,10 +139,7 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 		<h1 class="hero-title">LUMÉA</h1>
 
 		<div class="cta-wrap">
-			<a href="<?php echo $shop_url; ?>" class="cta">
-				<span><?php echo esc_html( get_theme_mod( 'lumea_hero_cta_text', 'Shop Collection' ) ); ?></span>
-				<span class="cta-plus" aria-hidden="true">+</span>
-			</a>
+			<a href="<?php echo $shop_url; ?>" class="lumea-btn lumea-btn--outline"><?php echo esc_html( get_theme_mod( 'lumea_hero_cta_text', 'Shop Collection' ) ); ?></a>
 		</div>
 	</div>
 </section>

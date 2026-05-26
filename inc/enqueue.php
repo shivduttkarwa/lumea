@@ -176,3 +176,16 @@ function lumea_enqueue_assets() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'lumea_enqueue_assets' );
+
+/**
+ * Load theme styles in block editor for consistent button previews.
+ */
+function lumea_enqueue_editor_assets() {
+	wp_enqueue_style(
+		'lumea-editor-main',
+		LUMEA_THEME_URI . '/assets/css/main.css',
+		array(),
+		LUMEA_VERSION
+	);
+}
+add_action( 'enqueue_block_editor_assets', 'lumea_enqueue_editor_assets' );

@@ -7848,3 +7848,91 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   }
 }
 
+/* ════════════════════════════════════════════════════════
+   REUSABLE BUTTON THEMES (Black / White / Outline)
+   Use anywhere:
+   - .lumea-btn .lumea-btn--black
+   - .lumea-btn .lumea-btn--white
+   - .lumea-btn .lumea-btn--outline
+   Gutenberg:
+   - is-style-lumea-btn-black
+   - is-style-lumea-btn-white
+   - is-style-lumea-btn-outline
+   ════════════════════════════════════════════════════════ */
+
+.lumea-btn,
+.wp-block-button.is-style-lumea-btn-black .wp-block-button__link,
+.wp-block-button.is-style-lumea-btn-white .wp-block-button__link,
+.wp-block-button.is-style-lumea-btn-outline .wp-block-button__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px;
+  min-height: 48px;
+  padding: 12px 26px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.lumea-btn:focus-visible,
+.wp-block-button.is-style-lumea-btn-black .wp-block-button__link:focus-visible,
+.wp-block-button.is-style-lumea-btn-white .wp-block-button__link:focus-visible,
+.wp-block-button.is-style-lumea-btn-outline .wp-block-button__link:focus-visible {
+  outline: 1px solid var(--lumea-text);
+  outline-offset: 3px;
+}
+
+.lumea-btn--black,
+.wp-block-button.is-style-lumea-btn-black .wp-block-button__link {
+  background: var(--lumea-text);
+  color: #ffffff;
+  border-color: var(--lumea-text);
+}
+
+.lumea-btn--black:hover,
+.wp-block-button.is-style-lumea-btn-black .wp-block-button__link:hover {
+  background: #111111;
+  border-color: #111111;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.lumea-btn--white,
+.wp-block-button.is-style-lumea-btn-white .wp-block-button__link {
+  background: #ffffff;
+  color: var(--lumea-text);
+  border-color: #ffffff;
+}
+
+.lumea-btn--white:hover,
+.wp-block-button.is-style-lumea-btn-white .wp-block-button__link:hover {
+  background: #f7f3ef;
+  border-color: #f7f3ef;
+  color: var(--lumea-text);
+  transform: translateY(-1px);
+}
+
+.lumea-btn--outline,
+.wp-block-button.is-style-lumea-btn-outline .wp-block-button__link {
+  background: transparent;
+  color: var(--lumea-text);
+  border-color: rgba(36, 24, 22, 0.36);
+}
+
+.lumea-btn--outline:hover,
+.wp-block-button.is-style-lumea-btn-outline .wp-block-button__link:hover {
+  background: var(--lumea-text);
+  color: #ffffff;
+  border-color: var(--lumea-text);
+  transform: translateY(-1px);
+}
+
