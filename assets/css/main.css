@@ -1625,6 +1625,355 @@ a {
 }
 
 /* ════════════════════════════════════════════════════════
+   LATEST PRODUCTS
+   ════════════════════════════════════════════════════════ */
+
+.lumea-latest {
+  background: #ffffff;
+  padding: 96px 0;
+}
+
+.lumea-latest-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 48px;
+}
+
+.lumea-latest-eyebrow {
+  margin: 0 0 8px;
+  font-family: Inter, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--lumea-accent);
+}
+
+.lumea-latest-title {
+  margin: 0;
+  font-family: "Clash Display", Inter, sans-serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--lumea-text);
+}
+
+.lumea-latest-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lumea-text);
+  text-decoration: none;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--lumea-text);
+  transition: gap 0.25s ease, opacity 0.25s ease;
+}
+
+.lumea-latest-all:hover {
+  gap: 14px;
+  opacity: 0.6;
+}
+
+/* Grid */
+
+.lumea-latest-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px 20px;
+}
+
+/* Card */
+
+.lumea-lp-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.lumea-lp-media {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: #ffffff;
+  text-decoration: none;
+}
+
+.lumea-lp-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  backface-visibility: hidden;
+}
+
+.lumea-lp-img--main {
+  z-index: 1;
+  transition: opacity 0.5s ease;
+}
+
+.lumea-lp-img--hover {
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.lumea-lp-card:hover .lumea-lp-img--main {
+  opacity: 0;
+}
+
+.lumea-lp-card:hover .lumea-lp-img--hover {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Badge */
+
+.lumea-lp-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 8;
+  background: var(--lumea-text);
+  color: #ffffff;
+  font-family: Inter, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  pointer-events: none;
+}
+
+.lumea-lp-badge--sale {
+  background: var(--lumea-accent);
+}
+
+/* Card body */
+
+.lumea-lp-body {
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.lumea-lp-name {
+  margin: 0 0 10px;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--lumea-text);
+}
+
+.lumea-lp-name a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.lumea-lp-name a:hover {
+  opacity: 0.6;
+}
+
+.lumea-lp-pricing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.lumea-lp-old {
+  font-family: Inter, sans-serif;
+  font-size: 13px;
+  color: var(--lumea-muted);
+  text-decoration: line-through;
+}
+
+.lumea-lp-price {
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--lumea-text);
+}
+
+.lumea-lp-price--sale {
+  color: var(--lumea-accent);
+}
+
+.lumea-lp-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 40px;
+  margin-top: auto;
+  border: 1px solid var(--lumea-text);
+  background: transparent;
+  font-family: Inter, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lumea-text);
+  text-decoration: none;
+  transition: background 0.25s ease, color 0.25s ease;
+  cursor: pointer;
+}
+
+.lumea-lp-btn:hover {
+  background: var(--lumea-text);
+  color: #ffffff;
+}
+
+/* Responsive */
+
+@media (max-width: 1024px) {
+  .lumea-latest-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .lumea-latest {
+    padding: 64px 0;
+  }
+
+  .lumea-latest-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .lumea-latest-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 12px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════
+   FULL-SCREEN CTA
+   ════════════════════════════════════════════════════════ */
+
+.lumea-fullcta {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  background-image: var(--cta-bg);
+  background-size: cover;
+  background-position: center;
+}
+
+.lumea-fullcta-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 8, 0.78) 0%,
+    rgba(10, 10, 8, 0.28) 50%,
+    rgba(10, 10, 8, 0.05) 100%
+  );
+}
+
+.lumea-fullcta-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0 32px 72px;
+  max-width: 760px;
+  width: 100%;
+}
+
+.lumea-fullcta-eyebrow {
+  margin: 0 0 20px;
+  font-family: Inter, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.lumea-fullcta-heading {
+  margin: 0 0 20px;
+  font-family: "Clash Display", Inter, sans-serif;
+  font-size: clamp(52px, 8vw, 116px);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+}
+
+.lumea-fullcta-heading em {
+  font-style: italic;
+  font-weight: 400;
+  color: #c7f099;
+}
+
+.lumea-fullcta-sub {
+  margin: 0 auto 40px;
+  font-family: Inter, sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.55);
+  max-width: 400px;
+}
+
+.lumea-fullcta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 48px;
+  padding: 0 28px;
+  background: #ffffff;
+  color: #13241d;
+  font-family: Inter, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.25s ease, color 0.25s ease, gap 0.25s ease;
+}
+
+.lumea-fullcta-btn:hover {
+  background: #c7f099;
+  color: #13241d;
+  gap: 18px;
+}
+
+@media (max-width: 767px) {
+  .lumea-fullcta-inner {
+    padding: 0 24px 52px;
+  }
+
+  .lumea-fullcta-heading {
+    font-size: clamp(44px, 13vw, 72px);
+  }
+
+  .lumea-fullcta-sub {
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════
    THE RITUAL SECTION
    ════════════════════════════════════════════════════════ */
 
