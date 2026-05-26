@@ -97,3 +97,62 @@ add_action( 'init', function () {
 add_filter( 'loop_shop_columns', function () {
 	return 4;
 } );
+
+/**
+ * Ensure WooCommerce cart and checkout pages use classic PHP template files.
+ *
+ * WooCommerce 7+ ships with block-based cart/checkout by default, which
+ * bypasses our custom template overrides in woocommerce/cart/cart.php and
+ * woocommerce/checkout/form-checkout.php.
+ *
+ * This runs once on first admin visit (or theme activation) and converts
+ * any block-based WC pages to the classic shortcode equivalent so our
+ * premium templates are rendered correctly.
+ */
+function lumea_ensure_classic_wc_pages() {
+	if ( get_option( 'lumea_classic_wc_v1' ) || ! function_exists( 'wc_get_page_id' ) ) {
+		return;
+	}
+
+	$pages = array(
+		wc_get_page_id( 'checkout' ) => '<!-- wp:shortcode -->[woocommerce_checkout]<!-- /wp:shortcode -->',
+		wc_get_page_id( 'cart' )     => '<!-- wp:shortcode -->[woocommerce_cart]<!-- /wp:shortcode -->',
+	);
+
+	foreach ( $pages as $page_id => $content ) {
+		if ( $page_id <= 0 ) {
+			continue;
+		}
+		$post = get_post( $page_id );
+		if ( $post && has_blocks( $post->post_content ) ) {
+			wp_update_post( array(
+				'ID'           => $page_id,
+				'post_content' => $content,
+			) );
+		}
+	}
+
+	update_option( 'lumea_classic_wc_v1', 1 );
+}
+add_action( 'after_switch_theme', 'lumea_ensure_classic_wc_pages' );
+add_action( 'admin_init',         'lumea_ensure_classic_wc_pages' );
+
+/**
+ * Front-end fallback: if cart/checkout pages still have blocks on the
+ * first front-end visit (before any admin visit), convert and redirect once.
+ */
+add_action( 'template_redirect', function () {
+	if ( get_option( 'lumea_classic_wc_v1' ) ) {
+		return;
+	}
+	if ( ! is_cart() && ! is_checkout() ) {
+		return;
+	}
+	lumea_ensure_classic_wc_pages();
+	if ( is_cart() ) {
+		wp_safe_redirect( wc_get_cart_url() );
+	} else {
+		wp_safe_redirect( wc_get_checkout_url() );
+	}
+	exit;
+} );
