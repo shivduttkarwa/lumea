@@ -18,8 +18,35 @@ a {
 }
 
 .lumea-container {
-  width: min(100% - 32px, var(--lumea-container));
+  width: 100%;
+  max-width: var(--lumea-container);
   margin-inline: auto;
+  padding-inline: var(--lumea-container-gutter);
+}
+
+/* Container tiers for better large-screen balance */
+.lumea-container-narrow,
+.lumea-container--narrow {
+  width: 100%;
+  max-width: var(--lumea-container-narrow);
+  margin-inline: auto;
+  padding-inline: var(--lumea-container-gutter);
+}
+
+.lumea-container-wide,
+.lumea-container--wide {
+  width: 100%;
+  max-width: var(--lumea-container-wide);
+  margin-inline: auto;
+  padding-inline: var(--lumea-container-gutter);
+}
+
+.lumea-container-full,
+.lumea-container--full {
+  width: 100%;
+  max-width: var(--lumea-container-full);
+  margin-inline: auto;
+  padding-inline: var(--lumea-container-gutter);
 }
 
 .lumea-site-header {

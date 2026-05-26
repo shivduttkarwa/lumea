@@ -8,7 +8,11 @@
   --lumea-border: rgba(36, 24, 22, 0.12);
 
   --lumea-radius: 24px;
-  --lumea-container: 1200px;
+  --lumea-container-narrow: 48rem;
+  --lumea-container: 75rem;
+  --lumea-container-wide: 90rem;
+  --lumea-container-full: 100%;
+  --lumea-container-gutter: clamp(1rem, 3vw, 2.5rem);
 
   --lumea-font-heading: "Clash Display", Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --lumea-font-body: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
