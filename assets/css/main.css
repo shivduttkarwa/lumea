@@ -166,14 +166,15 @@ a {
   -webkit-backdrop-filter: blur(12px);
 }
 
-/* Inner pages (PDP, shop, cart, checkout, account) — always solid header */
+/* Inner pages (PDP, shop, cart, checkout, account) — always solid header.
+   body.page:not(.home) excludes the front page which also carries body.page. */
 body.single-product .lumea-header,
 body.woocommerce-shop .lumea-header,
 body.post-type-archive-product .lumea-header,
 body.woocommerce-cart .lumea-header,
 body.woocommerce-checkout .lumea-header,
 body.woocommerce-account .lumea-header,
-body.page .lumea-header {
+body.page:not(.home) .lumea-header {
   background: rgba(255, 250, 247, 0.97) !important;
   box-shadow: 0 1px 0 var(--lumea-border) !important;
   backdrop-filter: blur(12px);
@@ -186,7 +187,7 @@ body.post-type-archive-product .lumea-header-logo,
 body.woocommerce-cart .lumea-header-logo,
 body.woocommerce-checkout .lumea-header-logo,
 body.woocommerce-account .lumea-header-logo,
-body.page .lumea-header-logo {
+body.page:not(.home) .lumea-header-logo {
   color: var(--lumea-text) !important;
 }
 
@@ -196,7 +197,7 @@ body.post-type-archive-product .lumea-nav-list li a,
 body.woocommerce-cart .lumea-nav-list li a,
 body.woocommerce-checkout .lumea-nav-list li a,
 body.woocommerce-account .lumea-nav-list li a,
-body.page .lumea-nav-list li a {
+body.page:not(.home) .lumea-nav-list li a {
   color: var(--lumea-muted) !important;
 }
 
@@ -206,7 +207,7 @@ body.post-type-archive-product .lumea-nav-list li a:hover,
 body.woocommerce-cart .lumea-nav-list li a:hover,
 body.woocommerce-checkout .lumea-nav-list li a:hover,
 body.woocommerce-account .lumea-nav-list li a:hover,
-body.page .lumea-nav-list li a:hover {
+body.page:not(.home) .lumea-nav-list li a:hover {
   color: var(--lumea-text) !important;
 }
 
@@ -216,7 +217,7 @@ body.post-type-archive-product .lumea-header .lumea-cart-trigger,
 body.woocommerce-cart .lumea-header .lumea-cart-trigger,
 body.woocommerce-checkout .lumea-header .lumea-cart-trigger,
 body.woocommerce-account .lumea-header .lumea-cart-trigger,
-body.page .lumea-header .lumea-cart-trigger {
+body.page:not(.home) .lumea-header .lumea-cart-trigger {
   border-color: var(--lumea-border) !important;
   color: var(--lumea-text) !important;
 }
@@ -227,7 +228,49 @@ body.post-type-archive-product .lumea-nav-toggle-bar,
 body.woocommerce-cart .lumea-nav-toggle-bar,
 body.woocommerce-checkout .lumea-nav-toggle-bar,
 body.woocommerce-account .lumea-nav-toggle-bar,
-body.page .lumea-nav-toggle-bar {
+body.page:not(.home) .lumea-nav-toggle-bar {
+  background: var(--lumea-text) !important;
+}
+
+/* ── Homepage hero header ───────────────────────────────────
+   At the top (no is-scrolled): transparent bg, white items for dark hero.
+   When scrolled (is-scrolled): solid bg rule above takes over.          */
+body.home .lumea-header:not(.is-scrolled) {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+body.home .lumea-header:not(.is-scrolled) .lumea-header-logo {
+  color: #ffffff !important;
+}
+body.home .lumea-header:not(.is-scrolled) .lumea-nav-list li a {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+body.home .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover {
+  color: #ffffff !important;
+}
+body.home .lumea-header:not(.is-scrolled) .lumea-cart-trigger {
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  color: #ffffff !important;
+}
+body.home .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar {
+  background: #ffffff !important;
+}
+
+/* Homepage scrolled: dark items (is-scrolled solid background applies) */
+body.home .lumea-header.is-scrolled .lumea-header-logo {
+  color: var(--lumea-text) !important;
+}
+body.home .lumea-header.is-scrolled .lumea-nav-list li a {
+  color: var(--lumea-muted) !important;
+}
+body.home .lumea-header.is-scrolled .lumea-nav-list li a:hover {
+  color: var(--lumea-text) !important;
+}
+body.home .lumea-header.is-scrolled .lumea-cart-trigger {
+  border-color: var(--lumea-border) !important;
+  color: var(--lumea-text) !important;
+}
+body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   background: var(--lumea-text) !important;
 }
 
