@@ -1,0 +1,100 @@
+/**
+ * Global typography scale.
+ * Scoped to content/editor so existing bespoke section styling remains unchanged.
+ */
+
+/* Rem scale baseline across device sizes */
+html {
+  font-size: 16px;
+}
+
+@media (max-width: 359.98px) {
+  html { font-size: 14px; }
+}
+
+@media (min-width: 360px) and (max-width: 575.98px) {
+  html { font-size: 15px; }
+}
+
+@media (min-width: 576px) and (max-width: 991.98px) {
+  html { font-size: 15.5px; }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  html { font-size: 16px; }
+}
+
+@media (min-width: 1200px) and (max-width: 1439.98px) {
+  html { font-size: 16.5px; }
+}
+
+@media (min-width: 1440px) and (max-width: 1599.98px) {
+  html { font-size: 17px; }
+}
+
+@media (min-width: 1600px) and (max-width: 1919.98px) {
+  html { font-size: 17.5px; }
+}
+
+@media (min-width: 1920px) and (max-width: 2239.98px) {
+  html { font-size: 18px; }
+}
+
+@media (min-width: 2240px) and (max-width: 2559.98px) {
+  html { font-size: 19px; }
+}
+
+@media (min-width: 2560px) and (max-width: 3199.98px) {
+  html { font-size: 20px; }
+}
+
+@media (min-width: 3200px) {
+  html { font-size: 21px; }
+}
+
+.entry-content h1,
+.editor-styles-wrapper h1 {
+  font-family: var(--lumea-font-heading);
+  font-size: clamp(2.25rem, 4vw, 3.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.entry-content h2,
+.editor-styles-wrapper h2 {
+  font-family: var(--lumea-font-heading);
+  font-size: clamp(1.9rem, 3.2vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.entry-content h3,
+.editor-styles-wrapper h3 {
+  font-family: var(--lumea-font-heading);
+  font-size: clamp(1.55rem, 2.5vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.entry-content h4,
+.editor-styles-wrapper h4 {
+  font-family: var(--lumea-font-heading);
+  font-size: clamp(1.3rem, 2vw, 1.75rem);
+  line-height: 1.2;
+}
+
+.entry-content h5,
+.editor-styles-wrapper h5 {
+  font-family: var(--lumea-font-heading);
+  font-size: clamp(1.1rem, 1.7vw, 1.35rem);
+  line-height: 1.25;
+}
+
+.entry-content h6,
+.editor-styles-wrapper h6 {
+  font-family: var(--lumea-font-body);
+  font-size: 0.9rem;
+  line-height: 1.35;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

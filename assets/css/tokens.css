@@ -1,0 +1,15 @@
+:root {
+  --lumea-bg: #fffaf7;
+  --lumea-surface: #ffffff;
+  --lumea-text: #241816;
+  --lumea-muted: #7d6b66;
+  --lumea-accent: #c98578;
+  --lumea-accent-dark: #8f4d43;
+  --lumea-border: rgba(36, 24, 22, 0.12);
+
+  --lumea-radius: 24px;
+  --lumea-container: 1200px;
+
+  --lumea-font-heading: "Clash Display", Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --lumea-font-body: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}

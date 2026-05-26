@@ -22,10 +22,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <!-- Sticky Header -->
 <header class="lumea-header" id="lumeaHeader" role="banner">
-	<div class="lumea-header-inner">
+	<div class="lumea-header-inner container-fluid px-3 px-sm-4 px-lg-5">
+		<div class="row w-100 g-0 align-items-center">
+			<div class="col-6 col-lg-3">
 
 		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="lumea-header-logo">LUMÉA</a>
+			</div>
 
+			<div class="d-none d-lg-flex col-lg-6 justify-content-center">
 		<nav class="lumea-header-nav" aria-label="<?php esc_attr_e( 'Primary navigation', 'lumea' ); ?>">
 			<?php
 			wp_nav_menu( array(
@@ -55,8 +59,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			) );
 			?>
 		</nav>
+			</div>
 
-		<div class="lumea-header-actions">
+			<div class="col-6 col-lg-3">
+		<div class="lumea-header-actions d-flex align-items-center justify-content-end">
 
 			<!-- Search -->
 			<button class="lumea-header-icon-btn" aria-label="<?php esc_attr_e( 'Search', 'lumea' ); ?>" data-lumea-search-trigger>
@@ -103,6 +109,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<span class="lumea-nav-toggle-bar"></span>
 				<span class="lumea-nav-toggle-bar"></span>
 			</button>
+		</div>
+			</div>
 		</div>
 
 	</div>

@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Minimal Beauty Buttons</title>
+  <title>Luméa Buttons</title>
 
   <style>
     :root {
-      --bg: #ffffff;
-      --black: #111111;
-      --soft-black: #222222;
-      --text-muted: #6f6f6f;
-      --border: #d8d8d8;
-      --border-dark: #111111;
-      --cream: #f7f5f0;
-      --transition: 0.28s ease;
+      --lumea-bg: #fffaf7;
+      --lumea-surface: #ffffff;
+      --lumea-text: #241816;
+      --lumea-muted: #7d6b66;
+      --lumea-accent: #c98578;
+      --lumea-accent-dark: #8f4d43;
+      --lumea-fresh: #c7f099;
+      --lumea-border: rgba(36, 24, 22, 0.12);
     }
 
     * {
@@ -25,191 +25,117 @@
 
     body {
       min-height: 100vh;
-      background: var(--bg);
-      color: var(--black);
-      font-family: Inter, Arial, Helvetica, sans-serif;
-    }
-
-    .section {
-      min-height: 100vh;
-      padding: 80px 24px;
+      background: var(--lumea-bg);
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--lumea-text);
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 40px 20px;
     }
 
-    .inner {
+    .button-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .button-box {
       width: 100%;
-      max-width: 980px;
+      max-width: 520px;
+      padding: 28px;
+      background: var(--lumea-surface);
+      border: 1px solid var(--lumea-border);
+      border-radius: 20px;
       text-align: center;
     }
 
-    .eyebrow {
-      margin-bottom: 14px;
-      font-size: 12px;
-      letter-spacing: 0.18em;
+    .button-label {
+      margin-bottom: 16px;
+      font-size: 11px;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--text-muted);
-      font-weight: 500;
+      color: var(--lumea-muted);
     }
 
-    h1 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(38px, 6vw, 72px);
-      font-weight: 400;
-      letter-spacing: -0.04em;
-      line-height: 1;
-      margin-bottom: 18px;
-    }
-
-    .subtitle {
-      max-width: 520px;
-      margin: 0 auto 56px;
-      font-size: 15px;
-      line-height: 1.7;
-      color: var(--text-muted);
-    }
-
-    .button-row {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
+    .lumea-btn {
       position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 160px;
-      height: 48px;
-      padding: 0 26px;
+      min-width: 156px;
+      height: 46px;
+      padding: 0 24px;
+      border-radius: 999px;
+      border: 1px solid transparent;
       text-decoration: none;
       font-size: 12px;
       font-weight: 500;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.11em;
       text-transform: uppercase;
-      color: var(--black);
+      color: var(--lumea-text);
       background: transparent;
-      border: 1px solid transparent;
-      cursor: pointer;
-      transition: 
-        background var(--transition),
-        color var(--transition),
-        border-color var(--transition),
-        transform var(--transition);
+      transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
     }
 
-    .btn:focus-visible {
-      outline: 1px solid var(--black);
+    .lumea-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .lumea-btn:focus-visible {
+      outline: 1px solid var(--lumea-accent-dark);
       outline-offset: 4px;
     }
 
-    /* 1. Primary filled button */
-    .btn-primary {
-      background: var(--black);
-      color: #ffffff;
-      border-color: var(--black);
+    /* Button 01 — Dark Primary */
+    .btn-dark {
+      background: var(--lumea-text);
+      color: var(--lumea-surface);
+      border-color: var(--lumea-text);
     }
 
-    .btn-primary:hover {
-      background: var(--soft-black);
-      border-color: var(--soft-black);
-      transform: translateY(-1px);
+    .btn-dark:hover {
+      background: #3a2926;
+      border-color: #3a2926;
     }
 
-    /* 2. Clean outline button */
+    /* Button 02 — Accent */
+    .btn-accent {
+      background: var(--lumea-accent);
+      color: var(--lumea-surface);
+      border-color: var(--lumea-accent);
+    }
+
+    .btn-accent:hover {
+      background: var(--lumea-accent-dark);
+      border-color: var(--lumea-accent-dark);
+    }
+
+    /* Button 03 — White Outline */
     .btn-outline {
-      border-color: var(--border-dark);
-      color: var(--black);
+      background: var(--lumea-surface);
+      color: var(--lumea-text);
+      border-color: var(--lumea-border);
     }
 
     .btn-outline:hover {
-      background: var(--black);
-      color: #ffffff;
-      transform: translateY(-1px);
+      border-color: var(--lumea-text);
+      background: var(--lumea-surface);
     }
 
-    /* 3. Soft cream button */
-    .btn-soft {
-      background: var(--cream);
-      color: var(--black);
-      border-color: var(--cream);
-    }
-
-    .btn-soft:hover {
-      background: #efebe3;
-      border-color: #efebe3;
-      transform: translateY(-1px);
-    }
-
-    /* 4. Underline text button */
-    .btn-text {
-      min-width: auto;
-      height: auto;
-      padding: 8px 2px;
-      border: none;
-      color: var(--black);
-    }
-
-    .btn-text::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 2px;
-      width: 100%;
-      height: 1px;
-      background: var(--black);
-      transform: scaleX(1);
-      transform-origin: left;
-      opacity: 0.35;
-      transition: opacity var(--transition);
-    }
-
-    .btn-text:hover::after {
-      opacity: 1;
-    }
-
-    /* 5. Subtle icon button */
-    .btn-icon {
-      border-color: var(--border);
-      gap: 12px;
-    }
-
-    .btn-icon span {
-      font-size: 14px;
-      line-height: 1;
-      transition: transform var(--transition);
-    }
-
-    .btn-icon:hover {
-      border-color: var(--black);
-      transform: translateY(-1px);
-    }
-
-    .btn-icon:hover span {
-      transform: translateX(3px);
-    }
-
-    @media (max-width: 768px) {
-      .section {
-        padding: 60px 18px;
+    @media (max-width: 600px) {
+      .button-box {
+        padding: 24px 18px;
       }
 
-      .button-row {
-        flex-direction: column;
-        gap: 14px;
-      }
-
-      .btn {
+      .lumea-btn {
         width: 100%;
-        max-width: 300px;
-      }
-
-      .btn-text {
-        width: auto;
+        max-width: 280px;
       }
     }
   </style>
@@ -217,37 +143,27 @@
 
 <body>
 
-  <section class="section">
-    <div class="inner">
+  <div class="button-wrapper">
 
-      <p class="eyebrow">Minimal CTA Styles</p>
-
-      <h1>Professional Beauty Buttons</h1>
-
-      <p class="subtitle">
-        Clean, subtle and premium button styles suitable for skincare,
-        cosmetics, fragrance and luxury beauty product websites.
-      </p>
-
-      <div class="button-row">
-
-        <a href="#" class="btn btn-primary">Shop Now</a>
-
-        <a href="#" class="btn btn-outline">View Product</a>
-
-        <a href="#" class="btn btn-soft">Add to Bag</a>
-
-        <a href="#" class="btn btn-text">Learn More</a>
-
-        <a href="#" class="btn btn-icon">
-          Explore
-          <span>→</span>
-        </a>
-
-      </div>
-
+    <!-- Button 01 -->
+    <div class="button-box">
+      <p class="button-label">Primary Button</p>
+      <a href="#" class="lumea-btn btn-dark">Shop Now</a>
     </div>
-  </section>
+
+    <!-- Button 02 -->
+    <div class="button-box">
+      <p class="button-label">Accent Button</p>
+      <a href="#" class="lumea-btn btn-accent">Add to Bag</a>
+    </div>
+
+    <!-- Button 03 -->
+    <div class="button-box">
+      <p class="button-label">Outline Button</p>
+      <a href="#" class="lumea-btn btn-outline">View Product</a>
+    </div>
+
+  </div>
 
 </body>
 </html>

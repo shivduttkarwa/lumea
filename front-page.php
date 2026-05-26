@@ -34,10 +34,14 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 
 <!-- Sticky Header -->
 <header class="lumea-header" id="lumeaHeader" role="banner">
-	<div class="lumea-header-inner">
+	<div class="lumea-header-inner container-fluid px-3 px-sm-4 px-lg-5">
+		<div class="row w-100 g-0 align-items-center">
+			<div class="col-6 col-lg-3">
 
 		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="lumea-header-logo">LUMÉA</a>
+			</div>
 
+			<div class="d-none d-lg-flex col-lg-6 justify-content-center">
 		<nav class="lumea-header-nav" aria-label="<?php esc_attr_e( 'Primary navigation', 'lumea' ); ?>">
 			<?php
 			wp_nav_menu( array(
@@ -67,8 +71,10 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 			) );
 			?>
 		</nav>
+			</div>
 
-		<div class="lumea-header-actions">
+			<div class="col-6 col-lg-3">
+		<div class="lumea-header-actions d-flex align-items-center justify-content-end">
 			<?php if ( class_exists( 'WooCommerce' ) ) : ?>
 			<button class="lumea-cart-trigger" aria-label="<?php esc_attr_e( 'Open cart', 'lumea' ); ?>" data-lumea-cart-trigger>
 				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
@@ -79,6 +85,8 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 				<span class="lumea-nav-toggle-bar"></span>
 				<span class="lumea-nav-toggle-bar"></span>
 			</button>
+		</div>
+			</div>
 		</div>
 
 	</div>
@@ -119,12 +127,14 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 	</div>
 </div>
 
-<section class="hero" id="hero-home">
+<section class="hero d-flex align-items-stretch" id="hero-home">
 	<div class="hero-canvas-wrap">
 		<canvas id="heroCanvas"></canvas>
 	</div>
 
-	<div class="hero-content">
+	<div class="hero-content container-fluid px-3 px-sm-4 px-lg-5">
+		<div class="row h-100">
+			<div class="col-12 position-relative">
 
 		<h3 class="hero-label"><?php echo esc_html( get_theme_mod( 'lumea_hero_label', 'Glow' ) ); ?></h3>
 
@@ -139,7 +149,9 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 		<h1 class="hero-title">LUMÉA</h1>
 
 		<div class="cta-wrap">
-			<a href="<?php echo $shop_url; ?>" class="lumea-btn lumea-btn--outline"><?php echo esc_html( get_theme_mod( 'lumea_hero_cta_text', 'Shop Collection' ) ); ?></a>
+			<a href="<?php echo $shop_url; ?>" class="lumea-btn lumea-btn--white"><?php echo esc_html( get_theme_mod( 'lumea_hero_cta_text', 'Shop Collection' ) ); ?></a>
+		</div>
+			</div>
 		</div>
 	</div>
 </section>

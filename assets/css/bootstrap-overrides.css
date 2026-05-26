@@ -1,0 +1,19 @@
+/**
+ * Bootstrap bridge layer.
+ * Keep lightweight so Luméa bespoke styling from main.css stays unchanged.
+ */
+
+:root {
+  --bs-body-bg: var(--lumea-bg);
+  --bs-body-color: var(--lumea-text);
+  --bs-primary: var(--lumea-accent);
+  --bs-border-color: var(--lumea-border);
+  --bs-font-sans-serif: var(--lumea-font-body);
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--lumea-accent);
+  --bs-btn-border-color: var(--lumea-accent);
+  --bs-btn-hover-bg: var(--lumea-accent-dark);
+  --bs-btn-hover-border-color: var(--lumea-accent-dark);
+}

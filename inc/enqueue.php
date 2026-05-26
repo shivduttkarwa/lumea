@@ -30,11 +30,49 @@ function lumea_enqueue_assets() {
 		null
 	);
 
+	/* Bootstrap 5.3 foundation */
+	wp_enqueue_style(
+		'lumea-bootstrap',
+		'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
+		array(),
+		'5.3.3'
+	);
+
+	wp_enqueue_script(
+		'lumea-bootstrap',
+		'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js',
+		array(),
+		'5.3.3',
+		true
+	);
+
+	/* Theme tokens and typography layers */
+	wp_enqueue_style(
+		'lumea-tokens',
+		LUMEA_THEME_URI . '/assets/css/tokens.css',
+		array( 'lumea-bootstrap', 'lumea-clash-display', 'lumea-inter' ),
+		LUMEA_VERSION
+	);
+
+	wp_enqueue_style(
+		'lumea-typography',
+		LUMEA_THEME_URI . '/assets/css/typography.css',
+		array( 'lumea-tokens' ),
+		LUMEA_VERSION
+	);
+
+	wp_enqueue_style(
+		'lumea-bootstrap-overrides',
+		LUMEA_THEME_URI . '/assets/css/bootstrap-overrides.css',
+		array( 'lumea-typography' ),
+		LUMEA_VERSION
+	);
+
 	/* Main stylesheet */
 	wp_enqueue_style(
 		'lumea-main',
 		LUMEA_THEME_URI . '/assets/css/main.css',
-		array( 'lumea-clash-display', 'lumea-inter' ),
+		array( 'lumea-bootstrap-overrides' ),
 		LUMEA_VERSION
 	);
 
@@ -182,9 +220,33 @@ add_action( 'wp_enqueue_scripts', 'lumea_enqueue_assets' );
  */
 function lumea_enqueue_editor_assets() {
 	wp_enqueue_style(
+		'lumea-editor-bootstrap',
+		'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
+		array(),
+		'5.3.3'
+	);
+	wp_enqueue_style(
+		'lumea-editor-tokens',
+		LUMEA_THEME_URI . '/assets/css/tokens.css',
+		array( 'lumea-editor-bootstrap' ),
+		LUMEA_VERSION
+	);
+	wp_enqueue_style(
+		'lumea-editor-typography',
+		LUMEA_THEME_URI . '/assets/css/typography.css',
+		array( 'lumea-editor-tokens' ),
+		LUMEA_VERSION
+	);
+	wp_enqueue_style(
+		'lumea-editor-bootstrap-overrides',
+		LUMEA_THEME_URI . '/assets/css/bootstrap-overrides.css',
+		array( 'lumea-editor-typography' ),
+		LUMEA_VERSION
+	);
+	wp_enqueue_style(
 		'lumea-editor-main',
 		LUMEA_THEME_URI . '/assets/css/main.css',
-		array(),
+		array( 'lumea-editor-bootstrap-overrides' ),
 		LUMEA_VERSION
 	);
 }
