@@ -14,16 +14,7 @@ $count      = $wp_query->found_posts;
 
 <main class="lumea-search-page" id="lumeaPage">
 
-	<!-- Breadcrumb -->
-	<nav class="lumea-pdp-breadcrumb" aria-label="<?php esc_attr_e( 'Breadcrumb', 'lumea' ); ?>">
-		<div class="lumea-pdp-bc-inner">
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'lumea' ); ?></a>
-			<svg class="lumea-pdp-bc-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-			<span aria-current="page"><?php esc_html_e( 'Search', 'lumea' ); ?></span>
-		</div>
-	</nav>
-
-	<!-- Hero -->
+	<!-- Hero — dark editorial with embedded search form -->
 	<div class="lumea-search-hero">
 		<div class="lumea-search-hero-inner">
 			<p class="lumea-cart-eyebrow">

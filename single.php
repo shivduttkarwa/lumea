@@ -13,24 +13,26 @@ get_header();
 <main class="lumea-single-page" id="lumeaPage">
 
 	<?php while ( have_posts() ) : the_post();
-		$categories   = get_the_category();
-		$cat_name     = $categories ? $categories[0]->name : '';
-		$reading_time = max( 1, round( str_word_count( strip_tags( get_the_content() ) ) / 200 ) );
+		$categories       = get_the_category();
+		$cat_name         = $categories ? $categories[0]->name : '';
+		$reading_time     = max( 1, round( str_word_count( strip_tags( get_the_content() ) ) / 200 ) );
+		$featured_img_url = has_post_thumbnail() ? esc_url( get_the_post_thumbnail_url( null, 'full' ) ) : '';
 	?>
 
-	<!-- Breadcrumb -->
-	<nav class="lumea-pdp-breadcrumb" aria-label="<?php esc_attr_e( 'Breadcrumb', 'lumea' ); ?>">
-		<div class="lumea-pdp-bc-inner">
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'lumea' ); ?></a>
-			<svg class="lumea-pdp-bc-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-			<a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ?: home_url( '/journal/' ) ); ?>"><?php esc_html_e( 'Journal', 'lumea' ); ?></a>
-			<svg class="lumea-pdp-bc-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-			<span aria-current="page"><?php the_title(); ?></span>
-		</div>
-	</nav>
+	<!-- Post hero — dark editorial, featured image as background, breadcrumb embedded -->
+	<div class="lumea-post-hero"<?php echo $featured_img_url ? ' style="--post-bg: url(\'' . $featured_img_url . '\')"' : ''; ?>>
+		<div class="lumea-post-hero-overlay"></div>
 
-	<!-- Post hero -->
-	<div class="lumea-post-hero">
+		<nav class="lumea-pdp-breadcrumb lumea-post-hero-bc" aria-label="<?php esc_attr_e( 'Breadcrumb', 'lumea' ); ?>">
+			<div class="lumea-pdp-bc-inner">
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'lumea' ); ?></a>
+				<svg class="lumea-pdp-bc-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+				<a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ?: home_url( '/journal/' ) ); ?>"><?php esc_html_e( 'Journal', 'lumea' ); ?></a>
+				<svg class="lumea-pdp-bc-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+				<span aria-current="page"><?php the_title(); ?></span>
+			</div>
+		</nav>
+
 		<div class="lumea-post-hero-inner">
 			<?php if ( $cat_name ) : ?>
 			<p class="lumea-cart-eyebrow"><?php echo esc_html( $cat_name ); ?></p>
@@ -49,15 +51,6 @@ get_header();
 			</div>
 		</div>
 	</div>
-
-	<!-- Featured image -->
-	<?php if ( has_post_thumbnail() ) : ?>
-	<div class="lumea-post-cover">
-		<div class="lumea-post-cover-inner">
-			<?php the_post_thumbnail( 'full', array( 'class' => 'lumea-post-cover-img', 'loading' => 'eager', 'fetchpriority' => 'high' ) ); ?>
-		</div>
-	</div>
-	<?php endif; ?>
 
 	<!-- Content -->
 	<div class="lumea-post-body">

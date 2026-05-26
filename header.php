@@ -33,13 +33,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 				'container'      => false,
 				'menu_class'     => 'lumea-nav-list',
 				'fallback_cb'    => function() {
+					$shop_url    = function_exists( 'wc_get_page_id' ) && wc_get_page_id( 'shop' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : home_url( '/shop/' );
+					$blog_url    = get_option( 'page_for_posts' ) ? get_permalink( get_option( 'page_for_posts' ) ) : home_url( '/blog/' );
+					$about_page  = get_page_by_path( 'about' );
+					$about_url   = $about_page ? get_permalink( $about_page ) : home_url( '/about/' );
+					$contact_page = get_page_by_path( 'contact' );
+					$contact_url  = $contact_page ? get_permalink( $contact_page ) : home_url( '/contact/' );
 					echo '<ul class="lumea-nav-list">';
 					$links = array(
-						array( esc_html__( 'Shop',        'lumea' ), function_exists( 'wc_get_page_id' ) && wc_get_page_id( 'shop' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : '#' ),
-						array( esc_html__( 'Bestsellers', 'lumea' ), home_url( '/#lumeaBest' ) ),
-						array( esc_html__( 'Ritual',      'lumea' ), home_url( '/#lumeaRitual' ) ),
-						array( esc_html__( 'Journal',     'lumea' ), '#' ),
-						array( esc_html__( 'About',       'lumea' ), '#' ),
+						array( esc_html__( 'Shop',       'lumea' ), $shop_url ),
+						array( esc_html__( 'Bestsellers','lumea' ), home_url( '/#lumeaBest' ) ),
+						array( esc_html__( 'Blog',       'lumea' ), $blog_url ),
+						array( esc_html__( 'About',      'lumea' ), $about_url ),
+						array( esc_html__( 'Contact',    'lumea' ), $contact_url ),
 					);
 					foreach ( $links as $l ) {
 						echo '<li><a href="' . esc_url( $l[1] ) . '">' . $l[0] . '</a></li>';
@@ -76,13 +82,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 				'container'      => false,
 				'menu_class'     => 'lumea-mobile-nav-list',
 				'fallback_cb'    => function() {
+					$shop_url    = function_exists( 'wc_get_page_id' ) && wc_get_page_id( 'shop' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : home_url( '/shop/' );
+					$blog_url    = get_option( 'page_for_posts' ) ? get_permalink( get_option( 'page_for_posts' ) ) : home_url( '/blog/' );
+					$about_page  = get_page_by_path( 'about' );
+					$about_url   = $about_page ? get_permalink( $about_page ) : home_url( '/about/' );
+					$contact_page = get_page_by_path( 'contact' );
+					$contact_url  = $contact_page ? get_permalink( $contact_page ) : home_url( '/contact/' );
 					echo '<ul class="lumea-mobile-nav-list">';
 					$links = array(
-						array( esc_html__( 'Shop',        'lumea' ), function_exists( 'wc_get_page_id' ) && wc_get_page_id( 'shop' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : '#' ),
-						array( esc_html__( 'Bestsellers', 'lumea' ), home_url( '/#lumeaBest' ) ),
-						array( esc_html__( 'Ritual',      'lumea' ), home_url( '/#lumeaRitual' ) ),
-						array( esc_html__( 'Journal',     'lumea' ), '#' ),
-						array( esc_html__( 'About',       'lumea' ), '#' ),
+						array( esc_html__( 'Shop',       'lumea' ), $shop_url ),
+						array( esc_html__( 'Bestsellers','lumea' ), home_url( '/#lumeaBest' ) ),
+						array( esc_html__( 'Blog',       'lumea' ), $blog_url ),
+						array( esc_html__( 'About',      'lumea' ), $about_url ),
+						array( esc_html__( 'Contact',    'lumea' ), $contact_url ),
 					);
 					foreach ( $links as $l ) {
 						echo '<li><a href="' . esc_url( $l[1] ) . '">' . $l[0] . '</a></li>';

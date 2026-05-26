@@ -173,7 +173,8 @@ body.single-product .lumea-header,
 body.woocommerce-cart .lumea-header,
 body.woocommerce-checkout .lumea-header,
 body.woocommerce-account .lumea-header,
-body.page:not(.home) .lumea-header {
+body.error404 .lumea-header,
+body.page:not(.home):not(.page-template-page-about-php) .lumea-header {
   background: rgba(255, 250, 247, 0.97) !important;
   box-shadow: 0 1px 0 var(--lumea-border) !important;
   backdrop-filter: blur(12px);
@@ -184,7 +185,8 @@ body.single-product .lumea-header-logo,
 body.woocommerce-cart .lumea-header-logo,
 body.woocommerce-checkout .lumea-header-logo,
 body.woocommerce-account .lumea-header-logo,
-body.page:not(.home) .lumea-header-logo {
+body.error404 .lumea-header-logo,
+body.page:not(.home):not(.page-template-page-about-php) .lumea-header-logo {
   color: var(--lumea-text) !important;
 }
 
@@ -192,7 +194,8 @@ body.single-product .lumea-nav-list li a,
 body.woocommerce-cart .lumea-nav-list li a,
 body.woocommerce-checkout .lumea-nav-list li a,
 body.woocommerce-account .lumea-nav-list li a,
-body.page:not(.home) .lumea-nav-list li a {
+body.error404 .lumea-nav-list li a,
+body.page:not(.home):not(.page-template-page-about-php) .lumea-nav-list li a {
   color: var(--lumea-muted) !important;
 }
 
@@ -200,7 +203,8 @@ body.single-product .lumea-nav-list li a:hover,
 body.woocommerce-cart .lumea-nav-list li a:hover,
 body.woocommerce-checkout .lumea-nav-list li a:hover,
 body.woocommerce-account .lumea-nav-list li a:hover,
-body.page:not(.home) .lumea-nav-list li a:hover {
+body.error404 .lumea-nav-list li a:hover,
+body.page:not(.home):not(.page-template-page-about-php) .lumea-nav-list li a:hover {
   color: var(--lumea-text) !important;
 }
 
@@ -208,7 +212,8 @@ body.single-product .lumea-header .lumea-cart-trigger,
 body.woocommerce-cart .lumea-header .lumea-cart-trigger,
 body.woocommerce-checkout .lumea-header .lumea-cart-trigger,
 body.woocommerce-account .lumea-header .lumea-cart-trigger,
-body.page:not(.home) .lumea-header .lumea-cart-trigger {
+body.error404 .lumea-header .lumea-cart-trigger,
+body.page:not(.home):not(.page-template-page-about-php) .lumea-header .lumea-cart-trigger {
   border-color: var(--lumea-border) !important;
   color: var(--lumea-text) !important;
 }
@@ -217,7 +222,8 @@ body.single-product .lumea-nav-toggle-bar,
 body.woocommerce-cart .lumea-nav-toggle-bar,
 body.woocommerce-checkout .lumea-nav-toggle-bar,
 body.woocommerce-account .lumea-nav-toggle-bar,
-body.page:not(.home) .lumea-nav-toggle-bar {
+body.error404 .lumea-nav-toggle-bar,
+body.page:not(.home):not(.page-template-page-about-php) .lumea-nav-toggle-bar {
   background: var(--lumea-text) !important;
 }
 
@@ -280,6 +286,87 @@ body.woocommerce-shop .lumea-header.is-scrolled .lumea-nav-toggle-bar,
 body.post-type-archive-product .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   background: var(--lumea-text) !important;
 }
+
+/* ── About page hero header — full dark hero, overrides solid page rule ──
+   Higher specificity beats body.page:not(.home) !important above.        */
+body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-header-logo { color: #ffffff !important; }
+body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-nav-list li a { color: rgba(255,255,255,0.85) !important; }
+body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover { color: #ffffff !important; }
+body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-cart-trigger { border-color: rgba(255,255,255,0.35) !important; color: #ffffff !important; }
+body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar { background: #ffffff !important; }
+body.page.page-template-page-about-php .lumea-header.is-scrolled { background: rgba(255,250,247,0.97) !important; box-shadow: 0 1px 0 var(--lumea-border) !important; backdrop-filter: blur(12px); }
+body.page.page-template-page-about-php .lumea-header.is-scrolled .lumea-header-logo { color: var(--lumea-text) !important; }
+body.page.page-template-page-about-php .lumea-header.is-scrolled .lumea-nav-list li a { color: var(--lumea-muted) !important; }
+body.page.page-template-page-about-php .lumea-header.is-scrolled .lumea-nav-list li a:hover { color: var(--lumea-text) !important; }
+body.page.page-template-page-about-php .lumea-header.is-scrolled .lumea-cart-trigger { border-color: var(--lumea-border) !important; color: var(--lumea-text) !important; }
+body.page.page-template-page-about-php .lumea-header.is-scrolled .lumea-nav-toggle-bar { background: var(--lumea-text) !important; }
+
+/* ── Blog archive / category — dark editorial hero ───────────────────── */
+body.blog .lumea-header:not(.is-scrolled),
+body.archive:not(.woocommerce-page):not(.post-type-archive-product) .lumea-header:not(.is-scrolled) {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+body.blog .lumea-header:not(.is-scrolled) .lumea-header-logo,
+body.archive:not(.woocommerce-page):not(.post-type-archive-product) .lumea-header:not(.is-scrolled) .lumea-header-logo { color: #ffffff !important; }
+body.blog .lumea-header:not(.is-scrolled) .lumea-nav-list li a,
+body.archive:not(.woocommerce-page):not(.post-type-archive-product) .lumea-header:not(.is-scrolled) .lumea-nav-list li a { color: rgba(255,255,255,0.85) !important; }
+body.blog .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover,
+body.archive:not(.woocommerce-page):not(.post-type-archive-product) .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover { color: #ffffff !important; }
+body.blog .lumea-header:not(.is-scrolled) .lumea-cart-trigger,
+body.archive:not(.woocommerce-page):not(.post-type-archive-product) .lumea-header:not(.is-scrolled) .lumea-cart-trigger { border-color: rgba(255,255,255,0.35) !important; color: #ffffff !important; }
+body.blog .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar,
+body.archive:not(.woocommerce-page):not(.post-type-archive-product) .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar { background: #ffffff !important; }
+body.blog .lumea-header.is-scrolled,
+body.archive:not(.woocommerce-page):not(.post-type-archive-product) .lumea-header.is-scrolled { background: rgba(255,250,247,0.97) !important; box-shadow: 0 1px 0 var(--lumea-border) !important; backdrop-filter: blur(12px); }
+body.blog .lumea-header.is-scrolled .lumea-header-logo,
+body.archive:not(.woocommerce-page):not(.post-type-archive-product) .lumea-header.is-scrolled .lumea-header-logo { color: var(--lumea-text) !important; }
+body.blog .lumea-header.is-scrolled .lumea-nav-list li a,
+body.archive:not(.woocommerce-page):not(.post-type-archive-product) .lumea-header.is-scrolled .lumea-nav-list li a { color: var(--lumea-muted) !important; }
+body.blog .lumea-header.is-scrolled .lumea-nav-list li a:hover,
+body.archive:not(.woocommerce-page):not(.post-type-archive-product) .lumea-header.is-scrolled .lumea-nav-list li a:hover { color: var(--lumea-text) !important; }
+body.blog .lumea-header.is-scrolled .lumea-cart-trigger,
+body.archive:not(.woocommerce-page):not(.post-type-archive-product) .lumea-header.is-scrolled .lumea-cart-trigger { border-color: var(--lumea-border) !important; color: var(--lumea-text) !important; }
+body.blog .lumea-header.is-scrolled .lumea-nav-toggle-bar,
+body.archive:not(.woocommerce-page):not(.post-type-archive-product) .lumea-header.is-scrolled .lumea-nav-toggle-bar { background: var(--lumea-text) !important; }
+
+/* ── Single blog post — dark editorial hero with featured image ────────── */
+body.single-post .lumea-header:not(.is-scrolled) {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+body.single-post .lumea-header:not(.is-scrolled) .lumea-header-logo { color: #ffffff !important; }
+body.single-post .lumea-header:not(.is-scrolled) .lumea-nav-list li a { color: rgba(255,255,255,0.85) !important; }
+body.single-post .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover { color: #ffffff !important; }
+body.single-post .lumea-header:not(.is-scrolled) .lumea-cart-trigger { border-color: rgba(255,255,255,0.35) !important; color: #ffffff !important; }
+body.single-post .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar { background: #ffffff !important; }
+body.single-post .lumea-header.is-scrolled { background: rgba(255,250,247,0.97) !important; box-shadow: 0 1px 0 var(--lumea-border) !important; backdrop-filter: blur(12px); }
+body.single-post .lumea-header.is-scrolled .lumea-header-logo { color: var(--lumea-text) !important; }
+body.single-post .lumea-header.is-scrolled .lumea-nav-list li a { color: var(--lumea-muted) !important; }
+body.single-post .lumea-header.is-scrolled .lumea-nav-list li a:hover { color: var(--lumea-text) !important; }
+body.single-post .lumea-header.is-scrolled .lumea-cart-trigger { border-color: var(--lumea-border) !important; color: var(--lumea-text) !important; }
+body.single-post .lumea-header.is-scrolled .lumea-nav-toggle-bar { background: var(--lumea-text) !important; }
+
+/* ── Search results — dark editorial hero ────────────────────────────── */
+body.search .lumea-header:not(.is-scrolled) {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+body.search .lumea-header:not(.is-scrolled) .lumea-header-logo { color: #ffffff !important; }
+body.search .lumea-header:not(.is-scrolled) .lumea-nav-list li a { color: rgba(255,255,255,0.85) !important; }
+body.search .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover { color: #ffffff !important; }
+body.search .lumea-header:not(.is-scrolled) .lumea-cart-trigger { border-color: rgba(255,255,255,0.35) !important; color: #ffffff !important; }
+body.search .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar { background: #ffffff !important; }
+body.search .lumea-header.is-scrolled { background: rgba(255,250,247,0.97) !important; box-shadow: 0 1px 0 var(--lumea-border) !important; backdrop-filter: blur(12px); }
+body.search .lumea-header.is-scrolled .lumea-header-logo { color: var(--lumea-text) !important; }
+body.search .lumea-header.is-scrolled .lumea-nav-list li a { color: var(--lumea-muted) !important; }
+body.search .lumea-header.is-scrolled .lumea-nav-list li a:hover { color: var(--lumea-text) !important; }
+body.search .lumea-header.is-scrolled .lumea-cart-trigger { border-color: var(--lumea-border) !important; color: var(--lumea-text) !important; }
+body.search .lumea-header.is-scrolled .lumea-nav-toggle-bar { background: var(--lumea-text) !important; }
 
 /* ── Homepage hero header ───────────────────────────────────
    At the top (no is-scrolled): transparent bg, white items for dark hero.
@@ -1882,7 +1969,7 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
    ════════════════════════════════════════════════════════ */
 
 .lumea-shop {
-  background: var(--lumea-bg);
+  background: #ffffff;
   min-height: 70vh;
 }
 
@@ -1903,12 +1990,9 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 .lumea-shop-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(10, 10, 8, 0.75) 0%,
-    rgba(10, 10, 8, 0.25) 50%,
-    rgba(10, 10, 8, 0.08) 100%
-  );
+  background:
+    linear-gradient(to bottom, rgba(10,10,8,0.52) 0%, rgba(10,10,8,0.06) 28%, transparent 45%),
+    linear-gradient(to top,    rgba(10,10,8,0.72) 0%, rgba(10,10,8,0.22) 45%, transparent 65%);
 }
 
 .lumea-shop-hero-inner {
@@ -5625,14 +5709,39 @@ body.error404 .lumea-header {
 
 /* Post hero */
 .lumea-post-hero {
-  background: #ffffff;
-  border-bottom: 1px solid var(--lumea-border);
-  padding: 56px 0 48px;
-  text-align: center;
+  position: relative;
+  min-height: 75vh;
+  background: var(--lumea-text);
+  background-image: var(--post-bg);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-end;
+  border-bottom: none;
+  overflow: hidden;
 }
+.lumea-post-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.52) 0%, transparent 35%),
+    linear-gradient(to top,    rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.20) 50%, transparent 70%);
+  pointer-events: none;
+}
+.lumea-post-hero-bc .lumea-pdp-bc-inner a { color: rgba(255,255,255,0.65) !important; }
+.lumea-post-hero-bc .lumea-pdp-bc-inner a:hover { color: #ffffff !important; }
+.lumea-post-hero-bc .lumea-pdp-bc-inner span[aria-current] { color: rgba(255,255,255,0.85) !important; }
+.lumea-post-hero-bc .lumea-pdp-bc-arrow { color: rgba(255,255,255,0.35) !important; }
+.lumea-post-hero .lumea-cart-eyebrow { color: rgba(255,255,255,0.55); }
 .lumea-post-hero-inner {
+  position: relative;
+  z-index: 2;
   width: min(100% - 48px, 800px);
   margin-inline: auto;
+  padding: 0 0 72px;
+  text-align: center;
 }
 .lumea-post-title {
   margin: 10px 0 20px;
@@ -5640,7 +5749,7 @@ body.error404 .lumea-header {
   font-size: clamp(32px, 5vw, 56px);
   font-weight: 400;
   letter-spacing: -0.03em;
-  color: var(--lumea-text);
+  color: #ffffff;
   line-height: 1.1;
 }
 .lumea-post-meta {
@@ -5650,10 +5759,10 @@ body.error404 .lumea-header {
   gap: 8px;
   font-family: Inter, sans-serif;
   font-size: 13px;
-  color: var(--lumea-muted);
+  color: rgba(255, 255, 255, 0.65);
 }
 .lumea-post-sep { opacity: 0.4; }
-.lumea-post-author { font-weight: 600; color: var(--lumea-text); }
+.lumea-post-author { font-weight: 600; color: rgba(255, 255, 255, 0.90); }
 
 /* Cover image */
 .lumea-post-cover {
@@ -5676,7 +5785,7 @@ body.error404 .lumea-header {
 
 /* Body */
 .lumea-post-body {
-  padding: 56px 0 80px;
+  padding: 64px 0 80px;
   background: var(--lumea-bg);
 }
 .lumea-post-body-inner {
@@ -5864,14 +5973,51 @@ body.single-post .lumea-header {
 .admin-bar .lumea-blog-page { padding-top: calc(72px + 32px); }
 
 .lumea-blog-hero {
-  background: #ffffff;
-  border-bottom: 1px solid var(--lumea-border);
-  padding: 64px 0 56px;
-  text-align: center;
+  position: relative;
+  min-height: 68vh;
+  background: var(--lumea-text);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-end;
+  border-bottom: none;
+  overflow: hidden;
 }
+.lumea-blog-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.52) 0%, transparent 35%),
+    linear-gradient(to top,    rgba(0,0,0,0.45) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 60% at 50% 60%, rgba(201,133,120,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.lumea-blog-hero-bc,
+.lumea-post-hero-bc {
+  position: absolute;
+  top: 88px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+.admin-bar .lumea-blog-hero-bc,
+.admin-bar .lumea-post-hero-bc { top: 120px; }
+@media screen and (max-width: 782px) {
+  .admin-bar .lumea-blog-hero-bc,
+  .admin-bar .lumea-post-hero-bc { top: 134px; }
+}
+.lumea-blog-hero-bc .lumea-pdp-bc-inner a { color: rgba(255,255,255,0.65) !important; }
+.lumea-blog-hero-bc .lumea-pdp-bc-inner a:hover { color: #ffffff !important; }
+.lumea-blog-hero-bc .lumea-pdp-bc-inner span[aria-current] { color: rgba(255,255,255,0.85) !important; }
+.lumea-blog-hero-bc .lumea-pdp-bc-arrow { color: rgba(255,255,255,0.35) !important; }
+.lumea-blog-hero .lumea-cart-eyebrow { color: rgba(255,255,255,0.55); }
 .lumea-blog-hero-inner {
+  position: relative;
+  z-index: 2;
   width: min(100% - 48px, 640px);
   margin-inline: auto;
+  padding: 0 0 72px;
+  text-align: center;
 }
 .lumea-blog-title {
   margin: 8px 0 14px;
@@ -5879,13 +6025,13 @@ body.single-post .lumea-header {
   font-size: clamp(40px, 6vw, 72px);
   font-weight: 400;
   letter-spacing: -0.04em;
-  color: var(--lumea-text);
+  color: #ffffff;
 }
 .lumea-blog-subtitle {
   margin: 0;
   font-family: Inter, sans-serif;
   font-size: 16px;
-  color: var(--lumea-muted);
+  color: rgba(255, 255, 255, 0.65);
   line-height: 1.65;
 }
 
@@ -6878,19 +7024,60 @@ a.lumea-contact-info-value:hover { color: var(--lumea-accent-dark); }
 .admin-bar .lumea-search-page { padding-top: calc(72px + 32px); }
 
 .lumea-search-hero {
-  background: #ffffff;
-  border-bottom: 1px solid var(--lumea-border);
-  padding: 56px 0 48px;
+  position: relative;
+  min-height: 52vh;
+  background: var(--lumea-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 32px 80px;
+  border-bottom: none;
   text-align: center;
+  overflow: hidden;
 }
-.lumea-search-hero-inner { width: min(100% - 48px, 640px); margin-inline: auto; }
+.lumea-search-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.52) 0%, transparent 40%),
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,133,120,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.lumea-search-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 48px, 640px);
+  margin-inline: auto;
+}
+.lumea-search-hero .lumea-cart-eyebrow { color: rgba(255,255,255,0.55); }
 .lumea-search-title {
   margin: 4px 0 32px;
   font-family: "ClashDisplay-Variable", "Clash Display", Inter, sans-serif;
   font-size: clamp(28px, 5vw, 52px);
   font-weight: 400;
   letter-spacing: -0.04em;
-  color: var(--lumea-text);
+  color: #ffffff;
+}
+.lumea-search-hero .lumea-search-form {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+.lumea-search-hero .lumea-search-form:focus-within {
+  border-color: var(--lumea-accent);
+  box-shadow: 0 0 0 3px rgba(201,133,120,0.18);
+}
+.lumea-search-hero .lumea-search-input {
+  color: #ffffff;
+}
+.lumea-search-hero .lumea-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.40);
+}
+.lumea-search-hero .lumea-search-submit {
+  color: rgba(255, 255, 255, 0.70);
+}
+.lumea-search-hero .lumea-search-submit:hover {
+  color: #ffffff;
 }
 .lumea-search-form {
   display: flex;
