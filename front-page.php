@@ -374,8 +374,9 @@ if ( class_exists( 'WooCommerce' ) ) {
 }
 ?>
 <section class="lumea-best-section" aria-label="<?php esc_attr_e( 'Shop Bestsellers', 'lumea' ); ?>">
-	<div class="lumea-best-inner">
-		<div class="lumea-best-slider-area">
+	<div class="lumea-best-inner container-fluid px-3 px-sm-4 px-lg-5">
+		<div class="lumea-best-slider-area row gx-0">
+			<div class="col-12">
 
 			<div class="swiper lumea-best-swiper">
 				<div class="swiper-wrapper">
@@ -446,6 +447,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 				<button class="lumea-best-nav-btn lumea-best-next" type="button" aria-label="<?php esc_attr_e( 'Next', 'lumea' ); ?>">
 					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 				</button>
+			</div>
 			</div>
 
 		</div>
