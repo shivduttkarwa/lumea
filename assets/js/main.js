@@ -646,6 +646,37 @@
       return;
     }
 
+    var drawerRemoveButton = event.target.closest('.lumea-drawer-item-remove[data-product_id]');
+    if (drawerRemoveButton) {
+      event.preventDefault();
+
+      var removeProductId = toPositiveInt(drawerRemoveButton.getAttribute('data-product_id'));
+      if (!removeProductId) {
+        return;
+      }
+
+      if (drawerRemoveButton.dataset.busy) {
+        return;
+      }
+      drawerRemoveButton.dataset.busy = '1';
+
+      updateCartQty(removeProductId, 0, function (ok) {
+        delete drawerRemoveButton.dataset.busy;
+
+        if (ok) {
+          syncPageCards(removeProductId, 0);
+          openCartDrawer();
+          return;
+        }
+
+        var fallbackUrl = drawerRemoveButton.getAttribute('href');
+        if (fallbackUrl) {
+          window.location.href = fallbackUrl;
+        }
+      });
+      return;
+    }
+
     var addToCartButton = event.target.closest('.lumea-card-atc-wrap .add_to_cart_button');
     if (addToCartButton) {
       var addWrap = addToCartButton.closest('.lumea-card-atc-wrap');

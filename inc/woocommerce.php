@@ -245,7 +245,11 @@ function lumea_mini_cart_items() {
 	echo '<div class="lumea-drawer-items">';
 
 	if ( $cart->is_empty() ) {
+		$shop_url = wc_get_page_permalink( 'shop' );
+		echo '<div class="lumea-drawer-empty-state">';
 		echo '<p class="lumea-drawer-empty">' . esc_html__( 'Your cart is empty.', 'lumea' ) . '</p>';
+		echo '<a href="' . esc_url( $shop_url ) . '" class="lumea-drawer-empty-btn">' . esc_html__( 'Shop Products', 'lumea' ) . '</a>';
+		echo '</div>';
 	} else {
 		foreach ( $cart->get_cart() as $key => $item ) {
 			$product    = $item['data'];
@@ -269,7 +273,7 @@ function lumea_mini_cart_items() {
 						<button class="lumea-drawer-qty-btn lumea-qty-plus" type="button" aria-label="<?php esc_attr_e( 'Increase quantity', 'lumea' ); ?>" data-product_id="<?php echo esc_attr( $product_id ); ?>">&#43;</button>
 					</div>
 				</div>
-				<a href="<?php echo esc_url( $remove ); ?>" class="lumea-drawer-item-remove" aria-label="<?php esc_attr_e( 'Remove item', 'lumea' ); ?>">
+				<a href="<?php echo esc_url( $remove ); ?>" class="lumea-drawer-item-remove" data-product_id="<?php echo esc_attr( $product_id ); ?>" aria-label="<?php esc_attr_e( 'Remove item', 'lumea' ); ?>">
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
 				</a>
 			</div>
