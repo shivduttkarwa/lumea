@@ -10,6 +10,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Force WooCommerce store currency to USD.
+ *
+ * Note: This changes displayed/charged currency code and symbol only.
+ * Existing product numeric prices are not converted automatically.
+ */
+function lumea_woocommerce_currency_usd() {
+	return 'USD';
+}
+add_filter( 'woocommerce_currency', 'lumea_woocommerce_currency_usd' );
+
+/**
+ * Ensure USD symbol output remains "$" across WooCommerce price renderers.
+ */
+function lumea_woocommerce_usd_symbol( $symbol, $currency ) {
+	if ( 'USD' === $currency ) {
+		return '$';
+	}
+	return $symbol;
+}
+add_filter( 'woocommerce_currency_symbol', 'lumea_woocommerce_usd_symbol', 10, 2 );
+
+/**
  * Update cart count and mini-cart HTML via WooCommerce AJAX fragments.
  */
 function lumea_cart_fragments( $fragments ) {
