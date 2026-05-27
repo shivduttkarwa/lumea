@@ -22,16 +22,6 @@
       /* Scrolled state (solid bg) */
       header.classList.toggle('is-scrolled', current > 40);
 
-      /* Hide on scroll down, show on scroll up */
-      if (current > 60) {
-        if (current > lastScroll) {
-          header.classList.add('is-hidden');
-        } else {
-          header.classList.remove('is-hidden');
-        }
-      } else {
-        header.classList.remove('is-hidden');
-      }
 
       lastScroll = current;
     }
