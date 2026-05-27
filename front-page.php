@@ -254,6 +254,8 @@ if ( class_exists( 'WooCommerce' ) ) {
 			'hover_image' => ! empty( $_bpgal ) ? wp_get_attachment_image_url( $_bpgal[0], 'woocommerce_single' ) : '',
 			'url'         => get_permalink(),
 			'type'        => $_bp->get_type(),
+			'can_add_to_cart' => $_bp->is_purchasable() && $_bp->is_in_stock(),
+			'supports_ajax'   => $_bp->supports( 'ajax_add_to_cart' ) && $_bp->is_purchasable() && $_bp->is_in_stock(),
 		);
 	}
 	wp_reset_postdata();
@@ -286,7 +288,8 @@ if ( class_exists( 'WooCommerce' ) ) {
 					?>
 					<?php foreach ( $lumea_best_source as $bp ) :
 						$bp_id    = (int) $bp['id'];
-						$bp_name  = esc_html( $bp['name'] );
+						$bp_name_raw = wp_strip_all_tags( (string) $bp['name'] );
+						$bp_name  = esc_html( $bp_name_raw );
 						$bp_url   = esc_url( $bp['url'] );
 						$bp_badge = $bp['badge'];
 						$bp_main  = esc_url( $bp['main_image'] );
@@ -315,30 +318,27 @@ if ( class_exists( 'WooCommerce' ) ) {
 									</button>
 								</div>
 								<p class="lumea-best-price"><?php echo isset( $bp['price'] ) ? wp_kses_post( $bp['price'] ) : ''; ?></p>
-								<div class="lumea-card-actions">
-								<?php if ( $bp_id && class_exists( 'WooCommerce' ) ) : ?>
-								<div class="lumea-card-atc-wrap">
-									<a href="<?php echo esc_url( add_query_arg( 'add-to-cart', $bp_id, $bp_url ) ); ?>"
-									   class="lumea-best-btn add_to_cart_button ajax_add_to_cart"
-									   data-product_id="<?php echo $bp_id; ?>"
-									   data-product_type="<?php echo esc_attr( $bp['type'] ); ?>"
-									   data-quantity="1"
-									   aria-label="<?php echo esc_attr( sprintf( __( 'Add %s to cart', 'lumea' ), $bp_name ) ); ?>"
-									   rel="nofollow"><?php esc_html_e( 'Add to Cart', 'lumea' ); ?></a>
-									<div class="lumea-qty-stepper" aria-label="<?php esc_attr_e( 'Quantity', 'lumea' ); ?>" data-lumea-qty>
-										<button class="lumea-qty-btn lumea-qty-minus" type="button" aria-label="<?php esc_attr_e( 'Decrease', 'lumea' ); ?>">&#8722;</button>
-										<span class="lumea-qty-num">1</span>
-										<button class="lumea-qty-btn lumea-qty-plus" type="button" aria-label="<?php esc_attr_e( 'Increase', 'lumea' ); ?>" data-product_id="<?php echo $bp_id; ?>">&#43;</button>
-									</div>
-								</div>
-								<a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="lumea-view-cart-btn" data-lumea-view-cart>
-									<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-									<span><?php esc_html_e( 'View Cart', 'lumea' ); ?></span>
-								</a>
+								<?php if ( $bp_id && class_exists( 'WooCommerce' ) && function_exists( 'lumea_render_product_card_actions' ) ) : ?>
+									<?php
+									lumea_render_product_card_actions(
+										array(
+											'product_id'      => $bp_id,
+											'product_url'     => $bp_url,
+											'product_name'    => $bp_name_raw,
+											'product_type'    => isset( $bp['type'] ) ? $bp['type'] : 'simple',
+											'button_class'    => 'lumea-best-btn',
+											'button_label'    => __( 'Add to Cart', 'lumea' ),
+											'fallback_label'  => __( 'Shop Now', 'lumea' ),
+											'can_add_to_cart' => isset( $bp['can_add_to_cart'] ) ? (bool) $bp['can_add_to_cart'] : true,
+											'supports_ajax'   => isset( $bp['supports_ajax'] ) ? (bool) $bp['supports_ajax'] : true,
+										)
+									);
+									?>
 								<?php else : ?>
-								<a href="<?php echo $bp_url; ?>" class="lumea-best-btn"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></a>
-								<?php endif; ?>
+								<div class="lumea-card-actions">
+									<a href="<?php echo $bp_url; ?>" class="lumea-best-btn"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></a>
 								</div>
+								<?php endif; ?>
 							</div>
 						</article>
 					</div>
@@ -505,6 +505,8 @@ $lumea_latest = array(
 					'hover'     => ! empty( $_lp_gallery ) ? wp_get_attachment_image_url( $_lp_gallery[0], 'woocommerce_single' ) : '',
 					'url'       => get_permalink(),
 					'type'      => $_lp->get_type(),
+					'can_add_to_cart' => $_lp->is_purchasable() && $_lp->is_in_stock(),
+					'supports_ajax'   => $_lp->supports( 'ajax_add_to_cart' ) && $_lp->is_purchasable() && $_lp->is_in_stock(),
 					'category'  => ( ( $_lp_cats = get_the_terms( get_the_ID(), 'product_cat' ) ) && ! is_wp_error( $_lp_cats ) ) ? $_lp_cats[0]->name : '',
 				);
 			}
@@ -514,7 +516,8 @@ $lumea_latest = array(
 		<div class="lumea-latest-grid">
 			<?php foreach ( $lumea_lp_source as $lp ) :
 				$lp_id       = (int) $lp['id'];
-				$lp_name     = esc_html( $lp['name'] );
+				$lp_name_raw = wp_strip_all_tags( (string) $lp['name'] );
+				$lp_name     = esc_html( $lp_name_raw );
 				$lp_url      = esc_url( $lp['url'] );
 				$lp_badge    = $lp['badge'];
 				$lp_is_sale  = ! empty( $lp['is_sale'] );
@@ -550,30 +553,27 @@ $lumea_latest = array(
 						<?php endif; ?>
 						<span class="lumea-lp-price<?php echo $lp_is_sale ? ' lumea-lp-price--sale' : ''; ?>"><?php echo wp_kses_post( $lp['price'] ); ?></span>
 					</div>
-					<div class="lumea-card-actions">
-					<?php if ( $lp_id && class_exists( 'WooCommerce' ) ) : ?>
-					<div class="lumea-card-atc-wrap">
-						<a href="<?php echo esc_url( add_query_arg( 'add-to-cart', $lp_id, $lp_url ) ); ?>"
-						   class="lumea-lp-btn add_to_cart_button ajax_add_to_cart"
-						   data-product_id="<?php echo $lp_id; ?>"
-						   data-product_type="<?php echo esc_attr( $lp['type'] ); ?>"
-						   data-quantity="1"
-						   aria-label="<?php echo esc_attr( sprintf( __( 'Add %s to cart', 'lumea' ), $lp_name ) ); ?>"
-						   rel="nofollow"><?php esc_html_e( 'Add to Cart', 'lumea' ); ?></a>
-						<div class="lumea-qty-stepper" aria-label="<?php esc_attr_e( 'Quantity', 'lumea' ); ?>" data-lumea-qty>
-							<button class="lumea-qty-btn lumea-qty-minus" type="button" aria-label="<?php esc_attr_e( 'Decrease', 'lumea' ); ?>">&#8722;</button>
-							<span class="lumea-qty-num">1</span>
-							<button class="lumea-qty-btn lumea-qty-plus" type="button" aria-label="<?php esc_attr_e( 'Increase', 'lumea' ); ?>" data-product_id="<?php echo $lp_id; ?>">&#43;</button>
-						</div>
-					</div>
-					<a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="lumea-view-cart-btn" data-lumea-view-cart>
-						<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-						<span><?php esc_html_e( 'View Cart', 'lumea' ); ?></span>
-					</a>
+					<?php if ( $lp_id && class_exists( 'WooCommerce' ) && function_exists( 'lumea_render_product_card_actions' ) ) : ?>
+						<?php
+						lumea_render_product_card_actions(
+							array(
+								'product_id'      => $lp_id,
+								'product_url'     => $lp_url,
+								'product_name'    => $lp_name_raw,
+								'product_type'    => isset( $lp['type'] ) ? $lp['type'] : 'simple',
+								'button_class'    => 'lumea-lp-btn',
+								'button_label'    => __( 'Add to Cart', 'lumea' ),
+								'fallback_label'  => __( 'Shop Now', 'lumea' ),
+								'can_add_to_cart' => isset( $lp['can_add_to_cart'] ) ? (bool) $lp['can_add_to_cart'] : true,
+								'supports_ajax'   => isset( $lp['supports_ajax'] ) ? (bool) $lp['supports_ajax'] : true,
+							)
+						);
+						?>
 					<?php else : ?>
-					<a href="<?php echo $lp_url; ?>" class="lumea-lp-btn"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></a>
-					<?php endif; ?>
+					<div class="lumea-card-actions">
+						<a href="<?php echo $lp_url; ?>" class="lumea-lp-btn"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></a>
 					</div>
+					<?php endif; ?>
 				</div>
 			</article>
 			<?php endforeach; ?>

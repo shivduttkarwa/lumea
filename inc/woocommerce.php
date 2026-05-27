@@ -32,6 +32,87 @@ function lumea_woocommerce_usd_symbol( $symbol, $currency ) {
 add_filter( 'woocommerce_currency_symbol', 'lumea_woocommerce_usd_symbol', 10, 2 );
 
 /**
+ * Render reusable product card purchase actions.
+ *
+ * Output includes:
+ * - Add to cart button
+ * - Qty stepper
+ * - View cart button
+ * Or a fallback CTA when product cannot be directly added.
+ *
+ * @param array $args Rendering options.
+ */
+function lumea_render_product_card_actions( $args = array() ) {
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		return;
+	}
+
+	$defaults = array(
+		'product_id'      => 0,
+		'product_url'     => '',
+		'product_name'    => '',
+		'product_type'    => 'simple',
+		'button_class'    => 'lumea-lp-btn',
+		'button_label'    => __( 'Add to Cart', 'lumea' ),
+		'fallback_label'  => __( 'Shop Now', 'lumea' ),
+		'can_add_to_cart' => true,
+		'supports_ajax'   => true,
+	);
+	$args = wp_parse_args( $args, $defaults );
+
+	$product_id    = absint( $args['product_id'] );
+	$product_url   = $args['product_url'] ? $args['product_url'] : ( $product_id ? get_permalink( $product_id ) : '' );
+	$product_name  = wp_strip_all_tags( (string) $args['product_name'] );
+	$product_type  = sanitize_html_class( (string) $args['product_type'] );
+	$button_class  = sanitize_text_field( (string) $args['button_class'] );
+	$button_label  = (string) $args['button_label'];
+	$fallback_text = (string) $args['fallback_label'];
+	$can_add       = (bool) $args['can_add_to_cart'] && $product_id > 0;
+	$supports_ajax = (bool) $args['supports_ajax'];
+
+	echo '<div class="lumea-card-actions">';
+
+	if ( $can_add ) {
+		$atc_classes = array(
+			$button_class,
+			'button',
+			'add_to_cart_button',
+			'product_type_' . $product_type,
+		);
+		if ( $supports_ajax ) {
+			$atc_classes[] = 'ajax_add_to_cart';
+		}
+
+		$atc_url  = add_query_arg( 'add-to-cart', $product_id, $product_url );
+		$atc_aria = sprintf( __( 'Add %s to cart', 'lumea' ), $product_name );
+		?>
+		<div class="lumea-card-atc-wrap">
+			<a href="<?php echo esc_url( $atc_url ); ?>"
+			   class="<?php echo esc_attr( implode( ' ', array_filter( $atc_classes ) ) ); ?>"
+			   data-product_id="<?php echo esc_attr( $product_id ); ?>"
+			   data-product_type="<?php echo esc_attr( $product_type ); ?>"
+			   data-quantity="1"
+			   aria-label="<?php echo esc_attr( $atc_aria ); ?>"
+			   rel="nofollow"><?php echo esc_html( $button_label ); ?></a>
+			<div class="lumea-qty-stepper" aria-label="<?php esc_attr_e( 'Quantity', 'lumea' ); ?>" data-lumea-qty>
+				<button class="lumea-qty-btn lumea-qty-minus" type="button" aria-label="<?php esc_attr_e( 'Decrease', 'lumea' ); ?>">&#8722;</button>
+				<span class="lumea-qty-num">1</span>
+				<button class="lumea-qty-btn lumea-qty-plus" type="button" aria-label="<?php esc_attr_e( 'Increase', 'lumea' ); ?>" data-product_id="<?php echo esc_attr( $product_id ); ?>">&#43;</button>
+			</div>
+		</div>
+		<a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="lumea-view-cart-btn" data-lumea-view-cart>
+			<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+			<span><?php esc_html_e( 'View Cart', 'lumea' ); ?></span>
+		</a>
+		<?php
+	} else {
+		echo '<a href="' . esc_url( $product_url ) . '" class="' . esc_attr( $button_class ) . '">' . esc_html( $fallback_text ) . '</a>';
+	}
+
+	echo '</div>';
+}
+
+/**
  * Update cart count and mini-cart HTML via WooCommerce AJAX fragments.
  */
 function lumea_cart_fragments( $fragments ) {

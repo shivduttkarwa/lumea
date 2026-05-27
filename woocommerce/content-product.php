@@ -21,6 +21,8 @@ $is_on_sale    = $product->is_on_sale();
 $is_new        = ( time() - get_post_time( 'U', false, $product_id ) ) < ( 30 * DAY_IN_SECONDS );
 $cats          = get_the_terms( $product_id, 'product_cat' );
 $cat_name      = ( ! is_wp_error( $cats ) && ! empty( $cats ) ) ? $cats[0]->name : '';
+$can_add_to_cart = $product->is_purchasable() && $product->is_in_stock();
+$supports_ajax   = $can_add_to_cart && $product->supports( 'ajax_add_to_cart' );
 ?>
 <li class="lumea-shop-card <?php echo esc_attr( implode( ' ', wc_get_product_class( '', $product ) ) ); ?>">
 
@@ -79,16 +81,34 @@ $cat_name      = ( ! is_wp_error( $cats ) && ! empty( $cats ) ) ? $cats[0]->name
 			</span>
 		</div>
 
-		<?php
-		woocommerce_template_loop_add_to_cart( array(
-			'class' => implode( ' ', array_filter( array(
-				'lumea-shop-btn',
-				'button',
-				$product->is_purchasable() && $product->is_in_stock() ? 'add_to_cart_button' : '',
-				$product->supports( 'ajax_add_to_cart' ) && $product->is_purchasable() && $product->is_in_stock() ? 'ajax_add_to_cart' : '',
-			) ) ),
-		) );
-		?>
+		<?php if ( function_exists( 'lumea_render_product_card_actions' ) ) : ?>
+			<?php
+			lumea_render_product_card_actions(
+				array(
+					'product_id'      => $product_id,
+					'product_url'     => $product_url,
+					'product_name'    => $product_name,
+					'product_type'    => $product->get_type(),
+					'button_class'    => 'lumea-shop-btn',
+					'button_label'    => $can_add_to_cart ? $product->add_to_cart_text() : __( 'View product', 'lumea' ),
+					'fallback_label'  => __( 'View product', 'lumea' ),
+					'can_add_to_cart' => $can_add_to_cart,
+					'supports_ajax'   => $supports_ajax,
+				)
+			);
+			?>
+		<?php else : ?>
+			<?php
+			woocommerce_template_loop_add_to_cart( array(
+				'class' => implode( ' ', array_filter( array(
+					'lumea-shop-btn',
+					'button',
+					$can_add_to_cart ? 'add_to_cart_button' : '',
+					$supports_ajax ? 'ajax_add_to_cart' : '',
+				) ) ),
+			) );
+			?>
+		<?php endif; ?>
 
 	</div>
 
