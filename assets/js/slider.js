@@ -24,6 +24,8 @@
   let cursorSide       = 'right';
   let isCursorBlocked  = false;
   let activeAnimations = [];
+  let lastMouseX       = -1;
+  let lastMouseY       = -1;
 
   function createSlides() {
     slidesData.forEach( function ( slide, index ) {
@@ -138,12 +140,30 @@
     const rect   = slider.getBoundingClientRect();
     const isLeft = ( event.clientX - rect.left ) < rect.width / 2;
     cursorSide   = isLeft ? 'left' : 'right';
-    cursorArrow.style.left = event.clientX + 'px';
-    cursorArrow.style.top  = event.clientY + 'px';
+    cursorArrow.style.left = ( event.clientX - rect.left ) + 'px';
+    cursorArrow.style.top  = ( event.clientY - rect.top )  + 'px';
     cursorArrow.classList.add( 'is-visible' );
     cursorArrow.classList.toggle( 'is-left',  isLeft );
     cursorArrow.classList.toggle( 'is-right', ! isLeft );
   }
+
+  document.addEventListener( 'mousemove', function ( e ) {
+    lastMouseX = e.clientX;
+    lastMouseY = e.clientY;
+  } );
+
+  window.addEventListener( 'scroll', function () {
+    if ( lastMouseX < 0 ) return;
+    const rect = slider.getBoundingClientRect();
+    if (
+      lastMouseX >= rect.left && lastMouseX <= rect.right &&
+      lastMouseY >= rect.top  && lastMouseY <= rect.bottom
+    ) {
+      moveCursor( { clientX: lastMouseX, clientY: lastMouseY, target: slider } );
+    } else {
+      cursorArrow.classList.remove( 'is-visible', 'is-left', 'is-right' );
+    }
+  }, { passive: true } );
 
   slider.addEventListener( 'mousemove', moveCursor );
 
