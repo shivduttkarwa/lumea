@@ -1882,11 +1882,56 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   color: var(--lumea-text);
 }
 
+/* Qty stepper inside cart drawer */
+.lumea-drawer-item-qty {
+  display: flex;
+  align-items: stretch;
+  margin-top: 10px;
+  height: 28px;
+  border: 1px solid var(--lumea-border);
+  width: fit-content;
+}
+
+.lumea-drawer-qty-btn {
+  width: 28px;
+  height: 100%;
+  border: none;
+  background: transparent !important;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--lumea-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s ease;
+}
+
+.lumea-drawer-qty-btn:hover { transform: scale(1.2); }
+
+.lumea-drawer-item-qty .lumea-qty-num {
+  min-width: 28px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--lumea-text);
+  border-inline: 1px solid var(--lumea-border);
+  pointer-events: none;
+}
+
 /* Drawer footer */
 .lumea-drawer-footer {
   padding: 20px 28px 28px;
   border-top: 1px solid var(--lumea-border);
   flex-shrink: 0;
+}
+
+.lumea-drawer-footer:empty {
+  display: none;
 }
 
 .lumea-drawer-subtotal {

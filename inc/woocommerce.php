@@ -16,20 +16,24 @@ function lumea_cart_fragments( $fragments ) {
 
 	/* Cart count bubble */
 	$count = WC()->cart->get_cart_contents_count();
-
 	$fragments['span.lumea-cart-count'] = '<span class="lumea-cart-count' . ( $count ? ' lumea-cart-count--visible' : '' ) . '">' . $count . '</span>';
 
-	/* Mini-cart drawer body */
+	/* Items list */
 	ob_start();
 	lumea_mini_cart_items();
 	$fragments['div.lumea-drawer-items'] = ob_get_clean();
+
+	/* Footer (subtotal + buttons) */
+	ob_start();
+	lumea_drawer_footer();
+	$fragments['div.lumea-drawer-footer'] = ob_get_clean();
 
 	return $fragments;
 }
 add_filter( 'woocommerce_add_to_cart_fragments', 'lumea_cart_fragments' );
 
 /**
- * Render mini-cart items list (used in fragment + initial render).
+ * Render the scrollable items list inside the cart drawer.
  */
 function lumea_mini_cart_items() {
 	$cart = WC()->cart;
@@ -39,12 +43,13 @@ function lumea_mini_cart_items() {
 		echo '<p class="lumea-drawer-empty">' . esc_html__( 'Your cart is empty.', 'lumea' ) . '</p>';
 	} else {
 		foreach ( $cart->get_cart() as $key => $item ) {
-			$product   = $item['data'];
-			$name      = $product->get_name();
-			$qty       = $item['quantity'];
-			$price     = wc_price( $product->get_price() * $qty );
-			$img       = wp_get_attachment_image_url( $product->get_image_id(), 'thumbnail' );
-			$remove    = wc_get_cart_remove_url( $key );
+			$product    = $item['data'];
+			$product_id = $product->get_id();
+			$name       = $product->get_name();
+			$qty        = $item['quantity'];
+			$unit_price = wc_price( $product->get_price() );
+			$img        = wp_get_attachment_image_url( $product->get_image_id(), 'thumbnail' );
+			$remove     = wc_get_cart_remove_url( $key );
 			?>
 			<div class="lumea-drawer-item">
 				<?php if ( $img ) : ?>
@@ -52,8 +57,12 @@ function lumea_mini_cart_items() {
 				<?php endif; ?>
 				<div class="lumea-drawer-item-info">
 					<p class="lumea-drawer-item-name"><?php echo esc_html( $name ); ?></p>
-					<p class="lumea-drawer-item-meta">Qty: <?php echo esc_html( $qty ); ?></p>
-					<p class="lumea-drawer-item-price"><?php echo wp_kses_post( $price ); ?></p>
+					<p class="lumea-drawer-item-price"><?php echo wp_kses_post( $unit_price ); ?></p>
+					<div class="lumea-drawer-item-qty" data-lumea-qty>
+						<button class="lumea-drawer-qty-btn lumea-qty-minus" type="button" aria-label="<?php esc_attr_e( 'Decrease quantity', 'lumea' ); ?>">&#8722;</button>
+						<span class="lumea-qty-num"><?php echo esc_html( $qty ); ?></span>
+						<button class="lumea-drawer-qty-btn lumea-qty-plus" type="button" aria-label="<?php esc_attr_e( 'Increase quantity', 'lumea' ); ?>" data-product_id="<?php echo esc_attr( $product_id ); ?>">&#43;</button>
+					</div>
 				</div>
 				<a href="<?php echo esc_url( $remove ); ?>" class="lumea-drawer-item-remove" aria-label="<?php esc_attr_e( 'Remove item', 'lumea' ); ?>">
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -63,6 +72,25 @@ function lumea_mini_cart_items() {
 		}
 	}
 
+	echo '</div>';
+}
+
+/**
+ * Render the cart drawer footer (subtotal + buttons). Always wrapped by a div.lumea-drawer-footer in the template.
+ */
+function lumea_drawer_footer() {
+	$cart = WC()->cart;
+	echo '<div class="lumea-drawer-footer">';
+	if ( ! $cart->is_empty() ) :
+		?>
+		<div class="lumea-drawer-subtotal">
+			<span><?php esc_html_e( 'Subtotal', 'lumea' ); ?></span>
+			<span><?php echo $cart->get_cart_subtotal(); ?></span>
+		</div>
+		<a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="lumea-drawer-cart-btn"><?php esc_html_e( 'View Cart', 'lumea' ); ?></a>
+		<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="lumea-drawer-checkout-btn"><?php esc_html_e( 'Checkout', 'lumea' ); ?></a>
+		<?php
+	endif;
 	echo '</div>';
 }
 

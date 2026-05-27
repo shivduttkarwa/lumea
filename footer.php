@@ -78,16 +78,7 @@ $footer_pin = get_theme_mod( 'lumea_footer_pinterest', '' );
 	<div class="lumea-drawer-body">
 		<?php lumea_mini_cart_items(); ?>
 	</div>
-	<?php if ( ! WC()->cart->is_empty() ) : ?>
-	<div class="lumea-drawer-footer">
-		<div class="lumea-drawer-subtotal">
-			<span><?php esc_html_e( 'Subtotal', 'lumea' ); ?></span>
-			<span><?php echo WC()->cart->get_cart_subtotal(); ?></span>
-		</div>
-		<a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="lumea-drawer-cart-btn"><?php esc_html_e( 'View Cart', 'lumea' ); ?></a>
-		<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="lumea-drawer-checkout-btn"><?php esc_html_e( 'Checkout', 'lumea' ); ?></a>
-	</div>
-	<?php endif; ?>
+	<?php lumea_drawer_footer(); ?>
 </aside>
 <?php endif; ?>
 
