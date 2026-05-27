@@ -108,6 +108,85 @@
 
 })();
 
+/* ── Product card: wishlist toggle + qty stepper ────────────── */
+(function () {
+  'use strict';
+
+  /* Wishlist toggle */
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-lumea-wish]');
+    if (!btn) return;
+    e.preventDefault();
+    btn.classList.toggle('is-wished');
+    btn.setAttribute(
+      'aria-label',
+      btn.classList.contains('is-wished') ? 'Remove from wishlist' : 'Add to wishlist'
+    );
+  });
+
+  /* Show qty stepper after first add-to-cart, then handle +/- */
+  document.addEventListener('click', function (e) {
+
+    /* Add to Cart clicked → morph button into stepper + show View Cart */
+    var addBtn = e.target.closest('.lumea-card-atc-wrap .add_to_cart_button');
+    if (addBtn) {
+      var atcWrap  = addBtn.closest('.lumea-card-atc-wrap');
+      var viewCart = addBtn.closest('.lumea-card-actions').querySelector('[data-lumea-view-cart]');
+      if (atcWrap)  atcWrap.classList.add('is-added');
+      if (viewCart) viewCart.classList.add('is-active');
+      return;
+    }
+
+    /* + button → increment display + add 1 more via WC AJAX */
+    var plusBtn = e.target.closest('.lumea-qty-plus');
+    if (plusBtn) {
+      var numEl   = plusBtn.closest('[data-lumea-qty]').querySelector('.lumea-qty-num');
+      var current = parseInt(numEl.textContent, 10) || 1;
+      numEl.textContent = current + 1;
+
+      var productId = plusBtn.getAttribute('data-product_id');
+      if (productId && typeof wc_add_to_cart_params !== 'undefined') {
+        var url  = wc_add_to_cart_params.wc_ajax_url.replace('%%endpoint%%', 'add_to_cart');
+        var body = 'product_id=' + encodeURIComponent(productId) + '&quantity=1';
+        fetch(url, {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body:    body
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            if (!data.error && typeof jQuery !== 'undefined') {
+              jQuery(document.body).trigger('wc_fragment_refresh');
+            }
+          });
+      }
+      return;
+    }
+
+    /* − button → decrement; at 0 revert to Add to Cart */
+    var minusBtn = e.target.closest('.lumea-qty-minus');
+    if (minusBtn) {
+      var atcWrap2 = minusBtn.closest('.lumea-card-atc-wrap');
+      var numEl2   = minusBtn.closest('[data-lumea-qty]').querySelector('.lumea-qty-num');
+      var current2 = parseInt(numEl2.textContent, 10) || 1;
+      if (current2 > 1) {
+        numEl2.textContent = current2 - 1;
+      } else {
+        numEl2.textContent = '1';
+        if (atcWrap2) {
+          atcWrap2.classList.remove('is-added');
+          var viewCart2 = atcWrap2.closest('.lumea-card-actions').querySelector('[data-lumea-view-cart]');
+          if (viewCart2) viewCart2.classList.remove('is-active');
+        }
+      }
+      return;
+    }
+
+  });
+
+
+})();
+
 /* ── Shop filter dropdowns ──────────────────────────────────── */
 (function () {
   'use strict';
