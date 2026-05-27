@@ -8111,13 +8111,14 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 }
 
 .lumea-wishlist-page-item {
+  position: relative;
   background: #ffffff;
   border: 1px solid rgba(35, 28, 23, 0.1);
   border-radius: 1rem;
-  padding: 0.95rem;
+  padding: 1rem;
   display: grid;
-  grid-template-columns: 5.75rem 1fr auto;
-  gap: 0.95rem;
+  grid-template-columns: 5.75rem minmax(0, 1fr);
+  gap: 1rem 1.1rem;
   align-items: center;
 }
 
@@ -8142,11 +8143,19 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   min-width: 0;
 }
 
+.lumea-wishlist-page-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
 .lumea-wishlist-page-item-title {
   margin: 0;
   font-family: var(--lumea-font-heading);
   font-size: 1rem;
   line-height: 1.35;
+  padding-right: 5.4rem;
 }
 
 .lumea-wishlist-page-item-title a {
@@ -8161,52 +8170,63 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   font-size: 0.86rem;
 }
 
-.lumea-wishlist-page-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.45rem;
+.lumea-wishlist-page-card-actions {
+  margin-top: 0;
+  max-width: 26rem;
 }
 
-.lumea-wishlist-page-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  min-width: 8.4rem;
-  height: 2.35rem;
-  border-radius: 999px;
-  border: 1px solid var(--lumea-text);
-  color: var(--lumea-text);
-  background: transparent;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.67rem;
-  font-family: var(--lumea-font-body);
-  font-weight: 700;
-  transition: background 0.25s ease, color 0.25s ease;
+.lumea-wishlist-page-card-actions .lumea-card-atc-wrap {
+  max-width: 13.5rem;
 }
 
-.lumea-wishlist-page-btn:hover {
-  background: var(--lumea-text);
-  color: #ffffff;
+.lumea-wishlist-page-card-actions .lumea-view-cart-btn {
+  height: 2.625rem;
+}
+
+.lumea-wishlist-page-card-actions .lumea-view-cart-btn.is-active {
+  max-width: 8rem;
+}
+
+.lumea-wishlist-page-plain-btn {
+  margin-top: 0;
+  max-width: 12rem;
 }
 
 .lumea-wishlist-page-remove {
-  background: none;
-  border: 0;
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  height: 1.95rem;
+  padding: 0 0.72rem;
+  border: 1px solid rgba(35, 28, 23, 0.17);
+  border-radius: 999px;
+  background: #fff8f5;
   color: var(--lumea-muted);
   font-family: var(--lumea-font-body);
-  font-size: 0.74rem;
+  font-size: 0.61rem;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-weight: 700;
   cursor: pointer;
-  padding: 0.15rem 0;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.lumea-wishlist-page-remove {
+  line-height: 1;
+}
+
+.lumea-wishlist-page-remove svg {
+  flex-shrink: 0;
 }
 
 .lumea-wishlist-page-remove:hover {
-  color: var(--lumea-text);
+  color: #9b2f2f;
+  border-color: rgba(155, 47, 47, 0.35);
+  background: #fff0ef;
 }
 
 .lumea-wishlist-page-empty {
@@ -8349,30 +8369,41 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   }
 
   .lumea-wishlist-page-item {
-    grid-template-columns: 4.75rem 1fr;
-    grid-template-areas:
-      'media info'
-      'media actions';
-    gap: 0.8rem;
+    grid-template-columns: 4.75rem minmax(0, 1fr);
+    gap: 0.8rem 0.85rem;
+    padding: 0.78rem;
   }
 
   .lumea-wishlist-page-media {
-    grid-area: media;
     width: 4.75rem;
     height: 5.7rem;
   }
 
-  .lumea-wishlist-page-info {
-    grid-area: info;
+  .lumea-wishlist-page-item-title {
+    padding-right: 4.65rem;
   }
 
-  .lumea-wishlist-page-actions {
-    grid-area: actions;
-    align-items: flex-start;
+  .lumea-wishlist-page-main {
+    gap: 0.72rem;
   }
 
-  .lumea-wishlist-page-btn {
-    width: 100%;
+  .lumea-wishlist-page-card-actions {
+    max-width: 100%;
+  }
+
+  .lumea-wishlist-page-card-actions .lumea-card-atc-wrap {
+    max-width: none;
+  }
+
+  .lumea-wishlist-page-card-actions .lumea-view-cart-btn.is-active {
+    max-width: 7.4rem;
+  }
+
+  .lumea-wishlist-page-remove {
+    top: 0.55rem;
+    right: 0.55rem;
+    height: 1.8rem;
+    padding-inline: 0.62rem;
   }
 
   .lumea-wishlist-similar-grid {

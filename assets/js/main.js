@@ -215,34 +215,59 @@
 
     list.innerHTML = items.map(function (item) {
       var actionLabel = item.can_add_to_cart ? (item.cart_text || i18n('addToCart', 'Add to Cart')) : i18n('viewProduct', 'View Product');
-      var actionUrl = item.can_add_to_cart ? item.cart_url : item.url;
       var actionAria = item.cart_aria || actionLabel;
-      var buttonClass = 'lumea-wishlist-page-btn';
       var removeLabel = i18nWithName('removeFromWishlistOf', 'Remove %s from wishlist', item.name);
+      var cartUrl = (window.lumeaData && window.lumeaData.cartUrl) ? window.lumeaData.cartUrl : '#';
+      var removeText = i18n('remove', 'Remove');
+      var qtyLabel = i18n('quantity', 'Quantity');
+      var decreaseLabel = i18n('decrease', 'Decrease');
+      var increaseLabel = i18n('increase', 'Increase');
+      var viewCartLabel = i18n('viewCart', 'View Cart');
+      var productType = sanitizeClassToken(item.type);
+      var atcButtonClass = 'lumea-lp-btn add_to_cart_button button product_type_' + productType;
+      var actionMarkup = '';
 
       if (item.can_add_to_cart) {
-        buttonClass += ' add_to_cart_button button product_type_' + sanitizeClassToken(item.type);
         if (item.supports_ajax) {
-          buttonClass += ' ajax_add_to_cart';
+          atcButtonClass += ' ajax_add_to_cart';
         }
+        actionMarkup = [
+          '<div class="lumea-card-actions lumea-wishlist-page-card-actions">',
+            '<div class="lumea-card-atc-wrap">',
+              '<a href="' + escapeHtml(item.cart_url) + '" class="' + escapeHtml(atcButtonClass) + '" data-product_id="' + item.id + '" data-product_type="' + escapeHtml(productType) + '" data-quantity="1" rel="nofollow" aria-label="' + escapeHtml(actionAria) + '">',
+                escapeHtml(actionLabel),
+              '</a>',
+              '<div class="lumea-qty-stepper" aria-label="' + escapeHtml(qtyLabel) + '" data-lumea-qty>',
+                '<button class="lumea-qty-btn lumea-qty-minus" type="button" aria-label="' + escapeHtml(decreaseLabel) + '">&#8722;</button>',
+                '<span class="lumea-qty-num">1</span>',
+                '<button class="lumea-qty-btn lumea-qty-plus" type="button" aria-label="' + escapeHtml(increaseLabel) + '" data-product_id="' + item.id + '">&#43;</button>',
+              '</div>',
+            '</div>',
+            '<a href="' + escapeHtml(cartUrl) + '" class="lumea-view-cart-btn" data-lumea-view-cart>',
+              '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 01-8 0"></path></svg>',
+              '<span>' + escapeHtml(viewCartLabel) + '</span>',
+            '</a>',
+          '</div>'
+        ].join('');
+      } else {
+        actionMarkup = '<a href="' + escapeHtml(item.url) + '" class="lumea-lp-btn lumea-wishlist-page-plain-btn" aria-label="' + escapeHtml(actionAria) + '">' + escapeHtml(actionLabel) + '</a>';
       }
 
       return [
         '<article class="lumea-wishlist-page-item">',
+          '<button class="lumea-wishlist-page-remove" type="button" data-lumea-wishlist-remove="' + item.id + '" aria-label="' + escapeHtml(removeLabel) + '">',
+            '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>',
+            '<span>' + escapeHtml(removeText) + '</span>',
+          '</button>',
           '<a class="lumea-wishlist-page-media" href="' + escapeHtml(item.url) + '">',
             item.image ? '<img src="' + escapeHtml(item.image) + '" alt="' + escapeHtml(item.name) + '" loading="lazy">' : '<span class="lumea-wishlist-page-placeholder" aria-hidden="true"></span>',
           '</a>',
-          '<div class="lumea-wishlist-page-info">',
-            '<h2 class="lumea-wishlist-page-item-title"><a href="' + escapeHtml(item.url) + '">' + escapeHtml(item.name) + '</a></h2>',
-            '<p class="lumea-wishlist-page-item-price">' + escapeHtml(item.price) + '</p>',
-          '</div>',
-          '<div class="lumea-wishlist-page-actions">',
-            '<a href="' + escapeHtml(actionUrl) + '" class="' + escapeHtml(buttonClass) + '"' + (item.can_add_to_cart ? ' data-product_id="' + item.id + '" data-product_type="' + escapeHtml(sanitizeClassToken(item.type)) + '" data-quantity="1" rel="nofollow"' : '') + ' aria-label="' + escapeHtml(actionAria) + '">',
-              escapeHtml(actionLabel),
-            '</a>',
-            '<button class="lumea-wishlist-page-remove" type="button" data-lumea-wishlist-remove="' + item.id + '" aria-label="' + escapeHtml(removeLabel) + '">',
-              escapeHtml(i18n('remove', 'Remove')),
-            '</button>',
+          '<div class="lumea-wishlist-page-main">',
+            '<div class="lumea-wishlist-page-info">',
+              '<h2 class="lumea-wishlist-page-item-title"><a href="' + escapeHtml(item.url) + '">' + escapeHtml(item.name) + '</a></h2>',
+              '<p class="lumea-wishlist-page-item-price">' + escapeHtml(item.price) + '</p>',
+            '</div>',
+            actionMarkup,
           '</div>',
         '</article>'
       ].join('');
