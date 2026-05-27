@@ -124,6 +124,27 @@
     });
   }
 
+  /* Sync all on-page product card steppers for a product to the given qty. */
+  function syncPageCards(productId, newQty) {
+    document.querySelectorAll('[data-lumea-qty]').forEach(function (s) {
+      if (s.closest('.lumea-drawer-item')) return;
+      var plus = s.querySelector('.lumea-qty-plus');
+      if (!plus || plus.getAttribute('data-product_id') !== String(productId)) return;
+      var num      = s.querySelector('.lumea-qty-num');
+      var wrap     = s.closest('.lumea-card-atc-wrap');
+      var cartLink = wrap && wrap.closest('.lumea-card-actions').querySelector('[data-lumea-view-cart]');
+      if (newQty <= 0) {
+        num.textContent = '1';
+        if (wrap)     wrap.classList.remove('is-added');
+        if (cartLink) cartLink.classList.remove('is-active');
+      } else {
+        num.textContent = newQty;
+        if (wrap)     wrap.classList.add('is-added');
+        if (cartLink) cartLink.classList.add('is-active');
+      }
+    });
+  }
+
   /* POST qty change; calls done(true|false) when the request settles. */
   function updateCartQty(productId, qty, done) {
     if (typeof lumeaData === 'undefined') { done(false); return; }
@@ -180,7 +201,7 @@
     stepper.dataset.busy = '1';
     updateCartQty(productId, newQty, function (ok) {
       delete stepper.dataset.busy;
-      if (ok) return;
+      if (ok) { syncPageCards(productId, newQty); return; }
       /* Rollback on failure */
       numEl.textContent = current;
       if (newQty === 0) {
