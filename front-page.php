@@ -1,7 +1,7 @@
 ﻿<?php
 /**
- * Front page template — standalone (manages its own document).
- * wp_head() and wp_footer() are called directly so all plugins work.
+ * Front page template.
+ * Uses shared header/footer templates for consistent global UI.
  *
  * @package Lumea
  */
@@ -21,111 +21,7 @@ function lumea_product_url( $setting_key ) {
 
 $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : '#' );
 ?>
-<!DOCTYPE html>
-<html <?php language_attributes(); ?>>
-<head>
-	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<?php wp_head(); ?>
-</head>
-
-<body <?php body_class(); ?>>
-<?php wp_body_open(); ?>
-
-<!-- Sticky Header -->
-<header class="lumea-header" id="lumeaHeader" role="banner">
-	<div class="lumea-header-inner container-fluid px-3 px-sm-4 px-lg-5">
-		<div class="row w-100 g-0 align-items-center">
-			<div class="col-6 col-lg-3">
-
-		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="lumea-header-logo">LUMÉA</a>
-			</div>
-
-			<div class="d-none d-lg-flex col-lg-6 justify-content-center">
-		<nav class="lumea-header-nav" aria-label="<?php esc_attr_e( 'Primary navigation', 'lumea' ); ?>">
-			<?php
-			wp_nav_menu( array(
-				'theme_location' => 'primary',
-				'container'      => false,
-				'menu_class'     => 'lumea-nav-list',
-				'fallback_cb'    => function() {
-					$shop_url     = wc_get_page_id( 'shop' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : home_url( '/shop/' );
-					$blog_url     = get_option( 'page_for_posts' ) ? get_permalink( get_option( 'page_for_posts' ) ) : home_url( '/blog/' );
-					$about_page   = get_page_by_path( 'about' );
-					$about_url    = $about_page ? get_permalink( $about_page ) : home_url( '/about/' );
-					$contact_page = get_page_by_path( 'contact' );
-					$contact_url  = $contact_page ? get_permalink( $contact_page ) : home_url( '/contact/' );
-					echo '<ul class="lumea-nav-list">';
-					$links = array(
-						array( esc_html__( 'Shop',       'lumea' ), $shop_url ),
-						array( esc_html__( 'Bestsellers','lumea' ), home_url( '/#lumeaBest' ) ),
-						array( esc_html__( 'Blog',       'lumea' ), $blog_url ),
-						array( esc_html__( 'About',      'lumea' ), $about_url ),
-						array( esc_html__( 'Contact',    'lumea' ), $contact_url ),
-					);
-					foreach ( $links as $l ) {
-						echo '<li><a href="' . esc_url( $l[1] ) . '">' . $l[0] . '</a></li>';
-					}
-					echo '</ul>';
-				},
-			) );
-			?>
-		</nav>
-			</div>
-
-			<div class="col-6 col-lg-3">
-		<div class="lumea-header-actions d-flex align-items-center justify-content-end">
-			<?php if ( class_exists( 'WooCommerce' ) ) : ?>
-			<button class="lumea-cart-trigger" aria-label="<?php esc_attr_e( 'Open cart', 'lumea' ); ?>" data-lumea-cart-trigger>
-				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-				<span class="lumea-cart-count<?php echo WC()->cart->get_cart_contents_count() ? ' lumea-cart-count--visible' : ''; ?>"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
-			</button>
-			<?php endif; ?>
-			<button class="lumea-nav-toggle" aria-label="<?php esc_attr_e( 'Open menu', 'lumea' ); ?>" aria-expanded="false" aria-controls="lumeaMobileNav" data-lumea-nav-toggle>
-				<span class="lumea-nav-toggle-bar"></span>
-				<span class="lumea-nav-toggle-bar"></span>
-			</button>
-		</div>
-			</div>
-		</div>
-
-	</div>
-</header>
-
-<!-- Mobile Nav -->
-<div class="lumea-mobile-nav" id="lumeaMobileNav" aria-hidden="true" data-lumea-mobile-nav>
-	<div class="lumea-mobile-nav-inner">
-		<nav aria-label="<?php esc_attr_e( 'Mobile navigation', 'lumea' ); ?>">
-			<?php
-			wp_nav_menu( array(
-				'theme_location' => 'primary',
-				'container'      => false,
-				'menu_class'     => 'lumea-mobile-nav-list',
-				'fallback_cb'    => function() {
-					$shop_url     = wc_get_page_id( 'shop' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : home_url( '/shop/' );
-					$blog_url     = get_option( 'page_for_posts' ) ? get_permalink( get_option( 'page_for_posts' ) ) : home_url( '/blog/' );
-					$about_page   = get_page_by_path( 'about' );
-					$about_url    = $about_page ? get_permalink( $about_page ) : home_url( '/about/' );
-					$contact_page = get_page_by_path( 'contact' );
-					$contact_url  = $contact_page ? get_permalink( $contact_page ) : home_url( '/contact/' );
-					echo '<ul class="lumea-mobile-nav-list">';
-					$links = array(
-						array( esc_html__( 'Shop',       'lumea' ), $shop_url ),
-						array( esc_html__( 'Bestsellers','lumea' ), home_url( '/#lumeaBest' ) ),
-						array( esc_html__( 'Blog',       'lumea' ), $blog_url ),
-						array( esc_html__( 'About',      'lumea' ), $about_url ),
-						array( esc_html__( 'Contact',    'lumea' ), $contact_url ),
-					);
-					foreach ( $links as $l ) {
-						echo '<li><a href="' . esc_url( $l[1] ) . '">' . $l[0] . '</a></li>';
-					}
-					echo '</ul>';
-				},
-			) );
-			?>
-		</nav>
-	</div>
-</div>
+<?php get_header(); ?>
 
 <section class="hero d-flex align-items-stretch" id="hero-home">
 	<div class="hero-canvas-wrap">
@@ -414,7 +310,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 							<div class="lumea-best-info">
 								<div class="lumea-best-title-row">
 									<h3 class="lumea-best-name"><a href="<?php echo $bp_url; ?>"><?php echo $bp_name; ?></a></h3>
-									<button class="lumea-wish-btn" type="button" aria-label="<?php esc_attr_e( 'Add to wishlist', 'lumea' ); ?>" data-lumea-wish>
+									<button class="lumea-wish-btn" type="button" aria-label="<?php esc_attr_e( 'Add to wishlist', 'lumea' ); ?>" data-lumea-wish data-product_id="<?php echo esc_attr( $bp_id ); ?>">
 										<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
 									</button>
 								</div>
@@ -644,7 +540,7 @@ $lumea_latest = array(
 					<?php endif; ?>
 					<div class="lumea-lp-title-row">
 						<h3 class="lumea-lp-name"><a href="<?php echo $lp_url; ?>"><?php echo $lp_name; ?></a></h3>
-						<button class="lumea-wish-btn" type="button" aria-label="<?php esc_attr_e( 'Add to wishlist', 'lumea' ); ?>" data-lumea-wish>
+						<button class="lumea-wish-btn" type="button" aria-label="<?php esc_attr_e( 'Add to wishlist', 'lumea' ); ?>" data-lumea-wish data-product_id="<?php echo esc_attr( $lp_id ); ?>">
 							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
 						</button>
 					</div>
@@ -828,75 +724,4 @@ $title_aria  = esc_attr( $title_1 . ' ' . $title_2 . ' ' . $title_3 );
 	</div>
 </section>
 
-<?php
-/* ── Footer ──────────────────────────────────────────── */
-$footer_links = array(
-	1 => array( get_theme_mod( 'lumea_footer_link1_label', 'Shop' ),    get_theme_mod( 'lumea_footer_link1_url', '#' ) ),
-	2 => array( get_theme_mod( 'lumea_footer_link2_label', 'Journal' ), get_theme_mod( 'lumea_footer_link2_url', '#' ) ),
-	3 => array( get_theme_mod( 'lumea_footer_link3_label', 'About' ),   get_theme_mod( 'lumea_footer_link3_url', '#' ) ),
-	4 => array( get_theme_mod( 'lumea_footer_link4_label', 'Contact' ), get_theme_mod( 'lumea_footer_link4_url', '#' ) ),
-);
-$footer_ig  = get_theme_mod( 'lumea_footer_instagram', '' );
-$footer_tk  = get_theme_mod( 'lumea_footer_tiktok', '' );
-$footer_pin = get_theme_mod( 'lumea_footer_pinterest', '' );
-?>
-<footer class="lumea-footer" role="contentinfo">
-	<div class="lumea-footer-inner">
-
-		<div class="lumea-footer-top">
-			<div class="lumea-footer-brand">
-				<span class="lumea-footer-logo">LUMÉA</span>
-				<p class="lumea-footer-tagline"><?php echo esc_html( get_theme_mod( 'lumea_footer_tagline', 'Botanical skincare for luminous living.' ) ); ?></p>
-			</div>
-
-			<nav class="lumea-footer-nav" aria-label="<?php esc_attr_e( 'Footer navigation', 'lumea' ); ?>">
-				<?php foreach ( $footer_links as $link ) :
-					if ( ! $link[0] ) continue; ?>
-				<a href="<?php echo esc_url( $link[1] ); ?>"><?php echo esc_html( $link[0] ); ?></a>
-				<?php endforeach; ?>
-			</nav>
-		</div>
-
-		<div class="lumea-footer-bottom">
-			<p class="lumea-footer-copy">
-				&copy; <?php echo esc_html( date( 'Y' ) ); ?> <?php echo esc_html( get_theme_mod( 'lumea_footer_copy', 'Luméa. All rights reserved.' ) ); ?>
-			</p>
-
-			<?php if ( $footer_ig || $footer_tk || $footer_pin ) : ?>
-			<div class="lumea-footer-social">
-				<?php if ( $footer_ig ) : ?>
-				<a href="<?php echo esc_url( $footer_ig ); ?>" aria-label="<?php esc_attr_e( 'Instagram', 'lumea' ); ?>" target="_blank" rel="noopener noreferrer">
-					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-						<rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-						<circle cx="12" cy="12" r="4"/>
-						<circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/>
-					</svg>
-				</a>
-				<?php endif; ?>
-				<?php if ( $footer_tk ) : ?>
-				<a href="<?php echo esc_url( $footer_tk ); ?>" aria-label="<?php esc_attr_e( 'TikTok', 'lumea' ); ?>" target="_blank" rel="noopener noreferrer">
-					<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-						<path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.22 8.22 0 0 0 4.84 1.55V6.79a4.85 4.85 0 0 1-1.07-.1z"/>
-					</svg>
-				</a>
-				<?php endif; ?>
-				<?php if ( $footer_pin ) : ?>
-				<a href="<?php echo esc_url( $footer_pin ); ?>" aria-label="<?php esc_attr_e( 'Pinterest', 'lumea' ); ?>" target="_blank" rel="noopener noreferrer">
-					<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-						<path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
-					</svg>
-				</a>
-				<?php endif; ?>
-			</div>
-			<?php endif; ?>
-		</div>
-
-	</div>
-</footer>
-
-
-<?php get_template_part( 'template-parts/components/cart-drawer' ); ?>
-
-<?php wp_footer(); ?>
-</body>
-</html>
+<?php get_footer(); ?>

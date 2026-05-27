@@ -188,6 +188,38 @@ add_action( 'after_switch_theme', 'lumea_ensure_classic_wc_pages' );
 add_action( 'admin_init',         'lumea_ensure_classic_wc_pages' );
 
 /**
+ * Ensure the Wishlist page exists and uses the Wishlist template.
+ */
+function lumea_ensure_wishlist_page() {
+	$page    = get_page_by_path( 'wishlist', OBJECT, 'page' );
+	$page_id = $page ? (int) $page->ID : 0;
+
+	if ( ! $page_id ) {
+		$page_id = wp_insert_post(
+			array(
+				'post_type'    => 'page',
+				'post_status'  => 'publish',
+				'post_title'   => __( 'Wishlist', 'lumea' ),
+				'post_name'    => 'wishlist',
+				'post_content' => '',
+			),
+			true
+		);
+
+		if ( is_wp_error( $page_id ) ) {
+			return;
+		}
+	}
+
+	if ( $page_id > 0 ) {
+		update_post_meta( $page_id, '_wp_page_template', 'page-wishlist.php' );
+		update_option( 'lumea_wishlist_page_id', absint( $page_id ) );
+	}
+}
+add_action( 'after_switch_theme', 'lumea_ensure_wishlist_page' );
+add_action( 'admin_init',         'lumea_ensure_wishlist_page' );
+
+/**
  * AJAX handler — update cart item quantity for a product.
  */
 function lumea_update_cart_qty() {
@@ -245,12 +277,25 @@ function lumea_get_wishlist_items() {
 		if ( ! $product || ! $product->is_visible() ) {
 			continue;
 		}
+		$can_add_to_cart = $product->is_purchasable() && $product->is_in_stock();
+		$product_type    = $product->get_type();
+		$cart_text       = $can_add_to_cart ? $product->add_to_cart_text() : __( 'View product', 'lumea' );
+		$cart_aria       = $can_add_to_cart
+			? sprintf( __( 'Add %s to cart', 'lumea' ), $product->get_name() )
+			: sprintf( __( 'View %s', 'lumea' ), $product->get_name() );
+
 		$items[] = array(
-			'id'    => $id,
-			'name'  => $product->get_name(),
-			'url'   => get_permalink( $id ),
-			'price' => wp_strip_all_tags( $product->get_price_html() ),
-			'image' => wp_get_attachment_image_url( $product->get_image_id(), 'woocommerce_thumbnail' ) ?: '',
+			'id'              => $id,
+			'name'            => $product->get_name(),
+			'url'             => get_permalink( $id ),
+			'price'           => wp_strip_all_tags( $product->get_price_html() ),
+			'image'           => wp_get_attachment_image_url( $product->get_image_id(), 'woocommerce_thumbnail' ) ?: '',
+			'type'            => $product_type,
+			'can_add_to_cart' => $can_add_to_cart,
+			'supports_ajax'   => $can_add_to_cart && $product->supports( 'ajax_add_to_cart' ),
+			'cart_url'        => $can_add_to_cart ? $product->add_to_cart_url() : get_permalink( $id ),
+			'cart_text'       => $cart_text,
+			'cart_aria'       => $cart_aria,
 		);
 	}
 

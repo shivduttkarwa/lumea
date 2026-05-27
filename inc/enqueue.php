@@ -92,6 +92,15 @@ function lumea_enqueue_assets() {
 			'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
 			'nonce'         => wp_create_nonce( 'lumea_wishlist' ),
 			'shopUrl'       => function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' ),
+			'i18n'          => array(
+				'addToWishlist'        => __( 'Add to wishlist', 'lumea' ),
+				'removeFromWishlist'   => __( 'Remove from wishlist', 'lumea' ),
+				'addToCart'            => __( 'Add to Cart', 'lumea' ),
+				'viewProduct'          => __( 'View Product', 'lumea' ),
+				'loadingFavourites'    => __( 'Loading favourites...', 'lumea' ),
+				'remove'               => __( 'Remove', 'lumea' ),
+				'removeFromWishlistOf' => __( 'Remove %s from wishlist', 'lumea' ),
+			),
 			)
 	);
 

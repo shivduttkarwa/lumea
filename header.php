@@ -8,6 +8,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+$lumea_wishlist_page = get_page_by_path( 'wishlist' );
+$lumea_wishlist_url  = $lumea_wishlist_page ? get_permalink( $lumea_wishlist_page ) : home_url( '/wishlist/' );
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -91,10 +94,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<!-- Wishlist -->
 			<div class="lumea-wishlist-wrap">
-				<button class="lumea-header-icon-btn" aria-label="<?php esc_attr_e( 'Favourites', 'lumea' ); ?>" data-lumea-wishlist-trigger>
+				<a class="lumea-header-icon-btn" aria-label="<?php esc_attr_e( 'Favourites', 'lumea' ); ?>" href="<?php echo esc_url( $lumea_wishlist_url ); ?>">
 					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
 					<span class="lumea-wishlist-count" aria-hidden="true"></span>
-				</button>
+				</a>
 			</div>
 
 			<!-- Cart -->
