@@ -410,12 +410,14 @@ if ( class_exists( 'WooCommerce' ) ) {
 									<?php endif; ?>
 								</div>
 							</a>
-							<button class="lumea-wish-btn" type="button" aria-label="<?php esc_attr_e( 'Add to wishlist', 'lumea' ); ?>" data-lumea-wish>
-								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-							</button>
 							</div>
 							<div class="lumea-best-info">
-								<h3 class="lumea-best-name"><a href="<?php echo $bp_url; ?>"><?php echo $bp_name; ?></a></h3>
+								<div class="lumea-best-title-row">
+									<h3 class="lumea-best-name"><a href="<?php echo $bp_url; ?>"><?php echo $bp_name; ?></a></h3>
+									<button class="lumea-wish-btn" type="button" aria-label="<?php esc_attr_e( 'Add to wishlist', 'lumea' ); ?>" data-lumea-wish>
+										<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+									</button>
+								</div>
 								<p class="lumea-best-price"><?php echo isset( $bp['price'] ) ? wp_kses_post( $bp['price'] ) : ''; ?></p>
 								<div class="lumea-card-actions">
 								<?php if ( $bp_id && class_exists( 'WooCommerce' ) ) : ?>
@@ -635,15 +637,17 @@ $lumea_latest = array(
 					<img src="<?php echo $lp_hover; ?>" alt="" class="lumea-lp-img lumea-lp-img--hover" loading="lazy" aria-hidden="true" />
 					<?php endif; ?>
 				</a>
-				<button class="lumea-wish-btn" type="button" aria-label="<?php esc_attr_e( 'Add to wishlist', 'lumea' ); ?>" data-lumea-wish>
-					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-				</button>
 				</div>
 				<div class="lumea-lp-body">
 					<?php if ( ! empty( $lp['category'] ) ) : ?>
 					<p class="lumea-lp-category"><?php echo esc_html( $lp['category'] ); ?></p>
 					<?php endif; ?>
-					<h3 class="lumea-lp-name"><a href="<?php echo $lp_url; ?>"><?php echo $lp_name; ?></a></h3>
+					<div class="lumea-lp-title-row">
+						<h3 class="lumea-lp-name"><a href="<?php echo $lp_url; ?>"><?php echo $lp_name; ?></a></h3>
+						<button class="lumea-wish-btn" type="button" aria-label="<?php esc_attr_e( 'Add to wishlist', 'lumea' ); ?>" data-lumea-wish>
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+						</button>
+					</div>
 					<div class="lumea-lp-pricing">
 						<?php if ( $lp_is_sale && $lp_old ) : ?>
 						<s class="lumea-lp-old"><?php echo wp_kses_post( $lp_old ); ?></s>
