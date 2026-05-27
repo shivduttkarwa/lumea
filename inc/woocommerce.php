@@ -138,6 +138,50 @@ add_action( 'after_switch_theme', 'lumea_ensure_classic_wc_pages' );
 add_action( 'admin_init',         'lumea_ensure_classic_wc_pages' );
 
 /**
+ * AJAX handler — update cart item quantity for a product.
+ */
+function lumea_update_cart_qty() {
+	check_ajax_referer( 'lumea_wishlist', 'nonce' );
+
+	$product_id = absint( $_POST['product_id'] ?? 0 );
+	$quantity   = intval( $_POST['quantity'] ?? 0 );
+
+	if ( ! $product_id ) {
+		wp_send_json_error( 'missing_product_id' );
+	}
+
+	$cart_item_key = null;
+	foreach ( WC()->cart->get_cart() as $key => $item ) {
+		if ( (int) $item['product_id'] === $product_id ) {
+			$cart_item_key = $key;
+			break;
+		}
+	}
+
+	if ( ! $cart_item_key ) {
+		wp_send_json_error( 'not_in_cart' );
+	}
+
+	if ( $quantity <= 0 ) {
+		WC()->cart->remove_cart_item( $cart_item_key );
+	} else {
+		WC()->cart->set_quantity( $cart_item_key, $quantity, true );
+	}
+
+	WC()->cart->calculate_totals();
+
+	$count     = WC()->cart->get_cart_contents_count();
+	$fragments = apply_filters( 'woocommerce_add_to_cart_fragments', array() );
+
+	wp_send_json_success( array(
+		'count'     => $count,
+		'fragments' => $fragments,
+	) );
+}
+add_action( 'wp_ajax_lumea_update_cart_qty',        'lumea_update_cart_qty' );
+add_action( 'wp_ajax_nopriv_lumea_update_cart_qty', 'lumea_update_cart_qty' );
+
+/**
  * AJAX handler — return product data for wishlist IDs stored in localStorage.
  */
 function lumea_get_wishlist_items() {
