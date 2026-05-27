@@ -8266,12 +8266,8 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 }
 
 .lumea-wishlist-similar-grid {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(15.75rem, 1fr));
+  gap: 1.35rem 1.15rem;
 }
 
 .lumea-wishlist-similar-empty {

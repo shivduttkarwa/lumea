@@ -32,6 +32,108 @@ function lumea_woocommerce_usd_symbol( $symbol, $currency ) {
 add_filter( 'woocommerce_currency_symbol', 'lumea_woocommerce_usd_symbol', 10, 2 );
 
 /**
+ * Build normalized card data from a WooCommerce product.
+ *
+ * @param mixed $product WC_Product object or product ID.
+ * @return array
+ */
+function lumea_get_product_card_data( $product ) {
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		return array();
+	}
+
+	$wc_product = null;
+	if ( $product instanceof WC_Product ) {
+		$wc_product = $product;
+	} elseif ( is_numeric( $product ) ) {
+		$wc_product = wc_get_product( absint( $product ) );
+	}
+
+	if ( ! $wc_product ) {
+		return array();
+	}
+
+	$product_id       = $wc_product->get_id();
+	$gallery_ids      = $wc_product->get_gallery_image_ids();
+	$product_terms    = get_the_terms( $product_id, 'product_cat' );
+	$is_sale          = $wc_product->is_on_sale();
+	$can_add_to_cart  = $wc_product->is_purchasable() && $wc_product->is_in_stock();
+	$product_name     = $wc_product->get_name();
+	$product_category = ( ! is_wp_error( $product_terms ) && ! empty( $product_terms ) ) ? $product_terms[0]->name : '';
+
+	return array(
+		'product_id'       => $product_id,
+		'name'             => $product_name,
+		'url'              => get_permalink( $product_id ),
+		'price_html'       => $wc_product->get_price_html(),
+		'old_price_html'   => $is_sale ? wc_price( $wc_product->get_regular_price() ) : '',
+		'is_sale'          => $is_sale,
+		'badge'            => $is_sale ? __( 'Sale', 'lumea' ) : __( 'New', 'lumea' ),
+		'main_image'       => get_the_post_thumbnail_url( $product_id, 'woocommerce_single' ),
+		'hover_image'      => ! empty( $gallery_ids ) ? wp_get_attachment_image_url( $gallery_ids[0], 'woocommerce_single' ) : '',
+		'category'         => $product_category,
+		'product_type'     => $wc_product->get_type(),
+		'can_add_to_cart'  => $can_add_to_cart,
+		'supports_ajax'    => $can_add_to_cart && $wc_product->supports( 'ajax_add_to_cart' ),
+		'button_label'     => __( 'Add to Cart', 'lumea' ),
+		'fallback_label'   => __( 'Shop Now', 'lumea' ),
+		'button_class'     => 'lumea-lp-btn',
+		'card_class'       => 'lumea-lp-card',
+	);
+}
+
+/**
+ * Render reusable latest-style product card component.
+ *
+ * @param mixed $product Product ID, WC_Product object, or prepared card-data array.
+ * @param array $overrides Values to override card data.
+ */
+function lumea_render_product_card( $product, $overrides = array() ) {
+	$data = array();
+
+	if ( is_array( $product ) ) {
+		$data = $product;
+
+		$legacy_map = array(
+			'price'     => 'price_html',
+			'old_price' => 'old_price_html',
+			'image'     => 'main_image',
+			'hover'     => 'hover_image',
+			'type'      => 'product_type',
+		);
+		foreach ( $legacy_map as $legacy_key => $new_key ) {
+			if ( ! isset( $data[ $new_key ] ) && isset( $data[ $legacy_key ] ) ) {
+				$data[ $new_key ] = $data[ $legacy_key ];
+			}
+		}
+
+		if ( empty( $data['product_id'] ) && ! empty( $data['id'] ) ) {
+			$data['product_id'] = absint( $data['id'] );
+		}
+
+		if ( ! empty( $data['product_id'] ) ) {
+			$has_core_data = ! empty( $data['name'] ) && ! empty( $data['url'] ) && isset( $data['price_html'] );
+			if ( ! $has_core_data ) {
+				$base = lumea_get_product_card_data( absint( $data['product_id'] ) );
+				$data = array_merge( $base, $data );
+			}
+		}
+	} else {
+		$data = lumea_get_product_card_data( $product );
+	}
+
+	if ( empty( $data ) ) {
+		return;
+	}
+
+	if ( ! empty( $overrides ) ) {
+		$data = array_merge( $data, $overrides );
+	}
+
+	get_template_part( 'template-parts/components/product-card', null, $data );
+}
+
+/**
  * Render reusable product card purchase actions.
  *
  * Output includes:
@@ -61,7 +163,7 @@ function lumea_render_product_card_actions( $args = array() ) {
 	$args = wp_parse_args( $args, $defaults );
 
 	$product_id    = absint( $args['product_id'] );
-	$product_url   = $args['product_url'] ? $args['product_url'] : ( $product_id ? get_permalink( $product_id ) : '' );
+	$product_url   = $args['product_url'] ? esc_url_raw( $args['product_url'] ) : ( $product_id ? get_permalink( $product_id ) : '' );
 	$product_name  = wp_strip_all_tags( (string) $args['product_name'] );
 	$product_type  = sanitize_html_class( (string) $args['product_type'] );
 	$button_class  = sanitize_text_field( (string) $args['button_class'] );

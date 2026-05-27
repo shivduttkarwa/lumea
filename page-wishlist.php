@@ -57,14 +57,25 @@ get_header();
 			</div>
 
 			<?php if ( $similar_query->have_posts() ) : ?>
-			<ul class="products columns-4 lumea-wishlist-similar-grid">
+			<div class="lumea-latest-grid lumea-wishlist-similar-grid">
 				<?php while ( $similar_query->have_posts() ) : ?>
 					<?php
 					$similar_query->the_post();
-					wc_get_template_part( 'content', 'product' );
+					$similar_product = wc_get_product( get_the_ID() );
+					if ( function_exists( 'lumea_render_product_card' ) ) {
+						lumea_render_product_card(
+							$similar_product,
+							array(
+								'badge'          => $similar_product && $similar_product->is_on_sale() ? __( 'Sale', 'lumea' ) : __( 'New', 'lumea' ),
+								'button_class'   => 'lumea-lp-btn',
+								'button_label'   => __( 'Add to Cart', 'lumea' ),
+								'fallback_label' => __( 'Shop Now', 'lumea' ),
+							)
+						);
+					}
 					?>
 				<?php endwhile; ?>
-			</ul>
+			</div>
 			<?php else : ?>
 			<p class="lumea-wishlist-similar-empty"><?php esc_html_e( 'More products are coming soon.', 'lumea' ); ?></p>
 			<?php endif; ?>
