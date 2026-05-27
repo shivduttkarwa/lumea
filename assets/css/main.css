@@ -3200,6 +3200,16 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   flex: 1;
 }
 
+.lumea-lp-category {
+  margin: 0 0 4px;
+  font-family: Inter, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lumea-muted);
+}
+
 .lumea-lp-name {
   margin: 0 0 10px;
   font-family: Inter, sans-serif;

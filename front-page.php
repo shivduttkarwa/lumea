@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Front page template — standalone (manages its own document).
  * wp_head() and wp_footer() are called directly so all plugins work.
@@ -337,22 +337,12 @@ if ( class_exists( 'WooCommerce' ) ) {
 		'post_type'      => 'product',
 		'posts_per_page' => 5,
 		'post_status'    => 'publish',
-		'tax_query'      => array( array(
-			'taxonomy' => 'product_tag',
-			'field'    => 'slug',
-			'terms'    => 'bestseller',
+		'meta_query'     => array( array(
+			'key'   => '_lumea_is_bestseller',
+			'value' => 'yes',
 		) ),
 	) );
-	if ( ! $_bq->have_posts() ) {
-		$_bq = new WP_Query( array(
-			'post_type'      => 'product',
-			'posts_per_page' => 5,
-			'post_status'    => 'publish',
-			'meta_key'       => 'total_sales',
-			'orderby'        => 'meta_value_num',
-			'order'          => 'DESC',
-		) );
-	}
+
 	while ( $_bq->have_posts() ) {
 		$_bq->the_post();
 		$_bp      = wc_get_product( get_the_ID() );
@@ -597,6 +587,10 @@ $lumea_latest = array(
 				'orderby'        => 'date',
 				'order'          => 'DESC',
 				'post_status'    => 'publish',
+				'meta_query'     => array( array(
+					'key'   => '_lumea_is_latest',
+					'value' => 'yes',
+				) ),
 			) );
 			while ( $lumea_lp_query->have_posts() ) {
 				$lumea_lp_query->the_post();
@@ -613,25 +607,10 @@ $lumea_latest = array(
 					'hover'     => ! empty( $_lp_gallery ) ? wp_get_attachment_image_url( $_lp_gallery[0], 'woocommerce_single' ) : '',
 					'url'       => get_permalink(),
 					'type'      => $_lp->get_type(),
+					'category'  => ( ( $_lp_cats = get_the_terms( get_the_ID(), 'product_cat' ) ) && ! is_wp_error( $_lp_cats ) ) ? $_lp_cats[0]->name : '',
 				);
 			}
 			wp_reset_postdata();
-		}
-		if ( empty( $lumea_lp_source ) ) {
-			foreach ( $lumea_latest as $p ) {
-				$lumea_lp_source[] = array(
-					'id'        => 0,
-					'name'      => $p['name'],
-					'price'     => $p['price'],
-					'old_price' => $p['old_price'],
-					'is_sale'   => ! empty( $p['old_price'] ),
-					'badge'     => $p['badge'],
-					'image'     => $p['image'],
-					'hover'     => $p['hover'],
-					'url'       => $p['url'],
-					'type'      => 'simple',
-				);
-			}
 		}
 		?>
 		<div class="lumea-latest-grid">
@@ -661,6 +640,9 @@ $lumea_latest = array(
 				</button>
 				</div>
 				<div class="lumea-lp-body">
+					<?php if ( ! empty( $lp['category'] ) ) : ?>
+					<p class="lumea-lp-category"><?php echo esc_html( $lp['category'] ); ?></p>
+					<?php endif; ?>
 					<h3 class="lumea-lp-name"><a href="<?php echo $lp_url; ?>"><?php echo $lp_name; ?></a></h3>
 					<div class="lumea-lp-pricing">
 						<?php if ( $lp_is_sale && $lp_old ) : ?>
@@ -909,31 +891,7 @@ $footer_pin = get_theme_mod( 'lumea_footer_pinterest', '' );
 </footer>
 
 
-<?php if ( class_exists( 'WooCommerce' ) ) : ?>
-<!-- Cart Drawer -->
-<div class="lumea-cart-overlay" data-lumea-cart-overlay aria-hidden="true"></div>
-<aside class="lumea-cart-drawer" id="lumeaCartDrawer" aria-label="<?php esc_attr_e( 'Shopping cart', 'lumea' ); ?>" aria-hidden="true" data-lumea-cart-drawer>
-	<div class="lumea-drawer-head">
-		<h2 class="lumea-drawer-title"><?php esc_html_e( 'Your Cart', 'lumea' ); ?></h2>
-		<button class="lumea-drawer-close" aria-label="<?php esc_attr_e( 'Close cart', 'lumea' ); ?>" data-lumea-cart-close>
-			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-		</button>
-	</div>
-	<div class="lumea-drawer-body">
-		<?php lumea_mini_cart_items(); ?>
-	</div>
-	<?php if ( ! WC()->cart->is_empty() ) : ?>
-	<div class="lumea-drawer-footer">
-		<div class="lumea-drawer-subtotal">
-			<span><?php esc_html_e( 'Subtotal', 'lumea' ); ?></span>
-			<span><?php echo WC()->cart->get_cart_subtotal(); ?></span>
-		</div>
-		<a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="lumea-drawer-cart-btn"><?php esc_html_e( 'View Cart', 'lumea' ); ?></a>
-		<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="lumea-drawer-checkout-btn"><?php esc_html_e( 'Checkout', 'lumea' ); ?></a>
-	</div>
-	<?php endif; ?>
-</aside>
-<?php endif; ?>
+<?php get_template_part( 'template-parts/components/cart-drawer' ); ?>
 
 <?php wp_footer(); ?>
 </body>

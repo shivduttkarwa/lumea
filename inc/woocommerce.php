@@ -238,6 +238,38 @@ add_action( 'wp_ajax_lumea_wishlist_items',        'lumea_get_wishlist_items' );
 add_action( 'wp_ajax_nopriv_lumea_wishlist_items', 'lumea_get_wishlist_items' );
 
 /**
+ * Product admin: Luméa tab with homepage placement checkboxes.
+ */
+add_filter( 'woocommerce_product_data_tabs', function ( $tabs ) {
+	$tabs['lumea'] = array(
+		'label'  => 'Luméa',
+		'target' => 'lumea_product_data',
+		'class'  => array(),
+	);
+	return $tabs;
+} );
+
+add_action( 'woocommerce_product_data_panels', function () {
+	echo '<div id="lumea_product_data" class="panel woocommerce_options_panel">';
+	woocommerce_wp_checkbox( array(
+		'id'          => '_lumea_is_bestseller',
+		'label'       => __( 'Show in Bestsellers', 'lumea' ),
+		'description' => __( 'Display on the homepage Bestsellers section.', 'lumea' ),
+	) );
+	woocommerce_wp_checkbox( array(
+		'id'          => '_lumea_is_latest',
+		'label'       => __( 'Show in Latest Products', 'lumea' ),
+		'description' => __( 'Display on the homepage Latest Products section.', 'lumea' ),
+	) );
+	echo '</div>';
+} );
+
+add_action( 'woocommerce_process_product_meta', function ( $post_id ) {
+	update_post_meta( $post_id, '_lumea_is_bestseller', isset( $_POST['_lumea_is_bestseller'] ) ? 'yes' : 'no' );
+	update_post_meta( $post_id, '_lumea_is_latest',     isset( $_POST['_lumea_is_latest'] )     ? 'yes' : 'no' );
+} );
+
+/**
  * Front-end fallback: if cart/checkout pages still have blocks on the
  * first front-end visit (before any admin visit), convert and redirect once.
  */
