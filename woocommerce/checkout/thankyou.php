@@ -23,6 +23,8 @@ defined( 'ABSPATH' ) || exit;
 
 	<?php if ( $order ) : ?>
 
+	<?php do_action( 'woocommerce_before_thankyou', $order->get_id() ); ?>
+
 	<!-- Confirmation hero -->
 	<div class="lumea-ty-hero">
 		<div class="lumea-ty-hero-inner">
@@ -137,8 +139,15 @@ defined( 'ABSPATH' ) || exit;
 					</address>
 				</div>
 
-				<?php do_action( 'woocommerce_thankyou_' . $order->get_payment_method(), $order->get_id() ); ?>
-				<?php do_action( 'woocommerce_thankyou', $order->get_id() ); ?>
+				<?php
+				// Keep gateway/plugin thank-you callbacks, but remove default duplicate
+				// order/customer details output because this template already renders
+				// a fully custom confirmation layout.
+				remove_action( 'woocommerce_thankyou', 'woocommerce_order_details_table', 10 );
+
+				do_action( 'woocommerce_thankyou_' . $order->get_payment_method(), $order->get_id() );
+				do_action( 'woocommerce_thankyou', $order->get_id() );
+				?>
 
 			</div><!-- /.lumea-ty-left -->
 

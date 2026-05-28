@@ -635,11 +635,161 @@ function lumea_force_cod_demo_gateway_settings( $settings ) {
 	$settings['enabled']            = 'yes';
 	$settings['title']              = __( 'Pay on Delivery (Demo)', 'lumea' );
 	$settings['description']        = __( 'Demo payment method for local testing. No real charge will be made.', 'lumea' );
+	$settings['enable_for_methods'] = array();
 	$settings['enable_for_virtual'] = 'yes';
 
 	return $settings;
 }
 add_filter( 'option_woocommerce_cod_settings', 'lumea_force_cod_demo_gateway_settings' );
+
+/**
+ * Register a local-only dummy payment gateway for checkout flow testing.
+ *
+ * @param array $gateways Gateway class names.
+ * @return array
+ */
+function lumea_register_demo_payment_gateway( $gateways ) {
+	$gateways[] = 'Lumea_WC_Gateway_Demo';
+	return $gateways;
+}
+add_filter( 'woocommerce_payment_gateways', 'lumea_register_demo_payment_gateway' );
+
+/**
+ * Initialize the local-only dummy payment gateway class.
+ */
+function lumea_init_demo_payment_gateway() {
+	if ( ! class_exists( 'WC_Payment_Gateway' ) || class_exists( 'Lumea_WC_Gateway_Demo' ) ) {
+		return;
+	}
+
+	class Lumea_WC_Gateway_Demo extends WC_Payment_Gateway {
+
+		/**
+		 * Constructor.
+		 */
+		public function __construct() {
+			$this->id                 = 'lumea_demo_gateway';
+			$this->method_title       = __( 'Lumea Demo Gateway', 'lumea' );
+			$this->method_description = __( 'Dummy payment method for local checkout testing. No money is charged.', 'lumea' );
+			$this->has_fields         = false;
+			$this->supports           = array( 'products' );
+
+			$this->init_form_fields();
+			$this->init_settings();
+
+			$this->enabled     = $this->get_option( 'enabled', 'yes' );
+			$this->title       = $this->get_option( 'title', __( 'Test Payment (No Charge)', 'lumea' ) );
+			$this->description = $this->get_option( 'description', __( 'Use this local test method to place a demo order and reach the confirmation page.', 'lumea' ) );
+
+			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
+		}
+
+		/**
+		 * Admin settings fields.
+		 */
+		public function init_form_fields() {
+			$this->form_fields = array(
+				'enabled'     => array(
+					'title'   => __( 'Enable/Disable', 'lumea' ),
+					'type'    => 'checkbox',
+					'label'   => __( 'Enable Lumea Demo Gateway', 'lumea' ),
+					'default' => 'yes',
+				),
+				'title'       => array(
+					'title'       => __( 'Title', 'lumea' ),
+					'type'        => 'text',
+					'description' => __( 'Shown at checkout.', 'lumea' ),
+					'default'     => __( 'Test Payment (No Charge)', 'lumea' ),
+					'desc_tip'    => true,
+				),
+				'description' => array(
+					'title'       => __( 'Description', 'lumea' ),
+					'type'        => 'textarea',
+					'description' => __( 'Shown under the payment method on checkout.', 'lumea' ),
+					'default'     => __( 'Use this local test method to place a demo order and reach the confirmation page.', 'lumea' ),
+					'desc_tip'    => true,
+				),
+			);
+		}
+
+		/**
+		 * Keep gateway available while testing checkout flow.
+		 *
+		 * @return bool
+		 */
+		public function is_available() {
+			return 'yes' === $this->enabled;
+		}
+
+		/**
+		 * Process checkout payment.
+		 *
+		 * @param int $order_id WooCommerce order ID.
+		 * @return array
+		 */
+		public function process_payment( $order_id ) {
+			$order = wc_get_order( $order_id );
+			if ( ! $order ) {
+				wc_add_notice( esc_html__( 'Unable to process demo payment. Please try again.', 'lumea' ), 'error' );
+				return array(
+					'result' => 'fail',
+				);
+			}
+
+			$order->payment_complete();
+			$order->add_order_note( esc_html__( 'Order placed using Lumea Demo Gateway (no real payment).', 'lumea' ) );
+
+			if ( WC()->cart ) {
+				WC()->cart->empty_cart();
+			}
+
+			return array(
+				'result'   => 'success',
+				'redirect' => $this->get_return_url( $order ),
+			);
+		}
+	}
+}
+lumea_init_demo_payment_gateway();
+add_action( 'init', 'lumea_init_demo_payment_gateway', 1 );
+
+/**
+ * Safety fallback: keep at least one testable gateway on checkout when possible.
+ *
+ * @param array $available_gateways Available gateways.
+ * @return array
+ */
+function lumea_checkout_gateway_fallback( $available_gateways ) {
+	if ( ! function_exists( 'is_checkout' ) || ! is_checkout() ) {
+		return $available_gateways;
+	}
+
+	if ( function_exists( 'is_order_received_page' ) && is_order_received_page() ) {
+		return $available_gateways;
+	}
+
+	if ( ! empty( $available_gateways ) ) {
+		return $available_gateways;
+	}
+
+	if ( ! WC()->cart || ! WC()->cart->needs_payment() ) {
+		return $available_gateways;
+	}
+
+	$all_gateways = WC()->payment_gateways()->payment_gateways();
+
+	if ( isset( $all_gateways['lumea_demo_gateway'] ) && $all_gateways['lumea_demo_gateway']->is_available() ) {
+		$available_gateways['lumea_demo_gateway'] = $all_gateways['lumea_demo_gateway'];
+		return $available_gateways;
+	}
+
+	if ( isset( $all_gateways['cod'] ) && $all_gateways['cod']->is_available() ) {
+		$available_gateways['cod'] = $all_gateways['cod'];
+	}
+
+	return $available_gateways;
+}
+add_filter( 'woocommerce_available_payment_gateways', 'lumea_checkout_gateway_fallback', 999 );
 
 /**
  * Clear checkout session data on every fresh checkout page load

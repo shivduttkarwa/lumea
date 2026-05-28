@@ -5363,10 +5363,10 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 
 .lumea-thankyou-page {
   background: var(--lumea-bg);
-  padding-top: 72px;
+  padding-top: 0;
   min-height: 80vh;
 }
-.admin-bar .lumea-thankyou-page { padding-top: calc(72px + 32px); }
+.admin-bar .lumea-thankyou-page { padding-top: 0; }
 
 /* Hero */
 .lumea-ty-hero {
@@ -5484,11 +5484,27 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   width: 64px;
   height: 80px;
   border-radius: 10px;
-  overflow: hidden;
+  overflow: visible;
   background: #f8f3ef;
   flex-shrink: 0;
 }
-.lumea-ty-item-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lumea-ty-item-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 10px;
+}
+.lumea-ty-item-img .lumea-checkout-item-qty {
+  top: -8px;
+  right: -8px;
+  width: 22px;
+  height: 22px;
+  font-size: 11px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
+  z-index: 2;
+}
 .lumea-ty-item-info { flex: 1; min-width: 0; }
 .lumea-ty-item-name {
   margin: 0 0 4px;
@@ -5667,6 +5683,45 @@ body.woocommerce-order-received .lumea-header,
 body.woocommerce-order-pay .lumea-header {
   background: rgba(255, 250, 247, 0.97) !important;
   box-shadow: 0 1px 0 var(--lumea-border) !important;
+}
+
+/* Fallback style if any plugin injects native WooCommerce thank-you details. */
+body.woocommerce-order-received .lumea-thankyou-page .woocommerce-order-details,
+body.woocommerce-order-received .lumea-thankyou-page .woocommerce-customer-details {
+  margin: 0 0 24px;
+  background: #ffffff;
+  border: 1px solid var(--lumea-border);
+  border-radius: var(--lumea-radius);
+  padding: 28px 32px;
+}
+body.woocommerce-order-received .lumea-thankyou-page .woocommerce-order-details__title,
+body.woocommerce-order-received .lumea-thankyou-page .woocommerce-column__title {
+  margin: 0 0 18px;
+  font-family: "ClashDisplay-Variable", "Clash Display", Inter, sans-serif;
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--lumea-text);
+}
+body.woocommerce-order-received .lumea-thankyou-page table.shop_table {
+  width: 100%;
+  border-collapse: collapse;
+}
+body.woocommerce-order-received .lumea-thankyou-page table.shop_table th,
+body.woocommerce-order-received .lumea-thankyou-page table.shop_table td {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--lumea-border);
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  color: var(--lumea-text);
+}
+body.woocommerce-order-received .lumea-thankyou-page .woocommerce-customer-details address {
+  margin: 0;
+  font-style: normal;
+  line-height: 1.8;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  color: var(--lumea-text);
 }
 
 
