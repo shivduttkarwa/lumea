@@ -103,7 +103,13 @@ $lumea_wishlist_url  = $lumea_wishlist_page ? get_permalink( $lumea_wishlist_pag
 			<!-- Cart -->
 			<?php if ( class_exists( 'WooCommerce' ) ) : ?>
 			<button class="lumea-cart-trigger" aria-label="<?php esc_attr_e( 'Open cart', 'lumea' ); ?>" data-lumea-cart-trigger>
-				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+				<svg class="lumea-cart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.95" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M2 5.25h2.4a1.2 1.2 0 0 1 1.14.86l2.3 7.73"></path>
+					<path d="M6.95 7.2h15.15l-1.25 4.75a2.45 2.45 0 0 1-2.34 1.82l-10.67.95"></path>
+					<path d="M8.1 15.8a1.85 1.85 0 0 0 1.74 2.45h8.56"></path>
+					<circle cx="9.4" cy="19.1" r="1.9"></circle>
+					<circle cx="17.9" cy="19.1" r="1.9"></circle>
+				</svg>
 				<span class="lumea-cart-count<?php echo WC()->cart->get_cart_contents_count() ? ' lumea-cart-count--visible' : ''; ?>"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
 			</button>
 			<?php endif; ?>
