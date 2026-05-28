@@ -7,11 +7,12 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! is_checkout() ) return;
-
-do_action( 'woocommerce_before_checkout_form', $checkout );
+if ( ! is_checkout() ) {
+	return;
+}
 
 $checkout = WC()->checkout();
+do_action( 'woocommerce_before_checkout_form', $checkout );
 ?>
 
 <div class="lumea-checkout-page">
@@ -113,7 +114,11 @@ $checkout = WC()->checkout();
 							<?php esc_html_e( 'Payment', 'lumea' ); ?>
 						</h2>
 						<div class="lumea-checkout-payment-wrap">
-							<?php do_action( 'woocommerce_checkout_payment' ); ?>
+							<?php
+							if ( function_exists( 'woocommerce_checkout_payment' ) ) {
+								woocommerce_checkout_payment();
+							}
+							?>
 						</div>
 					</div>
 

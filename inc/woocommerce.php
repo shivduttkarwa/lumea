@@ -624,31 +624,77 @@ add_action( 'woocommerce_process_product_meta', function ( $post_id ) {
 } );
 
 /**
- * Force-enable WooCommerce's built-in Cash on Delivery gateway as "Pay on Delivery".
- * Using option filter avoids all class-loading timing issues.
+ * Force-enable WooCommerce's built-in Cash on Delivery gateway as a
+ * dummy/local payment method for checkout testing.
  */
-add_filter( 'option_woocommerce_cod_settings', function ( $value ) {
-	if ( ! is_array( $value ) ) {
-		$value = array();
+function lumea_force_cod_demo_gateway_settings( $settings ) {
+	if ( ! is_array( $settings ) ) {
+		$settings = array();
 	}
-	$value['enabled']     = 'yes';
-	$value['title']       = 'Pay on Delivery';
-	$value['description'] = 'Pay with cash or card when your order arrives. No online payment required.';
-	return $value;
-} );
+
+	$settings['enabled']            = 'yes';
+	$settings['title']              = __( 'Pay on Delivery (Demo)', 'lumea' );
+	$settings['description']        = __( 'Demo payment method for local testing. No real charge will be made.', 'lumea' );
+	$settings['enable_for_virtual'] = 'yes';
+
+	return $settings;
+}
+add_filter( 'option_woocommerce_cod_settings', 'lumea_force_cod_demo_gateway_settings' );
 
 /**
- * Clear guest checkout session data on every fresh checkout page load
- * so previously typed address values don't persist across visits.
+ * Clear checkout session data on every fresh checkout page load
+ * so previously typed values don't persist across visits.
  */
-add_action( 'template_redirect', function () {
-	if ( ! is_checkout() || is_order_received_page() || is_user_logged_in() ) {
+function lumea_reset_checkout_session() {
+	if ( ! function_exists( 'is_checkout' ) || ! is_checkout() ) {
 		return;
 	}
-	if ( WC()->session ) {
-		WC()->session->set( 'customer', null );
+
+	if ( function_exists( 'is_order_received_page' ) && is_order_received_page() ) {
+		return;
 	}
-} );
+
+	// Keep submitted values when checkout is being processed.
+	if ( isset( $_POST['woocommerce-process-checkout-nonce'] ) ) {
+		return;
+	}
+
+	if ( WC()->session ) {
+		WC()->session->__unset( 'customer' );
+		WC()->session->__unset( 'chosen_payment_method' );
+		WC()->session->__unset( 'chosen_shipping_methods' );
+	}
+}
+add_action( 'template_redirect', 'lumea_reset_checkout_session', 5 );
+
+/**
+ * Force blank defaults for checkout fields on each fresh page load.
+ *
+ * @param string|null $value Existing field value.
+ * @param string      $input Checkout field key.
+ * @return string|null
+ */
+function lumea_clear_checkout_field_defaults( $value, $input ) {
+	if ( ! function_exists( 'is_checkout' ) || ! is_checkout() ) {
+		return $value;
+	}
+
+	if ( function_exists( 'is_order_received_page' ) && is_order_received_page() ) {
+		return $value;
+	}
+
+	// Preserve user-entered values during a checkout postback.
+	if ( isset( $_POST['woocommerce-process-checkout-nonce'] ) || isset( $_POST[ $input ] ) ) {
+		return $value;
+	}
+
+	if ( 0 === strpos( $input, 'billing_' ) || 0 === strpos( $input, 'shipping_' ) || 0 === strpos( $input, 'account_' ) || 'order_comments' === $input ) {
+		return '';
+	}
+
+	return $value;
+}
+add_filter( 'woocommerce_checkout_get_value', 'lumea_clear_checkout_field_defaults', 10, 2 );
 
 /**
  * Front-end fallback: if cart/checkout pages still have blocks on the
