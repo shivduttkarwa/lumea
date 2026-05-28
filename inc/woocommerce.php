@@ -326,6 +326,8 @@ add_action( 'init', function () {
 	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
 	remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
 	remove_action( 'woocommerce_after_main_content',  'woocommerce_output_content_wrapper_end', 10 );
+	// Coupon form is in the order summary sidebar — suppress the default top banner.
+	remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
 } );
 
 /**
@@ -619,6 +621,33 @@ add_action( 'woocommerce_product_data_panels', function () {
 add_action( 'woocommerce_process_product_meta', function ( $post_id ) {
 	update_post_meta( $post_id, '_lumea_is_bestseller', isset( $_POST['_lumea_is_bestseller'] ) ? 'yes' : 'no' );
 	update_post_meta( $post_id, '_lumea_is_latest',     isset( $_POST['_lumea_is_latest'] )     ? 'yes' : 'no' );
+} );
+
+/**
+ * Force-enable WooCommerce's built-in Cash on Delivery gateway as "Pay on Delivery".
+ * Using option filter avoids all class-loading timing issues.
+ */
+add_filter( 'option_woocommerce_cod_settings', function ( $value ) {
+	if ( ! is_array( $value ) ) {
+		$value = array();
+	}
+	$value['enabled']     = 'yes';
+	$value['title']       = 'Pay on Delivery';
+	$value['description'] = 'Pay with cash or card when your order arrives. No online payment required.';
+	return $value;
+} );
+
+/**
+ * Clear guest checkout session data on every fresh checkout page load
+ * so previously typed address values don't persist across visits.
+ */
+add_action( 'template_redirect', function () {
+	if ( ! is_checkout() || is_order_received_page() || is_user_logged_in() ) {
+		return;
+	}
+	if ( WC()->session ) {
+		WC()->session->set( 'customer', null );
+	}
 } );
 
 /**

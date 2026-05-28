@@ -4886,10 +4886,10 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 
 .lumea-checkout-page {
   background: var(--lumea-bg);
-  padding-top: 72px;
+  padding-top: 0;
   min-height: 80vh;
 }
-.admin-bar .lumea-checkout-page { padding-top: calc(72px + 32px); }
+.admin-bar .lumea-checkout-page { padding-top: 0; }
 
 .lumea-checkout-hero {
   background: #ffffff;
@@ -5044,6 +5044,42 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 .lumea-checkout-block .woocommerce-input-wrapper { display: block; }
 .lumea-checkout-block .form-row p { margin: 0; }
 
+/* Select2 country/state — match native input height & style */
+.lumea-checkout-block .select2-container { width: 100% !important; }
+.lumea-checkout-block .select2-container--default .select2-selection--single {
+  height: auto;
+  border: 1px solid var(--lumea-border);
+  border-radius: 12px;
+  padding: 11px 16px;
+  background: #faf8f6;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  color: var(--lumea-text);
+  transition: border-color 0.18s, box-shadow 0.18s;
+  outline: none;
+}
+.lumea-checkout-block .select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 1.5;
+  padding: 0;
+  color: var(--lumea-text);
+}
+.lumea-checkout-block .select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 100%;
+  top: 0;
+  right: 14px;
+}
+.lumea-checkout-block .select2-container--default.select2-container--open .select2-selection--single,
+.lumea-checkout-block .select2-container--default.select2-container--focus .select2-selection--single {
+  border-color: var(--lumea-accent);
+  box-shadow: 0 0 0 3px rgba(201,133,120,0.12);
+  background: #ffffff;
+}
+.select2-dropdown { border: 1px solid var(--lumea-border); border-radius: 12px; box-shadow: 0 8px 24px rgba(36,24,22,0.1); overflow: hidden; }
+.select2-search--dropdown .select2-search__field { border: 1px solid var(--lumea-border); border-radius: 8px; padding: 8px 12px; font-family: Inter, sans-serif; font-size: 13px; }
+.select2-results__option { font-family: Inter, sans-serif; font-size: 14px; padding: 9px 16px; }
+.select2-results__option--highlighted { background: var(--lumea-accent) !important; color: #fff; }
+.select2-results__option[aria-selected="true"] { background: var(--lumea-bg); color: var(--lumea-text); font-weight: 600; }
+
 /* WC billing section outputs its own wrapper and h3 — hide h3, fix layout */
 .lumea-checkout-block .woocommerce-billing-fields h3,
 .lumea-checkout-block .woocommerce-shipping-fields h3,
@@ -5177,7 +5213,7 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   width: 56px;
   height: 68px;
   border-radius: 10px;
-  overflow: hidden;
+  overflow: visible;
   background: var(--lumea-bg);
   flex-shrink: 0;
   border: 1px solid var(--lumea-border);
@@ -5187,6 +5223,8 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   height: 100%;
   object-fit: contain;
   display: block;
+  border-radius: 10px;
+  overflow: hidden;
 }
 .lumea-checkout-item-qty {
   position: absolute;
