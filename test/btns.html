@@ -13,129 +13,160 @@
       --lumea-muted: #7d6b66;
       --lumea-accent: #c98578;
       --lumea-accent-dark: #8f4d43;
-      --lumea-fresh: #c7f099;
       --lumea-border: rgba(36, 24, 22, 0.12);
     }
 
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
     }
 
     body {
+      margin: 0;
       min-height: 100vh;
+      display: grid;
+      place-items: center;
       background: var(--lumea-bg);
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
       color: var(--lumea-text);
+    }
+
+    .lumea-button-panel {
+      width: min(980px, 92%);
+      padding: 44px;
       display: flex;
-      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
       justify-content: center;
-      padding: 40px 20px;
-    }
-
-    .button-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
       align-items: center;
-    }
-
-    .button-box {
-      width: 100%;
-      max-width: 520px;
-      padding: 28px;
       background: var(--lumea-surface);
       border: 1px solid var(--lumea-border);
-      border-radius: 20px;
-      text-align: center;
-    }
-
-    .button-label {
-      margin-bottom: 16px;
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--lumea-muted);
+      border-radius: 14px;
     }
 
     .lumea-btn {
-      position: relative;
+      min-width: 150px;
+      height: 46px;
+      padding: 0 24px;
+      border-radius: 7px;
+      border: 1px solid var(--lumea-border);
+      background: transparent;
+      color: var(--lumea-text);
+      cursor: pointer;
+
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 156px;
-      height: 46px;
-      padding: 0 24px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      text-decoration: none;
+      gap: 10px;
+
       font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.11em;
+      font-weight: 600;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
-      color: var(--lumea-text);
-      background: transparent;
+      line-height: 1;
+
       transition:
         background-color 0.25s ease,
-        color 0.25s ease,
         border-color 0.25s ease,
-        transform 0.25s ease;
+        color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
     }
 
     .lumea-btn:hover {
       transform: translateY(-1px);
     }
 
-    .lumea-btn:focus-visible {
-      outline: 1px solid var(--lumea-accent-dark);
-      outline-offset: 4px;
-    }
-
-    /* Button 01 — Dark Primary */
+    /* Button 1 */
     .btn-dark {
       background: var(--lumea-text);
-      color: var(--lumea-surface);
+      color: #ffffff;
       border-color: var(--lumea-text);
     }
 
     .btn-dark:hover {
-      background: #3a2926;
-      border-color: #3a2926;
+      background: #342522;
+      border-color: #342522;
+      box-shadow: 0 8px 20px rgba(36, 24, 22, 0.12);
     }
 
-    /* Button 02 — Accent */
+    /* Button 2 */
+    .btn-outline {
+      background: #ffffff;
+      color: var(--lumea-text);
+      border-color: var(--lumea-border);
+    }
+
+    .btn-outline:hover {
+      border-color: rgba(36, 24, 22, 0.28);
+      background: #fffdfb;
+    }
+
+    /* Button 3 */
+    .btn-soft {
+      background: rgba(201, 133, 120, 0.12);
+      color: var(--lumea-accent-dark);
+      border-color: rgba(201, 133, 120, 0.25);
+    }
+
+    .btn-soft:hover {
+      background: rgba(201, 133, 120, 0.18);
+      border-color: rgba(201, 133, 120, 0.38);
+    }
+
+    /* Button 4 */
     .btn-accent {
       background: var(--lumea-accent);
-      color: var(--lumea-surface);
+      color: #ffffff;
       border-color: var(--lumea-accent);
     }
 
     .btn-accent:hover {
       background: var(--lumea-accent-dark);
       border-color: var(--lumea-accent-dark);
+      box-shadow: 0 8px 20px rgba(143, 77, 67, 0.14);
     }
 
-    /* Button 03 — White Outline */
-    .btn-outline {
-      background: var(--lumea-surface);
+    /* Button 5 and 6 */
+    .btn-arrow {
+      background: transparent;
       color: var(--lumea-text);
       border-color: var(--lumea-border);
     }
 
-    .btn-outline:hover {
-      border-color: var(--lumea-text);
-      background: var(--lumea-surface);
+    .btn-arrow:hover {
+      background: rgba(255, 255, 255, 0.65);
+      border-color: rgba(36, 24, 22, 0.32);
+      color: var(--lumea-text);
+      box-shadow: none;
     }
 
-    @media (max-width: 600px) {
-      .button-box {
-        padding: 24px 18px;
+    .btn-arrow svg {
+      width: 15px;
+      height: 15px;
+      display: block;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-arrow-right:hover svg {
+      transform: translateX(3px);
+    }
+
+    .btn-arrow-left:hover svg {
+      transform: translateX(-3px);
+    }
+
+    @media (max-width: 640px) {
+      .lumea-button-panel {
+        width: 92%;
+        padding: 28px;
+        flex-direction: column;
       }
 
       .lumea-btn {
         width: 100%;
-        max-width: 280px;
       }
     }
   </style>
@@ -143,25 +174,39 @@
 
 <body>
 
-  <div class="button-wrapper">
+  <div class="lumea-button-panel">
 
-    <!-- Button 01 -->
-    <div class="button-box">
-      <p class="button-label">Primary Button</p>
-      <a href="#" class="lumea-btn btn-dark">Shop Now</a>
-    </div>
+    <button class="lumea-btn btn-dark">
+      Shop Now
+    </button>
 
-    <!-- Button 02 -->
-    <div class="button-box">
-      <p class="button-label">Accent Button</p>
-      <a href="#" class="lumea-btn btn-accent">Add to Bag</a>
-    </div>
+    <button class="lumea-btn btn-outline">
+      View Ritual
+    </button>
 
-    <!-- Button 03 -->
-    <div class="button-box">
-      <p class="button-label">Outline Button</p>
-      <a href="#" class="lumea-btn btn-outline">View Product</a>
-    </div>
+    <button class="lumea-btn btn-soft">
+      Explore Care
+    </button>
+
+    <button class="lumea-btn btn-accent">
+      Add to Bag
+    </button>
+
+    <button class="lumea-btn btn-arrow btn-arrow-right">
+      Learn More
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M5 12H19"></path>
+        <path d="M13 6L19 12L13 18"></path>
+      </svg>
+    </button>
+
+    <button class="lumea-btn btn-arrow btn-arrow-left">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M19 12H5"></path>
+        <path d="M11 6L5 12L11 18"></path>
+      </svg>
+      Back
+    </button>
 
   </div>
 

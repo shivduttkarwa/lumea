@@ -68,11 +68,19 @@ function lumea_enqueue_assets() {
 		LUMEA_VERSION
 	);
 
+	/* Reusable button styles */
+	wp_enqueue_style(
+		'lumea-buttons',
+		LUMEA_THEME_URI . '/assets/css/buttons.css',
+		array( 'lumea-tokens' ),
+		LUMEA_VERSION
+	);
+
 	/* Main stylesheet */
 	wp_enqueue_style(
 		'lumea-main',
 		LUMEA_THEME_URI . '/assets/css/main.css',
-		array( 'lumea-bootstrap-overrides' ),
+		array( 'lumea-bootstrap-overrides', 'lumea-buttons' ),
 		LUMEA_VERSION
 	);
 

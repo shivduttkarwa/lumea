@@ -1,0 +1,131 @@
+/* ─── Lumea Reusable Buttons ─────────────────────────────────────────────── */
+
+.lumea-btn {
+  min-width: 150px;
+  height: 46px;
+  padding: 0 24px;
+  border-radius: 7px;
+  border: 1px solid var(--lumea-border);
+  background: transparent;
+  color: var(--lumea-text);
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 1;
+  white-space: nowrap;
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.lumea-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* ── Dark ────────────────────────────────────────────────────────────────── */
+
+.btn-dark {
+  background: var(--lumea-text);
+  color: #ffffff;
+  border-color: var(--lumea-text);
+}
+
+.btn-dark:hover {
+  background: #342522;
+  border-color: #342522;
+  box-shadow: 0 8px 20px rgba(36, 24, 22, 0.12);
+}
+
+/* ── Outline ─────────────────────────────────────────────────────────────── */
+
+.btn-outline {
+  background: #ffffff;
+  color: var(--lumea-text);
+  border-color: var(--lumea-border);
+}
+
+.btn-outline:hover {
+  border-color: rgba(36, 24, 22, 0.28);
+  background: #fffdfb;
+}
+
+/* ── Soft ────────────────────────────────────────────────────────────────── */
+
+.btn-soft {
+  background: rgba(201, 133, 120, 0.12);
+  color: var(--lumea-accent-dark);
+  border-color: rgba(201, 133, 120, 0.25);
+}
+
+.btn-soft:hover {
+  background: rgba(201, 133, 120, 0.18);
+  border-color: rgba(201, 133, 120, 0.38);
+}
+
+/* ── Accent ──────────────────────────────────────────────────────────────── */
+
+.btn-accent {
+  background: var(--lumea-accent);
+  color: #ffffff;
+  border-color: var(--lumea-accent);
+}
+
+.btn-accent:hover {
+  background: var(--lumea-accent-dark);
+  border-color: var(--lumea-accent-dark);
+  box-shadow: 0 8px 20px rgba(143, 77, 67, 0.14);
+}
+
+/* ── Arrow ───────────────────────────────────────────────────────────────── */
+
+.btn-arrow {
+  background: transparent;
+  color: var(--lumea-text);
+  border-color: var(--lumea-border);
+}
+
+.btn-arrow:hover {
+  background: rgba(255, 255, 255, 0.65);
+  border-color: rgba(36, 24, 22, 0.32);
+  color: var(--lumea-text);
+  box-shadow: none;
+}
+
+.btn-arrow svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.btn-arrow-right:hover svg {
+  transform: translateX(3px);
+}
+
+.btn-arrow-left:hover svg {
+  transform: translateX(-3px);
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .lumea-btn {
+    width: 100%;
+  }
+}
