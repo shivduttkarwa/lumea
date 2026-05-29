@@ -900,4 +900,39 @@
   });
 
   refreshWishlistUI();
+
+  /* ── Search page: filter tabs ── */
+  var searchFilters   = document.querySelector('[data-lumea-search-filters]');
+  var searchGrid      = document.querySelector('[data-lumea-search-grid]');
+  var searchPagination = document.querySelector('[data-lumea-search-pagination]');
+
+  if (searchFilters && searchGrid) {
+    searchFilters.addEventListener('click', function (e) {
+      var tab = e.target.closest('[data-filter]');
+      if (!tab) return;
+
+      var filter = tab.getAttribute('data-filter');
+
+      searchFilters.querySelectorAll('[data-filter]').forEach(function (t) {
+        t.classList.toggle('is-active', t === tab);
+      });
+
+      var allCards = searchGrid.querySelectorAll('[data-post-type]');
+      var visibleCount = 0;
+
+      allCards.forEach(function (card) {
+        var matches = filter === 'all' || card.getAttribute('data-post-type') === filter;
+        if (matches) {
+          card.removeAttribute('data-hidden');
+          visibleCount++;
+        } else {
+          card.setAttribute('data-hidden', '');
+        }
+      });
+
+      if (searchPagination) {
+        searchPagination.style.display = filter === 'all' ? '' : 'none';
+      }
+    });
+  }
 })();
