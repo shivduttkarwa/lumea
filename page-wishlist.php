@@ -67,7 +67,7 @@ get_header();
 							$similar_product,
 							array(
 								'badge'          => $similar_product && $similar_product->is_on_sale() ? __( 'Sale', 'lumea' ) : __( 'New', 'lumea' ),
-								'button_class'   => 'lumea-lp-btn',
+								'button_class'   => 'lumea-btn btn-black',
 								'button_label'   => __( 'Add to Cart', 'lumea' ),
 								'fallback_label' => __( 'Shop Now', 'lumea' ),
 							)

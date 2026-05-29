@@ -25,7 +25,7 @@ $defaults = array(
 	'supports_ajax'   => false,
 	'button_label'    => __( 'Add to Cart', 'lumea' ),
 	'fallback_label'  => __( 'Shop Now', 'lumea' ),
-	'button_class'    => 'lumea-lp-btn',
+	'button_class'    => 'lumea-btn btn-black',
 	'card_class'      => 'lumea-lp-card',
 );
 $data = wp_parse_args( is_array( $args ) ? $args : array(), $defaults );

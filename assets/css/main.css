@@ -2278,34 +2278,6 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   color: var(--lumea-accent);
 }
 
-/* Add to cart button */
-.lumea-shop-btn {
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 42px;
-  margin-top: auto;
-  border: 1px solid var(--lumea-text) !important;
-  background: transparent !important;
-  font-family: Inter, sans-serif !important;
-  font-size: 11px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.1em !important;
-  text-transform: uppercase !important;
-  color: var(--lumea-text) !important;
-  text-decoration: none !important;
-  border-radius: 0 !important;
-  padding: 0 !important;
-  cursor: pointer;
-  transition: background 0.25s ease, color 0.25s ease !important;
-}
-
-.lumea-shop-btn:hover {
-  background: var(--lumea-text) !important;
-  color: #ffffff !important;
-}
-
 /* Pagination */
 .lumea-shop-pagination {
   margin-top: 64px;
@@ -3003,31 +2975,6 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   font-weight: 500;
 }
 
-.lumea-best-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 2.625rem;
-  margin-top: 1rem;
-  border: 0.0625rem solid var(--lumea-text);
-  background: transparent;
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--lumea-text);
-  text-decoration: none;
-  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
-  cursor: pointer;
-}
-
-.lumea-best-btn:hover {
-  background: var(--lumea-text);
-  color: #ffffff;
-  border-color: var(--lumea-text);
-}
-
 /* Nav arrows */
 
 .lumea-best-nav {
@@ -3299,31 +3246,6 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   color: var(--lumea-accent);
 }
 
-.lumea-lp-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 40px;
-  margin-top: auto;
-  border: 1px solid var(--lumea-text);
-  background: transparent;
-  font-family: Inter, sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--lumea-text);
-  text-decoration: none;
-  transition: background 0.25s ease, color 0.25s ease;
-  cursor: pointer;
-}
-
-.lumea-lp-btn:hover {
-  background: var(--lumea-text);
-  color: #ffffff;
-}
-
 /* ── Product card shared: wishlist + actions row + qty stepper ── */
 
 .lumea-card-media-wrap {
@@ -3373,6 +3295,11 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   gap: 0.5rem;
   margin-top: auto;
 }
+.lumea-card-actions > .lumea-btn {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+}
 
 /* Hide WooCommerce's default auto-injected "View cart" link */
 .lumea-card-actions .added_to_cart {
@@ -3386,13 +3313,13 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   height: 2.625rem;
 }
 
-.lumea-card-atc-wrap .lumea-best-btn,
-.lumea-card-atc-wrap .lumea-lp-btn,
-.lumea-card-atc-wrap .lumea-shop-btn {
+.lumea-card-atc-wrap .lumea-btn {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  min-width: 0;
+  min-height: 0;
   margin-top: 0;
   opacity: 1;
   pointer-events: auto;
@@ -3400,9 +3327,7 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 }
 
 /* Add to Cart button fades out after clicking */
-.lumea-card-atc-wrap.is-added .lumea-best-btn,
-.lumea-card-atc-wrap.is-added .lumea-lp-btn,
-.lumea-card-atc-wrap.is-added .lumea-shop-btn {
+.lumea-card-atc-wrap.is-added .lumea-btn {
   opacity: 0;
   pointer-events: none;
 }

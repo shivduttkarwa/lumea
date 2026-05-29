@@ -224,7 +224,7 @@
       var increaseLabel = i18n('increase', 'Increase');
       var viewCartLabel = i18n('viewCart', 'View Cart');
       var productType = sanitizeClassToken(item.type);
-      var atcButtonClass = 'lumea-lp-btn add_to_cart_button button product_type_' + productType;
+      var atcButtonClass = 'lumea-btn btn-black add_to_cart_button button product_type_' + productType;
       var actionMarkup = '';
 
       if (item.can_add_to_cart) {
@@ -250,7 +250,7 @@
           '</div>'
         ].join('');
       } else {
-        actionMarkup = '<a href="' + escapeHtml(item.url) + '" class="lumea-lp-btn lumea-wishlist-page-plain-btn" aria-label="' + escapeHtml(actionAria) + '">' + escapeHtml(actionLabel) + '</a>';
+        actionMarkup = '<a href="' + escapeHtml(item.url) + '" class="lumea-btn btn-black lumea-wishlist-page-plain-btn" aria-label="' + escapeHtml(actionAria) + '">' + escapeHtml(actionLabel) + '</a>';
       }
 
       return [

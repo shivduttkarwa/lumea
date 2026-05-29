@@ -77,7 +77,7 @@ function lumea_get_product_card_data( $product ) {
 		'supports_ajax'    => $can_add_to_cart && $wc_product->supports( 'ajax_add_to_cart' ),
 		'button_label'     => __( 'Add to Cart', 'lumea' ),
 		'fallback_label'   => __( 'Shop Now', 'lumea' ),
-		'button_class'     => 'lumea-lp-btn',
+		'button_class'     => 'lumea-btn btn-black',
 		'card_class'       => 'lumea-lp-card',
 	);
 }
@@ -154,7 +154,7 @@ function lumea_render_product_card_actions( $args = array() ) {
 		'product_url'     => '',
 		'product_name'    => '',
 		'product_type'    => 'simple',
-		'button_class'    => 'lumea-lp-btn',
+		'button_class'    => 'lumea-btn btn-black',
 		'button_label'    => __( 'Add to Cart', 'lumea' ),
 		'fallback_label'  => __( 'Shop Now', 'lumea' ),
 		'can_add_to_cart' => true,

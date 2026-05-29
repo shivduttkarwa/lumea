@@ -330,7 +330,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 											'product_url'     => $bp_url,
 											'product_name'    => $bp_name_raw,
 											'product_type'    => isset( $bp['type'] ) ? $bp['type'] : 'simple',
-											'button_class'    => 'lumea-best-btn',
+											'button_class'    => 'lumea-btn btn-black',
 											'button_label'    => __( 'Add to Cart', 'lumea' ),
 											'fallback_label'  => __( 'Shop Now', 'lumea' ),
 											'can_add_to_cart' => isset( $bp['can_add_to_cart'] ) ? (bool) $bp['can_add_to_cart'] : true,
@@ -340,7 +340,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 									?>
 								<?php else : ?>
 								<div class="lumea-card-actions">
-									<a href="<?php echo $bp_url; ?>" class="lumea-best-btn"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></a>
+									<a href="<?php echo $bp_url; ?>" class="lumea-btn btn-black"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></a>
 								</div>
 								<?php endif; ?>
 							</div>
@@ -544,7 +544,7 @@ $lumea_latest = array(
 					lumea_render_product_card(
 						$lp,
 						array(
-							'button_class'   => 'lumea-lp-btn',
+							'button_class'   => 'lumea-btn btn-black',
 							'button_label'   => __( 'Add to Cart', 'lumea' ),
 							'fallback_label' => __( 'Shop Now', 'lumea' ),
 						)
