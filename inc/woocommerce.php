@@ -666,9 +666,59 @@ add_action( 'woocommerce_product_data_panels', function () {
 } );
 
 add_action( 'woocommerce_process_product_meta', function ( $post_id ) {
-	update_post_meta( $post_id, '_lumea_is_bestseller', isset( $_POST['_lumea_is_bestseller'] ) ? 'yes' : 'no' );
-	update_post_meta( $post_id, '_lumea_is_latest',     isset( $_POST['_lumea_is_latest'] )     ? 'yes' : 'no' );
+	$is_bestseller = isset( $_POST['_lumea_is_bestseller'] ) ? 'yes' : 'no';
+	$is_latest     = isset( $_POST['_lumea_is_latest'] )     ? 'yes' : 'no';
+
+	update_post_meta( $post_id, '_lumea_is_bestseller', $is_bestseller );
+	update_post_meta( $post_id, '_lumea_is_latest',     $is_latest );
+
+	// Sync meta checkboxes → WooCommerce product categories so shop filter counts stay accurate.
+	lumea_sync_product_placement_cats( $post_id, $is_bestseller, $is_latest );
 } );
+
+/**
+ * Ensure the product belongs to (or is removed from) the "Bestseller" and
+ * "Latest" WooCommerce product categories to match the meta checkboxes.
+ * Creates the categories automatically if they don't exist yet.
+ */
+function lumea_sync_product_placement_cats( $post_id, $is_bestseller, $is_latest ) {
+	$map = array(
+		'Bestseller' => $is_bestseller,
+		'Latest'     => $is_latest,
+	);
+
+	$current_terms = wp_get_post_terms( $post_id, 'product_cat', array( 'fields' => 'ids' ) );
+	if ( is_wp_error( $current_terms ) ) {
+		$current_terms = array();
+	}
+
+	foreach ( $map as $cat_name => $enabled ) {
+		$term = get_term_by( 'name', $cat_name, 'product_cat' );
+
+		// Create category if missing.
+		if ( ! $term ) {
+			$result = wp_insert_term( $cat_name, 'product_cat' );
+			if ( is_wp_error( $result ) ) {
+				continue;
+			}
+			$term_id = $result['term_id'];
+		} else {
+			$term_id = $term->term_id;
+		}
+
+		if ( $enabled === 'yes' ) {
+			// Add to category (append, don't replace existing ones).
+			if ( ! in_array( $term_id, $current_terms, true ) ) {
+				$current_terms[] = $term_id;
+			}
+		} else {
+			// Remove from category.
+			$current_terms = array_diff( $current_terms, array( $term_id ) );
+		}
+	}
+
+	wp_set_post_terms( $post_id, array_values( $current_terms ), 'product_cat' );
+}
 
 /**
  * Force-enable WooCommerce's built-in Cash on Delivery gateway as a

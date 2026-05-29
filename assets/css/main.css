@@ -246,59 +246,71 @@ body.page:not(.home):not(.page-template-page-about-php) .lumea-nav-toggle-bar {
    At the top (no is-scrolled): transparent bg + white items over dark hero.
    Once scrolled: is-scrolled solid background + dark items kick in.       */
 body.woocommerce-shop .lumea-header:not(.is-scrolled),
-body.post-type-archive-product .lumea-header:not(.is-scrolled) {
+body.post-type-archive-product .lumea-header:not(.is-scrolled),
+body.tax-product_cat .lumea-header:not(.is-scrolled) {
   background: transparent !important;
   box-shadow: none !important;
 }
 body.woocommerce-shop .lumea-header:not(.is-scrolled) .lumea-header-logo,
-body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-header-logo {
+body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-header-logo,
+body.tax-product_cat .lumea-header:not(.is-scrolled) .lumea-header-logo {
   color: #ffffff !important;
 }
 body.woocommerce-shop .lumea-header:not(.is-scrolled) .lumea-nav-list li a,
-body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-nav-list li a {
+body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-nav-list li a,
+body.tax-product_cat .lumea-header:not(.is-scrolled) .lumea-nav-list li a {
   color: rgba(255, 255, 255, 0.85) !important;
 }
 body.woocommerce-shop .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover,
-body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover {
+body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover,
+body.tax-product_cat .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover {
   color: #ffffff !important;
 }
 body.woocommerce-shop .lumea-header:not(.is-scrolled) .lumea-cart-trigger,
-body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-cart-trigger {
+body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-cart-trigger,
+body.tax-product_cat .lumea-header:not(.is-scrolled) .lumea-cart-trigger {
   border-color: rgba(255, 255, 255, 0.35) !important;
   color: #ffffff !important;
 }
 body.woocommerce-shop .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar,
-body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar {
+body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar,
+body.tax-product_cat .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar {
   background: #ffffff !important;
 }
 
 /* Shop scrolled: solid cream background + dark items */
 body.woocommerce-shop .lumea-header.is-scrolled,
-body.post-type-archive-product .lumea-header.is-scrolled {
+body.post-type-archive-product .lumea-header.is-scrolled,
+body.tax-product_cat .lumea-header.is-scrolled {
   background: rgba(255, 250, 247, 0.97) !important;
   box-shadow: 0 1px 0 var(--lumea-border) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
 body.woocommerce-shop .lumea-header.is-scrolled .lumea-header-logo,
-body.post-type-archive-product .lumea-header.is-scrolled .lumea-header-logo {
+body.post-type-archive-product .lumea-header.is-scrolled .lumea-header-logo,
+body.tax-product_cat .lumea-header.is-scrolled .lumea-header-logo {
   color: var(--lumea-text) !important;
 }
 body.woocommerce-shop .lumea-header.is-scrolled .lumea-nav-list li a,
-body.post-type-archive-product .lumea-header.is-scrolled .lumea-nav-list li a {
+body.post-type-archive-product .lumea-header.is-scrolled .lumea-nav-list li a,
+body.tax-product_cat .lumea-header.is-scrolled .lumea-nav-list li a {
   color: var(--lumea-muted) !important;
 }
 body.woocommerce-shop .lumea-header.is-scrolled .lumea-nav-list li a:hover,
-body.post-type-archive-product .lumea-header.is-scrolled .lumea-nav-list li a:hover {
+body.post-type-archive-product .lumea-header.is-scrolled .lumea-nav-list li a:hover,
+body.tax-product_cat .lumea-header.is-scrolled .lumea-nav-list li a:hover {
   color: var(--lumea-text) !important;
 }
 body.woocommerce-shop .lumea-header.is-scrolled .lumea-cart-trigger,
-body.post-type-archive-product .lumea-header.is-scrolled .lumea-cart-trigger {
+body.post-type-archive-product .lumea-header.is-scrolled .lumea-cart-trigger,
+body.tax-product_cat .lumea-header.is-scrolled .lumea-cart-trigger {
   border-color: var(--lumea-border) !important;
   color: var(--lumea-text) !important;
 }
 body.woocommerce-shop .lumea-header.is-scrolled .lumea-nav-toggle-bar,
-body.post-type-archive-product .lumea-header.is-scrolled .lumea-nav-toggle-bar {
+body.post-type-archive-product .lumea-header.is-scrolled .lumea-nav-toggle-bar,
+body.tax-product_cat .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   background: var(--lumea-text) !important;
 }
 
