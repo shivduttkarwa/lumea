@@ -9,9 +9,26 @@ defined( 'ABSPATH' ) || exit;
 
 get_header();
 
-$shop_hero_bg  = get_theme_mod( 'lumea_shop_hero_bg', LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg' );
-$current_cat   = get_queried_object();
-$is_category   = is_product_category();
+$current_cat = get_queried_object();
+$is_category = is_product_category();
+
+/* ── Per-page hero background ─────────────────────────────────────────────
+   Shop page uses lumea_shop_hero_bg.
+   Category pages use lumea_cat_{slug}_hero_bg with their own defaults so
+   each page can have a distinct hero image set independently in Customizer. */
+if ( $is_category && ! empty( $current_cat->slug ) ) {
+	$cat_slug     = sanitize_key( $current_cat->slug );
+	$cat_defaults = array(
+		'bestseller' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover3.jpg',
+		'latest'     => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover5.jpg',
+	);
+	$default_bg  = isset( $cat_defaults[ $cat_slug ] )
+		? $cat_defaults[ $cat_slug ]
+		: LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg';
+	$shop_hero_bg = get_theme_mod( 'lumea_cat_' . $cat_slug . '_hero_bg', $default_bg );
+} else {
+	$shop_hero_bg = get_theme_mod( 'lumea_shop_hero_bg', LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg' );
+}
 
 /* ── Build category list for filter pills ───────────────────── */
 $shop_cats = get_terms( array(

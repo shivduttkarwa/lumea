@@ -767,5 +767,37 @@ function lumea_customize_register( $wp_customize ) {
 			'type'    => 'url',
 		) );
 	}
+	/* ── Shop & Category Hero Images ──────────────────────────────── */
+	$wp_customize->add_section( 'lumea_shop_heroes', array(
+		'title'    => esc_html__( 'Shop & Category Heroes', 'lumea' ),
+		'priority' => 60,
+	) );
+
+	$hero_image_settings = array(
+		'lumea_shop_hero_bg'            => array(
+			'label'   => esc_html__( 'Shop Page Hero Image', 'lumea' ),
+			'default' => LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg',
+		),
+		'lumea_cat_bestseller_hero_bg'  => array(
+			'label'   => esc_html__( 'Bestseller Category Hero Image', 'lumea' ),
+			'default' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover3.jpg',
+		),
+		'lumea_cat_latest_hero_bg'      => array(
+			'label'   => esc_html__( 'Latest Category Hero Image', 'lumea' ),
+			'default' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover5.jpg',
+		),
+	);
+
+	foreach ( $hero_image_settings as $key => $args ) {
+		$wp_customize->add_setting( $key, array(
+			'default'           => $args['default'],
+			'sanitize_callback' => 'esc_url_raw',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $key, array(
+			'label'   => $args['label'],
+			'section' => 'lumea_shop_heroes',
+		) ) );
+	}
 }
 add_action( 'customize_register', 'lumea_customize_register' );
