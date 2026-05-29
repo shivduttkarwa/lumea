@@ -50,6 +50,21 @@ function lumea_force_manual_registration_password( $pre_option ) {
 add_filter( 'pre_option_woocommerce_registration_generate_password', 'lumea_force_manual_registration_password' );
 
 /**
+ * Force manual username entry on WooCommerce registration forms.
+ *
+ * @param mixed $pre_option Pre-option value.
+ * @return mixed
+ */
+function lumea_force_manual_registration_username( $pre_option ) {
+	if ( is_admin() && ! wp_doing_ajax() ) {
+		return $pre_option;
+	}
+
+	return 'no';
+}
+add_filter( 'pre_option_woocommerce_registration_generate_username', 'lumea_force_manual_registration_username' );
+
+/**
  * Make registration password requirements practical for storefront users.
  *
  * WooCommerce blocks form submit when strength is below this threshold.

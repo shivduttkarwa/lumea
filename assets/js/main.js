@@ -548,6 +548,26 @@
     });
   }
 
+  /* Exact auth reference switch (b.html behavior) */
+  var authRefContainer = document.querySelector('[data-lumea-auth-ref-container]');
+  var authRefButtons = document.querySelectorAll('[data-lumea-auth-ref-open]');
+
+  if (authRefContainer && authRefButtons.length) {
+    authRefButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        var target = button.getAttribute('data-lumea-auth-ref-open');
+        if (target === 'register') {
+          authRefContainer.classList.remove('close');
+          authRefContainer.classList.add('active');
+          return;
+        }
+
+        authRefContainer.classList.remove('active');
+        authRefContainer.classList.add('close');
+      });
+    });
+  }
+
   /* Password visibility toggle */
   var passwordToggleButtons = document.querySelectorAll('[data-lumea-password-toggle]');
 

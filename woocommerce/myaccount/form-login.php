@@ -4,12 +4,6 @@
  *
  * This template can be overridden by copying it to yourtheme/woocommerce/myaccount/form-login.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
- *
  * @see https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
  * @version 9.9.0
@@ -19,12 +13,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$lumea_login_username = ( ! empty( $_POST['username'] ) && is_string( $_POST['username'] ) ) ? wp_unslash( $_POST['username'] ) : '';
-$lumea_register_email = ( ! empty( $_POST['email'] ) && is_string( $_POST['email'] ) ) ? wp_unslash( $_POST['email'] ) : '';
-$lumea_login_redirect = wc_get_page_permalink( 'myaccount' );
-$lumea_register_query = ( ! empty( $_GET['register'] ) && is_string( $_GET['register'] ) ) ? strtolower( sanitize_text_field( wp_unslash( $_GET['register'] ) ) ) : '';
-$lumea_open_register  = isset( $_POST['register'] ) || in_array( $lumea_register_query, array( '1', 'yes', 'true' ), true );
-$lumea_active_tab     = $lumea_open_register ? 'register' : 'login';
+$lumea_login_username    = ( ! empty( $_POST['username'] ) && is_string( $_POST['username'] ) ) ? wp_unslash( $_POST['username'] ) : '';
+$lumea_register_email    = ( ! empty( $_POST['email'] ) && is_string( $_POST['email'] ) ) ? wp_unslash( $_POST['email'] ) : '';
+$lumea_register_username = ( ! empty( $_POST['username'] ) && is_string( $_POST['username'] ) ) ? wp_unslash( $_POST['username'] ) : '';
+$lumea_login_redirect    = wc_get_page_permalink( 'myaccount' );
+$lumea_open_register     = isset( $_POST['register'] );
+$lumea_shell_class       = $lumea_open_register ? ' active' : '';
 
 if ( ! empty( $_REQUEST['redirect'] ) && is_string( $_REQUEST['redirect'] ) ) {
 	$requested_redirect = wp_unslash( $_REQUEST['redirect'] );
@@ -37,163 +31,94 @@ if ( ! empty( $_REQUEST['redirect'] ) && is_string( $_REQUEST['redirect'] ) ) {
 do_action( 'woocommerce_before_customer_login_form' );
 ?>
 
-<div class="lumea-login-page">
+<div class="lumea-auth-ref" id="lumeaAuthRef">
+	<div class="lumea-auth-ref-container<?php echo esc_attr( $lumea_shell_class ); ?>" data-lumea-auth-ref-container>
+		<div class="lumea-auth-ref-login">
+			<div class="lumea-auth-ref-content">
+				<h1><?php esc_html_e( 'Log In', 'lumea' ); ?></h1>
 
-	<!-- Breadcrumb -->
-	<nav class="lumea-pdp-breadcrumb" aria-label="<?php esc_attr_e( 'Breadcrumb', 'lumea' ); ?>">
-		<div class="lumea-pdp-bc-inner">
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'lumea' ); ?></a>
-			<svg class="lumea-pdp-bc-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-			<span aria-current="page"><?php esc_html_e( 'My Account', 'lumea' ); ?></span>
+				<form class="woocommerce-form woocommerce-form-login login" method="post" novalidate>
+					<?php do_action( 'woocommerce_login_form_start' ); ?>
+
+					<input type="text" class="lumea-auth-ref-input woocommerce-Input woocommerce-Input--text input-text" name="username" id="username" autocomplete="username email" value="<?php echo esc_attr( $lumea_login_username ); ?>" placeholder="<?php esc_attr_e( 'email', 'lumea' ); ?>" required aria-required="true">
+					<input type="password" class="lumea-auth-ref-input woocommerce-Input woocommerce-Input--text input-text" name="password" id="password" autocomplete="current-password" placeholder="<?php esc_attr_e( 'password', 'lumea' ); ?>" required aria-required="true">
+
+					<div class="lumea-auth-ref-row">
+						<label class="lumea-auth-ref-check" for="rememberme">
+							<input class="woocommerce-form__input woocommerce-form__input-checkbox" name="rememberme" type="checkbox" id="rememberme" value="forever">
+							<span><?php esc_html_e( 'Remember me', 'lumea' ); ?></span>
+						</label>
+						<a href="<?php echo esc_url( function_exists( 'wc_lostpassword_url' ) ? wc_lostpassword_url() : wp_lostpassword_url() ); ?>" class="lumea-auth-ref-forget"><?php esc_html_e( 'Forgot password?', 'lumea' ); ?></a>
+					</div>
+
+					<?php do_action( 'woocommerce_login_form' ); ?>
+					<?php wp_nonce_field( 'woocommerce-login', 'woocommerce-login-nonce' ); ?>
+					<input type="hidden" name="redirect" value="<?php echo esc_url( $lumea_login_redirect ); ?>">
+
+					<button type="submit" class="lumea-auth-ref-submit" name="login" value="<?php esc_attr_e( 'Log in', 'lumea' ); ?>"><?php esc_html_e( 'Log In', 'lumea' ); ?></button>
+					<?php do_action( 'woocommerce_login_form_end' ); ?>
+				</form>
+
+				<span class="lumea-auth-ref-with"><?php esc_html_e( 'Or Connect with', 'lumea' ); ?></span>
+				<div class="lumea-auth-ref-social" aria-hidden="true">
+					<a href="#" tabindex="-1" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+					<a href="#" tabindex="-1" aria-label="Twitter"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+					<a href="#" tabindex="-1" aria-label="Github"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+					<a href="#" tabindex="-1" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+				</div>
+				<span class="lumea-auth-ref-copy">&copy; 2019</span>
+			</div>
 		</div>
-	</nav>
 
-	<!-- Hero -->
-	<div class="lumea-login-hero">
-		<div class="lumea-login-hero-inner">
-			<p class="lumea-cart-eyebrow"><?php esc_html_e( 'My Account', 'lumea' ); ?></p>
-			<h1 class="lumea-login-title"><?php esc_html_e( 'Welcome to Luméa', 'lumea' ); ?></h1>
-			<p class="lumea-login-subtitle"><?php esc_html_e( 'Sign in to manage your orders, rituals, and personal skin profile.', 'lumea' ); ?></p>
+		<div class="lumea-auth-ref-page lumea-auth-ref-page-front" aria-hidden="true">
+			<div class="lumea-auth-ref-content">
+				<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+				<h1><?php esc_html_e( 'Hello, friend!', 'lumea' ); ?></h1>
+				<p><?php esc_html_e( 'Enter your personal details and start journey with us', 'lumea' ); ?></p>
+				<button type="button" class="lumea-auth-ref-ghost" data-lumea-auth-ref-open="register"><?php esc_html_e( 'Register', 'lumea' ); ?></button>
+			</div>
+		</div>
+
+		<div class="lumea-auth-ref-page lumea-auth-ref-page-back" aria-hidden="true">
+			<div class="lumea-auth-ref-content">
+				<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+				<h1><?php esc_html_e( 'Welcome Back!', 'lumea' ); ?></h1>
+				<p><?php esc_html_e( 'To keep connected with us please login with your personal info', 'lumea' ); ?></p>
+				<button type="button" class="lumea-auth-ref-ghost" data-lumea-auth-ref-open="login"><?php esc_html_e( 'Log In', 'lumea' ); ?></button>
+			</div>
+		</div>
+
+		<div class="lumea-auth-ref-register">
+			<div class="lumea-auth-ref-content">
+				<h1><?php esc_html_e( 'Sign Up', 'lumea' ); ?></h1>
+				<div class="lumea-auth-ref-social" aria-hidden="true">
+					<a href="#" tabindex="-1" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+					<a href="#" tabindex="-1" aria-label="Twitter"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+					<a href="#" tabindex="-1" aria-label="Github"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+					<a href="#" tabindex="-1" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+				</div>
+				<span class="lumea-auth-ref-with lumea-auth-ref-with-register"><?php esc_html_e( 'Or', 'lumea' ); ?></span>
+
+				<form method="post" class="woocommerce-form woocommerce-form-register register" <?php do_action( 'woocommerce_register_form_tag' ); ?>>
+					<?php do_action( 'woocommerce_register_form_start' ); ?>
+					<input type="text" class="lumea-auth-ref-input woocommerce-Input woocommerce-Input--text input-text" name="username" id="reg_username" autocomplete="username" value="<?php echo esc_attr( $lumea_register_username ); ?>" placeholder="<?php esc_attr_e( 'name', 'lumea' ); ?>" required aria-required="true">
+					<input type="email" class="lumea-auth-ref-input woocommerce-Input woocommerce-Input--text input-text" name="email" id="reg_email" autocomplete="email" value="<?php echo esc_attr( $lumea_register_email ); ?>" placeholder="<?php esc_attr_e( 'email', 'lumea' ); ?>" required aria-required="true">
+					<input type="password" class="lumea-auth-ref-input woocommerce-Input woocommerce-Input--text input-text" name="password" id="reg_password" autocomplete="new-password" placeholder="<?php esc_attr_e( 'password', 'lumea' ); ?>" required aria-required="true">
+
+					<label class="lumea-auth-ref-check" for="lumea_terms">
+						<input type="checkbox" id="lumea_terms" required>
+						<span><?php esc_html_e( 'I accept terms', 'lumea' ); ?></span>
+					</label>
+
+					<?php do_action( 'woocommerce_register_form' ); ?>
+					<?php wp_nonce_field( 'woocommerce-register', 'woocommerce-register-nonce' ); ?>
+					<input type="hidden" name="redirect" value="<?php echo esc_url( $lumea_login_redirect ); ?>">
+					<button type="submit" class="lumea-auth-ref-submit" name="register" value="<?php esc_attr_e( 'Register', 'lumea' ); ?>"><?php esc_html_e( 'Register', 'lumea' ); ?></button>
+					<?php do_action( 'woocommerce_register_form_end' ); ?>
+				</form>
+			</div>
 		</div>
 	</div>
-
-	<div class="lumea-login-body">
-		<div class="lumea-login-body-inner">
-			<aside class="lumea-login-story" aria-label="<?php esc_attr_e( 'Account benefits', 'lumea' ); ?>">
-				<p class="lumea-login-story-eyebrow"><?php esc_html_e( 'Luméa Ritual Membership', 'lumea' ); ?></p>
-				<h2 class="lumea-login-story-title"><?php esc_html_e( 'A better beauty journey starts with your account.', 'lumea' ); ?></h2>
-				<p class="lumea-login-story-text"><?php esc_html_e( 'Track every order, save favourites, manage addresses, and reorder your skincare essentials in seconds.', 'lumea' ); ?></p>
-				<ul class="lumea-login-story-list">
-					<li><span>01</span><?php esc_html_e( 'One-tap reorders of your routine', 'lumea' ); ?></li>
-					<li><span>02</span><?php esc_html_e( 'Live order and delivery updates', 'lumea' ); ?></li>
-					<li><span>03</span><?php esc_html_e( 'Faster checkout with saved details', 'lumea' ); ?></li>
-				</ul>
-				<div class="lumea-login-story-tags">
-					<span><?php esc_html_e( 'Secure Checkout', 'lumea' ); ?></span>
-					<span><?php esc_html_e( 'Private Data', 'lumea' ); ?></span>
-					<span><?php esc_html_e( 'Trusted Payments', 'lumea' ); ?></span>
-				</div>
-			</aside>
-
-			<div class="lumea-login-card lumea-login-card--auth" id="lumeaRegisterCard">
-				<div class="lumea-login-switch" role="tablist" aria-label="<?php esc_attr_e( 'Authentication forms', 'lumea' ); ?>">
-					<button type="button" class="lumea-login-switch-btn<?php echo 'login' === $lumea_active_tab ? ' is-active' : ''; ?>" data-lumea-auth-tab="login" role="tab" aria-selected="<?php echo 'login' === $lumea_active_tab ? 'true' : 'false'; ?>" aria-controls="lumeaLoginPanel" id="lumeaLoginTab"><?php esc_html_e( 'Sign In', 'lumea' ); ?></button>
-					<button type="button" class="lumea-login-switch-btn<?php echo 'register' === $lumea_active_tab ? ' is-active' : ''; ?>" data-lumea-auth-tab="register" role="tab" aria-selected="<?php echo 'register' === $lumea_active_tab ? 'true' : 'false'; ?>" aria-controls="lumeaRegisterPanel" id="lumeaRegisterTab"><?php esc_html_e( 'Create Account', 'lumea' ); ?></button>
-				</div>
-
-				<div class="lumea-login-pane<?php echo 'login' === $lumea_active_tab ? ' is-active' : ''; ?>" id="lumeaLoginPanel" role="tabpanel" aria-labelledby="lumeaLoginTab"<?php echo 'login' === $lumea_active_tab ? '' : ' hidden'; ?>>
-					<p class="lumea-login-pane-text"><?php esc_html_e( 'Welcome back. Sign in to view orders and continue your routine.', 'lumea' ); ?></p>
-
-					<form class="lumea-login-form woocommerce-form woocommerce-form-login login" method="post" novalidate>
-
-						<?php do_action( 'woocommerce_login_form_start' ); ?>
-
-						<div class="lumea-login-field">
-							<label for="username"><?php esc_html_e( 'Email address', 'lumea' ); ?></label>
-							<input type="text" class="lumea-login-input woocommerce-Input woocommerce-Input--text input-text" name="username" id="username" autocomplete="username email" value="<?php echo esc_attr( $lumea_login_username ); ?>" placeholder="<?php esc_attr_e( 'you@example.com', 'lumea' ); ?>" required aria-required="true">
-						</div>
-
-						<div class="lumea-login-field">
-							<label for="password"><?php esc_html_e( 'Password', 'lumea' ); ?></label>
-							<div class="lumea-login-password-wrap">
-								<input class="lumea-login-input woocommerce-Input woocommerce-Input--text input-text" type="password" name="password" id="password" autocomplete="current-password" placeholder="<?php esc_attr_e( '••••••••', 'lumea' ); ?>" required aria-required="true" data-lumea-password-input>
-								<button
-									type="button"
-									class="lumea-login-password-toggle"
-									data-lumea-password-toggle
-									aria-controls="password"
-									aria-label="<?php esc_attr_e( 'Show password', 'lumea' ); ?>"
-									aria-pressed="false"
-									data-label-show="<?php esc_attr_e( 'Show password', 'lumea' ); ?>"
-									data-label-hide="<?php esc_attr_e( 'Hide password', 'lumea' ); ?>">
-									<svg class="lumea-login-password-toggle-icon lumea-login-password-toggle-icon--show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></svg>
-									<svg class="lumea-login-password-toggle-icon lumea-login-password-toggle-icon--hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.58 10.58A2 2 0 0 0 12 14a2 2 0 0 0 1.42-.58"/><path d="M9.88 5.09A10.94 10.94 0 0 1 12 4.9c6 0 9.5 6.5 9.5 6.5a17.4 17.4 0 0 1-2.16 3.02"/><path d="M6.15 6.2A16.2 16.2 0 0 0 2.5 12s3.5 6.5 9.5 6.5a10.8 10.8 0 0 0 4.03-.79"/></svg>
-								</button>
-							</div>
-						</div>
-
-						<div class="lumea-login-remember-row">
-							<label class="lumea-login-check" for="rememberme">
-								<input class="woocommerce-form__input woocommerce-form__input-checkbox" name="rememberme" type="checkbox" id="rememberme" value="forever">
-								<span><?php esc_html_e( 'Remember me', 'lumea' ); ?></span>
-							</label>
-							<a href="<?php echo esc_url( function_exists( 'wc_lostpassword_url' ) ? wc_lostpassword_url() : wp_lostpassword_url() ); ?>" class="lumea-login-forgot"><?php esc_html_e( 'Forgot password?', 'lumea' ); ?></a>
-						</div>
-
-						<?php do_action( 'woocommerce_login_form' ); ?>
-
-						<?php wp_nonce_field( 'woocommerce-login', 'woocommerce-login-nonce' ); ?>
-						<input type="hidden" name="redirect" value="<?php echo esc_url( $lumea_login_redirect ); ?>">
-
-						<button type="submit" class="lumea-login-submit" name="login" value="<?php esc_attr_e( 'Sign in', 'lumea' ); ?>">
-							<?php esc_html_e( 'Sign In', 'lumea' ); ?>
-						</button>
-
-						<?php do_action( 'woocommerce_login_form_end' ); ?>
-
-					</form>
-				</div>
-
-				<div class="lumea-login-pane<?php echo 'register' === $lumea_active_tab ? ' is-active' : ''; ?>" id="lumeaRegisterPanel" role="tabpanel" aria-labelledby="lumeaRegisterTab"<?php echo 'register' === $lumea_active_tab ? '' : ' hidden'; ?>>
-					<p class="lumea-login-pane-text"><?php esc_html_e( 'Create your Luméa account for faster checkout and personalized care.', 'lumea' ); ?></p>
-
-					<form method="post" class="lumea-login-form woocommerce-form woocommerce-form-register register" <?php do_action( 'woocommerce_register_form_tag' ); ?>>
-
-						<?php do_action( 'woocommerce_register_form_start' ); ?>
-
-						<?php if ( 'no' === get_option( 'woocommerce_registration_generate_username' ) ) : ?>
-						<div class="lumea-login-field">
-							<label for="reg_username"><?php esc_html_e( 'Username', 'lumea' ); ?></label>
-							<input type="text" class="lumea-login-input woocommerce-Input woocommerce-Input--text input-text" name="username" id="reg_username" autocomplete="username" value="<?php echo esc_attr( $lumea_login_username ); ?>" placeholder="<?php esc_attr_e( 'Choose a username', 'lumea' ); ?>" required aria-required="true">
-						</div>
-						<?php endif; ?>
-
-						<div class="lumea-login-field">
-							<label for="reg_email"><?php esc_html_e( 'Email address', 'lumea' ); ?></label>
-							<input type="email" class="lumea-login-input woocommerce-Input woocommerce-Input--text input-text" name="email" id="reg_email" autocomplete="email" value="<?php echo esc_attr( $lumea_register_email ); ?>" placeholder="<?php esc_attr_e( 'you@example.com', 'lumea' ); ?>" required aria-required="true">
-						</div>
-
-						<?php if ( 'no' === get_option( 'woocommerce_registration_generate_password' ) ) : ?>
-						<div class="lumea-login-field">
-							<label for="reg_password"><?php esc_html_e( 'Password', 'lumea' ); ?></label>
-							<div class="lumea-login-password-wrap">
-								<input type="password" class="lumea-login-input woocommerce-Input woocommerce-Input--text input-text" name="password" id="reg_password" autocomplete="new-password" placeholder="<?php esc_attr_e( 'Create a password', 'lumea' ); ?>" required aria-required="true" data-lumea-password-input>
-								<button
-									type="button"
-									class="lumea-login-password-toggle"
-									data-lumea-password-toggle
-									aria-controls="reg_password"
-									aria-label="<?php esc_attr_e( 'Show password', 'lumea' ); ?>"
-									aria-pressed="false"
-									data-label-show="<?php esc_attr_e( 'Show password', 'lumea' ); ?>"
-									data-label-hide="<?php esc_attr_e( 'Hide password', 'lumea' ); ?>">
-									<svg class="lumea-login-password-toggle-icon lumea-login-password-toggle-icon--show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></svg>
-									<svg class="lumea-login-password-toggle-icon lumea-login-password-toggle-icon--hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.58 10.58A2 2 0 0 0 12 14a2 2 0 0 0 1.42-.58"/><path d="M9.88 5.09A10.94 10.94 0 0 1 12 4.9c6 0 9.5 6.5 9.5 6.5a17.4 17.4 0 0 1-2.16 3.02"/><path d="M6.15 6.2A16.2 16.2 0 0 0 2.5 12s3.5 6.5 9.5 6.5a10.8 10.8 0 0 0 4.03-.79"/></svg>
-								</button>
-							</div>
-						</div>
-						<?php else : ?>
-						<p class="lumea-login-helper"><?php esc_html_e( 'A secure setup link will be sent to your email after registration.', 'lumea' ); ?></p>
-						<?php endif; ?>
-
-						<?php do_action( 'woocommerce_register_form' ); ?>
-
-						<?php wp_nonce_field( 'woocommerce-register', 'woocommerce-register-nonce' ); ?>
-						<input type="hidden" name="redirect" value="<?php echo esc_url( $lumea_login_redirect ); ?>">
-
-						<button type="submit" class="lumea-login-submit" name="register" value="<?php esc_attr_e( 'Register', 'lumea' ); ?>">
-							<?php esc_html_e( 'Create Account', 'lumea' ); ?>
-						</button>
-
-						<?php do_action( 'woocommerce_register_form_end' ); ?>
-
-					</form>
-				</div>
-			</div>
-
-		</div>
-	</div><!-- /.lumea-login-body -->
-
-</div><!-- /.lumea-login-page -->
+</div>
 
 <?php do_action( 'woocommerce_after_customer_login_form' ); ?>
