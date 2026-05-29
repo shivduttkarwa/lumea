@@ -48,7 +48,7 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 			<?php lumea_btn( array(
 				'label' => get_theme_mod( 'lumea_hero_cta_text', 'Shop Collection' ),
 				'href'  => $shop_url,
-				'style' => 'dark',
+				'style' => 'outline',
 			) ); ?>
 		</div>
 			</div>
@@ -139,7 +139,7 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 					<p class="lumea-product-desc"><?php echo esc_html( $p1_desc ); ?></p>
 				</div>
 				<div class="lumea-buy-wrap">
-					<span class="lumea-buy-button"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></span>
+					<span class="lumea-btn btn-white"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></span>
 				</div>
 			</div>
 		</a>
@@ -168,7 +168,7 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 					<p class="lumea-product-desc"><?php echo esc_html( $p2_desc ); ?></p>
 				</div>
 				<div class="lumea-buy-wrap">
-					<span class="lumea-buy-button"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></span>
+					<span class="lumea-btn btn-white"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></span>
 				</div>
 			</div>
 		</a>

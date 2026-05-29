@@ -6,7 +6,7 @@
  *   lumea_btn( array(
  *     'label' => 'Shop Now',
  *     'href'  => get_permalink(),
- *     'style' => 'dark',        // dark | outline | soft | accent | arrow-right | arrow-left
+ *     'style' => 'dark',        // dark | black | white | outline | soft | accent | arrow-right | arrow-left
  *     'tag'   => 'a',           // a | button
  *     'class' => '',            // additional classes
  *     'attrs' => array(),       // extra HTML attributes as key => value pairs
@@ -38,17 +38,24 @@ function lumea_btn( $args = array() ) {
 	);
 	$args = wp_parse_args( $args, $defaults );
 
-	$valid_styles = array( 'dark', 'outline', 'soft', 'accent', 'arrow-right', 'arrow-left' );
+	$valid_styles = array( 'dark', 'black', 'white', 'outline', 'soft', 'accent', 'arrow-right', 'arrow-left' );
 	$style        = in_array( $args['style'], $valid_styles, true ) ? $args['style'] : 'dark';
 	$tag          = in_array( $args['tag'], array( 'a', 'button' ), true ) ? $args['tag'] : 'a';
 	$label        = esc_html( $args['label'] );
 	$extra_cls    = $args['class'] ? ' ' . sanitize_text_field( $args['class'] ) : '';
 
-	// Build modifier classes
-	$modifier = 'btn-' . $style;
-	if ( 'arrow-right' === $style || 'arrow-left' === $style ) {
-		$modifier = 'btn-arrow btn-' . $style;
-	}
+	// Build modifier classes (with aliases for backwards compatibility).
+	$style_class_map = array(
+		'dark'        => 'btn-dark btn-black',
+		'black'       => 'btn-black btn-dark',
+		'white'       => 'btn-white',
+		'outline'     => 'btn-outline',
+		'soft'        => 'btn-soft',
+		'accent'      => 'btn-accent',
+		'arrow-right' => 'btn-arrow btn-arrow-right',
+		'arrow-left'  => 'btn-arrow btn-arrow-left',
+	);
+	$modifier = isset( $style_class_map[ $style ] ) ? $style_class_map[ $style ] : 'btn-dark btn-black';
 
 	// Build attributes
 	$attr_str = '';

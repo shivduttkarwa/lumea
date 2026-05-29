@@ -37,29 +37,35 @@
 
 /* ── Dark ────────────────────────────────────────────────────────────────── */
 
-.btn-dark {
+.btn-dark,
+.btn-black {
   background: var(--lumea-text);
   color: #ffffff;
   border-color: var(--lumea-text);
 }
 
-.btn-dark:hover {
-  background: #342522;
-  border-color: #342522;
-  box-shadow: 0 8px 20px rgba(36, 24, 22, 0.12);
+.btn-dark:hover,
+.btn-black:hover {
+  background: #8f4d43;
+  border-color: #8f4d43;
+  box-shadow: 0 8px 20px rgba(143, 77, 67, 0.14);
 }
 
 /* ── Outline ─────────────────────────────────────────────────────────────── */
 
-.btn-outline {
+.btn-outline,
+.btn-white {
   background: #ffffff;
   color: var(--lumea-text);
   border-color: var(--lumea-border);
 }
 
-.btn-outline:hover {
-  border-color: rgba(36, 24, 22, 0.28);
-  background: #fffdfb;
+.btn-outline:hover,
+.btn-white:hover {
+  border-color: var(--lumea-green);
+  background: var(--lumea-green);
+  color: var(--lumea-text);
+  box-shadow: 0 8px 20px rgba(120, 154, 75, 0.18);
 }
 
 /* ── Soft ────────────────────────────────────────────────────────────────── */
