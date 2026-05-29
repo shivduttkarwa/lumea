@@ -176,18 +176,53 @@ if ( $lumea_has_wc ) {
 
 <!-- Search Overlay -->
 <div class="lumea-search-overlay" id="lumeaSearchOverlay" aria-hidden="true" data-lumea-search-overlay>
+
 	<button class="lumea-search-overlay-close" aria-label="<?php esc_attr_e( 'Close search', 'lumea' ); ?>" data-lumea-search-close>
-		<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+		<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+		<span class="lumea-search-overlay-close-esc" aria-hidden="true">ESC</span>
 	</button>
+
 	<div class="lumea-search-overlay-inner">
-		<p class="lumea-search-overlay-label"><?php esc_html_e( 'Search', 'lumea' ); ?></p>
+
+		<p class="lumea-search-overlay-label"><?php esc_html_e( 'What are you looking for?', 'lumea' ); ?></p>
+
 		<form class="lumea-search-overlay-form" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-			<input type="search" class="lumea-search-overlay-input" name="s" placeholder="<?php esc_attr_e( 'Search products, articles…', 'lumea' ); ?>" autocomplete="off" aria-label="<?php esc_attr_e( 'Search', 'lumea' ); ?>">
-			<button type="submit" class="lumea-search-overlay-submit" aria-label="<?php esc_attr_e( 'Submit search', 'lumea' ); ?>">
+			<input
+				type="search"
+				class="lumea-search-overlay-input"
+				name="s"
+				placeholder="<?php esc_attr_e( 'Search products, articles\xe2\x80\xa6', 'lumea' ); ?>"
+				autocomplete="off"
+				aria-label="<?php esc_attr_e( 'Search', 'lumea' ); ?>"
+			>
+			<button type="submit" class="lumea-search-overlay-submit" aria-label="<?php esc_attr_e( 'Search', 'lumea' ); ?>">
 				<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
 			</button>
 		</form>
-		<p class="lumea-search-overlay-hint"><?php esc_html_e( 'Press Enter to search · Esc to close', 'lumea' ); ?></p>
+
+		<?php
+		$overlay_cats = get_terms( array(
+			'taxonomy'   => 'product_cat',
+			'number'     => 6,
+			'hide_empty' => true,
+			'orderby'    => 'count',
+			'order'      => 'DESC',
+			'exclude'    => array( get_option( 'default_product_cat' ) ),
+		) );
+		if ( ! empty( $overlay_cats ) && ! is_wp_error( $overlay_cats ) ) :
+		?>
+		<div class="lumea-search-overlay-quick">
+			<span class="lumea-search-overlay-quick-label"><?php esc_html_e( 'Popular', 'lumea' ); ?></span>
+			<div class="lumea-search-overlay-chips">
+				<?php foreach ( $overlay_cats as $cat ) : ?>
+				<a href="<?php echo esc_url( get_term_link( $cat ) ); ?>" class="lumea-search-overlay-chip">
+					<?php echo esc_html( $cat->name ); ?>
+				</a>
+				<?php endforeach; ?>
+			</div>
+		</div>
+		<?php endif; ?>
+
 	</div>
 </div>
 
