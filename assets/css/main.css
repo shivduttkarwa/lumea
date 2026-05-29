@@ -9785,6 +9785,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   align-items: center;
   justify-content: center;
   font-family: Inter, system-ui, sans-serif;
+  perspective: 1500px;
 }
 
 /* == Container (3D stage) == */
@@ -9867,10 +9868,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   opacity: 0.85;
 }
 
-.lumea-auth-ref-page .lumea-auth-ref-content {
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
+
 
 .lumea-auth-ref-page-front {
   background: linear-gradient(145deg, var(--lumea-accent, #c98578) 0%, var(--lumea-accent-dark, #8f4d43) 100%);
