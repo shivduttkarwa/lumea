@@ -17,7 +17,7 @@
   if ( heroLabel && heroLabel.parentNode ) {
     heroLabel.classList.add( 'lumea-hero-label-layer', 'is-current' );
     heroLabelNext = heroLabel.cloneNode( true );
-    heroLabelNext.id = heroLabel.id ? heroLabel.id + 'Next' : 'heroLabelNext';
+    heroLabelNext.id = heroLabel.id ? heroLabel.id + '-next' : 'heroLabelNext';
     heroLabelNext.removeAttribute( 'data-lumea-hero-label' );
     heroLabelNext.setAttribute( 'aria-hidden', 'true' );
     heroLabelNext.classList.add( 'lumea-hero-label-layer', 'is-next' );
@@ -46,22 +46,20 @@
     return [];
   } )();
 
+  function getHeroLabelValue( index ) {
+    const fallbackLabel = String( rawLabels[0] || heroLabel.textContent || '' ).trim();
+    const label         = String( rawLabels[index] || fallbackLabel ).trim();
+    return label || fallbackLabel;
+  }
+
   function setHeroLabel( index ) {
     if ( ! heroLabel ) return;
-
-    const fallbackLabel = String( rawLabels[0] || heroLabel.textContent || '' ).trim();
-    const nextLabel     = String( rawLabels[index] || fallbackLabel ).trim();
-    heroLabel.textContent = nextLabel || fallbackLabel;
-    if ( heroLabelNext && ! isTransitioning ) {
-      heroLabelNext.textContent = heroLabel.textContent;
-    }
+    heroLabel.textContent = getHeroLabelValue( index );
   }
 
   function setNextHeroLabel( index ) {
     if ( ! heroLabelNext ) return;
-    const fallbackLabel = String( rawLabels[0] || heroLabel.textContent || '' ).trim();
-    const nextLabel     = String( rawLabels[index] || fallbackLabel ).trim();
-    heroLabelNext.textContent = nextLabel || fallbackLabel;
+    heroLabelNext.textContent = getHeroLabelValue( index );
   }
 
   function clearHeroLabelWaveClip() {
@@ -71,27 +69,31 @@
     heroLabelNext.style.opacity = '0';
   }
 
-  function buildHeroWavePolygon( getWaveX, side ) {
+  function buildHeroLabelWavePolygon( getWaveX, side, labelRect, heroRect ) {
     const points = [];
-    const stepY  = 10;
+    const stepY  = 4;
+    const localLeft = labelRect.left - heroRect.left;
+    const localW    = labelRect.width;
+    const localH    = labelRect.height;
+    const topOffset = labelRect.top - heroRect.top;
     const clampX = function ( x ) {
-      return Math.max( -2, Math.min( width + 2, x ) );
+      return Math.max( -2, Math.min( localW + 2, x ) );
     };
 
     if ( side === 'left' ) {
       points.push( '0px 0px' );
-      points.push( clampX( getWaveX( 0 ) ) + 'px 0px' );
-      for ( let y = 0; y <= height; y += stepY ) {
-        points.push( clampX( getWaveX( y ) ) + 'px ' + y + 'px' );
+      points.push( clampX( getWaveX( topOffset ) - localLeft ) + 'px 0px' );
+      for ( let y = 0; y <= localH; y += stepY ) {
+        points.push( clampX( getWaveX( topOffset + y ) - localLeft ) + 'px ' + y + 'px' );
       }
-      points.push( '0px ' + height + 'px' );
+      points.push( '0px ' + localH + 'px' );
     } else {
-      points.push( width + 'px 0px' );
-      points.push( clampX( getWaveX( 0 ) ) + 'px 0px' );
-      for ( let y = 0; y <= height; y += stepY ) {
-        points.push( clampX( getWaveX( y ) ) + 'px ' + y + 'px' );
+      points.push( localW + 'px 0px' );
+      points.push( clampX( getWaveX( topOffset ) - localLeft ) + 'px 0px' );
+      for ( let y = 0; y <= localH; y += stepY ) {
+        points.push( clampX( getWaveX( topOffset + y ) - localLeft ) + 'px ' + y + 'px' );
       }
-      points.push( width + 'px ' + height + 'px' );
+      points.push( localW + 'px ' + localH + 'px' );
     }
 
     return 'polygon(' + points.join( ',' ) + ')';
@@ -100,12 +102,14 @@
   function applyHeroLabelWaveClip( getWaveX ) {
     if ( ! heroLabel || ! heroLabelNext ) return;
 
-    const nextSide = transitionDir === 1 ? 'left' : 'right';
-    const currSide = transitionDir === 1 ? 'right' : 'left';
+    const heroRect  = hero.getBoundingClientRect();
+    const labelRect = heroLabel.getBoundingClientRect();
+    const nextSide  = transitionDir === 1 ? 'left' : 'right';
+    const currSide  = transitionDir === 1 ? 'right' : 'left';
 
     heroLabelNext.style.opacity = '1';
-    heroLabelNext.style.clipPath = buildHeroWavePolygon( getWaveX, nextSide );
-    heroLabel.style.clipPath     = buildHeroWavePolygon( getWaveX, currSide );
+    heroLabelNext.style.clipPath = buildHeroLabelWavePolygon( getWaveX, nextSide, labelRect, heroRect );
+    heroLabel.style.clipPath     = buildHeroLabelWavePolygon( getWaveX, currSide, labelRect, heroRect );
   }
 
   /* ── Preload ─────────────────────────────────────────────────── */
@@ -233,7 +237,6 @@
           0.35 * Math.sin( y * 0.025 - t * 2.3 )
         );
       };
-
       applyHeroLabelWaveClip( getWaveX );
 
       /* Draw old image as the base layer */
