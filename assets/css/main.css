@@ -8762,11 +8762,25 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 }
 
 .lumea-wishlist-page-hero {
+  position: relative;
+  overflow: hidden;
   padding: 8.75rem 1.25rem 3rem;
-  background: linear-gradient(145deg, #2a2522 0%, #1a1715 55%, #312824 100%);
+  background:
+    linear-gradient(145deg, rgba(24, 19, 17, 0.82) 0%, rgba(22, 18, 16, 0.76) 52%, rgba(30, 23, 20, 0.86) 100%),
+    url("../images/ritual/a1.jpg") center 38% / cover no-repeat;
+}
+
+.lumea-wishlist-page-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 74% 24%, rgba(196, 113, 80, 0.24), transparent 42%);
+  pointer-events: none;
 }
 
 .lumea-wishlist-page-hero-inner {
+  position: relative;
+  z-index: 1;
   max-width: 78rem;
   margin: 0 auto;
 }
@@ -9092,6 +9106,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 
   .lumea-wishlist-page-hero {
     padding: 7.25rem 1rem 2.4rem;
+    background-position: center 32%;
   }
 
   .lumea-wishlist-page-content {
@@ -9753,29 +9768,41 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 
 
 /*
-   AUTH REFERENCE (exact b.html style)
+   AUTH REFERENCE
+   Dual-panel login/register with 3D flip animation.
+   Themed to match Lumea's terracotta + warm-cream palette.
 */
+
+/* == Wrapper == */
 .lumea-auth-ref {
-  background: #e9ebee;
-  min-height: calc(100vh - 140px);
-  padding: 40px 18px 64px;
+  background:
+    radial-gradient(1200px 540px at 120% -15%, rgba(201, 133, 120, 0.13), transparent 60%),
+    radial-gradient(900px 520px at -15% 30%, rgba(143, 77, 67, 0.07), transparent 62%),
+    var(--lumea-bg, #fffaf7);
+  min-height: calc(100vh - 120px);
+  padding: 44px 18px 64px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Montserrat, Inter, sans-serif;
+  font-family: Inter, system-ui, sans-serif;
 }
+
+/* == Container (3D stage) == */
 .lumea-auth-ref-container {
-  width: min(95vw, 860px);
-  height: 500px;
+  width: min(96vw, 980px);
+  height: 560px;
   position: relative;
-  border-radius: 20px;
-  box-shadow: 0 14px 28px -10px rgba(0, 0, 0, 0.1), 0 10px 10px -10px rgba(0, 0, 0, 0.02);
+  border-radius: var(--lumea-radius, 24px);
+  border: 1px solid var(--lumea-border, rgba(36, 24, 22, 0.12));
+  box-shadow:
+    0 20px 40px -12px rgba(36, 24, 22, 0.10),
+    0 8px 16px -8px rgba(36, 24, 22, 0.06);
   transform-style: preserve-3d;
 }
+
 .lumea-auth-ref-container > div {
   position: absolute;
   width: 50%;
-  min-width: 350px;
   height: 100%;
   top: 0;
   display: flex;
@@ -9783,148 +9810,210 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   align-items: center;
   justify-content: center;
 }
+
+/* == Content wrapper == */
 .lumea-auth-ref-content {
   width: 100%;
-  padding: 2em 3em;
+  padding: 34px 38px;
   text-align: center;
 }
+
 .lumea-auth-ref-content h1 {
-  margin: 0;
+  margin: 0 0 16px;
+  font-family: "ClashDisplay-Variable", "Clash Display", Inter, sans-serif;
   font-weight: 700;
-  font-size: clamp(42px, 3vw, 52px);
-  color: #1f2530;
-  line-height: 1.08;
+  font-size: clamp(36px, 3.2vw, 52px);
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+  color: var(--lumea-text, #241816);
 }
+
 .lumea-auth-ref-content p {
-  margin: 1.2em auto;
-  color: #fff;
-  font-size: 1.4em;
-  line-height: 1.15;
+  margin: 0 auto 1.4em;
+  font-size: 15px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
 }
+
+/* == Login panel (left) == */
 .lumea-auth-ref-login {
   left: 0;
-  background: #fafafa;
-  border-radius: 20px 0 0 20px;
+  background: var(--lumea-surface, #fff);
+  border-radius: var(--lumea-radius, 24px) 0 0 var(--lumea-radius, 24px);
 }
+
+/* == Register panel (right) == */
 .lumea-auth-ref-register {
   right: 0;
   z-index: 1;
-  background: #fafafa;
-  border-radius: 0 20px 20px 0;
+  background: var(--lumea-surface, #fff);
+  border-radius: 0 var(--lumea-radius, 24px) var(--lumea-radius, 24px) 0;
 }
+
+/* == Flip panels == */
 .lumea-auth-ref-page {
   right: 0;
   color: #fff;
-  border-radius: 0 20px 20px 0;
+  border-radius: 0 var(--lumea-radius, 24px) var(--lumea-radius, 24px) 0;
   transform-origin: left center;
 }
+
+.lumea-auth-ref-page h1 {
+  color: #fff;
+}
+
 .lumea-auth-ref-page svg {
   margin-bottom: 14px;
+  opacity: 0.85;
 }
+
 .lumea-auth-ref-page .lumea-auth-ref-content {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
-.lumea-auth-ref-page h1 {
-  color: #fff;
-}
+
 .lumea-auth-ref-page-front {
-  background: linear-gradient(-45deg, #ffcf00 0%, #fc4f4f 100%) no-repeat 0 0 / 200%;
+  background: linear-gradient(145deg, var(--lumea-accent, #c98578) 0%, var(--lumea-accent-dark, #8f4d43) 100%);
   z-index: 3;
 }
+
 .lumea-auth-ref-page-back {
-  background: linear-gradient(135deg, #fc4f4f 0%, #ffcf00 100%) no-repeat 0 0 / 200%;
+  background: linear-gradient(145deg, var(--lumea-accent-dark, #8f4d43) 0%, var(--lumea-accent, #c98578) 100%);
   z-index: 2;
 }
+
 .lumea-auth-ref-page-back .lumea-auth-ref-content {
   transform: rotateY(180deg);
 }
 
+/* == Form == */
 .lumea-auth-ref form {
-  margin-top: 14px;
+  margin-top: 16px;
 }
+
 .lumea-auth-ref-input {
-  background: #eee;
-  border: none;
-  border-radius: 0;
+  background: #f6f1ef;
+  border: 1px solid rgba(36, 24, 22, 0.10);
+  border-radius: 10px;
   padding: 12px 15px;
   margin: 8px 0;
   width: 100%;
-  font-size: 1.4em;
-  color: #374151;
+  font-family: Inter, sans-serif;
+  font-size: 15px;
+  color: var(--lumea-text, #241816);
   box-sizing: border-box;
+  transition: border-color 0.16s, box-shadow 0.16s;
 }
+
 .lumea-auth-ref-input:focus {
-  outline: 2px solid rgba(255, 75, 43, 0.2);
+  outline: none;
+  border-color: var(--lumea-accent, #c98578);
+  box-shadow: 0 0 0 3px rgba(201, 133, 120, 0.16);
 }
+
+.lumea-auth-ref-input::placeholder {
+  color: var(--lumea-muted, #7d6b66);
+  opacity: 0.8;
+}
+
+/* == Remember / Forgot row == */
 .lumea-auth-ref-row {
-  margin-top: 8px;
+  margin-top: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
 }
+
 .lumea-auth-ref-check {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #555;
-  font-size: 1.4em;
+  font-family: Inter, sans-serif;
+  font-size: 13px;
+  color: var(--lumea-muted, #7d6b66);
   font-weight: 400;
   cursor: pointer;
 }
+
 .lumea-auth-ref-check input[type="checkbox"] {
   width: 15px;
   height: 15px;
   margin: 0;
-  accent-color: #ff4b2b;
+  accent-color: var(--lumea-accent, #c98578);
 }
+
+.lumea-auth-ref-check span {
+  line-height: 1;
+}
+
 .lumea-auth-ref-forget {
-  color: #555;
-  font-size: 1.4em;
+  font-family: Inter, sans-serif;
+  font-size: 13px;
+  color: var(--lumea-muted, #7d6b66);
   text-decoration: none;
+  transition: color 0.16s;
 }
+
 .lumea-auth-ref-forget:hover {
-  color: #1f2530;
+  color: var(--lumea-text, #241816);
 }
+
+/* == Buttons == */
 .lumea-auth-ref-submit,
 .lumea-auth-ref-ghost {
   display: block;
   margin: 1em auto;
-  border-radius: 40px;
-  border: 1px solid #ff4b2b;
-  background: #ff4b2b;
-  color: #fff;
-  font-size: 1.2em;
+  border-radius: 999px;
+  font-family: Inter, sans-serif;
+  font-size: 13px;
   font-weight: 700;
-  padding: 0.85em 2em;
-  letter-spacing: 1px;
+  letter-spacing: 0.06em;
+  padding: 0.9em 2.2em;
   text-transform: uppercase;
-  transition: transform 80ms ease-in;
+  transition: transform 80ms ease-in, filter 0.15s;
   cursor: pointer;
 }
+
 .lumea-auth-ref-submit {
   width: 100%;
-  border-radius: 0;
+  border: none;
+  background: var(--lumea-text, #241816);
+  color: #fff;
 }
+
+.lumea-auth-ref-submit:hover {
+  filter: brightness(1.18);
+}
+
 .lumea-auth-ref-ghost {
   width: auto;
-  border-color: #fff;
-  background: transparent;
   min-width: 170px;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  background: transparent;
+  color: #fff;
 }
+
+.lumea-auth-ref-ghost:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
 .lumea-auth-ref-submit:active,
 .lumea-auth-ref-ghost:active {
   transform: scale(0.95);
 }
+
 .lumea-auth-ref-submit:focus-visible,
 .lumea-auth-ref-ghost:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.8);
   outline-offset: 2px;
 }
 
+/* == Divider == */
 .lumea-auth-ref-with {
-  color: #555;
-  font-size: 1.4em;
+  font-family: Inter, sans-serif;
+  font-size: 13px;
+  color: var(--lumea-muted, #7d6b66);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9932,53 +10021,86 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   margin: 16px auto 10px;
   gap: 12px;
 }
+
 .lumea-auth-ref-with::before,
 .lumea-auth-ref-with::after {
   content: "";
   display: inline-block;
   width: 42%;
   height: 1px;
-  background: #b7b7b7;
+  background: var(--lumea-border, rgba(36, 24, 22, 0.12));
 }
+
 .lumea-auth-ref-with-register::before,
 .lumea-auth-ref-with-register::after {
   width: 36%;
 }
+
+/* == Social icons (decorative) == */
 .lumea-auth-ref-social {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 14px;
 }
+
 .lumea-auth-ref-social a {
-  color: #9f9f9f;
+  color: var(--lumea-muted, #7d6b66);
+  opacity: 0.45;
   text-decoration: none;
   pointer-events: none;
 }
-.lumea-auth-ref-copy {
-  display: block;
-  margin-top: 16px;
-  color: #777;
-  font-size: 1.1em;
-  text-align: left;
-}
 
+/* == WooCommerce overrides == */
 .lumea-auth-ref .woocommerce-password-strength,
 .lumea-auth-ref .woocommerce-password-hint {
   text-align: left;
-  color: #666;
-  font-size: 1.2em;
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  color: var(--lumea-muted, #7d6b66);
   margin-top: 6px;
 }
-.lumea-auth-ref .woocommerce-password-strength {
-  margin-top: 2px;
-}
+
 .lumea-auth-ref .woocommerce-privacy-policy-text {
   display: none;
 }
+
 .lumea-auth-ref .woocommerce-form-row {
   margin: 0;
 }
 
+.lumea-auth-ref .wp-hide-pw,
+.lumea-auth-ref .show-password-input {
+  display: none !important;
+}
+
+/* == Initial visibility == */
+.lumea-auth-ref-login .lumea-auth-ref-content {
+  opacity: 0.99;
+  transform: scale(0.99);
+}
+
+.lumea-auth-ref-register .lumea-auth-ref-content {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.lumea-auth-ref-container.active .lumea-auth-ref-register .lumea-auth-ref-content {
+  opacity: 0.99;
+}
+
+.lumea-auth-ref-container.active .lumea-auth-ref-login .lumea-auth-ref-content {
+  opacity: 0;
+}
+
+.lumea-auth-ref-container.close .lumea-auth-ref-register .lumea-auth-ref-content {
+  opacity: 0;
+}
+
+.lumea-auth-ref-container.close .lumea-auth-ref-login .lumea-auth-ref-content {
+  opacity: 0.99;
+}
+
+/* == Flip animations == */
 .lumea-auth-ref-container.active .lumea-auth-ref-page-front {
   animation: lumea-auth-ref-rot-front 0.6s ease-in-out normal forwards;
 }
@@ -10005,288 +10127,74 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 }
 
 @keyframes lumea-auth-ref-rot-front {
-  from {
-    transform: translateZ(2px) rotateY(0deg);
-  }
-  to {
-    transform: translateZ(1px) rotateY(-180deg);
-  }
+  from { transform: translateZ(2px) rotateY(0deg); }
+  to   { transform: translateZ(1px) rotateY(-180deg); }
 }
 @keyframes lumea-auth-ref-close-rot-front {
-  from {
-    transform: translateZ(1px) rotateY(-180deg);
-  }
-  to {
-    transform: translateZ(2px) rotateY(0deg);
-  }
+  from { transform: translateZ(1px) rotateY(-180deg); }
+  to   { transform: translateZ(2px) rotateY(0deg); }
 }
 @keyframes lumea-auth-ref-rot-back {
-  from {
-    transform: translateZ(1px) rotateY(0deg);
-  }
-  to {
-    transform: translateZ(2px) rotateY(-180deg);
-  }
+  from { transform: translateZ(1px) rotateY(0deg); }
+  to   { transform: translateZ(2px) rotateY(-180deg); }
 }
 @keyframes lumea-auth-ref-close-rot-back {
-  from {
-    transform: translateZ(2px) rotateY(-180deg);
-  }
-  to {
-    transform: translateZ(1px) rotateY(0deg);
-  }
+  from { transform: translateZ(2px) rotateY(-180deg); }
+  to   { transform: translateZ(1px) rotateY(0deg); }
 }
 @keyframes lumea-auth-ref-show {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 0.99;
-    transform: scale(0.99);
-  }
+  from { opacity: 0;    transform: scale(0.8); }
+  to   { opacity: 0.99; transform: scale(0.99); }
 }
 @keyframes lumea-auth-ref-hide {
-  from {
-    opacity: 0.99;
-    transform: scale(0.99);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.8);
-  }
+  from { opacity: 0.99; transform: scale(0.99); }
+  to   { opacity: 0;    transform: scale(0.8); }
 }
 
+/* == Responsive == */
 @media (max-width: 860px) {
   .lumea-auth-ref {
     padding: 24px 12px 44px;
   }
+
   .lumea-auth-ref-container {
     height: auto;
     max-width: 520px;
     display: grid;
     grid-template-columns: 1fr;
     overflow: hidden;
+    transform-style: flat;
   }
+
   .lumea-auth-ref-container > div {
     position: relative;
     width: 100%;
     min-width: 0;
   }
+
   .lumea-auth-ref-page {
     display: none;
   }
+
   .lumea-auth-ref-login,
   .lumea-auth-ref-register {
     border-radius: 0;
   }
+
   .lumea-auth-ref-register {
-    border-top: 1px solid #ececec;
-  }
-  .lumea-auth-ref-content {
-    padding: 2em 1.6em;
-  }
-}
-
-
-/* AUTH REF THEME POLISH (functionality-safe) */
-.lumea-auth-ref {
-  background:
-    radial-gradient(1200px 540px at 120% -15%, rgba(196, 113, 80, 0.12), transparent 60%),
-    radial-gradient(900px 520px at -15% 30%, rgba(47, 44, 61, 0.08), transparent 62%),
-    var(--lumea-bg);
-  min-height: calc(100vh - 120px);
-  padding: 44px 18px 64px;
-}
-
-.lumea-auth-ref-container {
-  width: min(96vw, 980px);
-  height: 560px;
-  border: 1px solid var(--lumea-border);
-  overflow: hidden;
-  background: #fff;
-}
-
-.lumea-auth-ref-container > div {
-  min-width: 0;
-}
-
-.lumea-auth-ref-login,
-.lumea-auth-ref-register {
-  background: #fbfbfb;
-}
-
-.lumea-auth-ref-content {
-  padding: 34px 38px;
-}
-
-.lumea-auth-ref-content h1 {
-  font-family: "ClashDisplay-Variable", "Clash Display", Inter, sans-serif;
-  font-size: clamp(46px, 3.4vw, 58px);
-  letter-spacing: -0.02em;
-  line-height: 1.02;
-  color: #1f2530;
-  margin-bottom: 16px;
-}
-
-.lumea-auth-ref-page .lumea-auth-ref-content h1 {
-  color: #fff;
-}
-
-.lumea-auth-ref-page-front {
-  background: linear-gradient(145deg, #ff6a5e 0%, #ff9f1b 100%);
-}
-
-.lumea-auth-ref-page-back {
-  background: linear-gradient(145deg, #ff7b2f 0%, #ff4f64 100%);
-}
-
-.lumea-auth-ref-page .lumea-auth-ref-content p {
-  color: rgba(255, 255, 255, 0.96);
-  font-family: Inter, sans-serif;
-  font-size: 16px;
-  line-height: 1.28;
-  max-width: 360px;
-}
-
-.lumea-auth-ref-input {
-  background: #f1f1f4;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  font-family: Inter, sans-serif;
-  font-size: 16px;
-  color: #374151;
-}
-
-.lumea-auth-ref-input:focus {
-  border-color: var(--lumea-accent);
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(196, 113, 80, 0.16);
-}
-
-.lumea-auth-ref-row {
-  margin-top: 12px;
-  gap: 12px;
-}
-
-.lumea-auth-ref-check {
-  font-family: Inter, sans-serif;
-  font-size: 14px;
-  color: #565b67;
-  gap: 10px;
-}
-
-.lumea-auth-ref-check span {
-  line-height: 1;
-}
-
-.lumea-auth-ref-forget {
-  font-family: Inter, sans-serif;
-  font-size: 14px;
-  color: #565b67;
-}
-
-.lumea-auth-ref-submit {
-  border-radius: 999px;
-  border: none;
-  background: linear-gradient(130deg, #221716 0%, #2c1a18 100%);
-  color: #fff;
-  font-family: Inter, sans-serif;
-  font-size: 14px;
-  letter-spacing: 0.04em;
-  padding: 14px 24px;
-  margin-top: 18px;
-}
-
-.lumea-auth-ref-submit:hover {
-  filter: brightness(1.06);
-}
-
-.lumea-auth-ref-ghost {
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  font-family: Inter, sans-serif;
-  font-size: 14px;
-  letter-spacing: 0.03em;
-  font-weight: 600;
-}
-
-.lumea-auth-ref-with {
-  margin: 18px auto 10px;
-  color: #646b76;
-  font-family: Inter, sans-serif;
-  font-size: 17px;
-}
-
-.lumea-auth-ref-social a {
-  pointer-events: none;
-  color: #9ea4ae;
-}
-
-.lumea-auth-ref-copy {
-  color: #8c929c;
-  font-family: Inter, sans-serif;
-  margin-top: 18px;
-}
-
-/* Keep hidden pane hidden by default so headings do not bleed through */
-.lumea-auth-ref-login .lumea-auth-ref-content {
-  opacity: 0.99;
-  transform: scale(0.99);
-}
-.lumea-auth-ref-register .lumea-auth-ref-content {
-  opacity: 0;
-  transform: scale(0.8);
-}
-.lumea-auth-ref-container.active .lumea-auth-ref-register .lumea-auth-ref-content {
-  opacity: 0.99;
-}
-.lumea-auth-ref-container.active .lumea-auth-ref-login .lumea-auth-ref-content {
-  opacity: 0;
-}
-.lumea-auth-ref-container.close .lumea-auth-ref-register .lumea-auth-ref-content {
-  opacity: 0;
-}
-.lumea-auth-ref-container.close .lumea-auth-ref-login .lumea-auth-ref-content {
-  opacity: 0.99;
-}
-
-/* Hide Woo default tiny password toggle controls that show as dashes */
-.lumea-auth-ref .wp-hide-pw,
-.lumea-auth-ref .show-password-input {
-  display: none !important;
-}
-
-.lumea-auth-ref .woocommerce-password-strength,
-.lumea-auth-ref .woocommerce-password-hint {
-  font-family: Inter, sans-serif;
-  font-size: 14px;
-}
-
-@media (max-width: 860px) {
-  .lumea-auth-ref {
-    min-height: 0;
-    padding: 24px 12px 44px;
-  }
-
-  .lumea-auth-ref-container {
-    height: auto;
-  }
-
-  .lumea-auth-ref-content {
-    padding: 28px 20px;
-  }
-
-  .lumea-auth-ref-content h1 {
-    font-size: clamp(34px, 9vw, 46px);
-  }
-
-  .lumea-auth-ref-submit,
-  .lumea-auth-ref-ghost {
-    font-size: 18px;
+    border-top: 1px solid var(--lumea-border, rgba(36, 24, 22, 0.12));
   }
 
   .lumea-auth-ref-register .lumea-auth-ref-content {
     opacity: 0.99;
     transform: none;
+  }
+
+  .lumea-auth-ref-content {
+    padding: 2em 1.6em;
+  }
+
+  .lumea-auth-ref-content h1 {
+    font-size: 30px;
   }
 }
