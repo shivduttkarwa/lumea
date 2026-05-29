@@ -1,14 +1,33 @@
 <?php
 /**
- * My Account dashboard — Luméa premium edition.
+ * My Account Dashboard.
  *
- * @package Lumea
+ * Shows the first intro screen on the account dashboard.
+ *
+ * This template can be overridden by copying it to yourtheme/woocommerce/myaccount/dashboard.php.
+ *
+ * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * (the theme developer) will need to copy the new files to your theme to
+ * maintain compatibility. We try to do this as little as possible, but it does
+ * happen. When this occurs the version of the template file will be bumped and
+ * the readme will list any important changes.
+ *
+ * @see https://woocommerce.com/document/template-structure/
+ * @package WooCommerce\Templates
+ * @version 4.4.0
  */
 
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 $current_user = wp_get_current_user();
 $first_name   = $current_user->first_name ?: $current_user->display_name;
+$shop_url     = wc_get_page_permalink( 'shop' );
+
+if ( ! $shop_url ) {
+	$shop_url = home_url( '/shop/' );
+}
 
 /* Recent orders (last 3) */
 $orders = wc_get_orders( array(
@@ -73,7 +92,7 @@ $orders = wc_get_orders( array(
 			<div class="lumea-dashboard-order-row">
 				<div class="lumea-dashboard-order-img">
 					<?php if ( $img_url ) : ?>
-					<img src="<?php echo esc_url( $img_url ); ?>" alt="" loading="lazy">
+					<img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $product ? $product->get_name() : '' ); ?>" loading="lazy">
 					<?php endif; ?>
 				</div>
 				<div class="lumea-dashboard-order-info">
@@ -97,6 +116,14 @@ $orders = wc_get_orders( array(
 	</div>
 	<?php endif; ?>
 
+	<?php if ( ! $orders ) : ?>
+	<div class="lumea-dashboard-section lumea-dashboard-empty">
+		<h3 class="lumea-dashboard-section-title"><?php esc_html_e( 'No orders yet', 'lumea' ); ?></h3>
+		<p class="lumea-dashboard-intro"><?php esc_html_e( 'When you place your first order, it will appear here with delivery updates.', 'lumea' ); ?></p>
+		<a href="<?php echo esc_url( $shop_url ); ?>" class="lumea-dashboard-empty-cta"><?php esc_html_e( 'Start Shopping', 'lumea' ); ?></a>
+	</div>
+	<?php endif; ?>
+
 	<!-- Quick actions -->
 	<div class="lumea-dashboard-actions">
 		<a href="<?php echo esc_url( wc_get_account_endpoint_url( 'edit-account' ) ); ?>" class="lumea-dashboard-action">
@@ -116,5 +143,22 @@ $orders = wc_get_orders( array(
 			<span><?php esc_html_e( 'Sign Out', 'lumea' ); ?></span>
 		</a>
 	</div>
+
+	<?php
+	/**
+	 * My Account dashboard.
+	 *
+	 * @since 2.6.0
+	 */
+	do_action( 'woocommerce_account_dashboard' );
+
+	/**
+	 * Deprecated WooCommerce actions for backward compatibility.
+	 *
+	 * @deprecated 2.6.0
+	 */
+	do_action( 'woocommerce_before_my_account' );
+	do_action( 'woocommerce_after_my_account' );
+	?>
 
 </div>

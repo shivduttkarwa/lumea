@@ -496,6 +496,82 @@
     });
   }
 
+  /* Auth tabs (login/register) */
+  var authTabButtons = document.querySelectorAll('[data-lumea-auth-tab]');
+  var authPanels = document.querySelectorAll('.lumea-login-pane[role="tabpanel"]');
+
+  function setActiveAuthTab(targetTab) {
+    if (!targetTab) {
+      return;
+    }
+
+    authTabButtons.forEach(function (button) {
+      var isMatch = button.getAttribute('data-lumea-auth-tab') === targetTab;
+      button.classList.toggle('is-active', isMatch);
+      button.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+      button.setAttribute('tabindex', isMatch ? '0' : '-1');
+    });
+
+    authPanels.forEach(function (panel) {
+      var panelId = panel.id || '';
+      var isPanelMatch = (targetTab === 'login' && panelId === 'lumeaLoginPanel') || (targetTab === 'register' && panelId === 'lumeaRegisterPanel');
+      panel.classList.toggle('is-active', isPanelMatch);
+      panel.hidden = !isPanelMatch;
+    });
+  }
+
+  if (authTabButtons.length && authPanels.length) {
+    var initialActiveTab = null;
+    var authHash = window.location.hash ? window.location.hash.toLowerCase() : '';
+
+    authTabButtons.forEach(function (button) {
+      if (button.classList.contains('is-active') && !initialActiveTab) {
+        initialActiveTab = button.getAttribute('data-lumea-auth-tab');
+      }
+    });
+
+    if (!initialActiveTab && (authHash === '#lumearegistercard' || authHash === '#lumearegisterpanel')) {
+      initialActiveTab = 'register';
+    }
+
+    if (!initialActiveTab) {
+      initialActiveTab = authTabButtons[0].getAttribute('data-lumea-auth-tab');
+    }
+
+    setActiveAuthTab(initialActiveTab);
+
+    authTabButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        var requestedTab = button.getAttribute('data-lumea-auth-tab');
+        setActiveAuthTab(requestedTab);
+      });
+    });
+  }
+
+  /* Password visibility toggle */
+  var passwordToggleButtons = document.querySelectorAll('[data-lumea-password-toggle]');
+
+  if (passwordToggleButtons.length) {
+    passwordToggleButtons.forEach(function (button) {
+      var inputId = button.getAttribute('aria-controls');
+      var input = inputId ? document.getElementById(inputId) : null;
+
+      if (!input) {
+        return;
+      }
+
+      button.addEventListener('click', function () {
+        var shouldReveal = input.type === 'password';
+        var showLabel = button.getAttribute('data-label-show') || 'Show password';
+        var hideLabel = button.getAttribute('data-label-hide') || 'Hide password';
+
+        input.type = shouldReveal ? 'text' : 'password';
+        button.setAttribute('aria-pressed', shouldReveal ? 'true' : 'false');
+        button.setAttribute('aria-label', shouldReveal ? hideLabel : showLabel);
+      });
+    });
+  }
+
   /* Cart Drawer */
   var drawer = document.querySelector('[data-lumea-cart-drawer]');
   var overlay = document.querySelector('[data-lumea-cart-overlay]');

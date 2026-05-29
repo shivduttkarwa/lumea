@@ -11,6 +11,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $lumea_wishlist_page = get_page_by_path( 'wishlist' );
 $lumea_wishlist_url  = $lumea_wishlist_page ? get_permalink( $lumea_wishlist_page ) : home_url( '/wishlist/' );
+$lumea_contact_page  = get_page_by_path( 'contact' );
+$lumea_contact_url   = $lumea_contact_page ? get_permalink( $lumea_contact_page ) : home_url( '/contact/' );
+$lumea_has_wc        = class_exists( 'WooCommerce' );
+$lumea_is_logged_in  = is_user_logged_in();
+
+$lumea_account_url = $lumea_has_wc ? wc_get_page_permalink( 'myaccount' ) : wp_login_url();
+
+if ( ! $lumea_account_url ) {
+	$lumea_account_url = home_url( '/my-account/' );
+}
+
+$lumea_orders_url = $lumea_has_wc ? wc_get_account_endpoint_url( 'orders' ) : $lumea_account_url;
+$lumea_details_url = $lumea_has_wc ? wc_get_account_endpoint_url( 'edit-account' ) : $lumea_account_url;
+$lumea_addresses_url = $lumea_has_wc ? wc_get_account_endpoint_url( 'edit-address' ) : $lumea_account_url;
+$lumea_bag_url = $lumea_has_wc ? wc_get_cart_url() : home_url( '/cart/' );
+
+$lumea_register_url = $lumea_account_url;
+if ( $lumea_has_wc ) {
+	$lumea_register_url = add_query_arg( 'register', '1', $lumea_account_url ) . '#lumeaRegisterCard';
+} elseif ( ! $lumea_has_wc ) {
+	$lumea_register_url = wp_registration_url();
+}
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -74,21 +96,48 @@ $lumea_wishlist_url  = $lumea_wishlist_page ? get_permalink( $lumea_wishlist_pag
 
 			<!-- Account -->
 			<div class="lumea-account-wrap" data-lumea-account-wrap>
-				<button class="lumea-header-icon-btn" aria-label="<?php esc_attr_e( 'My account', 'lumea' ); ?>" aria-expanded="false" aria-haspopup="true" data-lumea-account-trigger>
+				<button class="lumea-header-icon-btn" aria-label="<?php esc_attr_e( 'My account', 'lumea' ); ?>" aria-expanded="false" aria-haspopup="true" aria-controls="lumeaAccountDropdown" data-lumea-account-trigger>
 					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
 				</button>
-				<div class="lumea-account-dropdown" aria-hidden="true" data-lumea-account-dropdown>
-					<?php if ( is_user_logged_in() ) : ?>
-					<a href="<?php echo esc_url( class_exists( 'WooCommerce' ) ? wc_get_account_endpoint_url( 'dashboard' ) : admin_url() ); ?>"><?php esc_html_e( 'My Account', 'lumea' ); ?></a>
-					<?php if ( class_exists( 'WooCommerce' ) ) : ?>
-					<a href="<?php echo esc_url( wc_get_account_endpoint_url( 'orders' ) ); ?>"><?php esc_html_e( 'Orders', 'lumea' ); ?></a>
-					<?php endif; ?>
-					<div class="lumea-account-divider"></div>
-					<a href="<?php echo esc_url( wp_logout_url( home_url( '/' ) ) ); ?>"><?php esc_html_e( 'Sign Out', 'lumea' ); ?></a>
+				<div class="lumea-account-dropdown" id="lumeaAccountDropdown" aria-hidden="true" data-lumea-account-dropdown>
+					<div class="lumea-account-panel">
+						<p class="lumea-account-panel-eyebrow"><?php esc_html_e( 'Welcome', 'lumea' ); ?></p>
+
+						<?php if ( $lumea_is_logged_in ) : ?>
+						<?php $lumea_user = wp_get_current_user(); ?>
+						<p class="lumea-account-panel-text">
+							<?php
+							printf(
+								/* translators: %s: customer first name. */
+								esc_html__( 'Hi %s, manage your profile and orders.', 'lumea' ),
+								esc_html( $lumea_user->first_name ? $lumea_user->first_name : $lumea_user->display_name )
+							);
+							?>
+						</p>
+						<a href="<?php echo esc_url( $lumea_account_url ); ?>" class="lumea-account-panel-cta"><?php esc_html_e( 'View Profile', 'lumea' ); ?></a>
 					<?php else : ?>
-					<a href="<?php echo esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'myaccount' ) : wp_login_url() ); ?>"><?php esc_html_e( 'Sign In', 'lumea' ); ?></a>
-					<a href="<?php echo esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'myaccount' ) : wp_registration_url() ); ?>"><?php esc_html_e( 'Create Account', 'lumea' ); ?></a>
-					<?php endif; ?>
+						<p class="lumea-account-panel-text"><?php esc_html_e( 'To access your account and manage orders', 'lumea' ); ?></p>
+						<a href="<?php echo esc_url( $lumea_register_url ); ?>" class="lumea-account-panel-cta"><?php esc_html_e( 'Login / Signup', 'lumea' ); ?></a>
+						<?php endif; ?>
+
+						<div class="lumea-account-divider"></div>
+
+						<nav class="lumea-account-panel-links" aria-label="<?php esc_attr_e( 'Account quick links', 'lumea' ); ?>">
+							<a href="<?php echo esc_url( $lumea_orders_url ); ?>"><?php esc_html_e( 'Orders', 'lumea' ); ?></a>
+							<a href="<?php echo esc_url( $lumea_wishlist_url ); ?>"><?php esc_html_e( 'Wishlist', 'lumea' ); ?></a>
+							<a href="<?php echo esc_url( $lumea_bag_url ); ?>"><?php esc_html_e( 'Bag', 'lumea' ); ?></a>
+							<a href="<?php echo esc_url( $lumea_addresses_url ); ?>"><?php esc_html_e( 'Saved Addresses', 'lumea' ); ?></a>
+							<a href="<?php echo esc_url( $lumea_contact_url ); ?>"><?php esc_html_e( 'Contact Us', 'lumea' ); ?></a>
+							<?php if ( $lumea_is_logged_in ) : ?>
+							<a href="<?php echo esc_url( $lumea_details_url ); ?>"><?php esc_html_e( 'Account Details', 'lumea' ); ?></a>
+							<?php endif; ?>
+						</nav>
+
+						<?php if ( $lumea_is_logged_in ) : ?>
+						<div class="lumea-account-divider"></div>
+						<a href="<?php echo esc_url( wp_logout_url( home_url( '/' ) ) ); ?>" class="lumea-account-panel-logout"><?php esc_html_e( 'Sign Out', 'lumea' ); ?></a>
+						<?php endif; ?>
+					</div>
 				</div>
 			</div>
 

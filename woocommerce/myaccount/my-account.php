@@ -1,13 +1,23 @@
 <?php
 /**
- * My Account page — Luméa premium edition.
+ * My Account page.
  *
- * @package Lumea
+ * This template can be overridden by copying it to yourtheme/woocommerce/myaccount/my-account.php.
+ *
+ * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * (the theme developer) will need to copy the new files to your theme to
+ * maintain compatibility. We try to do this as little as possible, but it does
+ * happen. When this occurs the version of the template file will be bumped and
+ * the readme will list any important changes.
+ *
+ * @see https://woocommerce.com/document/template-structure/
+ * @package WooCommerce\Templates
+ * @version 3.5.0
  */
 
-defined( 'ABSPATH' ) || exit;
-
-do_action( 'woocommerce_account_navigation' );
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 ?>
 
 <div class="lumea-account-page">
@@ -43,15 +53,24 @@ do_action( 'woocommerce_account_navigation' );
 
 			<!-- Sidebar navigation -->
 			<aside class="lumea-account-nav" aria-label="<?php esc_attr_e( 'Account navigation', 'lumea' ); ?>">
+				<?php do_action( 'woocommerce_before_account_navigation' ); ?>
 				<nav>
 					<?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
+					<?php
+					$wc_menu_classes = function_exists( 'wc_get_account_menu_item_classes' ) ? wc_get_account_menu_item_classes( $endpoint ) : '';
+					$is_current      = function_exists( 'wc_is_current_account_menu_item' )
+						? wc_is_current_account_menu_item( $endpoint )
+						: ( false !== strpos( (string) $wc_menu_classes, 'is-active' ) );
+					?>
 					<a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"
-					   class="lumea-account-nav-item <?php echo wc_is_account_page() && get_query_var( 'pagename' ) === $endpoint || is_wc_endpoint_url( $endpoint ) ? 'is-active' : ''; ?>">
+					   class="<?php echo esc_attr( trim( 'lumea-account-nav-item ' . $wc_menu_classes . ( $is_current ? ' is-active' : '' ) ) ); ?>"
+					   <?php echo $is_current ? 'aria-current="page"' : ''; ?>>
 						<?php echo esc_html( $label ); ?>
 						<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
 					</a>
 					<?php endforeach; ?>
 				</nav>
+				<?php do_action( 'woocommerce_after_account_navigation' ); ?>
 			</aside>
 
 			<!-- Main content -->
