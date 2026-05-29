@@ -6410,6 +6410,14 @@ body.woocommerce-account .lumea-header {
   box-shadow: 0 10px 20px rgba(28, 20, 19, 0.2);
   transform: translateY(-1px);
 }
+.lumea-login-submit:disabled,
+.lumea-login-submit.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: none;
+  box-shadow: none;
+  transform: none;
+}
 
 /* WooCommerce notices in login */
 .woocommerce-account:not(.logged-in) .woocommerce-notices-wrapper {

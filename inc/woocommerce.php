@@ -32,6 +32,38 @@ function lumea_woocommerce_usd_symbol( $symbol, $currency ) {
 add_filter( 'woocommerce_currency_symbol', 'lumea_woocommerce_usd_symbol', 10, 2 );
 
 /**
+ * Force manual password entry on WooCommerce registration forms.
+ *
+ * This keeps signup flow explicit (email + password) on frontend account and
+ * checkout registration instead of auto-generated password links.
+ *
+ * @param mixed $pre_option Pre-option value.
+ * @return mixed
+ */
+function lumea_force_manual_registration_password( $pre_option ) {
+	if ( is_admin() && ! wp_doing_ajax() ) {
+		return $pre_option;
+	}
+
+	return 'no';
+}
+add_filter( 'pre_option_woocommerce_registration_generate_password', 'lumea_force_manual_registration_password' );
+
+/**
+ * Make registration password requirements practical for storefront users.
+ *
+ * WooCommerce blocks form submit when strength is below this threshold.
+ * 1 = weak accepted, 2 = medium preferred, 3 = strong required.
+ *
+ * @param int $strength Minimum required strength.
+ * @return int
+ */
+function lumea_registration_min_password_strength( $strength ) {
+	return 1;
+}
+add_filter( 'woocommerce_min_password_strength', 'lumea_registration_min_password_strength' );
+
+/**
  * Build normalized card data from a WooCommerce product.
  *
  * @param mixed $product WC_Product object or product ID.
