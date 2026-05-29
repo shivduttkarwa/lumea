@@ -1,6 +1,6 @@
 /**
  * Luméa Hero — Canvas cursor deformation + fluid background slider.
- * Transition: wavy clip-path sweep (left → right) for a liquid reveal.
+ * Transition: wavy clip-path sweep alternating left/right for a liquid reveal.
  * Image URLs passed from PHP via lumea_hero.images[].
  */
 ( function () {
@@ -44,6 +44,8 @@
   let isTransitioning = false;
   let lastSlideTime   = -1;    // -1 triggers init on first frame
   let fadeStartTime   = 0;
+  let transitionCount = 0;     // alternates entry side every transition
+  let transitionDir   = 1;     // 1 = from left, -1 = from right
 
   const SLIDE_DURATION = 6000;   // ms each image is displayed
   const FADE_DURATION  = 2400;   // ms for the fluid transition
@@ -132,9 +134,20 @@
           most wavy when the images are evenly blended.             */
       const amp = height * 0.092 * Math.sin( Math.PI * crossfade );
 
-      /*  Sweep position: the boundary travels left → right.
-          We over-travel by ±amp so the wave never gets clamped.   */
-      const sweepX = crossfade * ( width + amp * 2 ) - amp;
+      /*  Sweep position alternates each transition:
+          dir=1:  left  → right
+          dir=-1: right → left
+          We over-travel by ±amp so the wave never gets clamped. */
+      const sweepX = transitionDir === 1
+        ? crossfade * ( width + amp * 2 ) - amp
+        : ( 1 - crossfade ) * ( width + amp * 2 ) - amp;
+
+      const getWaveX = function ( y ) {
+        return sweepX + amp * (
+          0.65 * Math.sin( y * 0.010 + t * 1.9 ) +
+          0.35 * Math.sin( y * 0.025 - t * 2.3 )
+        );
+      };
 
       /* Draw old image as the base layer */
       tCtx.drawImage( curr, c.dx, c.dy, c.dw, c.dh );
@@ -142,30 +155,26 @@
       if ( next && next.naturalWidth ) {
         const n = getCoverRect( next, width, height );
 
-        /*  Build a wavy clip path.
-            Everything to the LEFT of the wave is the new image.
-            Path: top-left  →  sweep-top  →  wave down  →  bottom-left  →  close */
+        /*  Build a wavy clip path for the new image side. */
         tCtx.save();
         tCtx.beginPath();
-        tCtx.moveTo( -2, -2 );
-
-        /* top edge to wave start */
-        const waveTopX = sweepX + amp * (
-          0.65 * Math.sin( 0 * 0.010 + t * 1.9 ) +
-          0.35 * Math.sin( 0 * 0.025 - t * 2.3 )
-        );
-        tCtx.lineTo( waveTopX, -2 );
-
-        /* wave follows down the right edge of the new-image territory */
-        for ( let y = 0; y <= height + 2; y += 2 ) {
-          const wx = sweepX + amp * (
-            0.65 * Math.sin( y * 0.010 + t * 1.9 ) +
-            0.35 * Math.sin( y * 0.025 - t * 2.3 )
-          );
-          tCtx.lineTo( wx, y );
+        if ( transitionDir === 1 ) {
+          /* New image is LEFT of the wave. */
+          tCtx.moveTo( -2, -2 );
+          tCtx.lineTo( getWaveX( 0 ), -2 );
+          for ( let y = 0; y <= height + 2; y += 2 ) {
+            tCtx.lineTo( getWaveX( y ), y );
+          }
+          tCtx.lineTo( -2, height + 2 );
+        } else {
+          /* New image is RIGHT of the wave. */
+          tCtx.moveTo( width + 2, -2 );
+          tCtx.lineTo( getWaveX( 0 ), -2 );
+          for ( let y = 0; y <= height + 2; y += 2 ) {
+            tCtx.lineTo( getWaveX( y ), y );
+          }
+          tCtx.lineTo( width + 2, height + 2 );
         }
-
-        tCtx.lineTo( -2, height + 2 );
         tCtx.closePath();
         tCtx.clip();
 
@@ -177,10 +186,7 @@
             of light refracting through moving water.                */
         const glowW = Math.max( 12, height * 0.04 * Math.sin( Math.PI * crossfade ) );
         for ( let y = 0; y < height; y += 2 ) {
-          const wx = sweepX + amp * (
-            0.65 * Math.sin( y * 0.010 + t * 1.9 ) +
-            0.35 * Math.sin( y * 0.025 - t * 2.3 )
-          );
+          const wx = getWaveX( y );
           const glowGrad = tCtx.createLinearGradient( wx - glowW, y, wx + glowW, y );
           glowGrad.addColorStop( 0,   'rgba(255,255,255,0)' );
           glowGrad.addColorStop( 0.5, 'rgba(255,255,255,0.07)' );
@@ -295,6 +301,8 @@
         if ( ! isTransitioning && ( timestamp - lastSlideTime ) > SLIDE_DURATION ) {
           isTransitioning = true;
           fadeStartTime   = timestamp;
+          transitionDir   = ( transitionCount % 2 === 0 ) ? 1 : -1;
+          transitionCount++;
           nextIndex       = ( currentIndex + 1 ) % activeCount;
         }
 
