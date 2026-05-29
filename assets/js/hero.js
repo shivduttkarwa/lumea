@@ -9,8 +9,20 @@
   const canvas    = document.getElementById( 'heroCanvas' );
   const ctx       = canvas.getContext( '2d', { alpha: false } );
   const hero      = document.querySelector( '.hero' );
+  const heroLabel = document.querySelector( '[data-lumea-hero-label]' );
   const baseLayer = document.createElement( 'canvas' );
   const baseCtx   = baseLayer.getContext( '2d', { alpha: false } );
+  let heroLabelNext = null;
+
+  if ( heroLabel && heroLabel.parentNode ) {
+    heroLabel.classList.add( 'lumea-hero-label-layer', 'is-current' );
+    heroLabelNext = heroLabel.cloneNode( true );
+    heroLabelNext.id = heroLabel.id ? heroLabel.id + 'Next' : 'heroLabelNext';
+    heroLabelNext.removeAttribute( 'data-lumea-hero-label' );
+    heroLabelNext.setAttribute( 'aria-hidden', 'true' );
+    heroLabelNext.classList.add( 'lumea-hero-label-layer', 'is-next' );
+    heroLabel.parentNode.insertBefore( heroLabelNext, heroLabel.nextSibling );
+  }
 
   /* ── Resolve image list ──────────────────────────────────────── */
 
@@ -23,6 +35,78 @@
   } )();
 
   if ( ! rawUrls.length ) return;
+
+  const rawLabels = ( function () {
+    if ( typeof lumea_hero === 'undefined' ) return [];
+    if ( Array.isArray( lumea_hero.labels ) && lumea_hero.labels.length ) {
+      return lumea_hero.labels.map( function ( label ) {
+        return String( label || '' ).trim();
+      } );
+    }
+    return [];
+  } )();
+
+  function setHeroLabel( index ) {
+    if ( ! heroLabel ) return;
+
+    const fallbackLabel = String( rawLabels[0] || heroLabel.textContent || '' ).trim();
+    const nextLabel     = String( rawLabels[index] || fallbackLabel ).trim();
+    heroLabel.textContent = nextLabel || fallbackLabel;
+    if ( heroLabelNext && ! isTransitioning ) {
+      heroLabelNext.textContent = heroLabel.textContent;
+    }
+  }
+
+  function setNextHeroLabel( index ) {
+    if ( ! heroLabelNext ) return;
+    const fallbackLabel = String( rawLabels[0] || heroLabel.textContent || '' ).trim();
+    const nextLabel     = String( rawLabels[index] || fallbackLabel ).trim();
+    heroLabelNext.textContent = nextLabel || fallbackLabel;
+  }
+
+  function clearHeroLabelWaveClip() {
+    if ( ! heroLabel || ! heroLabelNext ) return;
+    heroLabel.style.clipPath = 'none';
+    heroLabelNext.style.clipPath = 'inset(0 100% 0 0)';
+    heroLabelNext.style.opacity = '0';
+  }
+
+  function buildHeroWavePolygon( getWaveX, side ) {
+    const points = [];
+    const stepY  = 10;
+    const clampX = function ( x ) {
+      return Math.max( -2, Math.min( width + 2, x ) );
+    };
+
+    if ( side === 'left' ) {
+      points.push( '0px 0px' );
+      points.push( clampX( getWaveX( 0 ) ) + 'px 0px' );
+      for ( let y = 0; y <= height; y += stepY ) {
+        points.push( clampX( getWaveX( y ) ) + 'px ' + y + 'px' );
+      }
+      points.push( '0px ' + height + 'px' );
+    } else {
+      points.push( width + 'px 0px' );
+      points.push( clampX( getWaveX( 0 ) ) + 'px 0px' );
+      for ( let y = 0; y <= height; y += stepY ) {
+        points.push( clampX( getWaveX( y ) ) + 'px ' + y + 'px' );
+      }
+      points.push( width + 'px ' + height + 'px' );
+    }
+
+    return 'polygon(' + points.join( ',' ) + ')';
+  }
+
+  function applyHeroLabelWaveClip( getWaveX ) {
+    if ( ! heroLabel || ! heroLabelNext ) return;
+
+    const nextSide = transitionDir === 1 ? 'left' : 'right';
+    const currSide = transitionDir === 1 ? 'right' : 'left';
+
+    heroLabelNext.style.opacity = '1';
+    heroLabelNext.style.clipPath = buildHeroWavePolygon( getWaveX, nextSide );
+    heroLabel.style.clipPath     = buildHeroWavePolygon( getWaveX, currSide );
+  }
 
   /* ── Preload ─────────────────────────────────────────────────── */
 
@@ -123,6 +207,7 @@
     if ( ! isTransitioning ) {
       /* ── Static display ─────────────────────────────────────── */
       tCtx.drawImage( curr, c.dx, c.dy, c.dw, c.dh );
+      clearHeroLabelWaveClip();
 
     } else {
       /* ── Fluid transition ───────────────────────────────────── */
@@ -148,6 +233,8 @@
           0.35 * Math.sin( y * 0.025 - t * 2.3 )
         );
       };
+
+      applyHeroLabelWaveClip( getWaveX );
 
       /* Draw old image as the base layer */
       tCtx.drawImage( curr, c.dx, c.dy, c.dw, c.dh );
@@ -304,6 +391,7 @@
           transitionDir   = ( transitionCount % 2 === 0 ) ? 1 : -1;
           transitionCount++;
           nextIndex       = ( currentIndex + 1 ) % activeCount;
+          setNextHeroLabel( nextIndex );
         }
 
         if ( isTransitioning ) {
@@ -315,6 +403,8 @@
             isTransitioning = false;
             crossfade       = 0;
             lastSlideTime   = timestamp;
+            setHeroLabel( currentIndex );
+            clearHeroLabelWaveClip();
           }
         }
       }
@@ -357,6 +447,9 @@
   hero.addEventListener( 'pointerleave', function () { pointer.inside = false; } );
 
   resizeCanvas();
+  setHeroLabel( currentIndex );
+  setNextHeroLabel( currentIndex );
+  clearHeroLabelWaveClip();
   requestAnimationFrame( render );
 
 } )();

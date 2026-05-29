@@ -706,6 +706,19 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   text-transform: uppercase;
 }
 
+.hero-label.lumea-hero-label-layer {
+  will-change: clip-path;
+  transform: translateZ(0);
+}
+
+.hero-label.lumea-hero-label-layer.is-current {
+  z-index: 2;
+}
+
+.hero-label.lumea-hero-label-layer.is-next {
+  z-index: 3;
+}
+
 .subtitles {
   position: absolute;
   left: 1.9rem;

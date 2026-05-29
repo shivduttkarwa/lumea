@@ -75,6 +75,31 @@ function lumea_customize_register( $wp_customize ) {
 		'type'    => 'text',
 	) );
 
+	// Per-slide labels for slides 2-5.
+	$hero_label_defaults = array(
+		2 => 'Hydrate',
+		3 => 'Nourish',
+		4 => 'Protect',
+		5 => 'Renew',
+	);
+
+	for ( $n = 2; $n <= 5; $n++ ) {
+		$key = 'lumea_hero_label_' . $n;
+
+		$wp_customize->add_setting( $key, array(
+			'default'           => $hero_label_defaults[ $n ],
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $key, array(
+			/* translators: %d: slide number */
+			'label'       => sprintf( esc_html__( 'Slide %d Label (above title)', 'lumea' ), $n ),
+			'description' => esc_html__( 'Use a short word like Glow, Hydrate, Protect.', 'lumea' ),
+			'section'     => 'lumea_hero',
+			'type'        => 'text',
+		) );
+	}
+
 	// Subtitle pills
 	foreach ( array(
 		'lumea_hero_subtitle_1' => array( 'Skincare', 'Subtitle 1' ),

@@ -128,7 +128,9 @@ function lumea_enqueue_assets() {
 		);
 
 		// Collect hero slider images (slot 1 is required, 2–5 are optional)
+		// and matching per-slide labels.
 		$lumea_hero_images = array();
+		$lumea_hero_labels = array();
 
 		$lumea_hero_image_keys = array(
 			1 => array( 'lumea_hero_image',   LUMEA_THEME_URI . '/assets/images/hero1.jpg' ),
@@ -138,10 +140,23 @@ function lumea_enqueue_assets() {
 			5 => array( 'lumea_hero_image_5', '' ),
 		);
 
-		foreach ( $lumea_hero_image_keys as $slot ) {
+		$hero_label_defaults = array(
+			1 => 'Glow',
+			2 => 'Hydrate',
+			3 => 'Nourish',
+			4 => 'Protect',
+			5 => 'Renew',
+		);
+
+		foreach ( $lumea_hero_image_keys as $slide_num => $slot ) {
 			$url = get_theme_mod( $slot[0], $slot[1] );
 			if ( $url ) {
 				$lumea_hero_images[] = esc_url( $url );
+
+				$label_key = ( 1 === $slide_num ) ? 'lumea_hero_label' : 'lumea_hero_label_' . $slide_num;
+				$label_default = isset( $hero_label_defaults[ $slide_num ] ) ? $hero_label_defaults[ $slide_num ] : $hero_label_defaults[1];
+				$label         = sanitize_text_field( get_theme_mod( $label_key, $label_default ) );
+				$lumea_hero_labels[] = '' !== $label ? $label : $label_default;
 			}
 		}
 
@@ -150,6 +165,7 @@ function lumea_enqueue_assets() {
 			'lumea_hero',
 			array(
 				'images' => $lumea_hero_images,
+				'labels' => $lumea_hero_labels,
 			)
 		);
 

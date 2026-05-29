@@ -32,7 +32,7 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 		<div class="row h-100">
 			<div class="col-12 position-relative">
 
-		<h3 class="hero-label"><?php echo esc_html( get_theme_mod( 'lumea_hero_label', 'Glow' ) ); ?></h3>
+		<h3 class="hero-label" id="heroLabel" data-lumea-hero-label><?php echo esc_html( get_theme_mod( 'lumea_hero_label', 'Glow' ) ); ?></h3>
 
 		<div class="subtitles">
 			<span><?php echo esc_html( get_theme_mod( 'lumea_hero_subtitle_1', 'Skincare' ) ); ?></span>
