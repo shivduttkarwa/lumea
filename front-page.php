@@ -40,8 +40,6 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 			<span><?php echo esc_html( get_theme_mod( 'lumea_hero_subtitle_3', 'Beauty' ) ); ?></span>
 		</div>
 
-		<div class="corner-mark" aria-hidden="true"></div>
-
 		<h1 class="hero-title">LUMÉA</h1>
 
 		<div class="cta-wrap">

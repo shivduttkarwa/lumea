@@ -747,18 +747,6 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   text-shadow: 0 6px 40px rgba(0, 0, 0, 0.12);
 }
 
-.corner-mark {
-  position: absolute;
-  right: 4rem;
-  bottom: 11.25rem;
-  width: 4.2rem;
-  height: 2.375rem;
-  transform: skewX(-22deg) rotate(-2deg);
-  background: #ffffff;
-  clip-path: polygon(28% 0, 100% 0, 72% 100%, 0 100%);
-  filter: drop-shadow(0 8px 22px rgba(0, 0, 0, 0.16));
-}
-
 .cta-wrap {
   position: absolute;
   right: 1.4rem;
@@ -809,9 +797,6 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
     bottom: 2.3rem;
   }
 
-  .corner-mark {
-    display: none;
-  }
 }
 
 /* Large mobile / small tablet */
@@ -837,13 +822,6 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
     font-size: clamp(3.6rem, 13.6vw, 8.5rem);
   }
 
-  .corner-mark {
-    right: 2.5rem;
-    bottom: 13.75rem;
-    width: 2.8rem;
-    height: 1.625rem;
-  }
-
   .cta-wrap {
     right: 1.15rem;
     bottom: 2.5rem;
@@ -855,7 +833,6 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   .hero-label { top: 7.2rem; right: 1.5rem; }
   .subtitles { left: 1.5rem; right: 1.5rem; }
   .hero-title { left: 1.5rem; right: 1.5rem; bottom: 8.5rem; font-size: clamp(3.9rem, 13.6vw, 16rem); }
-  .corner-mark { right: 3rem; bottom: 11.75rem; }
   .cta-wrap { right: 1.5rem; bottom: 5.2rem; }
 
   .lumea-content-card {
@@ -883,13 +860,6 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
     right: 2.5rem;
     bottom: 9rem;
     font-size: min(18rem, 15vw);
-  }
-
-  .corner-mark {
-    right: 5rem;
-    bottom: 12rem;
-    width: 5rem;
-    height: 2.8rem;
   }
 
   .cta-wrap {
