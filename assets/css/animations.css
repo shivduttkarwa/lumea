@@ -37,6 +37,25 @@
   object-fit: cover;
 }
 
+/* ── Mosaic tile reveal ──────────────────────────────────────── */
+
+.lumea-mosaic-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  pointer-events: none;
+}
+
+.lumea-mosaic-tile {
+  background: #ffffff;
+  border: 1px solid rgba(36, 24, 22, 0.04);
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
 /* ── Intro animation — hero title chars ─────────────────────── */
 
 .lumea-intro-char {

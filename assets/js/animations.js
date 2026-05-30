@@ -329,4 +329,139 @@
 
   } )();
 
+  /* ── Bestsellers — circular bloom reveal ────────────────────
+     Each card's image area blooms open from a pin-point circle
+     as the section enters the viewport, staggered left to right.
+     Mirrors effect-04 (circular bloom) from the image reveal lab.
+  */
+  ( function initBestsellerBloom() {
+
+    var section    = document.querySelector( '.lumea-best-section' );
+    if ( ! section ) return;
+
+    var mediaWraps = section.querySelectorAll( '.lumea-card-media-wrap' );
+    var mainImgs   = section.querySelectorAll( '.lumea-best-img--main' );
+    var infoBlocks = section.querySelectorAll( '.lumea-best-info' );
+
+    if ( ! mediaWraps.length ) return;
+
+    /* Cards start invisible — bloom reveals them on scroll */
+    gsap.set( mediaWraps, { clipPath: 'circle(0% at 50% 50%)' } );
+    gsap.set( mainImgs,   { scale: 1.22 } );
+    gsap.set( infoBlocks, { autoAlpha: 0, y: 20 } );
+
+    ScrollTrigger.create( {
+      trigger: section,
+      start:   'top 72%',
+      once:    true,
+      onEnter: function () {
+
+        /* Bloom each image area open, staggered */
+        gsap.to( mediaWraps, {
+          clipPath:  'circle(75% at 50% 50%)',
+          duration:  1.35,
+          ease:      'expo.inOut',
+          stagger:   0.12,
+          onComplete: function () {
+            gsap.set( this.targets()[ 0 ], { clearProps: 'clipPath' } );
+          },
+        } );
+
+        /* Image settles from slight zoom as bloom opens */
+        gsap.to( mainImgs, {
+          scale:    1,
+          duration: 1.45,
+          ease:     'power4.out',
+          stagger:  0.12,
+          delay:    0.05,
+        } );
+
+        /* Card text fades up after image blooms */
+        gsap.to( infoBlocks, {
+          autoAlpha: 1,
+          y:         0,
+          duration:  0.75,
+          ease:      'power3.out',
+          stagger:   0.1,
+          delay:     0.38,
+        } );
+
+      },
+    } );
+
+  } )();
+
+  /* ── Curated section — random mosaic tile reveal ─────────────
+     Mirrors effect-03 (random mosaic) from b2.html.
+     A 6×4 grid of tiles covers each product card; tiles scatter
+     randomly as the section enters view, revealing the image
+     beneath. Both cards stagger so the second blooms 220ms later.
+  */
+  ( function initCuratedMosaicReveal() {
+
+    var section = document.querySelector( '.lumea-curated' );
+    if ( ! section ) return;
+
+    var tiles_count = 24;
+    var productTiles = section.querySelectorAll( '.lumea-product-tile' );
+    if ( ! productTiles.length ) return;
+
+    /* Inject mosaic grid into each product tile */
+    productTiles.forEach( function ( tile ) {
+      var grid = document.createElement( 'div' );
+      grid.className = 'lumea-mosaic-grid';
+      for ( var i = 0; i < tiles_count; i++ ) {
+        var span = document.createElement( 'span' );
+        span.className = 'lumea-mosaic-tile';
+        grid.appendChild( span );
+      }
+      tile.appendChild( grid );
+    } );
+
+    /* Initial image states — slightly zoomed + softly blurred */
+    var productImgs = section.querySelectorAll( '.lumea-product-image' );
+    gsap.set( productImgs, { scale: 1.18, filter: 'blur(8px)' } );
+
+    /* One ScrollTrigger per card so they stagger naturally */
+    productTiles.forEach( function ( tile, index ) {
+      var mosaic = tile.querySelector( '.lumea-mosaic-grid' );
+      var tiles  = mosaic.querySelectorAll( '.lumea-mosaic-tile' );
+      var img    = tile.querySelector( '.lumea-product-image' );
+      var delay  = index * 0.55;
+
+      ScrollTrigger.create( {
+        trigger: tile,
+        start:   'top 80%',
+        once:    true,
+        onEnter: function () {
+
+          /* Tiles scatter in random directions simultaneously */
+          gsap.to( tiles, {
+            opacity:  0,
+            scale:    0.4,
+            rotate:   function () { return gsap.utils.random( -18, 18 ); },
+            yPercent: function () { return gsap.utils.random( -80, 80 ); },
+            xPercent: function () { return gsap.utils.random( -80, 80 ); },
+            duration: 0.9,
+            ease:     'power4.inOut',
+            delay:    delay,
+            stagger:  { amount: 0.65, from: 'random' },
+            onComplete: function () { gsap.set( mosaic, { display: 'none' } ); },
+          } );
+
+          /* Image sharpens as tiles scatter */
+          gsap.to( img, {
+            scale:    1,
+            filter:   'blur(0px)',
+            duration: 1.35,
+            ease:     'power4.out',
+            delay:    delay,
+          } );
+
+        },
+      } );
+    } );
+
+  } )();
+
 } )();
