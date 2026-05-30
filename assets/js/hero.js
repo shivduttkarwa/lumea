@@ -13,78 +13,81 @@
   const baseLayer = document.createElement( 'canvas' );
   const baseCtx   = baseLayer.getContext( '2d', { alpha: false } );
 
-  /* ── GSAP + SplitText label setup ───────────────────────────── */
-  const gsapOk    = typeof gsap !== 'undefined';
-  const stOk      = gsapOk && typeof SplitText !== 'undefined';
-  let   labelSplit = null;   /* SplitText instance, rebuilt on each text swap */
-  let   labelAnimTriggered = false; /* guard: fire GSAP only once per transition */
-  let   pendingLabelIndex  = -1;    /* next label value, staged before wave arrives */
+  /* ── GSAP label animation setup ─────────────────────────────── */
+  const gsapOk = typeof gsap !== 'undefined';
+  let   labelChars         = [];    /* current array of char <span> elements */
+  let   labelAnimTriggered = false;
+  let   pendingLabelIndex  = -1;
   let   pendingLabelDir    = 0;
 
-  /* Pre-split on load so chars exist immediately */
-  function splitLabel() {
-    if ( ! heroLabel || ! stOk ) return;
-    if ( labelSplit ) { try { labelSplit.revert(); } catch(e){} }
-    labelSplit = new SplitText( heroLabel, { type: 'chars,words' } );
-    gsap.set( labelSplit.chars, { transformOrigin: 'bottom center' } );
+  /* Wraps each character in an inline-block <span> so GSAP can
+     animate per-char. No premium plugin required.                */
+  function splitIntoChars( el ) {
+    const text = el.textContent.trim();
+    el.innerHTML = '';
+    return Array.from( text ).map( function ( ch ) {
+      var s = document.createElement( 'span' );
+      s.style.cssText = 'display:inline-block;will-change:transform,opacity,filter;opacity:0;';
+      s.textContent   = ch === ' ' ? ' ' : ch;
+      el.appendChild( s );
+      return s;
+    } );
   }
 
-  /* Stage the new label text (hidden) so it's ready the moment the
-     wave arrives. The actual GSAP play is deferred to fireWaveLabelAnim(). */
+  /* Stage next label — animation fires later when wave crosses the label */
   function setHeroLabel( index, dir ) {
     if ( ! heroLabel ) return;
-
-    pendingLabelIndex    = index;
-    pendingLabelDir      = dir || 0;
-    labelAnimTriggered   = false;
+    pendingLabelIndex  = index;
+    pendingLabelDir    = dir || 0;
+    labelAnimTriggered = false;
 
     if ( ! gsapOk ) {
-      /* Fallback: just update text immediately */
       heroLabel.textContent = getHeroLabelValue( index );
     }
-    /* With GSAP: text + animation are applied in fireWaveLabelAnim()
-       triggered from the render loop when the wave crosses the label. */
   }
 
-  /* Called from render loop at the exact frame the wave edge passes
-     the label element — gives pixel-accurate sync with the wave.     */
+  /* Triggered the exact frame the wave edge passes the label element */
   function fireWaveLabelAnim() {
     if ( labelAnimTriggered || pendingLabelIndex < 0 ) return;
     labelAnimTriggered = true;
 
     if ( ! gsapOk ) return;
 
-    const dir   = pendingLabelDir;
-    const value = getHeroLabelValue( pendingLabelIndex );
+    var dir   = pendingLabelDir;
+    var value = getHeroLabelValue( pendingLabelIndex );
 
-    /* Kill any running tween on the label */
+    /* Kill any running tweens */
+    gsap.killTweensOf( labelChars );
     gsap.killTweensOf( heroLabel );
-    if ( labelSplit ) gsap.killTweensOf( labelSplit.chars );
 
-    /* Swap text and rebuild split */
+    /* Swap text and build fresh char spans */
     heroLabel.textContent = value;
-    splitLabel();
+    labelChars = splitIntoChars( heroLabel );
+    if ( ! labelChars.length ) return;
 
-    if ( ! labelSplit || ! labelSplit.chars.length ) return;
+    var fromX = dir === 1 ? -22 : 22;
 
-    const chars  = labelSplit.chars;
-    const fromX  = dir === 1 ? -28 : 28;   /* slide in from wave direction */
-
-    /* Exit: instantly hide chars (they just appeared with new text) */
-    gsap.set( chars, { opacity: 0, y: 18, x: fromX, rotateX: -55, filter: 'blur(6px)' } );
-
-    /* Enter: stagger each character in */
-    gsap.to( chars, {
-      opacity:  1,
-      y:        0,
-      x:        0,
-      rotateX:  0,
-      filter:   'blur(0px)',
-      duration: 0.55,
-      ease:     'power3.out',
+    /* fromTo sets the "from" state on first GSAP render; the inline
+       opacity:0 in splitIntoChars guarantees chars are invisible before
+       GSAP's first tick, eliminating any one-frame flicker.           */
+    gsap.fromTo( labelChars, {
+      opacity:    0,
+      y:          20,
+      x:          fromX,
+      rotationX:  -60,
+      filter:     'blur(5px)',
+      transformOrigin: '50% 100%',
+    }, {
+      opacity:   1,
+      y:         0,
+      x:         0,
+      rotationX: 0,
+      filter:    'blur(0px)',
+      duration:  0.6,
+      ease:      'power3.out',
       stagger: {
-        each:   0.045,
-        from:   dir === 1 ? 'start' : 'end',
+        each: 0.05,
+        from: dir === 1 ? 'start' : 'end',
       },
     } );
   }
@@ -469,9 +472,10 @@
 
   resizeCanvas();
 
-  /* Set initial label text and split it for GSAP */
-  heroLabel && ( heroLabel.textContent = getHeroLabelValue( 0 ) );
-  splitLabel();
+  /* Set initial label text — no entry animation on first load */
+  if ( heroLabel ) {
+    heroLabel.textContent = getHeroLabelValue( 0 );
+  }
 
   requestAnimationFrame( render );
 
