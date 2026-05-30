@@ -694,14 +694,98 @@ function lumea_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Tagline
-	$wp_customize->add_setting( 'lumea_footer_tagline', array(
-		'default'           => 'Botanical skincare for luminous living.',
+	// CTA Headline
+	$wp_customize->add_setting( 'lumea_footer_headline', array(
+		'default'           => "Discover your skin\xe2\x80\x99s new ritual. Start today.",
+		'sanitize_callback' => 'wp_kses_post',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_footer_headline', array(
+		'label'   => esc_html__( 'CTA Headline', 'lumea' ),
+		'section' => 'lumea_footer',
+		'type'    => 'textarea',
+	) );
+
+	// CTA Button Text
+	$wp_customize->add_setting( 'lumea_footer_cta_text', array(
+		'default'           => 'Shop Collection',
 		'sanitize_callback' => 'sanitize_text_field',
 		'transport'         => 'refresh',
 	) );
-	$wp_customize->add_control( 'lumea_footer_tagline', array(
-		'label'   => esc_html__( 'Brand Tagline', 'lumea' ),
+	$wp_customize->add_control( 'lumea_footer_cta_text', array(
+		'label'   => esc_html__( 'CTA Button Label', 'lumea' ),
+		'section' => 'lumea_footer',
+		'type'    => 'text',
+	) );
+
+	// Connect Heading
+	$wp_customize->add_setting( 'lumea_footer_connect_heading', array(
+		'default'           => 'Connect',
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_footer_connect_heading', array(
+		'label'   => esc_html__( 'Connect Column Heading', 'lumea' ),
+		'section' => 'lumea_footer',
+		'type'    => 'text',
+	) );
+
+	// Address
+	$wp_customize->add_setting( 'lumea_footer_address', array(
+		'default'           => '',
+		'sanitize_callback' => 'sanitize_textarea_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_footer_address', array(
+		'label'       => esc_html__( 'Address (one line per row)', 'lumea' ),
+		'section'     => 'lumea_footer',
+		'type'        => 'textarea',
+	) );
+
+	// Email
+	$wp_customize->add_setting( 'lumea_footer_email', array(
+		'default'           => '',
+		'sanitize_callback' => 'sanitize_email',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_footer_email', array(
+		'label'   => esc_html__( 'Contact Email', 'lumea' ),
+		'section' => 'lumea_footer',
+		'type'    => 'email',
+	) );
+
+	// Brand video URL
+	$wp_customize->add_setting( 'lumea_footer_video', array(
+		'default'           => LUMEA_THEME_URI . '/assets/images/hero/footer-vd.mp4',
+		'sanitize_callback' => 'esc_url_raw',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_footer_video', array(
+		'label'       => esc_html__( 'Brand Video URL (.mp4) — shows through "LUMÉA" letters', 'lumea' ),
+		'description' => esc_html__( 'Upload an MP4 to Media Library, paste its URL here. Leave blank to use the fallback image instead.', 'lumea' ),
+		'section'     => 'lumea_footer',
+		'type'        => 'url',
+	) );
+
+	// Brand video poster / fallback image
+	$wp_customize->add_setting( 'lumea_footer_video_poster', array(
+		'default'           => LUMEA_THEME_URI . '/assets/images/hero/latest-hero.jpg',
+		'sanitize_callback' => 'esc_url_raw',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'lumea_footer_video_poster', array(
+		'label'   => esc_html__( 'Brand Fallback Image (shows if no video)', 'lumea' ),
+		'section' => 'lumea_footer',
+	) ) );
+
+	// Copyright text
+	$wp_customize->add_setting( 'lumea_footer_copy', array(
+		'default'           => "Lum\xc3\xa9a \xc2\xb7 Botanical Skincare",
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_footer_copy', array(
+		'label'   => esc_html__( 'Copyright Text (after the year)', 'lumea' ),
 		'section' => 'lumea_footer',
 		'type'    => 'text',
 	) );

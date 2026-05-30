@@ -1,487 +1,54 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Luméa Footer</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&family=Oooh+Baby&display=swap" rel="stylesheet">
-
+  <title>LUMÉA DrawSVG Logo</title>
   <style>
-    :root {
-      --lumea-bg: #fffaf7;
-      --lumea-surface: #ffffff;
-      --lumea-text: #241816;
-      --lumea-muted: #7d6b66;
-      --lumea-accent: #c98578;
-      --lumea-accent-dark: #8f4d43;
-      --lumea-border: rgba(36, 24, 22, 0.12);
-      --lumea-soft: #f9d0cd;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: "Inter", sans-serif;
-      background: var(--lumea-bg);
-      color: var(--lumea-text);
-      overflow-x: hidden;
-    }
-
-    .page-before-footer {
+      margin: 0;
       min-height: 100vh;
-      padding: 6vw;
-      display: flex;
-      align-items: center;
-      background: var(--lumea-bg);
+      display: grid;
+      place-items: center;
+      background: #fffaf7;
     }
-
-    .page-before-footer h1 {
-      max-width: 900px;
-      font-size: clamp(4rem, 10vw, 11rem);
-      line-height: 0.88;
-      letter-spacing: -0.08em;
-      text-transform: uppercase;
+    .lumea-logo {
+      width: min(78vw, 760px);
+      height: auto;
+      overflow: visible;
     }
-
-    .lumea-footer {
-      position: relative;
-      min-height: 100vh;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 74% 28%, rgba(201, 133, 120, 0.22), transparent 30%),
-        radial-gradient(circle at 20% 88%, rgba(249, 208, 205, 0.7), transparent 34%),
-        linear-gradient(135deg, #fffaf7 0%, #f7ede8 50%, #eadbd4 100%);
-      color: var(--lumea-text);
-    }
-
-    .lumea-footer::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(36, 24, 22, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(36, 24, 22, 0.04) 1px, transparent 1px);
-      background-size: 5rem 5rem;
-      opacity: 0.65;
-      pointer-events: none;
-    }
-
-    .footer-brand {
-      position: absolute;
-      top: 2rem;
-      left: 2rem;
-      z-index: 20;
-      font-size: 1.35rem;
-      font-weight: 900;
-      letter-spacing: -0.08em;
-      text-transform: uppercase;
-    }
-
-    .footer-brand span {
-      font-family: "Oooh Baby", cursive;
-      font-size: 1.9em;
-      font-weight: 400;
-      letter-spacing: 0;
-      color: var(--lumea-accent-dark);
-    }
-
-    .footer-left {
-      position: absolute;
-      left: 2rem;
-      bottom: 4rem;
-      z-index: 20;
-      width: 15rem;
-    }
-
-    .footer-copy {
-      margin-bottom: 7rem;
-      font-size: 0.88rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      color: rgba(36, 24, 22, 0.55);
-    }
-
-    .footer-links {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.9rem;
-    }
-
-    .footer-link {
-      position: relative;
-      display: inline-block;
-      padding-bottom: 0.35rem;
-      font-size: 0.82rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: rgba(36, 24, 22, 0.56);
-      transition: color 0.3s ease;
-    }
-
-    .footer-link::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 1px;
-      background: rgba(36, 24, 22, 0.18);
-    }
-
-    .footer-link::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      z-index: 1;
-      width: 0%;
-      height: 1px;
-      background: var(--lumea-text);
-      transition: width 0.45s cubic-bezier(.77, 0, .175, 1);
-    }
-
-    .footer-link:hover {
-      color: var(--lumea-text);
-    }
-
-    .footer-link:hover::before {
-      width: 100%;
-    }
-
-    .footer-social {
-      position: absolute;
-      z-index: 20;
-      min-width: 9.5rem;
-      height: 4.25rem;
-      border: 1px solid rgba(36, 24, 22, 0.14);
-      border-radius: 0.85rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 250, 247, 0.52);
-      backdrop-filter: blur(16px);
-      color: var(--lumea-text);
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      overflow: hidden;
-    }
-
-    .footer-social::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background: var(--lumea-text);
-      clip-path: inset(0 100% 0 0);
-      transition: clip-path 0.45s cubic-bezier(.77, 0, .175, 1);
-    }
-
-    .footer-social:hover {
-      color: var(--lumea-bg);
-    }
-
-    .footer-social:hover::before {
-      clip-path: inset(0 0 0 0);
-    }
-
-    .footer-social.instagram {
-      top: 22%;
-      left: 31%;
-    }
-
-    .footer-social.tiktok {
-      top: 32%;
-      right: 9%;
-    }
-
-    .footer-text-wrap {
-      position: absolute;
-      left: 1.6rem;
-      right: 1.6rem;
-      bottom: 3rem;
-      z-index: 5;
-      pointer-events: none;
-    }
-
-    .footer-line {
-      display: flex;
-      align-items: center;
-      gap: clamp(1.2rem, 3vw, 3rem);
-      font-size: clamp(5.2rem, 15vw, 18.5rem);
-      line-height: 0.82;
-      font-weight: 900;
-      letter-spacing: -0.1em;
-      text-transform: uppercase;
-      color: var(--lumea-text);
-    }
-
-    .footer-word {
-      position: relative;
-      display: inline-block;
-      white-space: nowrap;
-    }
-
-    .remove-word {
-      color: rgba(36, 24, 22, 0.9);
-    }
-
-    .remove-word .word-fill {
-      display: inline-block;
-      position: relative;
-      z-index: 1;
-    }
-
-    .beauty-wipe {
-      position: absolute;
-      left: -3%;
-      top: 50%;
-      z-index: 3;
-      width: 106%;
-      height: 0.25em;
-      border-radius: 999px;
-      background:
-        linear-gradient(90deg, rgba(201, 133, 120, 0), rgba(201, 133, 120, 0.96) 18%, rgba(143, 77, 67, 0.96) 72%, rgba(143, 77, 67, 0));
-      transform: translateY(-50%) scaleX(0) rotate(-4deg);
-      transform-origin: left center;
-      filter: blur(0.5px);
-      opacity: 0;
-      box-shadow: 0 0 34px rgba(201, 133, 120, 0.38);
-    }
-
-    .beauty-wipe::before,
-    .beauty-wipe::after {
-      content: "";
-      position: absolute;
-      left: 3%;
-      right: 4%;
-      height: 42%;
-      border-radius: inherit;
-      background: rgba(249, 208, 205, 0.75);
-      filter: blur(5px);
-    }
-
-    .beauty-wipe::before {
-      top: -45%;
-    }
-
-    .beauty-wipe::after {
-      bottom: -50%;
-      opacity: 0.7;
-    }
-
-    .final-glow {
-      position: absolute;
-      right: 4vw;
-      bottom: -0.09em;
-      z-index: 10;
-      font-family: "Oooh Baby", cursive;
-      font-size: clamp(7rem, 18vw, 23rem);
-      font-weight: 400;
-      line-height: 0.8;
-      letter-spacing: -0.04em;
-      color: var(--lumea-accent-dark);
-      transform: rotate(-5deg);
-      opacity: 0;
-      clip-path: inset(0 100% 0 0);
-      text-shadow: 0 20px 70px rgba(201, 133, 120, 0.35);
-    }
-
-    .soft-orb {
-      position: absolute;
-      width: 34rem;
-      height: 34rem;
-      border-radius: 50%;
-      right: -10rem;
-      bottom: -12rem;
-      background: radial-gradient(circle, rgba(201, 133, 120, 0.26), transparent 68%);
-      filter: blur(10px);
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    @media (max-width: 900px) {
-      .footer-left {
-        top: 7rem;
-        bottom: auto;
-      }
-
-      .footer-copy {
-        margin-bottom: 2rem;
-      }
-
-      .footer-social {
-        min-width: 7.6rem;
-        height: 3.5rem;
-        font-size: 0.72rem;
-      }
-
-      .footer-social.instagram {
-        top: 18%;
-        left: auto;
-        right: 1rem;
-      }
-
-      .footer-social.tiktok {
-        top: 27%;
-        right: 1rem;
-      }
-
-      .footer-line {
-        display: block;
-        font-size: clamp(4.5rem, 24vw, 9.2rem);
-      }
-
-      .final-glow {
-        right: 1rem;
-        bottom: 9vh;
-        font-size: clamp(6rem, 28vw, 11rem);
-      }
+    .lumea-logo-path {
+      fill: transparent;
+      stroke: #241816;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
   </style>
 </head>
-
 <body>
+  <svg class="lumea-logo" width="1200" height="260" viewBox="0 0 1200 260" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="LUMÉA logo">
+  <path class="lumea-logo-path" id="lumea-logo-path" d="m 353.61621,175 h 67.89551 V 160.71777 H 369.87598 V 65.869141 h -16.25977 z m 125.64551,1.75781 c 26.2207,0 43.35937,-16.33301 43.35937,-39.11133 V 65.869141 h -16.18652 v 70.458979 c 0,14.94141 -10.32715,25.70801 -27.17285,25.70801 -16.77246,0 -27.09961,-10.7666 -27.09961,-25.70801 V 65.869141 h -16.18652 v 71.777339 c 0,22.77832 17.06543,39.11133 43.28613,39.11133 z M 543.53027,175 h 16.04004 v -59.47266 c 0,-7.39746 -0.29297,-17.797848 -0.51269,-27.685543 3.95508,11.279297 7.61718,21.679683 9.88769,27.685543 L 592.16309,175 h 13.33007 l 22.99805,-59.47266 c 2.34375,-6.22558 6.0791,-17.358395 10.10742,-29.223629 -0.21972,10.327148 -0.51269,21.459959 -0.51269,29.223629 V 175 h 15.96679 V 65.869141 h -22.99804 l -24.09668,63.940429 c -1.9043,5.56641 -5.49317,15.89355 -7.9834,23.4375 -2.49024,-7.54395 -6.0791,-17.87109 -8.05664,-23.4375 L 566.45508,65.869141 h -22.92481 z m 131.94434,0 h 73.38867 v -14.28223 h -57.12891 v -34.27734 h 52.88086 V 112.30469 H 691.73437 V 80.151367 h 57.12891 V 65.869141 H 675.47461 Z M 705.57715,56.054687 h 12.01172 L 733.18945,33.862305 H 716.63672 Z M 756.51562,175 h 17.28516 l 9.96094,-28.34473 h 44.01855 L 837.44824,175 h 17.65137 L 815.76855,65.869141 h -19.6289 z m 32.15333,-42.1875 6.81152,-19.33594 c 3.00293,-9.00879 6.15234,-18.603513 10.54687,-32.739255 4.32129,14.135742 7.39746,23.730465 10.40039,32.739255 l 6.5918,19.33594 z" fill="none" stroke="#241816" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
 
-  <section class="page-before-footer">
-    <h1>Scroll to footer</h1>
-  </section>
 
-  <footer class="lumea-footer" id="lumeaFooter">
-    <div class="soft-orb"></div>
-
-    <div class="footer-brand">
-      Lum<span>é</span>a
-    </div>
-
-    <a href="#" class="footer-social instagram">Instagram</a>
-    <a href="#" class="footer-social tiktok">TikTok</a>
-
-    <div class="footer-left">
-      <div class="footer-copy">© 2026 Luméa Beauty</div>
-
-      <nav class="footer-links">
-        <a href="#" class="footer-link">Privacy Policy</a>
-        <a href="#" class="footer-link">Terms of Service</a>
-        <a href="#" class="footer-link">Contact Studio</a>
-      </nav>
-    </div>
-
-    <div class="footer-text-wrap">
-      <div class="footer-line">
-        <span class="footer-word">WE</span>
-
-        <span class="footer-word remove-word word-dont">
-          <span class="word-fill">DON’T</span>
-          <span class="beauty-wipe"></span>
-        </span>
-      </div>
-
-      <div class="footer-line">
-        <span class="footer-word">MAKE</span>
-
-        <span class="footer-word remove-word word-noise">
-          <span class="word-fill">NOISE</span>
-          <span class="beauty-wipe"></span>
-        </span>
-      </div>
-
-      <div class="final-glow">Glow</div>
-    </div>
-  </footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-
+  <!-- GSAP DrawSVGPlugin animation -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <!-- Replace this with your registered DrawSVGPlugin file if you use Club GSAP -->
+  <!-- <script src="/path-to/DrawSVGPlugin.min.js"></script> -->
   <script>
-    const footer = document.querySelector("#lumeaFooter");
+    // gsap.registerPlugin(DrawSVGPlugin);
+    // gsap.from("#lumea-logo-path", { drawSVG: "0%", duration: 2.2, ease: "power2.inOut" });
 
-    gsap.set(".footer-social", {
-      autoAlpha: 0,
-      y: 18
-    });
-
-    gsap.set(".footer-copy, .footer-link", {
-      autoAlpha: 0,
-      y: 12
-    });
-
-    const tl = gsap.timeline({
-      paused: true,
-      defaults: {
-        ease: "power3.out"
-      }
-    });
-
-    tl.to(".footer-social", {
-      autoAlpha: 1,
-      y: 0,
-      duration: 0.7,
-      stagger: 0.12
-    });
-
-    tl.to(".footer-copy, .footer-link", {
-      autoAlpha: 1,
-      y: 0,
-      duration: 0.55,
-      stagger: 0.07
-    }, "<0.1");
-
-    tl.to(".word-dont .beauty-wipe", {
-      opacity: 1,
-      scaleX: 1,
-      duration: 0.7,
-      ease: "power4.inOut"
-    }, "+=0.35");
-
-    tl.to(".word-dont .word-fill", {
-      opacity: 0.13,
-      filter: "blur(5px)",
-      y: -5,
-      duration: 0.35
-    }, "-=0.16");
-
-    tl.to(".word-noise .beauty-wipe", {
-      opacity: 1,
-      scaleX: 1,
-      duration: 0.75,
-      ease: "power4.inOut"
-    }, "+=0.12");
-
-    tl.to(".word-noise .word-fill", {
-      opacity: 0.13,
-      filter: "blur(5px)",
-      y: -5,
-      duration: 0.35
-    }, "-=0.18");
-
-    tl.to(".final-glow", {
-      opacity: 1,
-      clipPath: "inset(0 0% 0 0)",
-      duration: 1,
-      ease: "power3.out"
-    }, "-=0.05");
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          tl.play();
-          observer.disconnect();
-        }
-      });
-    }, {
-      threshold: 0.35
-    });
-
-    observer.observe(footer);
+    // Free fallback animation without DrawSVGPlugin:
+    const path = document.querySelector("#lumea-logo-path");
+    const length = path.getTotalLength();
+    path.style.strokeDasharray = length;
+    path.style.strokeDashoffset = length;
+    gsap.to(path, { strokeDashoffset: 0, duration: 2.2, ease: "power2.inOut" });
   </script>
-
 </body>
 </html>
+
+
+

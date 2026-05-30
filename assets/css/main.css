@@ -3825,118 +3825,213 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
    ════════════════════════════════════════════════════════ */
 
 .lumea-footer {
-  background: #0e1410;
-  border-top: none;
-  padding: 64px 0 40px;
+  background: #0a0a08;
+  color: #fffaf7;
+}
+
+/* ── Main content row ── */
+.lumea-footer-main {
+  padding: 4.5rem 0 3rem;
+  border-bottom: 1px solid rgba(255, 250, 247, 0.08);
 }
 
 .lumea-footer-inner {
-  width: min(100% - 96px, var(--lumea-container));
+  width: min(100% - 4rem, var(--lumea-container));
   margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr 0.6fr 0.7fr;
+  gap: 3rem 4rem;
+  align-items: start;
 }
 
-.lumea-footer-top {
+/* ── Col 1: CTA ── */
+.lumea-footer-col--cta {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: 40px;
-  padding-bottom: 48px;
+  gap: 1.75rem;
 }
 
-.lumea-footer-logo {
-  font-family: "ClashDisplay-Variable", "Clash Display", sans-serif;
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: #fffaf3;
-  display: block;
+.lumea-footer-headline {
+  margin: 0;
+  font-family: var(--lumea-font-heading);
+  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: #fffaf7;
+  max-width: 22rem;
 }
 
-.lumea-footer-tagline {
-  margin: 10px 0 0;
-  font-size: 14px;
-  line-height: 1.55;
-  color: rgba(255, 250, 243, 0.5);
-  max-width: 240px;
-}
-
-.lumea-footer-nav {
-  display: flex;
-  gap: 36px;
+.lumea-footer-cta-btn {
+  display: inline-flex;
   align-items: center;
-  flex-wrap: wrap;
-  padding-top: 2px;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid rgba(255, 250, 247, 0.35);
+  border-radius: 0.25rem;
+  font-family: var(--lumea-font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #fffaf7;
+  text-decoration: none;
+  transition: background 0.18s, border-color 0.18s;
 }
 
-.lumea-footer-nav a {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255, 250, 243, 0.75);
-  transition: color 0.2s ease;
-}
-
-.lumea-footer-nav a:hover {
-  color: #fffaf3;
-}
-
-.lumea-footer-bottom {
-  border-top: 1px solid rgba(255, 250, 243, 0.1);
-  padding-top: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+.lumea-footer-cta-btn:hover {
+  background: rgba(255, 250, 247, 0.08);
+  border-color: rgba(255, 250, 247, 0.6);
 }
 
 .lumea-footer-copy {
   margin: 0;
-  font-size: 12px;
-  color: rgba(255, 250, 243, 0.38);
-  letter-spacing: 0.02em;
+  font-family: var(--lumea-font-body);
+  font-size: 0.8125rem;
+  color: rgba(255, 250, 247, 0.35);
+  letter-spacing: 0.01em;
+}
+
+/* ── Col 2: Nav ── */
+.lumea-footer-col--nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  padding-top: 0.25rem;
+}
+
+.lumea-footer-col--nav a {
+  font-family: var(--lumea-font-body);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  color: rgba(255, 250, 247, 0.65);
+  text-decoration: none;
+  transition: color 0.16s;
+}
+
+.lumea-footer-col--nav a:hover {
+  color: #fffaf7;
+}
+
+/* ── Col 3: Connect ── */
+.lumea-footer-col--connect {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  padding-top: 0.25rem;
+}
+
+.lumea-footer-connect-h {
+  margin: 0;
+  font-family: var(--lumea-font-heading);
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: #fffaf7;
+}
+
+.lumea-footer-address,
+.lumea-footer-email {
+  margin: 0;
+  font-family: var(--lumea-font-body);
+  font-size: 0.9375rem;
+  color: rgba(255, 250, 247, 0.55);
+  line-height: 1.65;
+}
+
+.lumea-footer-email {
+  text-decoration: none;
+  transition: color 0.16s;
+}
+
+.lumea-footer-email:hover {
+  color: #fffaf7;
 }
 
 .lumea-footer-social {
   display: flex;
-  gap: 20px;
+  gap: 1.125rem;
   align-items: center;
+  margin-top: 0.25rem;
 }
 
 .lumea-footer-social a {
-  color: rgba(255, 250, 243, 0.5);
+  color: rgba(255, 250, 247, 0.5);
   display: flex;
   align-items: center;
-  transition: color 0.2s ease;
+  transition: color 0.18s;
 }
 
 .lumea-footer-social a:hover {
-  color: #fffaf3;
+  color: #fffaf7;
 }
 
-@media (max-width: 768px) {
-  .lumea-footer {
-    padding: 48px 0 32px;
+/* ── Brand video mask ── */
+.lumea-footer-brand {
+  position: relative;
+  background: #0a0a08;
+  overflow: hidden;
+  height: clamp(10rem, 22vw, 20rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lumea-footer-brand-text {
+  position: relative;
+  z-index: 1;
+  font-family: "ClashDisplay-Variable", "Clash Display", var(--lumea-font-heading);
+  font-size: clamp(6rem, 20vw, 18rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: #ffffff;
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* Video sits on top — multiply blend makes it show only through the white text */
+.lumea-footer-brand-video,
+.lumea-footer-brand-imgfallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.lumea-footer-brand-imgfallback {
+  background-size: cover;
+  background-position: center;
+}
+
+/* ── Responsive ── */
+@media (max-width: 56rem) {
+  .lumea-footer-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem 2.5rem;
+  }
+
+  .lumea-footer-col--cta {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 36rem) {
+  .lumea-footer-main {
+    padding: 3rem 0 2.5rem;
   }
 
   .lumea-footer-inner {
-    width: min(100% - 40px, var(--lumea-container));
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    width: min(100% - 2.5rem, var(--lumea-container));
   }
 
-  .lumea-footer-top {
-    flex-direction: column;
-    gap: 28px;
-    padding-bottom: 36px;
-  }
-
-  .lumea-footer-nav {
-    gap: 16px 28px;
-  }
-
-  .lumea-footer-bottom {
-    flex-direction: column-reverse;
-    align-items: flex-start;
-    gap: 16px;
+  .lumea-footer-brand-text {
+    font-size: clamp(4rem, 22vw, 8rem);
   }
 }
 
