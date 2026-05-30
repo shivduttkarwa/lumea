@@ -208,4 +208,125 @@
     } );
   } );
 
+  /* ── Page intro animation ────────────────────────────────────
+     Header  : slides down; logo, nav, actions fade in cleanly.
+     LUMÉA   : letters start spread (letter-spacing wide) and
+               contract to their natural tight-set position.
+               This is the only "trick" — everything else is
+               pure opacity and precise clip-path reveals.
+     Label   : wipes in from the right (clip-path).
+     Subtitles: wipe from the left, staggered (clip-path).
+     CTA     : fades in last.
+  */
+  ( function initIntroAnim() {
+
+    var header    = document.querySelector( '.lumea-header' );
+    if ( ! header ) return;
+
+    var logo      = document.querySelector( '.lumea-header-logo' );
+    var navItems  = document.querySelectorAll( '.lumea-nav-list li' );
+    var actions   = document.querySelectorAll( '.lumea-header-actions > *' );
+    var hero      = document.querySelector( '.hero' );
+    var heroTitle = document.querySelector( '.hero-title' );
+    var heroLabel = document.querySelector( '.hero-label' );
+    var subtitles = document.querySelectorAll( '.subtitles span' );
+    var ctaWrap   = document.querySelector( '.cta-wrap' );
+
+    /* Capture natural letter-spacing BEFORE we alter anything */
+    var naturalLS = ( hero && heroTitle )
+      ? window.getComputedStyle( heroTitle ).letterSpacing
+      : '0px';
+
+    /* ── Initial states ────────────────────────────────────── */
+    gsap.set( header, { yPercent: -100 } );
+    if ( logo        ) gsap.set( logo,     { autoAlpha: 0 } );
+    if ( navItems.length ) gsap.set( navItems, { autoAlpha: 0 } );
+    if ( actions.length  ) gsap.set( actions,  { autoAlpha: 0 } );
+
+    if ( hero ) {
+      if ( heroTitle ) {
+        gsap.set( heroTitle, {
+          letterSpacing:   '0.28em',
+          scale:           1.03,
+          autoAlpha:       0,
+          transformOrigin: 'left center',
+        } );
+      }
+      if ( heroLabel ) {
+        gsap.set( heroLabel, { clipPath: 'inset(0% 0% 0% 100%)', autoAlpha: 0 } );
+      }
+      if ( subtitles.length ) {
+        gsap.set( subtitles, { clipPath: 'inset(0% 100% 0% 0%)', autoAlpha: 0 } );
+      }
+      if ( ctaWrap ) {
+        gsap.set( ctaWrap, { autoAlpha: 0 } );
+      }
+    }
+
+    /* ── Timeline ──────────────────────────────────────────── */
+    var tl = gsap.timeline( { delay: 0.15, defaults: { ease: 'power3.out' } } );
+
+    /* Header drops into place */
+    tl.to( header, { yPercent: 0, duration: 1.0 }, 0 );
+
+    if ( logo ) {
+      tl.to( logo, { autoAlpha: 1, duration: 0.7, ease: 'power2.out' }, 0.42 );
+    }
+    if ( navItems.length ) {
+      tl.to( navItems, { autoAlpha: 1, duration: 0.55, ease: 'power2.out', stagger: 0.07 }, 0.5 );
+    }
+    if ( actions.length ) {
+      tl.to( actions, { autoAlpha: 1, duration: 0.5, ease: 'power2.out', stagger: 0.055 }, 0.58 );
+    }
+
+    if ( ! hero ) return;
+
+    /* LUMÉA — letters contract from wide tracking to natural */
+    if ( heroTitle ) {
+      tl.to( heroTitle, {
+        letterSpacing: naturalLS,
+        scale:         1,
+        autoAlpha:     1,
+        duration:      2.4,
+        ease:          'power3.inOut',
+        onComplete: function () {
+          gsap.set( heroTitle, { clearProps: 'letterSpacing,scale,transform' } );
+        },
+      }, 0.06 );
+    }
+
+    /* Label — precision wipe from right */
+    if ( heroLabel ) {
+      tl.to( heroLabel, {
+        clipPath:  'inset(0% 0% 0% 0%)',
+        autoAlpha: 1,
+        duration:  1.0,
+        ease:      'power4.out',
+        onComplete: function () {
+          gsap.set( heroLabel, { clearProps: 'clipPath' } );
+        },
+      }, 1.05 );
+    }
+
+    /* Subtitles — three horizontal wipes, left to right */
+    if ( subtitles.length ) {
+      tl.to( subtitles, {
+        clipPath:  'inset(0% 0% 0% 0%)',
+        autoAlpha: 1,
+        duration:  0.8,
+        stagger:   0.14,
+        ease:      'power4.out',
+        onComplete: function () {
+          gsap.set( '.subtitles span', { clearProps: 'clipPath' } );
+        },
+      }, 1.2 );
+    }
+
+    /* CTA — appears last, no movement */
+    if ( ctaWrap ) {
+      tl.to( ctaWrap, { autoAlpha: 1, duration: 1.0, ease: 'power2.out' }, 1.55 );
+    }
+
+  } )();
+
 } )();
