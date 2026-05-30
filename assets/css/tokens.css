@@ -19,4 +19,12 @@
   --lumea-font-body: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --lumea-font-serif: "Times New Roman", Times, serif;
   --lumea-font-mono: "Courier New", Courier, monospace;
+
+  --lumea-anim-default: 0.25s ease-in-out;
+  --lumea-anim-primary: 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+  --lumea-anim-fast:    0.15s cubic-bezier(0.7, 0, 0.3, 1);
+  --lumea-anim-smooth:  0.6s cubic-bezier(0.7, 0, 0.3, 1);
+  --lumea-anim-slow:    0.8s cubic-bezier(0.7, 0, 0.3, 1);
+
+  --lumea-clip: 100%;
 }

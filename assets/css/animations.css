@@ -1,0 +1,38 @@
+/* ==========================================================
+   LUMEA — Animation System
+   All scroll-reveal, clip-path, and transition utility
+   classes. JS hooks live in assets/js/animations.js.
+   ========================================================== */
+
+/* ── Clip-path reveal ──────────────────────────────────────── */
+
+.lumea-reveal--clip-js {
+  --lumea-clip: 100%;
+  -webkit-clip-path: inset(var(--lumea-clip) 0 0 0);
+  clip-path: inset(var(--lumea-clip) 0 0 0);
+  will-change: clip-path;
+}
+
+.lumea-clip-done {
+  -webkit-clip-path: none;
+  clip-path: none;
+  will-change: auto;
+}
+
+/* ── Transition utilities ───────────────────────────────────── */
+
+.lumea-transition-def    { transition: var(--lumea-anim-default); }
+.lumea-transition-fast   { transition: var(--lumea-anim-fast); }
+.lumea-transition-smooth { transition: var(--lumea-anim-smooth); }
+.lumea-transition-slow   { transition: var(--lumea-anim-slow); }
+.lumea-transition-none   { transition: none !important; }
+
+/* ── Parallax image sizing ──────────────────────────────────── */
+
+.lumea-parallax--img-js {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

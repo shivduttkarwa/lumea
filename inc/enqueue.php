@@ -84,6 +84,14 @@ function lumea_enqueue_assets() {
 		LUMEA_VERSION
 	);
 
+	/* Scroll-reveal, clip-path reveal, transition utilities */
+	wp_enqueue_style(
+		'lumea-animations',
+		LUMEA_THEME_URI . '/assets/css/animations.css',
+		array( 'lumea-tokens' ),
+		LUMEA_VERSION
+	);
+
 	/* GSAP core */
 	wp_enqueue_script(
 		'gsap',
@@ -125,6 +133,15 @@ function lumea_enqueue_assets() {
 		'lumea-main',
 		LUMEA_THEME_URI . '/assets/js/main.js',
 		array( 'gsap', 'gsap-scrolltrigger', 'gsap-drawsvg', 'gsap-splittext' ),
+		LUMEA_VERSION,
+		true
+	);
+
+	/* Scroll-reveal / parallax animation system — available on all templates */
+	wp_enqueue_script(
+		'lumea-animations',
+		LUMEA_THEME_URI . '/assets/js/animations.js',
+		array( 'gsap', 'gsap-scrolltrigger', 'gsap-splittext' ),
 		LUMEA_VERSION,
 		true
 	);

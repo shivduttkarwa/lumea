@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Scroll Reveals</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        /* Base style for reveal elements */
+        .reveal-item {
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform, opacity;
+        }
+
+        .reveal-item.visible {
+            opacity: 1;
+            transform: translate(0, 0) scale(1) rotate(0deg) blur(0px);
+        }
+
+        /* Animation 1: Fade & Slide Up */
+        .reveal-fade-up {
+            transform: translateY(50px);
+        }
+
+        /* Animation 2: Scale & Blur */
+        .reveal-scale-blur {
+            transform: scale(1.1);
+            filter: blur(10px);
+        }
+
+        /* Animation 3: Clip Reveal (Right to Left) */
+        .reveal-clip {
+            clip-path: inset(0 100% 0 0);
+            transform: translateX(-30px);
+        }
+        .reveal-clip.visible {
+            clip-path: inset(0 0 0 0);
+            transform: translateX(0);
+        }
+
+        /* Animation 4: 3D Rotate / Flip */
+        .reveal-rotate {
+            transform: perspective(1000px) rotateX(-30deg) translateY(50px);
+        }
+
+        /* Animation 5: Zoom and Slide */
+        .reveal-zoom-slide {
+            transform: scale(0.5) translateY(100px);
+        }
+
+        .image-card {
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            background: #1e293b;
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .image-card:hover img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dummy Hero Section -->
+    <section class="h-screen flex flex-col items-center justify-center text-center px-4 bg-gradient-to-b from-slate-900 to-slate-800">
+        <h1 class="text-6xl font-bold mb-6 tracking-tight">Elegant <span class="text-indigo-400">Scroll Reveal</span></h1>
+        <p class="text-xl text-slate-400 max-w-2xl">Explore 5 different styles of image reveal animations. Scroll down to experience the magic of smooth transitions and modern aesthetics.</p>
+        <div class="mt-12 animate-bounce">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </section>
+
+    <!-- Section 1: Fade & Slide Up -->
+    <section class="py-24 px-8 max-w-7xl mx-auto">
+        <h2 class="text-3xl font-semibold mb-12 text-center">01. Fade & Slide Up</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="reveal-item reveal-fade-up image-card h-64 md:col-span-2">
+                <img src="https://picsum.photos/800/400?random=1" alt="Image 1">
+            </div>
+            <div class="reveal-item reveal-fade-up image-card h-64" style="transition-delay: 0.1s">
+                <img src="https://picsum.photos/400/400?random=2" alt="Image 2">
+            </div>
+            <div class="reveal-item reveal-fade-up image-card h-64" style="transition-delay: 0.2s">
+                <img src="https://picsum.photos/400/400?random=3" alt="Image 3">
+            </div>
+            <div class="reveal-item reveal-fade-up image-card h-64 md:col-span-2" style="transition-delay: 0.3s">
+                <img src="https://picsum.photos/800/400?random=4" alt="Image 4">
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Scale & Blur -->
+    <section class="py-24 px-8 max-w-7xl mx-auto bg-slate-800/50 rounded-3xl my-12">
+        <h2 class="text-3xl font-semibold mb-12 text-center">02. Scale & Blur</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="reveal-item reveal-scale-blur image-card h-80">
+                <img src="https://picsum.photos/400/600?random=5" alt="Image 5">
+            </div>
+            <div class="reveal-item reveal-scale-blur image-card h-80" style="transition-delay: 0.1s">
+                <img src="https://picsum.photos/400/600?random=6" alt="Image 6">
+            </div>
+            <div class="reveal-item reveal-scale-blur image-card h-80" style="transition-delay: 0.2s">
+                <img src="https://picsum.photos/400/600?random=7" alt="Image 7">
+            </div>
+            <div class="reveal-item reveal-scale-blur image-card h-80" style="transition-delay: 0.3s">
+                <img src="https://picsum.photos/400/600?random=8" alt="Image 8">
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Clip Path Reveal -->
+    <section class="py-24 px-8 max-w-7xl mx-auto">
+        <h2 class="text-3xl font-semibold mb-12 text-center">03. Clip Path Mask</h2>
+        <div class="flex flex-wrap justify-center gap-8">
+            <div class="reveal-item reveal-clip image-card w-full md:w-1/3 h-96">
+                <img src="https://picsum.photos/500/700?random=9" alt="Image 9">
+            </div>
+            <div class="reveal-item reveal-clip image-card w-full md:w-1/3 h-96" style="transition-delay: 0.2s">
+                <img src="https://picsum.photos/500/700?random=10" alt="Image 10">
+            </div>
+            <div class="reveal-item reveal-clip image-card w-full md:w-1/3 h-96" style="transition-delay: 0.4s">
+                <img src="https://picsum.photos/500/700?random=11" alt="Image 11">
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: 3D Rotate -->
+    <section class="py-24 px-8 max-w-7xl mx-auto bg-slate-800/50 rounded-3xl my-12">
+        <h2 class="text-3xl font-semibold mb-12 text-center">04. 3D Rotation</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="reveal-item reveal-rotate image-card h-[500px]">
+                <img src="https://picsum.photos/600/800?random=12" alt="Image 12">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="reveal-item reveal-rotate image-card h-60" style="transition-delay: 0.2s">
+                    <img src="https://picsum.photos/300/300?random=13" alt="Image 13">
+                </div>
+                <div class="reveal-item reveal-rotate image-card h-60" style="transition-delay: 0.4s">
+                    <img src="https://picsum.photos/300/300?random=14" alt="Image 14">
+                </div>
+                <div class="reveal-item reveal-rotate image-card h-60" style="transition-delay: 0.6s">
+                    <img src="https://picsum.photos/300/300?random=15" alt="Image 15">
+                </div>
+                <div class="reveal-item reveal-rotate image-card h-60" style="transition-delay: 0.8s">
+                    <img src="https://picsum.photos/300/300?random=16" alt="Image 16">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Zoom and Slide -->
+    <section class="py-24 px-8 max-w-7xl mx-auto">
+        <h2 class="text-3xl font-semibold mb-12 text-center">05. Zoom & Slide</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="reveal-item reveal-zoom-slide image-card h-64" style="transition-delay: 0.1s">
+                <img src="https://picsum.photos/400/300?random=17" alt="Image 17">
+            </div>
+            <div class="reveal-item reveal-zoom-slide image-card h-96" style="transition-delay: 0.3s">
+                <img src="https://picsum.photos/400/500?random=18" alt="Image 18">
+            </div>
+            <div class="reveal-item reveal-zoom-slide image-card h-64" style="transition-delay: 0.5s">
+                <img src="https://picsum.photos/400/300?random=19" alt="Image 19">
+            </div>
+            <div class="reveal-item reveal-zoom-slide image-card h-64 md:col-span-3" style="transition-delay: 0.7s">
+                <img src="https://picsum.photos/1200/400?random=20" alt="Image 20">
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 text-center text-slate-500 text-sm">
+        &copy; 2026 Elegant Reveals. Built with Passion.
+    </footer>
+
+    <script>
+        const observerOptions = {
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-item').forEach(item => {
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>
