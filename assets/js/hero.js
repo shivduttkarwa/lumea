@@ -12,16 +12,81 @@
   const heroLabel = document.querySelector( '[data-lumea-hero-label]' );
   const baseLayer = document.createElement( 'canvas' );
   const baseCtx   = baseLayer.getContext( '2d', { alpha: false } );
-  let heroLabelNext = null;
 
-  if ( heroLabel && heroLabel.parentNode ) {
-    heroLabel.classList.add( 'lumea-hero-label-layer', 'is-current' );
-    heroLabelNext = heroLabel.cloneNode( true );
-    heroLabelNext.id = heroLabel.id ? heroLabel.id + '-next' : 'heroLabelNext';
-    heroLabelNext.removeAttribute( 'data-lumea-hero-label' );
-    heroLabelNext.setAttribute( 'aria-hidden', 'true' );
-    heroLabelNext.classList.add( 'lumea-hero-label-layer', 'is-next' );
-    heroLabel.parentNode.insertBefore( heroLabelNext, heroLabel.nextSibling );
+  /* ── GSAP + SplitText label setup ───────────────────────────── */
+  const gsapOk    = typeof gsap !== 'undefined';
+  const stOk      = gsapOk && typeof SplitText !== 'undefined';
+  let   labelSplit = null;   /* SplitText instance, rebuilt on each text swap */
+  let   labelAnimTriggered = false; /* guard: fire GSAP only once per transition */
+  let   pendingLabelIndex  = -1;    /* next label value, staged before wave arrives */
+  let   pendingLabelDir    = 0;
+
+  /* Pre-split on load so chars exist immediately */
+  function splitLabel() {
+    if ( ! heroLabel || ! stOk ) return;
+    if ( labelSplit ) { try { labelSplit.revert(); } catch(e){} }
+    labelSplit = new SplitText( heroLabel, { type: 'chars,words' } );
+    gsap.set( labelSplit.chars, { transformOrigin: 'bottom center' } );
+  }
+
+  /* Stage the new label text (hidden) so it's ready the moment the
+     wave arrives. The actual GSAP play is deferred to fireWaveLabelAnim(). */
+  function setHeroLabel( index, dir ) {
+    if ( ! heroLabel ) return;
+
+    pendingLabelIndex    = index;
+    pendingLabelDir      = dir || 0;
+    labelAnimTriggered   = false;
+
+    if ( ! gsapOk ) {
+      /* Fallback: just update text immediately */
+      heroLabel.textContent = getHeroLabelValue( index );
+    }
+    /* With GSAP: text + animation are applied in fireWaveLabelAnim()
+       triggered from the render loop when the wave crosses the label. */
+  }
+
+  /* Called from render loop at the exact frame the wave edge passes
+     the label element — gives pixel-accurate sync with the wave.     */
+  function fireWaveLabelAnim() {
+    if ( labelAnimTriggered || pendingLabelIndex < 0 ) return;
+    labelAnimTriggered = true;
+
+    if ( ! gsapOk ) return;
+
+    const dir   = pendingLabelDir;
+    const value = getHeroLabelValue( pendingLabelIndex );
+
+    /* Kill any running tween on the label */
+    gsap.killTweensOf( heroLabel );
+    if ( labelSplit ) gsap.killTweensOf( labelSplit.chars );
+
+    /* Swap text and rebuild split */
+    heroLabel.textContent = value;
+    splitLabel();
+
+    if ( ! labelSplit || ! labelSplit.chars.length ) return;
+
+    const chars  = labelSplit.chars;
+    const fromX  = dir === 1 ? -28 : 28;   /* slide in from wave direction */
+
+    /* Exit: instantly hide chars (they just appeared with new text) */
+    gsap.set( chars, { opacity: 0, y: 18, x: fromX, rotateX: -55, filter: 'blur(6px)' } );
+
+    /* Enter: stagger each character in */
+    gsap.to( chars, {
+      opacity:  1,
+      y:        0,
+      x:        0,
+      rotateX:  0,
+      filter:   'blur(0px)',
+      duration: 0.55,
+      ease:     'power3.out',
+      stagger: {
+        each:   0.045,
+        from:   dir === 1 ? 'start' : 'end',
+      },
+    } );
   }
 
   /* ── Resolve image list ──────────────────────────────────────── */
@@ -47,69 +112,9 @@
   } )();
 
   function getHeroLabelValue( index ) {
-    const fallbackLabel = String( rawLabels[0] || heroLabel.textContent || '' ).trim();
-    const label         = String( rawLabels[index] || fallbackLabel ).trim();
-    return label || fallbackLabel;
-  }
-
-  function setHeroLabel( index ) {
-    if ( ! heroLabel ) return;
-    heroLabel.textContent = getHeroLabelValue( index );
-  }
-
-  function setNextHeroLabel( index ) {
-    if ( ! heroLabelNext ) return;
-    heroLabelNext.textContent = getHeroLabelValue( index );
-  }
-
-  function clearHeroLabelWaveClip() {
-    if ( ! heroLabel || ! heroLabelNext ) return;
-    heroLabel.style.clipPath = 'none';
-    heroLabelNext.style.clipPath = 'inset(0 100% 0 0)';
-    heroLabelNext.style.opacity = '0';
-  }
-
-  function buildHeroLabelWavePolygon( getWaveX, side, labelRect, heroRect ) {
-    const points = [];
-    const stepY  = 4;
-    const localLeft = labelRect.left - heroRect.left;
-    const localW    = labelRect.width;
-    const localH    = labelRect.height;
-    const topOffset = labelRect.top - heroRect.top;
-    const clampX = function ( x ) {
-      return Math.max( -2, Math.min( localW + 2, x ) );
-    };
-
-    if ( side === 'left' ) {
-      points.push( '0px 0px' );
-      points.push( clampX( getWaveX( topOffset ) - localLeft ) + 'px 0px' );
-      for ( let y = 0; y <= localH; y += stepY ) {
-        points.push( clampX( getWaveX( topOffset + y ) - localLeft ) + 'px ' + y + 'px' );
-      }
-      points.push( '0px ' + localH + 'px' );
-    } else {
-      points.push( localW + 'px 0px' );
-      points.push( clampX( getWaveX( topOffset ) - localLeft ) + 'px 0px' );
-      for ( let y = 0; y <= localH; y += stepY ) {
-        points.push( clampX( getWaveX( topOffset + y ) - localLeft ) + 'px ' + y + 'px' );
-      }
-      points.push( localW + 'px ' + localH + 'px' );
-    }
-
-    return 'polygon(' + points.join( ',' ) + ')';
-  }
-
-  function applyHeroLabelWaveClip( getWaveX ) {
-    if ( ! heroLabel || ! heroLabelNext ) return;
-
-    const heroRect  = hero.getBoundingClientRect();
-    const labelRect = heroLabel.getBoundingClientRect();
-    const nextSide  = transitionDir === 1 ? 'left' : 'right';
-    const currSide  = transitionDir === 1 ? 'right' : 'left';
-
-    heroLabelNext.style.opacity = '1';
-    heroLabelNext.style.clipPath = buildHeroLabelWavePolygon( getWaveX, nextSide, labelRect, heroRect );
-    heroLabel.style.clipPath     = buildHeroLabelWavePolygon( getWaveX, currSide, labelRect, heroRect );
+    if ( ! heroLabel ) return '';
+    const fallback = String( rawLabels[0] || heroLabel.textContent || '' ).trim();
+    return String( rawLabels[ index ] || fallback ).trim() || fallback;
   }
 
   /* ── Preload ─────────────────────────────────────────────────── */
@@ -211,7 +216,6 @@
     if ( ! isTransitioning ) {
       /* ── Static display ─────────────────────────────────────── */
       tCtx.drawImage( curr, c.dx, c.dy, c.dw, c.dh );
-      clearHeroLabelWaveClip();
 
     } else {
       /* ── Fluid transition ───────────────────────────────────── */
@@ -237,7 +241,22 @@
           0.35 * Math.sin( y * 0.025 - t * 2.3 )
         );
       };
-      applyHeroLabelWaveClip( getWaveX );
+
+      /* ── Wave-position label trigger ──────────────────────────
+         Fire the GSAP animation the exact frame the wave edge
+         passes the label element's leading edge.                */
+      if ( ! labelAnimTriggered && heroLabel ) {
+        const heroRect  = hero.getBoundingClientRect();
+        const lRect     = heroLabel.getBoundingClientRect();
+        const lLeading  = transitionDir === 1
+          ? lRect.left  - heroRect.left   /* LTR: wave approaches from left */
+          : lRect.right - heroRect.left;  /* RTL: wave approaches from right */
+        const waveAtLabel = getWaveX( lRect.top - heroRect.top + lRect.height / 2 );
+        const crossed = transitionDir === 1
+          ? waveAtLabel >= lLeading
+          : waveAtLabel <= lLeading;
+        if ( crossed ) fireWaveLabelAnim();
+      }
 
       /* Draw old image as the base layer */
       tCtx.drawImage( curr, c.dx, c.dy, c.dw, c.dh );
@@ -394,7 +413,7 @@
           transitionDir   = ( transitionCount % 2 === 0 ) ? 1 : -1;
           transitionCount++;
           nextIndex       = ( currentIndex + 1 ) % activeCount;
-          setNextHeroLabel( nextIndex );
+          setHeroLabel( nextIndex, transitionDir );
         }
 
         if ( isTransitioning ) {
@@ -406,8 +425,7 @@
             isTransitioning = false;
             crossfade       = 0;
             lastSlideTime   = timestamp;
-            setHeroLabel( currentIndex );
-            clearHeroLabelWaveClip();
+
           }
         }
       }
@@ -450,9 +468,11 @@
   hero.addEventListener( 'pointerleave', function () { pointer.inside = false; } );
 
   resizeCanvas();
-  setHeroLabel( currentIndex );
-  setNextHeroLabel( currentIndex );
-  clearHeroLabelWaveClip();
+
+  /* Set initial label text and split it for GSAP */
+  heroLabel && ( heroLabel.textContent = getHeroLabelValue( 0 ) );
+  splitLabel();
+
   requestAnimationFrame( render );
 
 } )();

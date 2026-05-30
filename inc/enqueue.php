@@ -158,7 +158,7 @@ function lumea_enqueue_assets() {
 		wp_enqueue_script(
 			'lumea-hero',
 			LUMEA_THEME_URI . '/assets/js/hero.js',
-			array(),
+			array( 'gsap', 'gsap-splittext' ),
 			LUMEA_VERSION,
 			true
 		);
