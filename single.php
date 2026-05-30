@@ -16,45 +16,42 @@ get_header();
 		$categories       = get_the_category();
 		$cat_name         = $categories ? $categories[0]->name : '';
 		$reading_time     = max( 1, round( str_word_count( strip_tags( get_the_content() ) ) / 200 ) );
-		$featured_img_url = has_post_thumbnail() ? esc_url( get_the_post_thumbnail_url( null, 'full' ) ) : '';
+		$posts_page_id    = (int) get_option( 'page_for_posts' );
+		$blog_page        = get_page_by_path( 'blog' );
+		$journal_url      = $posts_page_id
+			? get_permalink( $posts_page_id )
+			: ( $blog_page ? get_permalink( $blog_page ) : home_url( '/blog/' ) );
+		$single_hero_bg   = get_theme_mod( 'lumea_blog_single_hero_bg', LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg' );
+		$single_hero_sub  = get_theme_mod( 'lumea_blog_single_hero_subtitle', 'Rituals, ingredients, and the science of radiant skin.' );
 	?>
 
-	<!-- Post hero — dark editorial, featured image as background, breadcrumb embedded -->
-	<div class="lumea-post-hero"<?php echo $featured_img_url ? ' style="--post-bg: url(\'' . $featured_img_url . '\')"' : ''; ?>>
-		<div class="lumea-post-hero-overlay"></div>
-
-		<nav class="lumea-pdp-breadcrumb lumea-post-hero-bc" aria-label="<?php esc_attr_e( 'Breadcrumb', 'lumea' ); ?>">
-			<div class="lumea-pdp-bc-inner">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'lumea' ); ?></a>
-				<svg class="lumea-pdp-bc-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-				<a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ?: home_url( '/journal/' ) ); ?>"><?php esc_html_e( 'Journal', 'lumea' ); ?></a>
-				<svg class="lumea-pdp-bc-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-				<span aria-current="page"><?php the_title(); ?></span>
-			</div>
-		</nav>
-
-		<div class="lumea-post-hero-inner">
-			<?php if ( $cat_name ) : ?>
-			<p class="lumea-cart-eyebrow"><?php echo esc_html( $cat_name ); ?></p>
+	<!-- Post hero — same structure as shop/blog listing hero -->
+	<div class="lumea-shop-hero" style="--shop-bg: url('<?php echo esc_url( $single_hero_bg ); ?>')">
+		<div class="lumea-shop-hero-overlay"></div>
+		<div class="lumea-shop-hero-inner">
+			<h1 class="lumea-shop-hero-title"><?php the_title(); ?></h1>
+			<?php if ( $single_hero_sub ) : ?>
+			<p class="lumea-shop-hero-desc"><?php echo esc_html( $single_hero_sub ); ?></p>
 			<?php endif; ?>
-			<h1 class="lumea-post-title"><?php the_title(); ?></h1>
-			<div class="lumea-post-meta">
-				<span class="lumea-post-author">
-					<?php echo esc_html( get_the_author() ); ?>
-				</span>
-				<span class="lumea-post-sep" aria-hidden="true">&middot;</span>
-				<time class="lumea-post-date" datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
-					<?php echo esc_html( get_the_date() ); ?>
-				</time>
-				<span class="lumea-post-sep" aria-hidden="true">&middot;</span>
-				<span class="lumea-post-read"><?php printf( esc_html__( '%d min read', 'lumea' ), $reading_time ); ?></span>
-			</div>
 		</div>
 	</div>
 
 	<!-- Content -->
 	<div class="lumea-post-body">
 		<div class="lumea-post-body-inner">
+			<div class="lumea-post-meta-row">
+				<?php if ( $cat_name ) : ?>
+				<span class="lumea-post-meta-pill"><?php echo esc_html( $cat_name ); ?></span>
+				<?php endif; ?>
+				<span class="lumea-post-meta-item"><?php echo esc_html( get_the_author() ); ?></span>
+				<span class="lumea-post-meta-sep" aria-hidden="true">&middot;</span>
+				<time class="lumea-post-meta-item" datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
+					<?php echo esc_html( get_the_date() ); ?>
+				</time>
+				<span class="lumea-post-meta-sep" aria-hidden="true">&middot;</span>
+				<span class="lumea-post-meta-item"><?php printf( esc_html__( '%d min read', 'lumea' ), $reading_time ); ?></span>
+			</div>
+
 			<article class="lumea-post-content entry-content">
 				<?php the_content(); ?>
 				<?php wp_link_pages( array( 'before' => '<nav class="page-links">', 'after' => '</nav>' ) ); ?>
@@ -80,6 +77,13 @@ get_header();
 				</a>
 			</div>
 
+			<div class="lumea-post-back-wrap">
+				<a href="<?php echo esc_url( $journal_url ); ?>" class="lumea-post-back-link">
+					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+					<?php esc_html_e( 'Back to Journal', 'lumea' ); ?>
+				</a>
+			</div>
+
 			<!-- Author box -->
 			<div class="lumea-post-author-box">
 				<?php echo get_avatar( get_the_author_meta( 'user_email' ), 64, '', '', array( 'class' => 'lumea-post-author-avatar' ) ); ?>
@@ -90,6 +94,28 @@ get_header();
 					<?php endif; ?>
 				</div>
 			</div>
+
+			<?php
+			$lumea_prev_post = get_previous_post();
+			$lumea_next_post = get_next_post();
+			if ( $lumea_prev_post || $lumea_next_post ) :
+			?>
+			<nav class="lumea-post-nav" aria-label="<?php esc_attr_e( 'Article navigation', 'lumea' ); ?>">
+				<?php if ( $lumea_prev_post ) : ?>
+				<a class="lumea-post-nav-item lumea-post-nav-item--prev" href="<?php echo esc_url( get_permalink( $lumea_prev_post->ID ) ); ?>">
+					<span class="lumea-post-nav-label"><?php esc_html_e( 'Previous', 'lumea' ); ?></span>
+					<span class="lumea-post-nav-title"><?php echo esc_html( get_the_title( $lumea_prev_post->ID ) ); ?></span>
+				</a>
+				<?php endif; ?>
+
+				<?php if ( $lumea_next_post ) : ?>
+				<a class="lumea-post-nav-item lumea-post-nav-item--next" href="<?php echo esc_url( get_permalink( $lumea_next_post->ID ) ); ?>">
+					<span class="lumea-post-nav-label"><?php esc_html_e( 'Next', 'lumea' ); ?></span>
+					<span class="lumea-post-nav-title"><?php echo esc_html( get_the_title( $lumea_next_post->ID ) ); ?></span>
+				</a>
+				<?php endif; ?>
+			</nav>
+			<?php endif; ?>
 
 		</div>
 	</div>

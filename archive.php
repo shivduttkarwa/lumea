@@ -9,38 +9,35 @@ defined( 'ABSPATH' ) || exit;
 
 get_header();
 
-$paged       = max( 1, get_query_var( 'paged' ) );
-$total_posts = $wp_query->found_posts;
+$posts_page_id = (int) get_option( 'page_for_posts' );
+$blog_page     = get_page_by_path( 'blog' );
+$blog_index_url = $posts_page_id
+	? get_permalink( $posts_page_id )
+	: ( $blog_page ? get_permalink( $blog_page ) : home_url( '/' ) );
+
+$hero_bg_image      = get_theme_mod( 'lumea_blog_hero_bg', LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg' );
+$blog_hero_title    = get_theme_mod( 'lumea_blog_hero_title', 'The Journal' );
+$blog_hero_subtitle = get_theme_mod( 'lumea_blog_hero_subtitle', 'Rituals, ingredients, and the science of radiant skin.' );
 ?>
 
 <main class="lumea-blog-page" id="lumeaPage">
 
-	<!-- Hero — dark editorial, breadcrumb embedded inside -->
-	<div class="lumea-blog-hero">
-		<div class="lumea-blog-hero-overlay"></div>
-
-		<nav class="lumea-pdp-breadcrumb lumea-blog-hero-bc" aria-label="<?php esc_attr_e( 'Breadcrumb', 'lumea' ); ?>">
-			<div class="lumea-pdp-bc-inner">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'lumea' ); ?></a>
-				<svg class="lumea-pdp-bc-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-				<span aria-current="page"><?php esc_html_e( 'Journal', 'lumea' ); ?></span>
-			</div>
-		</nav>
-
-		<div class="lumea-blog-hero-inner">
-			<p class="lumea-cart-eyebrow"><?php esc_html_e( 'Skin Stories', 'lumea' ); ?></p>
-			<h1 class="lumea-blog-title">
+	<!-- Hero — aligned with shop hero design -->
+	<div class="lumea-shop-hero" style="--shop-bg: url('<?php echo esc_url( $hero_bg_image ); ?>')">
+		<div class="lumea-shop-hero-overlay"></div>
+		<div class="lumea-shop-hero-inner">
+			<h1 class="lumea-shop-hero-title">
 				<?php
 				if ( is_category() ) {
 					echo esc_html( single_cat_title( '', false ) );
 				} elseif ( is_tag() ) {
 					echo esc_html( single_tag_title( '', false ) );
 				} else {
-					esc_html_e( 'The Journal', 'lumea' );
+					echo esc_html( $blog_hero_title );
 				}
 				?>
 			</h1>
-			<p class="lumea-blog-subtitle"><?php esc_html_e( 'Rituals, ingredients, and the science of radiant skin.', 'lumea' ); ?></p>
+			<p class="lumea-shop-hero-desc"><?php echo esc_html( $blog_hero_subtitle ); ?></p>
 		</div>
 	</div>
 
@@ -51,7 +48,7 @@ $total_posts = $wp_query->found_posts;
 	?>
 	<div class="lumea-blog-cats">
 		<div class="lumea-blog-cats-inner">
-			<a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ?: home_url( '/' ); ); ?>"
+			<a href="<?php echo esc_url( $blog_index_url ); ?>"
 			   class="lumea-filter-pill <?php echo ! is_category() && ! is_tag() ? 'is-active' : ''; ?>">
 				<?php esc_html_e( 'All', 'lumea' ); ?>
 			</a>
@@ -132,7 +129,11 @@ $total_posts = $wp_query->found_posts;
 						</h2>
 						<p class="lumea-blog-card-excerpt"><?php echo wp_trim_words( get_the_excerpt(), 18, '&hellip;' ); ?></p>
 						<div class="lumea-blog-card-footer">
-							<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>" class="lumea-blog-card-date"><?php echo esc_html( get_the_date( 'M j, Y' ) ); ?></time>
+							<div class="lumea-blog-card-meta">
+								<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>" class="lumea-blog-card-date"><?php echo esc_html( get_the_date( 'M j, Y' ) ); ?></time>
+								<span aria-hidden="true">&middot;</span>
+								<span class="lumea-blog-card-read"><?php printf( esc_html__( '%d min', 'lumea' ), (int) $read_time ); ?></span>
+							</div>
 							<a href="<?php the_permalink(); ?>" class="lumea-blog-card-link">
 								<?php esc_html_e( 'Read', 'lumea' ); ?>
 								<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>

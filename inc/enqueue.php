@@ -84,11 +84,47 @@ function lumea_enqueue_assets() {
 		LUMEA_VERSION
 	);
 
+	/* GSAP core */
+	wp_enqueue_script(
+		'gsap',
+		'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js',
+		array(),
+		null,
+		true
+	);
+
+	/* GSAP ScrollTrigger */
+	wp_enqueue_script(
+		'gsap-scrolltrigger',
+		'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js',
+		array( 'gsap' ),
+		null,
+		true
+	);
+
+	/* GSAP DrawSVGPlugin */
+	wp_enqueue_script(
+		'gsap-drawsvg',
+		'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/DrawSVGPlugin.min.js',
+		array( 'gsap' ),
+		null,
+		true
+	);
+
+	/* GSAP SplitText */
+	wp_enqueue_script(
+		'gsap-splittext',
+		'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/SplitText.min.js',
+		array( 'gsap' ),
+		null,
+		true
+	);
+
 	/* Main script */
 	wp_enqueue_script(
 		'lumea-main',
 		LUMEA_THEME_URI . '/assets/js/main.js',
-		array(),
+		array( 'gsap', 'gsap-scrolltrigger', 'gsap-drawsvg', 'gsap-splittext' ),
 		LUMEA_VERSION,
 		true
 	);
@@ -229,21 +265,7 @@ function lumea_enqueue_assets() {
 			true
 		);
 
-		/* GSAP + ScrollTrigger (ritual section) */
-		wp_enqueue_script(
-			'gsap',
-			'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js',
-			array(),
-			null,
-			true
-		);
-		wp_enqueue_script(
-			'gsap-scrolltrigger',
-			'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js',
-			array( 'gsap' ),
-			null,
-			true
-		);
+		/* Ritual section scroll animations */
 		wp_enqueue_script(
 			'lumea-ritual',
 			LUMEA_THEME_URI . '/assets/js/ritual.js',

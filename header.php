@@ -62,16 +62,19 @@ if ( $lumea_has_wc ) {
 				'container'      => false,
 				'menu_class'     => 'lumea-nav-list',
 				'fallback_cb'    => function() {
-					$shop_url    = function_exists( 'wc_get_page_id' ) && wc_get_page_id( 'shop' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : home_url( '/shop/' );
-					$blog_url    = get_option( 'page_for_posts' ) ? get_permalink( get_option( 'page_for_posts' ) ) : home_url( '/blog/' );
-					$about_page  = get_page_by_path( 'about' );
-					$about_url   = $about_page ? get_permalink( $about_page ) : home_url( '/about/' );
-					$contact_page = get_page_by_path( 'contact' );
-					$contact_url  = $contact_page ? get_permalink( $contact_page ) : home_url( '/contact/' );
+					$shop_url         = function_exists( 'wc_get_page_id' ) && wc_get_page_id( 'shop' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : home_url( '/shop/' );
+					$blog_url         = get_option( 'page_for_posts' ) ? get_permalink( get_option( 'page_for_posts' ) ) : home_url( '/blog/' );
+					$about_page       = get_page_by_path( 'about' );
+					$about_url        = $about_page ? get_permalink( $about_page ) : home_url( '/about/' );
+					$contact_page     = get_page_by_path( 'contact' );
+					$contact_url      = $contact_page ? get_permalink( $contact_page ) : home_url( '/contact/' );
+					$bestseller_term  = get_term_by( 'name', 'Bestseller', 'product_cat' );
+					$bestseller_url   = $bestseller_term ? get_term_link( $bestseller_term ) : $shop_url;
 					echo '<ul class="lumea-nav-list">';
 					$links = array(
+						array( esc_html__( 'Home',       'lumea' ), home_url( '/' ) ),
 						array( esc_html__( 'Shop',       'lumea' ), $shop_url ),
-						array( esc_html__( 'Bestsellers','lumea' ), home_url( '/#lumeaBest' ) ),
+						array( esc_html__( 'Bestsellers','lumea' ), $bestseller_url ),
 						array( esc_html__( 'Blog',       'lumea' ), $blog_url ),
 						array( esc_html__( 'About',      'lumea' ), $about_url ),
 						array( esc_html__( 'Contact',    'lumea' ), $contact_url ),
@@ -258,16 +261,19 @@ if ( $lumea_has_wc ) {
 				'container'      => false,
 				'menu_class'     => 'lumea-mobile-nav-list',
 				'fallback_cb'    => function() {
-					$shop_url    = function_exists( 'wc_get_page_id' ) && wc_get_page_id( 'shop' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : home_url( '/shop/' );
-					$blog_url    = get_option( 'page_for_posts' ) ? get_permalink( get_option( 'page_for_posts' ) ) : home_url( '/blog/' );
-					$about_page  = get_page_by_path( 'about' );
-					$about_url   = $about_page ? get_permalink( $about_page ) : home_url( '/about/' );
-					$contact_page = get_page_by_path( 'contact' );
-					$contact_url  = $contact_page ? get_permalink( $contact_page ) : home_url( '/contact/' );
+					$shop_url         = function_exists( 'wc_get_page_id' ) && wc_get_page_id( 'shop' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : home_url( '/shop/' );
+					$blog_url         = get_option( 'page_for_posts' ) ? get_permalink( get_option( 'page_for_posts' ) ) : home_url( '/blog/' );
+					$about_page       = get_page_by_path( 'about' );
+					$about_url        = $about_page ? get_permalink( $about_page ) : home_url( '/about/' );
+					$contact_page     = get_page_by_path( 'contact' );
+					$contact_url      = $contact_page ? get_permalink( $contact_page ) : home_url( '/contact/' );
+					$bestseller_term  = get_term_by( 'name', 'Bestseller', 'product_cat' );
+					$bestseller_url   = $bestseller_term ? get_term_link( $bestseller_term ) : $shop_url;
 					echo '<ul class="lumea-mobile-nav-list">';
 					$links = array(
+						array( esc_html__( 'Home',       'lumea' ), home_url( '/' ) ),
 						array( esc_html__( 'Shop',       'lumea' ), $shop_url ),
-						array( esc_html__( 'Bestsellers','lumea' ), home_url( '/#lumeaBest' ) ),
+						array( esc_html__( 'Bestsellers','lumea' ), $bestseller_url ),
 						array( esc_html__( 'Blog',       'lumea' ), $blog_url ),
 						array( esc_html__( 'About',      'lumea' ), $about_url ),
 						array( esc_html__( 'Contact',    'lumea' ), $contact_url ),
