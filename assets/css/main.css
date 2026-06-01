@@ -4259,28 +4259,371 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 .lumea-pdp-acc-content ul, .lumea-pdp-acc-content ol { padding-left: 20px; margin: 0 0 12px; }
 .lumea-pdp-acc-content li { margin-bottom: 6px; }
 
-/* ── Reviews ────────────────────────────────────────────── */
-.lumea-pdp-reviews { background: #fff; padding: 80px 0; border-top: 1px solid var(--lumea-border); }
-.lumea-pdp-reviews-inner { width: min(100% - 48px, 800px); margin-inline: auto; }
-.lumea-pdp-reviews-head { display: flex; align-items: center; justify-content: space-between; gap: 32px; margin-bottom: 48px; flex-wrap: wrap; }
-.lumea-pdp-rev-score { display: flex; align-items: center; gap: 16px; }
-.lumea-pdp-rev-avg { font-family: "ClashDisplay-Variable", "Clash Display", Inter, sans-serif; font-size: 56px; font-weight: 400; letter-spacing: -0.04em; line-height: 1; color: var(--lumea-text); }
-.lumea-pdp-rev-meta .lumea-pdp-stars { margin-bottom: 4px; }
-.lumea-pdp-rev-meta p { margin: 0; font-family: Inter, sans-serif; font-size: 12px; color: var(--lumea-muted); }
-.lumea-pdp-reviews-title { margin: 0; font-family: "ClashDisplay-Variable", "Clash Display", Inter, sans-serif; font-size: clamp(26px, 3.5vw, 40px); font-weight: 400; letter-spacing: -0.03em; color: var(--lumea-text); text-align: right; }
-.lumea-pdp-reviews-inner #reviews { font-family: Inter, sans-serif; }
-.lumea-pdp-reviews-inner .comment-text { border: 1px solid var(--lumea-border); border-radius: 16px; padding: 22px 24px; background: var(--lumea-bg); margin-bottom: 16px; }
-.lumea-pdp-reviews-inner .woocommerce-review__author { font-weight: 700; color: var(--lumea-text); }
-.lumea-pdp-reviews-inner .woocommerce-review__date { font-size: 12px; color: var(--lumea-muted); }
-.lumea-pdp-reviews-inner #respond { margin-top: 48px; padding-top: 48px; border-top: 1px solid var(--lumea-border); }
-.lumea-pdp-reviews-inner #respond h3 { font-family: "ClashDisplay-Variable", "Clash Display", Inter, sans-serif; font-size: 24px; font-weight: 400; letter-spacing: -0.02em; margin: 0 0 22px; }
+/* ══════════════════════════════════════════════════════════
+   REVIEWS — full redesign
+   ══════════════════════════════════════════════════════════ */
+
+/* ── WooCommerce star-rating DISPLAY (existing reviews) ── */
+.star-rating {
+  overflow: hidden;
+  position: relative;
+  height: 1em;
+  line-height: 1;
+  font-size: 16px;
+  width: 5.3em;
+  display: inline-block;
+  vertical-align: middle;
+}
+.star-rating::before {
+  content: '★★★★★';
+  color: #e0d5d0;
+  float: left;
+  top: 0; left: 0;
+  position: absolute;
+  letter-spacing: 3px;
+  font-family: inherit;
+}
+.star-rating span {
+  overflow: hidden;
+  float: left;
+  top: 0; left: 0;
+  position: absolute;
+  padding-top: 1.5em;
+}
+.star-rating span::before {
+  content: '★★★★★';
+  position: absolute;
+  top: 0; left: 0;
+  color: var(--lumea-accent);
+  letter-spacing: 3px;
+  font-family: inherit;
+}
+
+/* ── WooCommerce star-rating INPUT (review form) ── */
+.lumea-pdp-reviews-inner p.stars,
+.comment-form-rating p.stars {
+  display: flex;
+  align-items: center;
+  margin: 0 0 20px;
+  line-height: 1;
+}
+.lumea-pdp-reviews-inner p.stars span,
+.comment-form-rating p.stars span {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+.lumea-pdp-reviews-inner p.stars a,
+.comment-form-rating p.stars a {
+  display: inline-block;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+  /* hide the screen-reader text */
+  font-size: 0;
+  color: transparent;
+}
+.lumea-pdp-reviews-inner p.stars a::before,
+.comment-form-rating p.stars a::before {
+  content: '★';
+  font-size: 24px;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e0d5d0;
+  transition: color 0.14s, transform 0.12s;
+  line-height: 1;
+}
+/* All stars up to and including hovered one turn accent */
+.lumea-pdp-reviews-inner p.stars a:hover::before,
+.lumea-pdp-reviews-inner p.stars a.active::before,
+.comment-form-rating p.stars a:hover::before,
+.comment-form-rating p.stars a.active::before {
+  color: var(--lumea-accent);
+  transform: scale(1.18);
+}
+/* Stars AFTER hovered one go grey */
+.lumea-pdp-reviews-inner p.stars a:hover ~ a::before,
+.comment-form-rating p.stars a:hover ~ a::before {
+  color: #e0d5d0;
+  transform: scale(1);
+}
+/* When a rating is already chosen, hover from outside greys all */
+.lumea-pdp-reviews-inner p.stars:hover a.active ~ a::before,
+.comment-form-rating p.stars:hover a.active ~ a::before {
+  color: #e0d5d0;
+  transform: scale(1);
+}
+
+/* ── Star rating fieldset ── */
+.comment-form-rating {
+  border: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+.comment-form-rating legend {
+  font-family: var(--lumea-font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--lumea-muted);
+  margin-bottom: 10px;
+  display: block;
+}
+.comment-form-rating .required { color: var(--lumea-accent); }
+
+/* ── Section wrapper ── */
+.lumea-pdp-reviews {
+  background: #fff;
+  padding: clamp(56px, 8vw, 96px) 0;
+  border-top: 1px solid var(--lumea-border);
+}
+.lumea-pdp-reviews-inner {
+  width: min(100% - 48px, 820px);
+  margin-inline: auto;
+}
+
+/* ── Score header ── */
+.lumea-pdp-reviews-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 52px;
+  flex-wrap: wrap;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--lumea-border);
+}
+.lumea-pdp-rev-score { display: flex; align-items: center; gap: 20px; }
+.lumea-pdp-rev-avg {
+  font-family: var(--lumea-font-heading);
+  font-size: clamp(52px, 7vw, 72px);
+  font-weight: 300;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--lumea-text);
+}
+.lumea-pdp-rev-meta .lumea-pdp-stars { margin-bottom: 6px; }
+.lumea-pdp-rev-meta p {
+  margin: 0;
+  font-family: var(--lumea-font-body);
+  font-size: 12px;
+  color: var(--lumea-muted);
+  letter-spacing: 0.02em;
+}
+.lumea-pdp-reviews-title {
+  margin: 0;
+  font-family: var(--lumea-font-heading);
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  color: var(--lumea-text);
+  text-align: right;
+}
+
+/* ── Individual review cards ── */
+.lumea-pdp-reviews-inner #reviews { font-family: var(--lumea-font-body); }
+.lumea-pdp-reviews-inner .woocommerce-Reviews-title { display: none; }
+.lumea-pdp-reviews-inner ol.commentlist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.lumea-pdp-reviews-inner ol.commentlist li { margin: 0; }
+.lumea-pdp-reviews-inner .comment-body {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px 20px;
+  align-items: start;
+}
+.lumea-pdp-reviews-inner .comment-text {
+  background: var(--lumea-bg);
+  border: 1px solid var(--lumea-border);
+  border-radius: 18px;
+  padding: 22px 24px;
+  grid-column: 2;
+}
+.lumea-pdp-reviews-inner .meta { margin-bottom: 10px; }
+.lumea-pdp-reviews-inner .woocommerce-review__author {
+  font-family: var(--lumea-font-body);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--lumea-text);
+}
+.lumea-pdp-reviews-inner .woocommerce-review__dash { display: none; }
+.lumea-pdp-reviews-inner .woocommerce-review__date {
+  display: block;
+  font-family: var(--lumea-font-body);
+  font-size: 11px;
+  color: var(--lumea-muted);
+  margin-top: 2px;
+  letter-spacing: 0.03em;
+}
+.lumea-pdp-reviews-inner .woocommerce-review__verified {
+  display: inline-block;
+  background: #effaf3;
+  color: #067647;
+  border: 1px solid #a7f3d0;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.lumea-pdp-reviews-inner .description p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--lumea-muted);
+}
+/* Avatar */
+.lumea-pdp-reviews-inner .comment-body > img,
+.lumea-pdp-reviews-inner .gravatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--lumea-border);
+  grid-column: 1;
+  grid-row: 1 / 3;
+}
+
+/* ── Review form ── */
+.lumea-pdp-reviews-inner #respond {
+  margin-top: 56px;
+  padding-top: 56px;
+  border-top: 1px solid var(--lumea-border);
+}
+.lumea-pdp-reviews-inner #respond > .comment-reply-title,
+.lumea-pdp-reviews-inner #respond h3#reply-title {
+  font-family: var(--lumea-font-heading);
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--lumea-text);
+  margin: 0 0 8px;
+}
+.lumea-pdp-reviews-inner #respond p.must-log-in,
+.lumea-pdp-reviews-inner #respond p.logged-in-as {
+  font-size: 13px;
+  color: var(--lumea-muted);
+  margin: 0 0 24px;
+}
+.lumea-pdp-reviews-inner #respond p.logged-in-as a { color: var(--lumea-accent-dark); }
+
+/* Form field rows */
+.lumea-pdp-reviews-inner .comment-form-author,
+.lumea-pdp-reviews-inner .comment-form-email {
+  display: inline-block;
+  width: calc(50% - 8px);
+  vertical-align: top;
+}
+.lumea-pdp-reviews-inner .comment-form-author { margin-right: 16px; }
+.lumea-pdp-reviews-inner .comment-form-comment { display: block; }
+
+/* Field labels */
+.lumea-pdp-reviews-inner #respond label {
+  display: block;
+  font-family: var(--lumea-font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--lumea-muted);
+  margin-bottom: 7px;
+  text-transform: uppercase;
+}
+.lumea-pdp-reviews-inner #respond .required { color: var(--lumea-accent); }
+
+/* Inputs */
 .lumea-pdp-reviews-inner textarea,
 .lumea-pdp-reviews-inner input[type="text"],
-.lumea-pdp-reviews-inner input[type="email"] { width: 100%; border: 1px solid var(--lumea-border); border-radius: 12px; padding: 12px 16px; font-family: Inter, sans-serif; font-size: 14px; background: #fff; color: var(--lumea-text); outline: none; transition: border-color 0.18s; }
+.lumea-pdp-reviews-inner input[type="email"] {
+  width: 100%;
+  border: 1.5px solid var(--lumea-border);
+  border-radius: 12px;
+  padding: 13px 16px;
+  font-family: var(--lumea-font-body);
+  font-size: 14px;
+  background: var(--lumea-bg);
+  color: var(--lumea-text);
+  outline: none;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  box-sizing: border-box;
+}
+.lumea-pdp-reviews-inner textarea { min-height: 130px; resize: vertical; }
 .lumea-pdp-reviews-inner textarea:focus,
-.lumea-pdp-reviews-inner input:focus { border-color: var(--lumea-accent); }
-.lumea-pdp-reviews-inner #submit { margin-top: 16px; padding: 14px 32px; background: var(--lumea-text); color: #fff; border: none; border-radius: 100px; font-family: Inter, sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; transition: background 0.2s; }
-.lumea-pdp-reviews-inner #submit:hover { background: var(--lumea-accent-dark); }
+.lumea-pdp-reviews-inner input:focus {
+  border-color: var(--lumea-accent);
+  box-shadow: 0 0 0 3px rgba(201,133,120,0.12);
+}
+
+/* Cookies consent checkbox */
+.lumea-pdp-reviews-inner .comment-form-cookies-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.lumea-pdp-reviews-inner .comment-form-cookies-consent label {
+  font-size: 12px;
+  letter-spacing: 0;
+  text-transform: none;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Submit button */
+.lumea-pdp-reviews-inner #submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 15px 38px;
+  background: var(--lumea-text);
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  font-family: var(--lumea-font-body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.lumea-pdp-reviews-inner #submit:hover {
+  background: var(--lumea-accent-dark);
+  transform: translateY(-1px);
+}
+
+/* Notices inside reviews */
+.lumea-pdp-reviews-inner .woocommerce-error,
+.lumea-pdp-reviews-inner .woocommerce-message {
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  list-style: none;
+}
+.lumea-pdp-reviews-inner .woocommerce-error { background: #fff0f0; border: 1px solid #fca5a5; color: #b42318; }
+.lumea-pdp-reviews-inner .woocommerce-message { background: #effaf3; border: 1px solid #a7f3d0; color: #067647; }
+
+/* Mobile */
+@media (max-width: 640px) {
+  .lumea-pdp-reviews-head { flex-direction: column; align-items: flex-start; }
+  .lumea-pdp-reviews-title { text-align: left; }
+  .lumea-pdp-reviews-inner .comment-form-author,
+  .lumea-pdp-reviews-inner .comment-form-email { width: 100%; display: block; margin-right: 0; }
+}
 
 /* ── Related products ───────────────────────────────────── */
 .lumea-pdp-related { background: var(--lumea-bg); padding: 80px 0 96px; border-top: 1px solid var(--lumea-border); }

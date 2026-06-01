@@ -310,6 +310,17 @@ function lumea_enqueue_assets() {
 		);
 	}
 
+	/* Single product page interactions */
+	if ( function_exists( 'is_product' ) && is_product() ) {
+		wp_enqueue_script(
+			'lumea-single-product',
+			LUMEA_THEME_URI . '/assets/js/single-product.js',
+			array(),
+			LUMEA_VERSION,
+			true
+		);
+	}
+
 	/* Cart page interactions — cart page only */
 	if ( function_exists( 'is_cart' ) && is_cart() ) {
 		wp_enqueue_script(
