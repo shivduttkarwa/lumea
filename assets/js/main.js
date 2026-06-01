@@ -374,13 +374,32 @@
   var header = document.getElementById('lumeaHeader');
 
   if (header) {
+    var body = document.body;
+    var aboutHero = document.querySelector('.lma-hero');
+
+    function getHeaderThreshold() {
+      var isAboutPage = body && (
+        body.classList.contains('lumea-about-template') ||
+        body.classList.contains('page-about') ||
+        body.classList.contains('page-template-page-about-php')
+      );
+
+      if (isAboutPage && aboutHero) {
+        var heroBottomThreshold = aboutHero.offsetTop + aboutHero.offsetHeight - header.offsetHeight - 24;
+        return Math.max(40, heroBottomThreshold);
+      }
+
+      return 40;
+    }
+
     function updateHeader() {
       var current = window.scrollY;
-      header.classList.toggle('is-scrolled', current > 40);
+      header.classList.toggle('is-scrolled', current > getHeaderThreshold());
     }
 
     updateHeader();
     window.addEventListener('scroll', updateHeader, { passive: true });
+    window.addEventListener('resize', updateHeader);
   }
 
   /* Mobile Nav */

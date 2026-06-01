@@ -189,7 +189,7 @@ body.woocommerce-cart .lumea-header,
 body.woocommerce-checkout .lumea-header,
 body.woocommerce-account .lumea-header,
 body.error404 .lumea-header,
-body.page:not(.home):not(.page-template-page-about-php) .lumea-header {
+body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template) .lumea-header {
   background: rgba(255, 250, 247, 0.97) !important;
   box-shadow: 0 1px 0 var(--lumea-border) !important;
   backdrop-filter: blur(12px);
@@ -201,7 +201,7 @@ body.woocommerce-cart .lumea-header-logo,
 body.woocommerce-checkout .lumea-header-logo,
 body.woocommerce-account .lumea-header-logo,
 body.error404 .lumea-header-logo,
-body.page:not(.home):not(.page-template-page-about-php) .lumea-header-logo {
+body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template) .lumea-header-logo {
   color: var(--lumea-text) !important;
 }
 
@@ -210,7 +210,7 @@ body.woocommerce-cart .lumea-nav-list li a,
 body.woocommerce-checkout .lumea-nav-list li a,
 body.woocommerce-account .lumea-nav-list li a,
 body.error404 .lumea-nav-list li a,
-body.page:not(.home):not(.page-template-page-about-php) .lumea-nav-list li a {
+body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template) .lumea-nav-list li a {
   color: var(--lumea-muted) !important;
 }
 
@@ -219,7 +219,7 @@ body.woocommerce-cart .lumea-nav-list li a:hover,
 body.woocommerce-checkout .lumea-nav-list li a:hover,
 body.woocommerce-account .lumea-nav-list li a:hover,
 body.error404 .lumea-nav-list li a:hover,
-body.page:not(.home):not(.page-template-page-about-php) .lumea-nav-list li a:hover {
+body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template) .lumea-nav-list li a:hover {
   color: var(--lumea-text) !important;
 }
 
@@ -228,7 +228,7 @@ body.woocommerce-cart .lumea-header .lumea-cart-trigger,
 body.woocommerce-checkout .lumea-header .lumea-cart-trigger,
 body.woocommerce-account .lumea-header .lumea-cart-trigger,
 body.error404 .lumea-header .lumea-cart-trigger,
-body.page:not(.home):not(.page-template-page-about-php) .lumea-header .lumea-cart-trigger {
+body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template) .lumea-header .lumea-cart-trigger {
   border-color: var(--lumea-border) !important;
   color: var(--lumea-text) !important;
 }
@@ -238,7 +238,7 @@ body.woocommerce-cart .lumea-nav-toggle-bar,
 body.woocommerce-checkout .lumea-nav-toggle-bar,
 body.woocommerce-account .lumea-nav-toggle-bar,
 body.error404 .lumea-nav-toggle-bar,
-body.page:not(.home):not(.page-template-page-about-php) .lumea-nav-toggle-bar {
+body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template) .lumea-nav-toggle-bar {
   background: var(--lumea-text) !important;
 }
 
@@ -316,21 +316,45 @@ body.tax-product_cat .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 
 /* ── About page hero header — full dark hero, overrides solid page rule ──
    Higher specificity beats body.page:not(.home) !important above.        */
-body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) {
+body.page.page-template-page-about-php .lumea-header:not(.is-scrolled),
+body.page.page-about .lumea-header:not(.is-scrolled),
+body.lumea-about-template .lumea-header:not(.is-scrolled) {
   background: transparent !important;
   box-shadow: none !important;
 }
-body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-header-logo { color: #ffffff !important; }
-body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-nav-list li a { color: rgba(255,255,255,0.85) !important; }
-body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover { color: #ffffff !important; }
-body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-cart-trigger { border-color: rgba(255,255,255,0.35) !important; color: #ffffff !important; }
-body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar { background: #ffffff !important; }
-body.page.page-template-page-about-php .lumea-header.is-scrolled { background: rgba(255,250,247,0.97) !important; box-shadow: 0 1px 0 var(--lumea-border) !important; backdrop-filter: blur(12px); }
-body.page.page-template-page-about-php .lumea-header.is-scrolled .lumea-header-logo { color: var(--lumea-text) !important; }
-body.page.page-template-page-about-php .lumea-header.is-scrolled .lumea-nav-list li a { color: var(--lumea-muted) !important; }
-body.page.page-template-page-about-php .lumea-header.is-scrolled .lumea-nav-list li a:hover { color: var(--lumea-text) !important; }
-body.page.page-template-page-about-php .lumea-header.is-scrolled .lumea-cart-trigger { border-color: var(--lumea-border) !important; color: var(--lumea-text) !important; }
-body.page.page-template-page-about-php .lumea-header.is-scrolled .lumea-nav-toggle-bar { background: var(--lumea-text) !important; }
+body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-header-logo,
+body.page.page-about .lumea-header:not(.is-scrolled) .lumea-header-logo,
+body.lumea-about-template .lumea-header:not(.is-scrolled) .lumea-header-logo { color: #ffffff !important; }
+body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-nav-list li a,
+body.page.page-about .lumea-header:not(.is-scrolled) .lumea-nav-list li a,
+body.lumea-about-template .lumea-header:not(.is-scrolled) .lumea-nav-list li a { color: rgba(255,255,255,0.85) !important; }
+body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover,
+body.page.page-about .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover,
+body.lumea-about-template .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover { color: #ffffff !important; }
+body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-cart-trigger,
+body.page.page-about .lumea-header:not(.is-scrolled) .lumea-cart-trigger,
+body.lumea-about-template .lumea-header:not(.is-scrolled) .lumea-cart-trigger { border-color: rgba(255,255,255,0.35) !important; color: #ffffff !important; }
+body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar,
+body.page.page-about .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar,
+body.lumea-about-template .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar { background: #ffffff !important; }
+body.page.page-template-page-about-php .lumea-header.is-scrolled,
+body.page.page-about .lumea-header.is-scrolled,
+body.lumea-about-template .lumea-header.is-scrolled { background: rgba(255,250,247,0.97) !important; box-shadow: 0 1px 0 var(--lumea-border) !important; backdrop-filter: blur(12px); }
+body.page.page-template-page-about-php .lumea-header.is-scrolled .lumea-header-logo,
+body.page.page-about .lumea-header.is-scrolled .lumea-header-logo,
+body.lumea-about-template .lumea-header.is-scrolled .lumea-header-logo { color: var(--lumea-text) !important; }
+body.page.page-template-page-about-php .lumea-header.is-scrolled .lumea-nav-list li a,
+body.page.page-about .lumea-header.is-scrolled .lumea-nav-list li a,
+body.lumea-about-template .lumea-header.is-scrolled .lumea-nav-list li a { color: var(--lumea-muted) !important; }
+body.page.page-template-page-about-php .lumea-header.is-scrolled .lumea-nav-list li a:hover,
+body.page.page-about .lumea-header.is-scrolled .lumea-nav-list li a:hover,
+body.lumea-about-template .lumea-header.is-scrolled .lumea-nav-list li a:hover { color: var(--lumea-text) !important; }
+body.page.page-template-page-about-php .lumea-header.is-scrolled .lumea-cart-trigger,
+body.page.page-about .lumea-header.is-scrolled .lumea-cart-trigger,
+body.lumea-about-template .lumea-header.is-scrolled .lumea-cart-trigger { border-color: var(--lumea-border) !important; color: var(--lumea-text) !important; }
+body.page.page-template-page-about-php .lumea-header.is-scrolled .lumea-nav-toggle-bar,
+body.page.page-about .lumea-header.is-scrolled .lumea-nav-toggle-bar,
+body.lumea-about-template .lumea-header.is-scrolled .lumea-nav-toggle-bar { background: var(--lumea-text) !important; }
 
 /* ── Blog archive / category — dark editorial hero ───────────────────── */
 body.blog .lumea-header:not(.is-scrolled),
@@ -8673,7 +8697,7 @@ body.woocommerce-cart .lumea-header .lumea-header-icon-btn,
 body.woocommerce-checkout .lumea-header .lumea-header-icon-btn,
 body.woocommerce-account .lumea-header .lumea-header-icon-btn,
 body.error404 .lumea-header .lumea-header-icon-btn,
-body.page:not(.home):not(.page-template-page-about-php) .lumea-header .lumea-header-icon-btn {
+body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template) .lumea-header .lumea-header-icon-btn {
   color: var(--lumea-text) !important;
 }
 
@@ -8682,7 +8706,7 @@ body.woocommerce-cart .lumea-header .lumea-header-icon-btn:hover,
 body.woocommerce-checkout .lumea-header .lumea-header-icon-btn:hover,
 body.woocommerce-account .lumea-header .lumea-header-icon-btn:hover,
 body.error404 .lumea-header .lumea-header-icon-btn:hover,
-body.page:not(.home):not(.page-template-page-about-php) .lumea-header .lumea-header-icon-btn:hover {
+body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template) .lumea-header .lumea-header-icon-btn:hover {
   background: rgba(0, 0, 0, 0.05) !important;
 }
 
@@ -8690,6 +8714,8 @@ body.page:not(.home):not(.page-template-page-about-php) .lumea-header .lumea-hea
 body.woocommerce-shop .lumea-header:not(.is-scrolled) .lumea-header-icon-btn,
 body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-header-icon-btn,
 body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-header-icon-btn,
+body.page.page-about .lumea-header:not(.is-scrolled) .lumea-header-icon-btn,
+body.lumea-about-template .lumea-header:not(.is-scrolled) .lumea-header-icon-btn,
 body.blog .lumea-header:not(.is-scrolled) .lumea-header-icon-btn,
 body.archive:not(.woocommerce-page):not(.post-type-archive-product) .lumea-header:not(.is-scrolled) .lumea-header-icon-btn,
 body.single-post .lumea-header:not(.is-scrolled) .lumea-header-icon-btn,
@@ -8701,6 +8727,8 @@ body.home .lumea-header:not(.is-scrolled) .lumea-header-icon-btn {
 body.woocommerce-shop .lumea-header:not(.is-scrolled) .lumea-header-icon-btn:hover,
 body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-header-icon-btn:hover,
 body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-header-icon-btn:hover,
+body.page.page-about .lumea-header:not(.is-scrolled) .lumea-header-icon-btn:hover,
+body.lumea-about-template .lumea-header:not(.is-scrolled) .lumea-header-icon-btn:hover,
 body.blog .lumea-header:not(.is-scrolled) .lumea-header-icon-btn:hover,
 body.archive:not(.woocommerce-page):not(.post-type-archive-product) .lumea-header:not(.is-scrolled) .lumea-header-icon-btn:hover,
 body.single-post .lumea-header:not(.is-scrolled) .lumea-header-icon-btn:hover,
@@ -8713,6 +8741,8 @@ body.home .lumea-header:not(.is-scrolled) .lumea-header-icon-btn:hover {
 body.woocommerce-shop .lumea-header.is-scrolled .lumea-header-icon-btn,
 body.post-type-archive-product .lumea-header.is-scrolled .lumea-header-icon-btn,
 body.page.page-template-page-about-php .lumea-header.is-scrolled .lumea-header-icon-btn,
+body.page.page-about .lumea-header.is-scrolled .lumea-header-icon-btn,
+body.lumea-about-template .lumea-header.is-scrolled .lumea-header-icon-btn,
 body.blog .lumea-header.is-scrolled .lumea-header-icon-btn,
 body.archive:not(.woocommerce-page):not(.post-type-archive-product) .lumea-header.is-scrolled .lumea-header-icon-btn,
 body.single-post .lumea-header.is-scrolled .lumea-header-icon-btn,
@@ -9730,7 +9760,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
    ════════════════════════════════════════════════════════ */
 
 /* ── Shared tokens ────────────────────────────────── */
-.lma-page { background: var(--lumea-bg); padding-top: 4.5rem; }
+.lma-page { background: var(--lumea-bg); padding-top: 0; }
 
 
 .lma-label {
@@ -9771,8 +9801,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   background-position: center top;
   background-repeat: no-repeat;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
   overflow: hidden;
 }
 .admin-bar .lma-hero { min-height: calc(100vh - 6.5rem); }
@@ -9780,105 +9809,83 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(160deg, rgba(14,11,10,0.74) 0%, rgba(14,11,10,0.50) 50%, rgba(14,11,10,0.82) 100%);
+  background: linear-gradient(154deg, rgba(14,11,10,0.74) 0%, rgba(14,11,10,0.55) 44%, rgba(14,11,10,0.84) 100%);
   pointer-events: none;
   z-index: 0;
 }
 .lma-hero-body {
   position: relative;
   z-index: 1;
-  padding: clamp(4rem, 10vw, 7.5rem) clamp(1.5rem, 6vw, 6rem) 0;
+  width: min(calc(100% - clamp(3rem, 8vw, 8rem)), 55rem);
+  margin-inline: clamp(1.5rem, 6vw, 6rem);
+  padding: clamp(5.75rem, 12vw, 9.25rem) 0 clamp(4.25rem, 8vw, 6.25rem);
 }
-.lma-hero-h1 { margin: 0 0 2rem; line-height: 0.9; letter-spacing: -0.05em; }
+.lma-label--hero {
+  color: rgba(255,255,255,0.74);
+  margin-bottom: 1.125rem;
+}
+.lma-hero-h1 {
+  margin: 0 0 1.375rem;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
 .lma-hero-line {
   display: block;
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(4rem, 13vw, 10.625rem);
-  font-weight: 300;
+  font-size: clamp(2.75rem, 7.6vw, 6.25rem);
+  font-weight: 400;
   color: #fff;
 }
-.lma-hero-line--stroke {
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255,255,255,0.55);
-  padding-left: clamp(2.5rem, 8vw, 7.5rem);
-}
+.lma-hero-line--soft { color: rgba(255,255,255,0.66); }
 .lma-hero-sub {
   font-size: 1rem;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.7;
-  max-width: 26.25rem;
-  margin: 0 0 2.5rem;
+  color: rgba(255,255,255,0.82);
+  line-height: 1.75;
+  max-width: 35rem;
+  margin: 0 0 2rem;
 }
 .lma-hero-cta {
   display: inline-flex;
   align-items: center;
   gap: 0.625rem;
-  padding: 0.875rem 2rem;
-  border: 1px solid rgba(255,255,255,0.22);
+  padding: 0.875rem 1.875rem;
+  border: 1px solid rgba(255,255,255,0.35);
   border-radius: 6.25rem;
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #fff;
+  background: rgba(255,255,255,0.04);
   text-decoration: none;
-  transition: background 0.25s, border-color 0.25s;
+  transition: background 0.25s, border-color 0.25s, transform 0.2s;
 }
-.lma-hero-cta:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); }
-.lma-hero-foot {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid rgba(255,255,255,0.1);
+.lma-hero-cta:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.62);
+  transform: translateY(-1px);
 }
-.lma-hero-foot-cell {
-  padding: 1.75rem 1.75rem;
-  border-right: 1px solid rgba(255,255,255,0.1);
+.lma-hero-items {
+  margin-top: 1.5rem;
+  padding-top: 1.125rem;
+  border-top: 1px solid rgba(255,255,255,0.28);
   display: flex;
-  flex-direction: column;
-  gap: 0.3125rem;
+  flex-wrap: wrap;
+  gap: 0.625rem;
 }
-.lma-hero-foot-cell:last-child { border-right: none; }
-.lma-hero-foot-n {
-  font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-  font-weight: 400;
-  letter-spacing: -0.04em;
-  color: #fff;
-  line-height: 1;
-}
-.lma-hero-foot-l {
+.lma-hero-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.875rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 999px;
   font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.32);
-}
-.lma-hero-deco {
-  position: absolute;
-  top: -10%;
-  right: -5%;
-  width: clamp(17.5rem, 48vw, 42.5rem);
-  height: clamp(17.5rem, 48vw, 42.5rem);
-  border-radius: 50%;
-  border: 1px solid rgba(201,133,120,0.14);
-  pointer-events: none;
-  z-index: 1;
-}
-.lma-hero-deco::before {
-  content: '';
-  position: absolute;
-  inset: 15%;
-  border-radius: 50%;
-  border: 1px solid rgba(201,133,120,0.08);
-}
-.lma-hero-deco::after {
-  content: '';
-  position: absolute;
-  inset: 32%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(201,133,120,0.07) 0%, transparent 70%);
+  color: rgba(255,255,255,0.84);
+  background: rgba(14,11,10,0.28);
 }
 
 /* ── TICKER ───────────────────────────────────────── */
@@ -10216,10 +10223,10 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 
 /* ── RESPONSIVE ───────────────────────────────────── */
 @media (max-width: 1024px) {
-  .lma-hero-foot { grid-template-columns: repeat(2, 1fr); }
-  .lma-hero-foot-cell:nth-child(2) { border-right: none; }
-  .lma-hero-foot-cell:nth-child(3) { border-top: 1px solid rgba(255,255,255,0.1); }
-  .lma-hero-foot-cell:nth-child(4) { border-top: 1px solid rgba(255,255,255,0.1); border-right: none; }
+  .lma-hero-body {
+    width: min(calc(100% - 3rem), 42rem);
+    margin-inline: 1.5rem;
+  }
   .lma-stats-row { grid-template-columns: repeat(2, 1fr); }
   .lma-stat-cell:nth-child(2) { border-right: none; }
   .lma-stat-cell:nth-child(3) { border-top: 1px solid rgba(255,255,255,0.07); }
@@ -10228,8 +10235,15 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   .lma-ingredients-wrap { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
-  .lma-hero-body { padding: 5rem 1.5rem 0; }
-  .lma-hero-line--stroke { padding-left: 1.5rem; }
+  .lma-hero { min-height: calc(90vh - 4.5rem); align-items: flex-end; }
+  .lma-hero-body {
+    width: calc(100% - 3rem);
+    margin-inline: 1.5rem;
+    padding: 6rem 0 2.75rem;
+  }
+  .lma-hero-line { font-size: clamp(2.375rem, 10.5vw, 4.125rem); }
+  .lma-hero-sub { font-size: 0.9375rem; margin-bottom: 1.625rem; }
+  .lma-hero-items { margin-top: 1.125rem; padding-top: 0.9375rem; gap: 0.5rem; }
   .lma-story { grid-template-columns: 1fr; }
   .lma-story-img-pin { position: relative; top: auto; height: 60vw; min-height: 17.5rem; }
   .lma-story-panel { padding: 3rem 1.5rem; min-height: auto; }
@@ -10238,9 +10252,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   .lma-cta-btns { flex-direction: column; align-items: stretch; max-width: 17.5rem; margin-inline: auto; }
 }
 @media (max-width: 600px) {
-  .lma-hero-foot { grid-template-columns: 1fr 1fr; }
-  .lma-hero-line { font-size: clamp(3.25rem, 14vw, 5.625rem); }
-  .lma-hero-line--stroke { -webkit-text-stroke: 1px rgba(255,255,255,0.5); color: transparent; }
+  .lma-hero-item { width: 100%; justify-content: flex-start; }
   .lma-stats-row { grid-template-columns: 1fr 1fr; }
 }
 

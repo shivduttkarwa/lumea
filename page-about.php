@@ -7,17 +7,32 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+if ( ! function_exists( 'lumea_about_body_class' ) ) {
+	/**
+	 * Add a dedicated body class for the About template.
+	 *
+	 * @param array $classes Existing body classes.
+	 * @return array
+	 */
+	function lumea_about_body_class( $classes ) {
+		$classes[] = 'lumea-about-template';
+		return $classes;
+	}
+}
+add_filter( 'body_class', 'lumea_about_body_class' );
+
 get_header();
 
 /* ── About page theme mods with defaults ── */
 $a = array(
 	// Hero
 	'hero_bg'          => get_theme_mod( 'lma_about_hero_bg',        LUMEA_THEME_URI . '/assets/images/hero/about-hero.jpg' ),
-	'hero_label'       => get_theme_mod( 'lma_about_hero_label',     'Est. 2018 &middot; Paris' ),
-	'hero_h1_1'        => get_theme_mod( 'lma_about_hero_h1_1',      'Skincare' ),
-	'hero_h1_2'        => get_theme_mod( 'lma_about_hero_h1_2',      'as ritual.' ),
-	'hero_sub'         => get_theme_mod( 'lma_about_hero_sub',       'Every Luméa formula begins with a single question — what does your skin truly need?' ),
-	'hero_cta'         => get_theme_mod( 'lma_about_hero_cta',       'Discover the Collection' ),
+	'hero_label'       => get_theme_mod( 'lma_about_hero_label',     'About Lum&eacute;a' ),
+	'hero_h1_1'        => get_theme_mod( 'lma_about_hero_h1_1',      'Skincare, with intention.' ),
+	'hero_h1_2'        => get_theme_mod( 'lma_about_hero_h1_2',      'Clean formulas. Quiet luxury.' ),
+	'hero_sub'         => get_theme_mod( 'lma_about_hero_sub',       'We create botanical skincare that feels sensorial, performs clinically, and fits real life.' ),
+	'hero_cta'         => get_theme_mod( 'lma_about_hero_cta',       'Shop the Ritual' ),
 	'stat1_n'          => get_theme_mod( 'lma_about_stat1_n',        '48+' ),
 	'stat1_l'          => get_theme_mod( 'lma_about_stat1_l',        'Botanical actives' ),
 	'stat2_n'          => get_theme_mod( 'lma_about_stat2_n',        '12' ),
@@ -83,31 +98,26 @@ function lma_lines( $str ) {
 	<!-- ① HERO ─────────────────────────────────────────────── -->
 	<section class="lma-hero" style="--lma-bg:url('<?php echo esc_url( $a['hero_bg'] ); ?>')">
 		<div class="lma-hero-body">
-			<p class="lma-label"><?php echo wp_kses_post( $a['hero_label'] ); ?></p>
+			<p class="lma-label lma-label--hero"><?php echo wp_kses_post( $a['hero_label'] ); ?></p>
 			<h1 class="lma-hero-h1">
 				<span class="lma-hero-line"><?php echo esc_html( $a['hero_h1_1'] ); ?></span>
-				<span class="lma-hero-line lma-hero-line--stroke"><?php echo esc_html( $a['hero_h1_2'] ); ?></span>
+				<span class="lma-hero-line lma-hero-line--soft"><?php echo esc_html( $a['hero_h1_2'] ); ?></span>
 			</h1>
 			<p class="lma-hero-sub"><?php echo esc_html( $a['hero_sub'] ); ?></p>
 			<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="lma-hero-cta">
 				<?php echo esc_html( $a['hero_cta'] ); ?>
 				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
 			</a>
-		</div>
-		<div class="lma-hero-foot">
-			<?php foreach ( array(
-				array( $a['stat1_n'], $a['stat1_l'] ),
-				array( $a['stat2_n'], $a['stat2_l'] ),
-				array( $a['stat3_n'], $a['stat3_l'] ),
-				array( $a['stat4_n'], $a['stat4_l'] ),
-			) as $s ) : ?>
-			<div class="lma-hero-foot-cell">
-				<span class="lma-hero-foot-n"><?php echo esc_html( $s[0] ); ?></span>
-				<span class="lma-hero-foot-l"><?php echo esc_html( $s[1] ); ?></span>
+			<div class="lma-hero-items" aria-label="<?php esc_attr_e( 'Lumea highlights', 'lumea' ); ?>">
+				<?php foreach ( array(
+					$a['stat1_l'],
+					$a['stat2_l'],
+					$a['stat3_l'],
+				) as $hero_item ) : ?>
+				<span class="lma-hero-item"><?php echo esc_html( $hero_item ); ?></span>
+				<?php endforeach; ?>
 			</div>
-			<?php endforeach; ?>
 		</div>
-		<div class="lma-hero-deco" aria-hidden="true"></div>
 	</section>
 
 	<!-- ② TICKER ────────────────────────────────────────────── -->
