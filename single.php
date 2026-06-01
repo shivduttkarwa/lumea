@@ -165,6 +165,14 @@ get_header();
 	</div>
 	<?php endif; ?>
 
+	<?php
+	if ( comments_open() || get_comments_number() ) {
+		echo '<div class="lumea-post-body"><div class="lumea-post-body-inner">';
+		comments_template();
+		echo '</div></div>';
+	}
+	?>
+
 	<?php endwhile; ?>
 
 </main>

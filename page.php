@@ -7,7 +7,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( is_page( 'blog' ) ) {
+$lumea_posts_page_id = (int) get_option( 'page_for_posts' );
+if ( $lumea_posts_page_id && is_page( $lumea_posts_page_id ) ) {
 	global $wp_query, $post;
 
 	$lumea_original_query = $wp_query;

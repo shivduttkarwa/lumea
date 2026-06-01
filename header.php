@@ -44,6 +44,7 @@ if ( $lumea_has_wc ) {
 
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
+<a class="skip-link screen-reader-text" href="#lumeaPage"><?php esc_html_e( 'Skip to content', 'lumea' ); ?></a>
 
 <!-- Sticky Header -->
 <header class="lumea-header" id="lumeaHeader" role="banner">

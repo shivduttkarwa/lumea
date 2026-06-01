@@ -94,3 +94,33 @@ function lumea_theme_setup() {
 	);
 }
 add_action( 'after_setup_theme', 'lumea_theme_setup' );
+
+/**
+ * Register widget areas.
+ */
+function lumea_widgets_init() {
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Sidebar', 'lumea' ),
+			'id'            => 'lumea-sidebar',
+			'description'   => esc_html__( 'Widgets in this area appear in the blog sidebar.', 'lumea' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer Column', 'lumea' ),
+			'id'            => 'lumea-footer',
+			'description'   => esc_html__( 'Widgets in this area appear in the footer.', 'lumea' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+}
+add_action( 'widgets_init', 'lumea_widgets_init' );
