@@ -5865,16 +5865,31 @@ body.woocommerce-order-received .lumea-thankyou-page .woocommerce-customer-detai
 .lumea-account-content button[type="submit"]:hover {
   background: var(--lumea-accent-dark);
 }
+/* Address cards — 2-column grid (WooCommerce default CSS is disabled in this theme) */
+.lumea-account-content .u-columns.addresses,
+.lumea-account-content .col2-set.addresses {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.lumea-account-content .u-column1,
+.lumea-account-content .u-column2 {
+  float: none;
+  width: auto;
+}
 .lumea-account-content .woocommerce-Address {
   background: var(--lumea-bg);
   border: 1px solid var(--lumea-border);
   border-radius: 16px;
   padding: 24px;
+  height: 100%;
+  box-sizing: border-box;
 }
 .lumea-account-content .woocommerce-Address-title {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   margin-bottom: 12px;
 }
 .lumea-account-content .woocommerce-Address-title h3 {
@@ -5883,6 +5898,33 @@ body.woocommerce-order-received .lumea-thankyou-page .woocommerce-customer-detai
   font-weight: 500;
   color: var(--lumea-text);
   margin: 0;
+}
+.lumea-account-content .woocommerce-Address-title a {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding: 5px 14px;
+  border-radius: 100px;
+  border: 1px solid var(--lumea-border);
+  font-family: Inter, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--lumea-text);
+  text-decoration: none;
+  transition: background 0.18s, border-color 0.18s;
+}
+.lumea-account-content .woocommerce-Address-title a:hover {
+  background: var(--lumea-text);
+  color: #fff;
+  border-color: var(--lumea-text);
+}
+@media (max-width: 640px) {
+  .lumea-account-content .u-columns.addresses,
+  .lumea-account-content .col2-set.addresses {
+    grid-template-columns: 1fr;
+  }
 }
 .lumea-account-content address {
   font-style: normal;
@@ -9689,7 +9731,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 
 /* ── Shared tokens ────────────────────────────────── */
 .lma-page { background: var(--lumea-bg); padding-top: 4.5rem; }
-.admin-bar .lma-page { padding-top: calc(4.5rem + 2rem); }
+
 
 .lma-label {
   display: block;
