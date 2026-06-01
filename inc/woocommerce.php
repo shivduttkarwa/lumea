@@ -17,6 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_filter( 'pre_option_woocommerce_registration_generate_username', '__return_false' );
 add_filter( 'pre_option_woocommerce_registration_generate_password', '__return_false' );
 
+/* Never let WooCommerce redirect any user away from wp-admin. */
+add_filter( 'woocommerce_prevent_admin_access', '__return_false' );
+
 /**
  * Build normalized card data from a WooCommerce product.
  *
