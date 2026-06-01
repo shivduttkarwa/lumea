@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Theme constants.
  */
-define( 'LUMEA_VERSION', '1.1.0' );
+define( 'LUMEA_VERSION', '1.1.1' );
 define( 'LUMEA_THEME_DIR', get_template_directory() );
 define( 'LUMEA_THEME_URI', get_template_directory_uri() );
 
