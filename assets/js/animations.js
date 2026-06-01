@@ -477,9 +477,10 @@
      Opt-in: add .lumea-section-intro-js to any wrapper that contains
      .lumea-eyebrow, .lumea-section-title, and .lumea-section-desc.
 
-     With SplitText:    each title line slides up from behind an
-                        overflow-hidden mask, staggered per line.
-     Without SplitText: whole title fades + slides up as one block.
+     Eyebrow  : blur-fade — drifts up while snapping into focus.
+     Title    : per-line skewed slide — each line shears as it rises
+                and straightens on arrival (luxury editorial style).
+     Desc     : blur-focus reveal — soft focus pulls in last.
   */
   ( function initSectionIntroReveal() {
 
@@ -496,10 +497,7 @@
       var titleTargets;
 
       if ( hasSplit ) {
-        var split = new SplitText( title, {
-          type:       'lines',
-          linesClass: 'lumea-si-line',
-        } );
+        var split = new SplitText( title, { type: 'lines', linesClass: 'lumea-si-line' } );
 
         split.lines.forEach( function ( line ) {
           var mask = document.createElement( 'div' );
@@ -509,69 +507,73 @@
         } );
 
         titleTargets = split.lines;
-        gsap.set( titleTargets, { yPercent: 108 } );
+        /* Start: hidden below + sheared — the mask clips the overhang */
+        gsap.set( titleTargets, { yPercent: 112, skewY: 7 } );
 
       } else {
         titleTargets = [ title ];
-        gsap.set( title, { autoAlpha: 0, y: 36 } );
+        gsap.set( title, { autoAlpha: 0, y: 40, skewY: 4 } );
       }
 
-      /* ── Initial hidden states ──────────────────────────────── */
+      /* Eyebrow: blurred and drifted up */
       if ( eyebrow ) {
-        gsap.set( eyebrow, { autoAlpha: 0, clipPath: 'inset(0% 100% 0% 0%)' } );
+        gsap.set( eyebrow, { autoAlpha: 0, y: 8, filter: 'blur(5px)' } );
       }
+
+      /* Desc: blurred and offset */
       if ( desc ) {
-        gsap.set( desc, { autoAlpha: 0, y: 24 } );
+        gsap.set( desc, { autoAlpha: 0, y: 16, filter: 'blur(8px)' } );
       }
 
       /* ── Scroll-triggered timeline ──────────────────────────── */
       var tl = gsap.timeline( {
         scrollTrigger: {
           trigger: intro,
-          start:   'top 80%',
+          start:   'top 82%',
           once:    true,
         },
         defaults: { ease: 'power4.out' },
       } );
 
-      var titlePos = eyebrow ? 0.13 : 0;
-
-      /* Eyebrow: horizontal clip-path wipe, left → right */
+      /* Eyebrow: snap into focus from above */
       if ( eyebrow ) {
         tl.to( eyebrow, {
           autoAlpha: 1,
-          clipPath:  'inset(0% 0% 0% 0%)',
-          duration:  0.75,
+          y:         0,
+          filter:    'blur(0px)',
+          duration:  0.85,
           ease:      'power3.out',
-          onComplete: function () {
-            gsap.set( eyebrow, { clearProps: 'clipPath' } );
-          },
         }, 0 );
       }
 
-      /* Title: per-line slide (SplitText) or whole-block fade-up */
+      var titlePos = eyebrow ? 0.18 : 0;
+
+      /* Title: skewed upward slide, each line straightens on landing */
       if ( hasSplit ) {
         tl.to( titleTargets, {
           yPercent: 0,
-          duration: 1.15,
-          stagger:  0.09,
+          skewY:    0,
+          duration: 1.05,
+          stagger:  0.1,
         }, titlePos );
       } else {
         tl.to( titleTargets, {
           autoAlpha: 1,
           y:         0,
-          duration:  1.0,
+          skewY:     0,
+          duration:  1.05,
         }, titlePos );
       }
 
-      /* Description: fade-up, overlapping with the last line */
+      /* Desc: blur-focus pull, overlaps last line landing */
       if ( desc ) {
         tl.to( desc, {
           autoAlpha: 1,
           y:         0,
-          duration:  0.85,
+          filter:    'blur(0px)',
+          duration:  0.9,
           ease:      'power3.out',
-        }, '-=0.52' );
+        }, '-=0.55' );
       }
 
     } );

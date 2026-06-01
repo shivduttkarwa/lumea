@@ -99,9 +99,9 @@
 }
 
 .lumea-section-intro-js .lumea-eyebrow {
-  will-change: clip-path, opacity;
+  will-change: transform, opacity, filter;
 }
 
 .lumea-section-intro-js .lumea-section-desc {
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
 }
