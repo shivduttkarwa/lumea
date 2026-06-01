@@ -148,6 +148,19 @@ a {
    STICKY HEADER
    ════════════════════════════════════════════════════════ */
 
+/*
+ * Pre-hide header intro elements before GSAP runs.
+ * Only applies when JS is available (.lumea-js added synchronously in <head>).
+ * GSAP's autoAlpha:1 tween overrides these once the timeline runs.
+ * Without JS the class is never added, so elements stay fully visible.
+ */
+.lumea-js .lumea-header-logo,
+.lumea-js .lumea-nav-list li,
+.lumea-js .lumea-header-actions > * {
+  opacity: 0;
+  visibility: hidden;
+}
+
 .lumea-header {
   position: fixed;
   top: 0;

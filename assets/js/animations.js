@@ -34,20 +34,22 @@
   /* ── Initial hidden states ───────────────────────────────────
      Set before the first paint so nothing flashes visible.
      Each modifier class sets its own starting transform/opacity.
+     Guard with gsap.utils.toArray() so GSAP never warns about
+     selectors that match zero elements on a given page.
   */
-  gsap.set( '.lumea-reveal--fade-js',   { y: 30,    autoAlpha: 0 } );
-  gsap.set( '.lumea-reveal--static-js', {           autoAlpha: 0 } );
-  gsap.set( '.lumea-reveal--right-js',  { x: '15%', autoAlpha: 0 } );
-  gsap.set( '.lumea-reveal--left-js',   { x: '-15%',autoAlpha: 0 } );
+  var _fade   = gsap.utils.toArray( '.lumea-reveal--fade-js' );
+  var _static = gsap.utils.toArray( '.lumea-reveal--static-js' );
+  var _right  = gsap.utils.toArray( '.lumea-reveal--right-js' );
+  var _left   = gsap.utils.toArray( '.lumea-reveal--left-js' );
+  var _lines  = gsap.utils.toArray( '.lumea-reveal--text-js.lumea-split--lines-js .lumea-st-line' );
+  var _chars  = gsap.utils.toArray( '.lumea-reveal--text-js.lumea-split--chars-js .lumea-st-char' );
 
-  gsap.set(
-    '.lumea-reveal--text-js.lumea-split--lines-js .lumea-st-line',
-    { y: 30, autoAlpha: 0 }
-  );
-  gsap.set(
-    '.lumea-reveal--text-js.lumea-split--chars-js .lumea-st-char',
-    { autoAlpha: 0 }
-  );
+  if ( _fade.length   ) gsap.set( _fade,   { y: 30,     autoAlpha: 0 } );
+  if ( _static.length ) gsap.set( _static, {             autoAlpha: 0 } );
+  if ( _right.length  ) gsap.set( _right,  { x: '15%',  autoAlpha: 0 } );
+  if ( _left.length   ) gsap.set( _left,   { x: '-15%', autoAlpha: 0 } );
+  if ( _lines.length  ) gsap.set( _lines,  { y: 30,     autoAlpha: 0 } );
+  if ( _chars.length  ) gsap.set( _chars,  {             autoAlpha: 0 } );
 
   /* ── Core fade/move animation ────────────────────────────────
      Always animates back to the natural resting position
@@ -238,7 +240,6 @@
       : '0px';
 
     /* ── Initial states ────────────────────────────────────── */
-    gsap.set( header, { yPercent: -100 } );
     if ( logo        ) gsap.set( logo,     { autoAlpha: 0 } );
     if ( navItems.length ) gsap.set( navItems, { autoAlpha: 0 } );
     if ( actions.length  ) gsap.set( actions,  { autoAlpha: 0 } );
@@ -265,9 +266,6 @@
 
     /* ── Timeline ──────────────────────────────────────────── */
     var tl = gsap.timeline( { delay: 0.15, defaults: { ease: 'power3.out' } } );
-
-    /* Header drops into place */
-    tl.to( header, { yPercent: 0, duration: 1.0 }, 0 );
 
     if ( logo ) {
       tl.to( logo, { autoAlpha: 1, duration: 0.7, ease: 'power2.out' }, 0.42 );
