@@ -12,7 +12,7 @@ get_header();
 /* ── About page theme mods with defaults ── */
 $a = array(
 	// Hero
-	'hero_bg'          => get_theme_mod( 'lma_about_hero_bg',        LUMEA_THEME_URI . '/assets/images/hero.jpg' ),
+	'hero_bg'          => get_theme_mod( 'lma_about_hero_bg',        LUMEA_THEME_URI . '/assets/images/hero/about-hero.jpg' ),
 	'hero_label'       => get_theme_mod( 'lma_about_hero_label',     'Est. 2018 &middot; Paris' ),
 	'hero_h1_1'        => get_theme_mod( 'lma_about_hero_h1_1',      'Skincare' ),
 	'hero_h1_2'        => get_theme_mod( 'lma_about_hero_h1_2',      'as ritual.' ),

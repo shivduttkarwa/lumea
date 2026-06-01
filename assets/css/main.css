@@ -9688,41 +9688,41 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
    ════════════════════════════════════════════════════════ */
 
 /* ── Shared tokens ────────────────────────────────── */
-.lma-page { background: var(--lumea-bg); padding-top: 72px; }
-.admin-bar .lma-page { padding-top: calc(72px + 32px); }
+.lma-page { background: var(--lumea-bg); padding-top: 4.5rem; }
+.admin-bar .lma-page { padding-top: calc(4.5rem + 2rem); }
 
 .lma-label {
   display: block;
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--lumea-accent);
-  margin: 0 0 16px;
+  margin: 0 0 1rem;
 }
 .lma-label--warm { color: var(--lumea-accent-dark); }
 
-.lma-body { font-size: 14px; line-height: 1.9; color: var(--lumea-muted); margin: 0 0 16px; }
+.lma-body { font-size: 0.875rem; line-height: 1.9; color: var(--lumea-muted); margin: 0 0 1rem; }
 
 .lma-link {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 11px;
+  gap: 0.5rem;
+  font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--lumea-text);
   text-decoration: none;
-  margin-top: 8px;
+  margin-top: 0.5rem;
   transition: gap 0.2s, color 0.2s;
 }
-.lma-link:hover { gap: 14px; color: var(--lumea-accent-dark); }
+.lma-link:hover { gap: 0.875rem; color: var(--lumea-accent-dark); }
 
 /* ── HERO ─────────────────────────────────────────── */
 .lma-hero {
   position: relative;
-  min-height: calc(100vh - 72px);
+  min-height: calc(100vh - 4.5rem);
   background-color: #0e0b0a;
   background-image: var(--lma-bg, none);
   background-size: cover;
@@ -9733,7 +9733,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   justify-content: space-between;
   overflow: hidden;
 }
-.admin-bar .lma-hero { min-height: calc(100vh - 104px); }
+.admin-bar .lma-hero { min-height: calc(100vh - 6.5rem); }
 .lma-hero::before {
   content: '';
   position: absolute;
@@ -9745,36 +9745,36 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 .lma-hero-body {
   position: relative;
   z-index: 1;
-  padding: clamp(64px, 10vw, 120px) clamp(24px, 6vw, 96px) 0;
+  padding: clamp(4rem, 10vw, 7.5rem) clamp(1.5rem, 6vw, 6rem) 0;
 }
-.lma-hero-h1 { margin: 0 0 32px; line-height: 0.9; letter-spacing: -0.05em; }
+.lma-hero-h1 { margin: 0 0 2rem; line-height: 0.9; letter-spacing: -0.05em; }
 .lma-hero-line {
   display: block;
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(64px, 13vw, 170px);
+  font-size: clamp(4rem, 13vw, 10.625rem);
   font-weight: 300;
   color: #fff;
 }
 .lma-hero-line--stroke {
   color: transparent;
   -webkit-text-stroke: 1px rgba(255,255,255,0.55);
-  padding-left: clamp(40px, 8vw, 120px);
+  padding-left: clamp(2.5rem, 8vw, 7.5rem);
 }
 .lma-hero-sub {
-  font-size: 16px;
+  font-size: 1rem;
   color: rgba(255,255,255,0.5);
   line-height: 1.7;
-  max-width: 420px;
-  margin: 0 0 40px;
+  max-width: 26.25rem;
+  margin: 0 0 2.5rem;
 }
 .lma-hero-cta {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px 32px;
+  gap: 0.625rem;
+  padding: 0.875rem 2rem;
   border: 1px solid rgba(255,255,255,0.22);
-  border-radius: 100px;
-  font-size: 11px;
+  border-radius: 6.25rem;
+  font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -9791,23 +9791,23 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   border-top: 1px solid rgba(255,255,255,0.1);
 }
 .lma-hero-foot-cell {
-  padding: 28px 28px;
+  padding: 1.75rem 1.75rem;
   border-right: 1px solid rgba(255,255,255,0.1);
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0.3125rem;
 }
 .lma-hero-foot-cell:last-child { border-right: none; }
 .lma-hero-foot-n {
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(24px, 3vw, 40px);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
   font-weight: 400;
   letter-spacing: -0.04em;
   color: #fff;
   line-height: 1;
 }
 .lma-hero-foot-l {
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -9817,8 +9817,8 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   position: absolute;
   top: -10%;
   right: -5%;
-  width: clamp(280px, 48vw, 680px);
-  height: clamp(280px, 48vw, 680px);
+  width: clamp(17.5rem, 48vw, 42.5rem);
+  height: clamp(17.5rem, 48vw, 42.5rem);
   border-radius: 50%;
   border: 1px solid rgba(201,133,120,0.14);
   pointer-events: none;
@@ -9840,31 +9840,31 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 }
 
 /* ── TICKER ───────────────────────────────────────── */
-.lma-ticker { background: var(--lumea-accent); overflow: hidden; padding: 14px 0; }
+.lma-ticker { background: var(--lumea-accent); overflow: hidden; padding: 0.875rem 0; }
 .lma-ticker-track {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 1.25rem;
   white-space: nowrap;
   animation: lma-marq 32s linear infinite;
   width: max-content;
 }
-.lma-ticker-track > span { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; color: rgba(255,255,255,0.9); }
+.lma-ticker-track > span { font-size: 0.625rem; font-weight: 700; letter-spacing: 0.16em; color: rgba(255,255,255,0.9); }
 .lma-ticker-sep { color: rgba(255,255,255,0.4) !important; }
 
 /* ── MANIFESTO ────────────────────────────────────── */
 .lma-manifesto {
   background: var(--lumea-bg);
-  padding: clamp(80px, 11vw, 140px) clamp(24px, 6vw, 96px);
+  padding: clamp(5rem, 11vw, 8.75rem) clamp(1.5rem, 6vw, 6rem);
 }
 .lma-manifesto-inner {
-  max-width: 900px;
+  max-width: 56.25rem;
   border-left: 2px solid var(--lumea-accent);
-  padding-left: clamp(32px, 4vw, 56px);
+  padding-left: clamp(2rem, 4vw, 3.5rem);
 }
 .lma-manifesto-q {
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(26px, 4.5vw, 54px);
+  font-size: clamp(1.625rem, 4.5vw, 3.375rem);
   font-weight: 400;
   font-style: italic;
   letter-spacing: -0.03em;
@@ -9872,11 +9872,11 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   color: var(--lumea-text);
   border: none;
   padding: 0;
-  margin: 0 0 28px;
+  margin: 0 0 1.75rem;
 }
 .lma-manifesto-cite {
   display: block;
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -9893,16 +9893,16 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   border-bottom: 1px solid rgba(255,255,255,0.07);
 }
 .lma-stat-cell {
-  padding: clamp(40px, 5vw, 72px) clamp(24px, 4vw, 56px);
+  padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1.5rem, 4vw, 3.5rem);
   border-right: 1px solid rgba(255,255,255,0.07);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1rem;
   overflow: hidden;
 }
 .lma-stat-cell:last-child { border-right: none; }
 .lma-stat-tag {
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -9910,7 +9910,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 }
 .lma-stat-n {
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(64px, 10vw, 128px);
+  font-size: clamp(4rem, 10vw, 8rem);
   font-weight: 300;
   letter-spacing: -0.05em;
   line-height: 1;
@@ -9926,15 +9926,15 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 .lma-story { display: grid; grid-template-columns: 1fr 1fr; }
 .lma-story-img-pin {
   position: sticky;
-  top: 72px;
-  height: calc(100vh - 72px);
+  top: 4.5rem;
+  height: calc(100vh - 4.5rem);
   overflow: hidden;
 }
-.admin-bar .lma-story-img-pin { top: 104px; height: calc(100vh - 104px); }
+.admin-bar .lma-story-img-pin { top: 6.5rem; height: calc(100vh - 6.5rem); }
 .lma-story-img-pin img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .lma-story-text-col { background: #fff; }
 .lma-story-panel {
-  padding: clamp(60px, 8vw, 100px) clamp(40px, 5vw, 80px);
+  padding: clamp(3.75rem, 8vw, 6.25rem) clamp(2.5rem, 5vw, 5rem);
   min-height: 80vh;
   display: flex;
   flex-direction: column;
@@ -9943,9 +9943,9 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 }
 .lma-story-panel:last-child { border-bottom: none; }
 .lma-story-h2 {
-  margin: 0 0 24px;
+  margin: 0 0 1.5rem;
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(28px, 3.8vw, 46px);
+  font-size: clamp(1.75rem, 3.8vw, 2.875rem);
   font-weight: 400;
   letter-spacing: -0.04em;
   line-height: 1.08;
@@ -9960,7 +9960,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding: clamp(80px, 10vw, 130px) clamp(24px, 6vw, 96px);
+  padding: clamp(5rem, 10vw, 8.125rem) clamp(1.5rem, 6vw, 6rem);
 }
 .lma-values::before {
   content: '';
@@ -9969,26 +9969,26 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   background: rgba(14,11,10,0.86);
   pointer-events: none;
 }
-.lma-values-wrap { position: relative; z-index: 1; max-width: 1200px; margin-inline: auto; }
+.lma-values-wrap { position: relative; z-index: 1; max-width: 75rem; margin-inline: auto; }
 .lma-values-head {
-  padding-bottom: 56px;
-  margin-bottom: 64px;
+  padding-bottom: 3.5rem;
+  margin-bottom: 4rem;
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .lma-values-h2 {
-  margin: 8px 0 0;
+  margin: 0.5rem 0 0;
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(36px, 5.5vw, 72px);
+  font-size: clamp(2.25rem, 5.5vw, 4.5rem);
   font-weight: 300;
   letter-spacing: -0.05em;
   line-height: 1.03;
   color: #fff;
 }
-.lma-values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.lma-values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.125rem; }
 .lma-val {
   position: relative;
   overflow: hidden;
-  padding: 40px 36px;
+  padding: 2.5rem 2.25rem;
   border: 1px solid rgba(255,255,255,0.07);
   background: rgba(255,255,255,0.02);
   transition: background 0.25s;
@@ -9996,10 +9996,10 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 .lma-val:hover { background: rgba(255,255,255,0.045); }
 .lma-val-wm {
   position: absolute;
-  bottom: -16px;
-  right: -4px;
+  bottom: -1rem;
+  right: -0.25rem;
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(110px, 16vw, 200px);
+  font-size: clamp(6.875rem, 16vw, 12.5rem);
   font-weight: 700;
   letter-spacing: -0.06em;
   line-height: 1;
@@ -10009,94 +10009,94 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 }
 .lma-val-idx {
   display: block;
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--lumea-accent);
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 .lma-val-h3 {
-  margin: 0 0 12px;
+  margin: 0 0 0.75rem;
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(18px, 2vw, 24px);
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
   font-weight: 400;
   letter-spacing: -0.03em;
   color: #fff;
 }
-.lma-val-p { margin: 0; font-size: 14px; line-height: 1.8; color: rgba(255,255,255,0.42); }
+.lma-val-p { margin: 0; font-size: 0.875rem; line-height: 1.8; color: rgba(255,255,255,0.42); }
 
 /* ── INGREDIENTS ──────────────────────────────────── */
-.lma-ingredients { background: #fff; padding: clamp(80px, 10vw, 120px) clamp(24px, 6vw, 96px); }
+.lma-ingredients { background: #fff; padding: clamp(5rem, 10vw, 7.5rem) clamp(1.5rem, 6vw, 6rem); }
 .lma-ingredients-wrap {
-  max-width: 1200px;
+  max-width: 75rem;
   margin-inline: auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(40px, 7vw, 100px);
+  gap: clamp(2.5rem, 7vw, 6.25rem);
   align-items: start;
 }
 .lma-ing-h2 {
-  margin: 0 0 20px;
+  margin: 0 0 1.25rem;
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(28px, 3.8vw, 44px);
+  font-size: clamp(1.75rem, 3.8vw, 2.75rem);
   font-weight: 400;
   letter-spacing: -0.04em;
   line-height: 1.1;
   color: var(--lumea-text);
 }
-.lma-check-list { list-style: none; margin: 20px 0 0; padding: 0; }
+.lma-check-list { list-style: none; margin: 1.25rem 0 0; padding: 0; }
 .lma-check-list li {
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: var(--lumea-text);
-  padding: 15px 0;
+  padding: 0.9375rem 0;
   border-bottom: 1px solid var(--lumea-border);
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 0.875rem;
 }
-.lma-check-list li::before { content: ''; width: 24px; height: 1px; background: var(--lumea-accent); flex-shrink: 0; }
+.lma-check-list li::before { content: ''; width: 1.5rem; height: 1px; background: var(--lumea-accent); flex-shrink: 0; }
 .lma-check-list li:first-child { border-top: 1px solid var(--lumea-border); }
 .lma-ing-right { display: flex; flex-direction: column; }
 .lma-ing-entry {
   display: flex;
   align-items: flex-start;
-  gap: 20px;
-  padding: 28px 0;
+  gap: 1.25rem;
+  padding: 1.75rem 0;
   border-bottom: 1px solid var(--lumea-border);
 }
 .lma-ing-entry:first-child { border-top: 1px solid var(--lumea-border); }
 .lma-ing-tag {
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   color: var(--lumea-accent);
   flex-shrink: 0;
-  width: 28px;
-  padding-top: 2px;
+  width: 1.75rem;
+  padding-top: 0.125rem;
 }
 .lma-ing-name {
-  margin: 0 0 8px;
+  margin: 0 0 0.5rem;
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(1rem, 2vw, 1.375rem);
   font-weight: 400;
   letter-spacing: -0.03em;
   color: var(--lumea-text);
 }
-.lma-ing-desc { margin: 0; font-size: 13px; line-height: 1.7; color: var(--lumea-muted); }
+.lma-ing-desc { margin: 0; font-size: 0.8125rem; line-height: 1.7; color: var(--lumea-muted); }
 
 /* ── PRESS ────────────────────────────────────────── */
-.lma-press { background: var(--lumea-bg); border-top: 1px solid var(--lumea-border); padding: 60px 0; overflow: hidden; }
+.lma-press { background: var(--lumea-bg); border-top: 1px solid var(--lumea-border); padding: 3.75rem 0; overflow: hidden; }
 .lma-press-label {
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--lumea-muted);
   text-align: center;
-  margin: 0 0 36px;
+  margin: 0 0 2.25rem;
 }
 .lma-press-scroll { overflow: hidden; }
 .lma-press-track {
@@ -10108,13 +10108,13 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 }
 .lma-press-n {
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(18px, 2.5vw, 28px);
+  font-size: clamp(1.125rem, 2.5vw, 1.75rem);
   font-weight: 500;
   letter-spacing: -0.02em;
   color: var(--lumea-muted);
-  padding: 0 16px;
+  padding: 0 1rem;
 }
-.lma-press-sep { color: var(--lumea-accent); font-size: 20px; padding: 0 8px; }
+.lma-press-sep { color: var(--lumea-accent); font-size: 1.25rem; padding: 0 0.5rem; }
 
 /* ── CTA ──────────────────────────────────────────── */
 .lma-cta {
@@ -10124,7 +10124,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding: clamp(100px, 14vw, 160px) clamp(24px, 6vw, 96px);
+  padding: clamp(6.25rem, 14vw, 10rem) clamp(1.5rem, 6vw, 6rem);
   text-align: center;
 }
 .lma-cta::before {
@@ -10134,26 +10134,26 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   background: rgba(14,11,10,0.74);
   pointer-events: none;
 }
-.lma-cta-inner { position: relative; z-index: 1; max-width: 800px; margin-inline: auto; }
+.lma-cta-inner { position: relative; z-index: 1; max-width: 50rem; margin-inline: auto; }
 .lma-cta-h2 {
-  margin: 10px 0 48px;
+  margin: 0.625rem 0 3rem;
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(36px, 6vw, 80px);
+  font-size: clamp(2.25rem, 6vw, 5rem);
   font-weight: 300;
   letter-spacing: -0.04em;
   color: #fff;
   line-height: 1.05;
 }
-.lma-cta-btns { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.lma-cta-btns { display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
 
 /* Buttons */
 .lma-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 32px;
-  border-radius: 100px;
-  font-size: 11px;
+  padding: 1rem 2rem;
+  border-radius: 6.25rem;
+  font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -10186,18 +10186,18 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   .lma-ingredients-wrap { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
-  .lma-hero-body { padding: 80px 24px 0; }
-  .lma-hero-line--stroke { padding-left: 24px; }
+  .lma-hero-body { padding: 5rem 1.5rem 0; }
+  .lma-hero-line--stroke { padding-left: 1.5rem; }
   .lma-story { grid-template-columns: 1fr; }
-  .lma-story-img-pin { position: relative; top: auto; height: 60vw; min-height: 280px; }
-  .lma-story-panel { padding: 48px 24px; min-height: auto; }
+  .lma-story-img-pin { position: relative; top: auto; height: 60vw; min-height: 17.5rem; }
+  .lma-story-panel { padding: 3rem 1.5rem; min-height: auto; }
   .lma-values-grid { grid-template-columns: 1fr; }
-  .lma-manifesto-inner { padding-left: 24px; }
-  .lma-cta-btns { flex-direction: column; align-items: stretch; max-width: 280px; margin-inline: auto; }
+  .lma-manifesto-inner { padding-left: 1.5rem; }
+  .lma-cta-btns { flex-direction: column; align-items: stretch; max-width: 17.5rem; margin-inline: auto; }
 }
 @media (max-width: 600px) {
   .lma-hero-foot { grid-template-columns: 1fr 1fr; }
-  .lma-hero-line { font-size: clamp(52px, 14vw, 90px); }
+  .lma-hero-line { font-size: clamp(3.25rem, 14vw, 5.625rem); }
   .lma-hero-line--stroke { -webkit-text-stroke: 1px rgba(255,255,255,0.5); color: transparent; }
   .lma-stats-row { grid-template-columns: 1fr 1fr; }
 }
