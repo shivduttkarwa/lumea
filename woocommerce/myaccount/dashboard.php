@@ -66,7 +66,7 @@ $orders = wc_get_orders( array(
 			<span class="lumea-dashboard-stat-label"><?php esc_html_e( 'Total spent', 'lumea' ); ?></span>
 		</div>
 		<div class="lumea-dashboard-stat-card">
-			<span class="lumea-dashboard-stat-num"><?php echo esc_html( $current_user->user_registered ? date_i18n( 'Y', strtotime( $current_user->user_registered ) ) : '—' ); ?></span>
+			<span class="lumea-dashboard-stat-num"><?php echo esc_html( $current_user->user_registered ? wp_date( 'Y', strtotime( $current_user->user_registered . ' UTC' ) ) : '—' ); ?></span>
 			<span class="lumea-dashboard-stat-label"><?php esc_html_e( 'Member since', 'lumea' ); ?></span>
 		</div>
 	</div>

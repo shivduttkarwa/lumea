@@ -291,6 +291,17 @@ function lumea_enqueue_assets() {
 			true
 		);
 	}
+
+	/* Checkout coupon AJAX — checkout page only */
+	if ( function_exists( 'is_checkout' ) && is_checkout() ) {
+		wp_enqueue_script(
+			'lumea-checkout',
+			LUMEA_THEME_URI . '/assets/js/checkout.js',
+			array(),
+			LUMEA_VERSION,
+			true
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'lumea_enqueue_assets' );
 

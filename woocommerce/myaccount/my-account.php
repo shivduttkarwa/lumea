@@ -58,12 +58,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
 					<?php
 					$wc_menu_classes = function_exists( 'wc_get_account_menu_item_classes' ) ? wc_get_account_menu_item_classes( $endpoint ) : '';
-					$is_current      = function_exists( 'wc_is_current_account_menu_item' )
-						? wc_is_current_account_menu_item( $endpoint )
-						: ( false !== strpos( (string) $wc_menu_classes, 'is-active' ) );
+					$is_current      = false !== strpos( (string) $wc_menu_classes, 'is-active' );
 					?>
 					<a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"
-					   class="<?php echo esc_attr( trim( 'lumea-account-nav-item ' . $wc_menu_classes . ( $is_current ? ' is-active' : '' ) ) ); ?>"
+					   class="<?php echo esc_attr( trim( 'lumea-account-nav-item ' . $wc_menu_classes ) ); ?>"
 					   <?php echo $is_current ? 'aria-current="page"' : ''; ?>>
 						<?php echo esc_html( $label ); ?>
 						<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>

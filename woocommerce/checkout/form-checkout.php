@@ -172,23 +172,23 @@ do_action( 'woocommerce_before_checkout_form', $checkout );
 						<div class="lumea-checkout-totals">
 							<div class="lumea-checkout-total-row">
 								<span><?php esc_html_e( 'Subtotal', 'lumea' ); ?></span>
-								<span><?php echo WC()->cart->get_cart_subtotal(); ?></span>
+								<span><?php echo wp_kses_post( WC()->cart->get_cart_subtotal() ); ?></span>
 							</div>
 							<?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) : ?>
 							<div class="lumea-checkout-total-row">
 								<span><?php esc_html_e( 'Shipping', 'lumea' ); ?></span>
-								<span><?php echo WC()->cart->get_shipping_total() > 0 ? wc_price( WC()->cart->get_shipping_total() ) : esc_html__( 'Free', 'lumea' ); ?></span>
+								<span><?php echo WC()->cart->get_shipping_total() > 0 ? wp_kses_post( wc_price( WC()->cart->get_shipping_total() ) ) : esc_html__( 'Free', 'lumea' ); ?></span>
 							</div>
 							<?php endif; ?>
 							<?php foreach ( WC()->cart->get_coupons() as $code => $coupon ) : ?>
 							<div class="lumea-checkout-total-row lumea-checkout-total-row--discount">
 								<span><?php echo esc_html( wc_cart_totals_coupon_label( $coupon, false ) ); ?></span>
-								<span>-<?php echo WC()->cart->get_coupon_discount_amount( $code ); ?></span>
+								<span>-<?php echo wp_kses_post( WC()->cart->get_coupon_discount_amount( $code ) ); ?></span>
 							</div>
 							<?php endforeach; ?>
 							<div class="lumea-checkout-total-row lumea-checkout-total-row--grand">
 								<strong><?php esc_html_e( 'Total', 'lumea' ); ?></strong>
-								<strong><?php echo WC()->cart->get_total(); ?></strong>
+								<strong><?php echo wp_kses_post( WC()->cart->get_total() ); ?></strong>
 							</div>
 						</div>
 
@@ -209,24 +209,3 @@ do_action( 'woocommerce_before_checkout_form', $checkout );
 	<?php do_action( 'woocommerce_after_checkout_form', $checkout ); ?>
 
 </div><!-- /.lumea-checkout-page -->
-
-<script>
-(function () {
-  /* Coupon apply via AJAX */
-  var couponBtn   = document.getElementById('lumeaApplyCoupon');
-  var couponInput = document.getElementById('lumeaCouponCode');
-  if (!couponBtn || !couponInput) return;
-
-  couponBtn.addEventListener('click', function () {
-    var code = couponInput.value.trim();
-    if (!code) return;
-    var data = new URLSearchParams();
-    data.append('security', wc_checkout_params ? wc_checkout_params.apply_coupon_nonce : '');
-    data.append('coupon_code', code);
-    fetch(wc_checkout_params.ajax_url + '?action=apply_coupon', {
-      method: 'POST', body: data,
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-    }).then(function () { window.location.reload(); });
-  });
-})();
-</script>
