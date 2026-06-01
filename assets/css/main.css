@@ -150,13 +150,14 @@ a {
 
 /*
  * Pre-hide header intro elements before GSAP runs.
- * Only applies when JS is available (.lumea-js added synchronously in <head>).
+ * .lumea-js is added synchronously in <head> so items are hidden before paint.
  * GSAP's autoAlpha:1 tween overrides these once the timeline runs.
- * Without JS the class is never added, so elements stay fully visible.
+ * Excluded from: Customizer preview (.customize-preview) and admin bar context
+ * so WP admin tools are always visible and functional.
  */
-.lumea-js .lumea-header-logo,
-.lumea-js .lumea-nav-list li,
-.lumea-js .lumea-header-actions > * {
+.lumea-js:not(.customize-preview) .lumea-header-logo,
+.lumea-js:not(.customize-preview) .lumea-nav-list li,
+.lumea-js:not(.customize-preview) .lumea-header-actions > * {
   opacity: 0;
   visibility: hidden;
 }

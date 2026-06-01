@@ -222,6 +222,10 @@
   */
   ( function initIntroAnim() {
 
+    /* Skip intro animation entirely in the WordPress Customizer preview —
+       controls would stay hidden because the Customizer intercepts JS timing. */
+    if ( window.wp && window.wp.customize ) return;
+
     var header    = document.querySelector( '.lumea-header' );
     if ( ! header ) return;
 
