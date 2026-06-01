@@ -9,6 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/*
+ * The register form always shows username + email + password fields.
+ * Lock WooCommerce to manual entry for both so it never silently auto-generates
+ * credentials the user didn't choose.
+ */
+add_filter( 'pre_option_woocommerce_registration_generate_username', '__return_false' );
+add_filter( 'pre_option_woocommerce_registration_generate_password', '__return_false' );
 
 /**
  * Build normalized card data from a WooCommerce product.

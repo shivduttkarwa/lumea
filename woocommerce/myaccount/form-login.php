@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $lumea_login_username    = ( ! empty( $_POST['username'] ) && is_string( $_POST['username'] ) ) ? wp_unslash( $_POST['username'] ) : '';
 $lumea_register_email    = ( ! empty( $_POST['email'] ) && is_string( $_POST['email'] ) ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
-$lumea_register_username = ( ! empty( $_POST['reg_username'] ) && is_string( $_POST['reg_username'] ) ) ? sanitize_text_field( wp_unslash( $_POST['reg_username'] ) ) : '';
+$lumea_register_username = ( ! empty( $_POST['username'] ) && is_string( $_POST['username'] ) && isset( $_POST['register'] ) ) ? sanitize_text_field( wp_unslash( $_POST['username'] ) ) : '';
 $lumea_login_redirect    = wc_get_page_permalink( 'myaccount' );
 $lumea_open_register     = isset( $_GET['register'] ) || isset( $_POST['register'] );
 $lumea_shell_class       = $lumea_open_register ? ' active' : '';
@@ -88,7 +88,7 @@ do_action( 'woocommerce_before_customer_login_form' );
 
 				<form method="post" class="woocommerce-form woocommerce-form-register register" <?php do_action( 'woocommerce_register_form_tag' ); ?>>
 					<?php do_action( 'woocommerce_register_form_start' ); ?>
-					<input type="text" class="lumea-auth-ref-input woocommerce-Input woocommerce-Input--text input-text" name="reg_username" id="reg_username" autocomplete="username" value="<?php echo esc_attr( $lumea_register_username ); ?>" placeholder="<?php esc_attr_e( 'name', 'lumea' ); ?>" required aria-required="true">
+					<input type="text" class="lumea-auth-ref-input woocommerce-Input woocommerce-Input--text input-text" name="username" id="reg_username" autocomplete="username" value="<?php echo esc_attr( $lumea_register_username ); ?>" placeholder="<?php esc_attr_e( 'username', 'lumea' ); ?>" required aria-required="true">
 					<input type="email" class="lumea-auth-ref-input woocommerce-Input woocommerce-Input--text input-text" name="email" id="reg_email" autocomplete="email" value="<?php echo esc_attr( $lumea_register_email ); ?>" placeholder="<?php esc_attr_e( 'email', 'lumea' ); ?>" required aria-required="true">
 					<input type="password" class="lumea-auth-ref-input woocommerce-Input woocommerce-Input--text input-text" name="password" id="reg_password" autocomplete="new-password" placeholder="<?php esc_attr_e( 'password', 'lumea' ); ?>" required aria-required="true">
 
