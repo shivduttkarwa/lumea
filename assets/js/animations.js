@@ -473,4 +473,109 @@
 
   } )();
 
+  /* ── Section intro — eyebrow / title / desc reveal ──────────────
+     Opt-in: add .lumea-section-intro-js to any wrapper that contains
+     .lumea-eyebrow, .lumea-section-title, and .lumea-section-desc.
+
+     With SplitText:    each title line slides up from behind an
+                        overflow-hidden mask, staggered per line.
+     Without SplitText: whole title fades + slides up as one block.
+  */
+  ( function initSectionIntroReveal() {
+
+    var hasSplit = typeof SplitText !== 'undefined';
+
+    document.querySelectorAll( '.lumea-section-intro-js' ).forEach( function ( intro ) {
+      var eyebrow = intro.querySelector( '.lumea-eyebrow' );
+      var title   = intro.querySelector( '.lumea-section-title' );
+      var desc    = intro.querySelector( '.lumea-section-desc' );
+
+      if ( ! title ) return;
+
+      /* ── Split lines or fall back to whole-title tween ──────── */
+      var titleTargets;
+
+      if ( hasSplit ) {
+        var split = new SplitText( title, {
+          type:       'lines',
+          linesClass: 'lumea-si-line',
+        } );
+
+        split.lines.forEach( function ( line ) {
+          var mask = document.createElement( 'div' );
+          mask.className = 'lumea-si-mask';
+          line.parentNode.insertBefore( mask, line );
+          mask.appendChild( line );
+        } );
+
+        titleTargets = split.lines;
+        gsap.set( titleTargets, { yPercent: 108 } );
+
+      } else {
+        titleTargets = [ title ];
+        gsap.set( title, { autoAlpha: 0, y: 36 } );
+      }
+
+      /* ── Initial hidden states ──────────────────────────────── */
+      if ( eyebrow ) {
+        gsap.set( eyebrow, { autoAlpha: 0, clipPath: 'inset(0% 100% 0% 0%)' } );
+      }
+      if ( desc ) {
+        gsap.set( desc, { autoAlpha: 0, y: 24 } );
+      }
+
+      /* ── Scroll-triggered timeline ──────────────────────────── */
+      var tl = gsap.timeline( {
+        scrollTrigger: {
+          trigger: intro,
+          start:   'top 80%',
+          once:    true,
+        },
+        defaults: { ease: 'power4.out' },
+      } );
+
+      var titlePos = eyebrow ? 0.13 : 0;
+
+      /* Eyebrow: horizontal clip-path wipe, left → right */
+      if ( eyebrow ) {
+        tl.to( eyebrow, {
+          autoAlpha: 1,
+          clipPath:  'inset(0% 0% 0% 0%)',
+          duration:  0.75,
+          ease:      'power3.out',
+          onComplete: function () {
+            gsap.set( eyebrow, { clearProps: 'clipPath' } );
+          },
+        }, 0 );
+      }
+
+      /* Title: per-line slide (SplitText) or whole-block fade-up */
+      if ( hasSplit ) {
+        tl.to( titleTargets, {
+          yPercent: 0,
+          duration: 1.15,
+          stagger:  0.09,
+        }, titlePos );
+      } else {
+        tl.to( titleTargets, {
+          autoAlpha: 1,
+          y:         0,
+          duration:  1.0,
+        }, titlePos );
+      }
+
+      /* Description: fade-up, overlapping with the last line */
+      if ( desc ) {
+        tl.to( desc, {
+          autoAlpha: 1,
+          y:         0,
+          duration:  0.85,
+          ease:      'power3.out',
+        }, '-=0.52' );
+      }
+
+    } );
+
+  } )();
+
 } )();

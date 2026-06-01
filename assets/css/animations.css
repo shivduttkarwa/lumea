@@ -78,3 +78,30 @@
   display: inline-block;
   will-change: transform, opacity;
 }
+
+/* ── Section intro — eyebrow / title / desc reveal ──────────────
+   Add .lumea-section-intro-js to any section wrapper that contains
+   .lumea-eyebrow, .lumea-section-title, and .lumea-section-desc.
+   JS wraps each title line in a .lumea-si-mask and animates upward.
+   ─────────────────────────────────────────────────────────────── */
+
+.lumea-si-mask {
+  overflow: hidden;
+  display: block;
+  /* Extra breathing room so descenders aren't clipped at rest */
+  padding-bottom: 0.12em;
+  margin-bottom:  -0.12em;
+}
+
+.lumea-si-mask .lumea-si-line {
+  display: block;
+  will-change: transform;
+}
+
+.lumea-section-intro-js .lumea-eyebrow {
+  will-change: clip-path, opacity;
+}
+
+.lumea-section-intro-js .lumea-section-desc {
+  will-change: transform, opacity;
+}

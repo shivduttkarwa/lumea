@@ -55,7 +55,7 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 </section>
 
 <!-- Section Intro: Editorial Slider -->
-<div class="lumea-section-intro">
+<div class="lumea-section-intro lumea-section-intro-js">
 	<div class="lumea-container-wide container-fluid">
 		<div class="row">
 			<div class="col-12 col-xl-10">
@@ -101,7 +101,7 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 </section>
 
 <!-- Section Intro: Curated Glow -->
-<div class="lumea-section-intro">
+<div class="lumea-section-intro lumea-section-intro-js">
 	<div class="lumea-container">
 		<span class="lumea-eyebrow"><?php echo esc_html( get_theme_mod( 'lumea_curated_eyebrow', 'Bestsellers' ) ); ?></span>
 		<h2 class="lumea-section-title"><?php echo esc_html( get_theme_mod( 'lumea_curated_title', 'Curated Glow' ) ); ?></h2>
@@ -175,7 +175,7 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 </section>
 
 <!-- Section Intro: Bestsellers -->
-<div class="lumea-section-intro">
+<div class="lumea-section-intro lumea-section-intro-js">
 	<div class="lumea-container">
 		<span class="lumea-eyebrow"><?php echo esc_html( get_theme_mod( 'lumea_best_eyebrow', 'Customer Favourites' ) ); ?></span>
 		<h2 class="lumea-section-title"><?php echo esc_html( get_theme_mod( 'lumea_best_title', 'Shop Bestsellers' ) ); ?></h2>
@@ -371,14 +371,14 @@ $lumea_cta_bg = get_theme_mod( 'lumea_cta_bg_image', LUMEA_THEME_URI . '/assets/
 ?>
 <section class="lumea-fullcta" aria-label="Shop all products" style="--cta-bg: url('<?php echo esc_url( $lumea_cta_bg ); ?>')">
 	<div class="lumea-fullcta-overlay"></div>
-	<div class="lumea-fullcta-inner">
-		<p class="lumea-fullcta-eyebrow">The Collection</p>
-		<h2 class="lumea-fullcta-heading">
+	<div class="lumea-fullcta-inner lumea-section-intro-js">
+		<p class="lumea-fullcta-eyebrow lumea-eyebrow">The Collection</p>
+		<h2 class="lumea-fullcta-heading lumea-section-title">
 			<?php echo esc_html( get_theme_mod( 'lumea_cta_heading_1', 'For' ) ); ?><br>
 			<em><?php echo esc_html( get_theme_mod( 'lumea_cta_heading_2', 'every' ) ); ?></em><br>
 			<?php echo esc_html( get_theme_mod( 'lumea_cta_heading_3', 'skin.' ) ); ?>
 		</h2>
-		<p class="lumea-fullcta-sub"><?php echo esc_html( get_theme_mod( 'lumea_cta_sub', 'Every formula crafted for one result — skin that looks and feels undeniably radiant.' ) ); ?></p>
+		<p class="lumea-fullcta-sub lumea-section-desc"><?php echo esc_html( get_theme_mod( 'lumea_cta_sub', 'Every formula crafted for one result — skin that looks and feels undeniably radiant.' ) ); ?></p>
 		<a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="lumea-fullcta-btn">
 			<span><?php echo esc_html( get_theme_mod( 'lumea_cta_btn', 'Shop All Products' ) ); ?></span>
 			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -467,10 +467,10 @@ $lumea_latest = array(
 <section class="lumea-latest" aria-label="<?php esc_attr_e( 'Latest products', 'lumea' ); ?>">
 	<div class="lumea-container">
 
-		<div class="lumea-latest-head">
+		<div class="lumea-latest-head lumea-section-intro-js">
 			<div>
-				<p class="lumea-latest-eyebrow"><?php esc_html_e( 'Just Arrived', 'lumea' ); ?></p>
-				<h2 class="lumea-latest-title"><?php echo esc_html( get_theme_mod( 'lumea_latest_title', 'Latest Products' ) ); ?></h2>
+				<p class="lumea-latest-eyebrow lumea-eyebrow"><?php esc_html_e( 'Just Arrived', 'lumea' ); ?></p>
+				<h2 class="lumea-latest-title lumea-section-title"><?php echo esc_html( get_theme_mod( 'lumea_latest_title', 'Latest Products' ) ); ?></h2>
 			</div>
 			<a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="lumea-latest-all">
 				View all
@@ -592,13 +592,15 @@ $ritual_img_defaults = array(
 	<div class="lumea-ritual-desktop">
 
 		<aside class="lumea-ritual-left">
-			<h2 class="lumea-ritual-heading">
-				<?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_1', 'your daily' ) ); ?>
-				<em><?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_2', 'skin ritual' ) ); ?></em>
-			</h2>
-			<p class="lumea-ritual-intro">
-				<?php echo esc_html( get_theme_mod( 'lumea_ritual_intro', 'Four intentional steps, one luminous result. A complete routine designed around the skin you have.' ) ); ?>
-			</p>
+			<div class="lumea-section-intro-js">
+				<h2 class="lumea-ritual-heading lumea-section-title">
+					<?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_1', 'your daily' ) ); ?>
+					<em><?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_2', 'skin ritual' ) ); ?></em>
+				</h2>
+				<p class="lumea-ritual-intro lumea-section-desc">
+					<?php echo esc_html( get_theme_mod( 'lumea_ritual_intro', 'Four intentional steps, one luminous result. A complete routine designed around the skin you have.' ) ); ?>
+				</p>
+			</div>
 			<div class="lumea-ritual-accordion">
 				<?php foreach ( $ritual_steps as $n => $step ) : ?>
 				<div class="lumea-ritual-acc<?php echo $n === 1 ? ' is-active' : ''; ?>" data-target="<?php echo esc_attr( $step['id'] ); ?>">
@@ -635,13 +637,15 @@ $ritual_img_defaults = array(
 
 	<!-- Mobile -->
 	<div class="lumea-ritual-mobile">
-		<h2 class="lumea-ritual-heading">
-			<?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_1', 'your daily' ) ); ?>
-			<em><?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_2', 'skin ritual' ) ); ?></em>
-		</h2>
-		<p class="lumea-ritual-intro">
-			<?php echo esc_html( get_theme_mod( 'lumea_ritual_intro', 'Four intentional steps, one luminous result. A complete routine designed around the skin you have.' ) ); ?>
-		</p>
+		<div class="lumea-section-intro-js">
+			<h2 class="lumea-ritual-heading lumea-section-title">
+				<?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_1', 'your daily' ) ); ?>
+				<em><?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_2', 'skin ritual' ) ); ?></em>
+			</h2>
+			<p class="lumea-ritual-intro lumea-section-desc">
+				<?php echo esc_html( get_theme_mod( 'lumea_ritual_intro', 'Four intentional steps, one luminous result. A complete routine designed around the skin you have.' ) ); ?>
+			</p>
+		</div>
 		<div class="lumea-ritual-mobile-list">
 			<?php foreach ( $ritual_steps as $n => $step ) :
 				$img1 = esc_url( get_theme_mod( 'lumea_ritual_step' . $n . '_image1', $ritual_img_defaults[ $n ][1] ) );
