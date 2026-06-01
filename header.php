@@ -52,7 +52,11 @@ if ( $lumea_has_wc ) {
 		<div class="row w-100 g-0 align-items-center">
 			<div class="col-6 col-lg-3">
 
-		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="lumea-header-logo">LUMÉA</a>
+		<?php if ( has_custom_logo() ) : ?>
+			<div class="lumea-header-logo lumea-header-logo--image"><?php the_custom_logo(); ?></div>
+		<?php else : ?>
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="lumea-header-logo" rel="home">LUM&#201;A</a>
+		<?php endif; ?>
 			</div>
 
 			<div class="d-none d-lg-flex col-lg-6 justify-content-center">

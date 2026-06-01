@@ -4,7 +4,7 @@ Theme Name:  Luméa
 Theme URI:   https://themeforest.net/user/shivdutt/portfolio
 Author:      Shivdutt Karwa
 Author URI:  https://themeforest.net/user/shivdutt
-Version:     1.1.0
+Version:     1.1.1
 License:     GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 

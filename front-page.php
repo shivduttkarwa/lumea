@@ -23,6 +23,8 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 ?>
 <?php get_header(); ?>
 
+<main id="lumeaPage">
+
 <section class="hero d-flex align-items-stretch" id="hero-home">
 	<div class="hero-canvas-wrap">
 		<canvas id="heroCanvas"></canvas>
@@ -150,7 +152,7 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 		$p2_desc  = get_theme_mod( 'lumea_product2_desc',  'Rich daily moisture with a soft-touch finish and botanical comfort.' );
 		$p2_url   = lumea_product_url( 'lumea_product2_url' );
 		?>
-		<a class="lumea-product-tile" href="<?php echo $p2_url; ?>">
+		<a class="lumea-product-tile" href="<?php echo esc_url( $p2_url ); ?>">
 			<div class="lumea-product-image-wrap">
 				<img
 					class="lumea-product-image"
@@ -300,12 +302,12 @@ if ( class_exists( 'WooCommerce' ) ) {
 					<div class="swiper-slide">
 						<article class="lumea-best-card">
 							<div class="lumea-card-media-wrap lumea-reveal-js lumea-reveal--clip-js">
-							<a href="<?php echo $bp_url; ?>" class="lumea-best-media-link">
+							<a href="<?php echo esc_url( $bp_url ); ?>" class="lumea-best-media-link">
 								<?php if ( $bp_badge ) : ?>
 								<span class="lumea-best-badge<?php echo ! empty( $bp['is_sale'] ) ? ' lumea-best-badge--sale' : ''; ?>" aria-hidden="true"><?php echo esc_html( $bp_badge ); ?></span>
 								<?php endif; ?>
 								<div class="lumea-best-media">
-									<img class="lumea-best-img lumea-best-img--main" src="<?php echo $bp_main; ?>" alt="<?php echo $bp_name; ?>" loading="lazy" />
+									<img class="lumea-best-img lumea-best-img--main" src="<?php echo esc_url( $bp_main ); ?>" alt="<?php echo esc_attr( $bp_name ); ?>" loading="lazy" />
 									<?php if ( $bp_hover ) : ?>
 									<img class="lumea-best-img lumea-best-img--hover" src="<?php echo $bp_hover; ?>" alt="" loading="lazy" aria-hidden="true" />
 									<?php endif; ?>
@@ -314,7 +316,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 							</div>
 							<div class="lumea-best-info lumea-reveal-js lumea-reveal--fade-js">
 								<div class="lumea-best-title-row">
-									<h3 class="lumea-best-name"><a href="<?php echo $bp_url; ?>"><?php echo $bp_name; ?></a></h3>
+									<h3 class="lumea-best-name"><a href="<?php echo esc_url( $bp_url ); ?>"><?php echo esc_html( $bp_name ); ?></a></h3>
 									<button class="lumea-wish-btn" type="button" aria-label="<?php esc_attr_e( 'Add to wishlist', 'lumea' ); ?>" data-lumea-wish data-product_id="<?php echo esc_attr( $bp_id ); ?>">
 										<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
 									</button>
@@ -338,7 +340,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 									?>
 								<?php else : ?>
 								<div class="lumea-card-actions">
-									<a href="<?php echo $bp_url; ?>" class="lumea-btn btn-black"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></a>
+									<a href="<?php echo esc_url( $bp_url ); ?>" class="lumea-btn btn-black"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></a>
 								</div>
 								<?php endif; ?>
 							</div>
@@ -372,7 +374,7 @@ $lumea_cta_bg = get_theme_mod( 'lumea_cta_bg_image', LUMEA_THEME_URI . '/assets/
 <section class="lumea-fullcta" aria-label="Shop all products" style="--cta-bg: url('<?php echo esc_url( $lumea_cta_bg ); ?>')">
 	<div class="lumea-fullcta-overlay"></div>
 	<div class="lumea-fullcta-inner lumea-section-intro-js">
-		<p class="lumea-fullcta-eyebrow lumea-eyebrow">The Collection</p>
+		<p class="lumea-fullcta-eyebrow lumea-eyebrow"><?php esc_html_e( 'The Collection', 'lumea' ); ?></p>
 		<h2 class="lumea-fullcta-heading lumea-section-title">
 			<?php echo esc_html( get_theme_mod( 'lumea_cta_heading_1', 'For' ) ); ?><br>
 			<em><?php echo esc_html( get_theme_mod( 'lumea_cta_heading_2', 'every' ) ); ?></em><br>
@@ -473,7 +475,7 @@ $lumea_latest = array(
 				<h2 class="lumea-latest-title lumea-section-title"><?php echo esc_html( get_theme_mod( 'lumea_latest_title', 'Latest Products' ) ); ?></h2>
 			</div>
 			<a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="lumea-latest-all">
-				View all
+				<?php esc_html_e( 'View all', 'lumea' ); ?>
 				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 			</a>
 		</div>
@@ -623,10 +625,10 @@ $ritual_img_defaults = array(
 				?>
 				<div class="lumea-ritual-image-group" id="<?php echo esc_attr( $grp[0] ); ?>">
 					<div class="lumea-ritual-image-wrap">
-						<img src="<?php echo $img1; ?>" alt="<?php echo esc_attr( $ritual_steps[ $n ]['title'] ); ?> skincare step" loading="lazy" />
+						<img src="<?php echo esc_url( $img1 ); ?>" alt="<?php echo esc_attr( $ritual_steps[ $n ]['title'] ); ?> skincare step" loading="lazy" />
 					</div>
 					<div class="lumea-ritual-image-wrap">
-						<img src="<?php echo $img2; ?>" alt="<?php echo esc_attr( $ritual_steps[ $n ]['title'] ); ?> ritual detail" loading="lazy" />
+						<img src="<?php echo esc_url( $img2 ); ?>" alt="<?php echo esc_attr( $ritual_steps[ $n ]['title'] ); ?> ritual detail" loading="lazy" />
 					</div>
 				</div>
 				<?php endforeach; ?>
@@ -653,8 +655,8 @@ $ritual_img_defaults = array(
 			?>
 			<article class="lumea-ritual-mobile-card">
 				<div class="lumea-ritual-xfade-wrap">
-					<img src="<?php echo $img1; ?>" alt="<?php echo esc_attr( $step['title'] ); ?>" class="lumea-ritual-xfade lumea-ritual-xfade--a" loading="lazy" />
-					<img src="<?php echo $img2; ?>" alt="" class="lumea-ritual-xfade lumea-ritual-xfade--b" loading="lazy" aria-hidden="true" />
+					<img src="<?php echo esc_url( $img1 ); ?>" alt="<?php echo esc_attr( $step['title'] ); ?>" class="lumea-ritual-xfade lumea-ritual-xfade--a" loading="lazy" />
+					<img src="<?php echo esc_url( $img2 ); ?>" alt="" class="lumea-ritual-xfade lumea-ritual-xfade--b" loading="lazy" aria-hidden="true" />
 				</div>
 				<div>
 					<h3 class="lumea-ritual-mobile-title"><?php echo esc_html( $step['title'] ); ?></h3>
@@ -700,5 +702,7 @@ $title_aria  = esc_attr( $title_1 . ' ' . $title_2 . ' ' . $title_3 );
 		</h2>
 	</div>
 </section>
+
+</main><!-- /#lumeaPage -->
 
 <?php get_footer(); ?>

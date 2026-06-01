@@ -150,11 +150,11 @@ function lumea_enqueue_assets() {
 		'lumea-main',
 		'lumeaData',
 		array(
-			'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
-			'nonce'         => wp_create_nonce( 'lumea_wishlist' ),
-			'shopUrl'       => function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' ),
-			'cartUrl'       => function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url( '/cart/' ),
-			'i18n'          => array(
+			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+			'nonce'   => wp_create_nonce( 'lumea_wishlist' ),
+			'shopUrl' => function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' ),
+			'cartUrl' => function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url( '/cart/' ),
+			'i18n'    => array(
 				'addToWishlist'        => __( 'Add to wishlist', 'lumea' ),
 				'removeFromWishlist'   => __( 'Remove from wishlist', 'lumea' ),
 				'addToCart'            => __( 'Add to Cart', 'lumea' ),
@@ -166,8 +166,15 @@ function lumea_enqueue_assets() {
 				'loadingFavourites'    => __( 'Loading favourites...', 'lumea' ),
 				'remove'               => __( 'Remove', 'lumea' ),
 				'removeFromWishlistOf' => __( 'Remove %s from wishlist', 'lumea' ),
+				/* account-edit.js */
+				'showPassword'         => __( 'Show password', 'lumea' ),
+				'hidePassword'         => __( 'Hide password', 'lumea' ),
+				'pwWeak'               => __( 'Weak', 'lumea' ),
+				'pwFair'               => __( 'Fair', 'lumea' ),
+				'pwGood'               => __( 'Good', 'lumea' ),
+				'pwStrong'             => __( 'Strong', 'lumea' ),
 			),
-			)
+		)
 	);
 
 	/* Hero canvas script + editorial slider — front page only */
@@ -298,6 +305,43 @@ function lumea_enqueue_assets() {
 			'lumea-checkout',
 			LUMEA_THEME_URI . '/assets/js/checkout.js',
 			array(),
+			LUMEA_VERSION,
+			true
+		);
+	}
+
+	/* Cart page interactions — cart page only */
+	if ( function_exists( 'is_cart' ) && is_cart() ) {
+		wp_enqueue_script(
+			'lumea-cart-page',
+			LUMEA_THEME_URI . '/assets/js/cart-page.js',
+			array( 'lumea-main' ),
+			LUMEA_VERSION,
+			true
+		);
+		wp_localize_script(
+			'lumea-cart-page',
+			'lumeaCartData',
+			array(
+				'heroImage' => esc_url( get_theme_mod( 'lumea_hero_image', LUMEA_THEME_URI . '/assets/images/hero1.jpg' ) ),
+				'i18n'      => array(
+					'qtyError'    => __( 'Could not update quantity. Please try again.', 'lumea' ),
+					'yourBag'     => __( 'Your Bag', 'lumea' ),
+					'nothingYet'  => __( 'Nothing here yet', 'lumea' ),
+					'emptyText'   => __( 'Your bag is empty. Browse our botanical skincare collection and find your ritual.', 'lumea' ),
+					'shopAll'     => __( 'Shop the Collection', 'lumea' ),
+					'freeReturns' => __( 'Free returns on all orders', 'lumea' ),
+				),
+			)
+		);
+	}
+
+	/* Account edit page — my-account only */
+	if ( function_exists( 'is_account_page' ) && is_account_page() ) {
+		wp_enqueue_script(
+			'lumea-account-edit',
+			LUMEA_THEME_URI . '/assets/js/account-edit.js',
+			array( 'lumea-main' ),
 			LUMEA_VERSION,
 			true
 		);
