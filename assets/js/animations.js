@@ -329,68 +329,6 @@
 
   } )();
 
-  /* ── Bestsellers — circular bloom reveal ────────────────────
-     Each card's image area blooms open from a pin-point circle
-     as the section enters the viewport, staggered left to right.
-     Mirrors effect-04 (circular bloom) from the image reveal lab.
-  */
-  ( function initBestsellerBloom() {
-
-    var section    = document.querySelector( '.lumea-best-section' );
-    if ( ! section ) return;
-
-    var mediaWraps = section.querySelectorAll( '.lumea-card-media-wrap' );
-    var mainImgs   = section.querySelectorAll( '.lumea-best-img--main' );
-    var infoBlocks = section.querySelectorAll( '.lumea-best-info' );
-
-    if ( ! mediaWraps.length ) return;
-
-    /* Cards start invisible — bloom reveals them on scroll */
-    gsap.set( mediaWraps, { clipPath: 'circle(0% at 50% 50%)' } );
-    gsap.set( mainImgs,   { scale: 1.22 } );
-    gsap.set( infoBlocks, { autoAlpha: 0, y: 20 } );
-
-    ScrollTrigger.create( {
-      trigger: section,
-      start:   'top 72%',
-      once:    true,
-      onEnter: function () {
-
-        /* Bloom each image area open, staggered */
-        gsap.to( mediaWraps, {
-          clipPath:  'circle(75% at 50% 50%)',
-          duration:  1.35,
-          ease:      'expo.inOut',
-          stagger:   0.12,
-          onComplete: function () {
-            gsap.set( this.targets()[ 0 ], { clearProps: 'clipPath' } );
-          },
-        } );
-
-        /* Image settles from slight zoom as bloom opens */
-        gsap.to( mainImgs, {
-          scale:    1,
-          duration: 1.45,
-          ease:     'power4.out',
-          stagger:  0.12,
-          delay:    0.05,
-        } );
-
-        /* Card text fades up after image blooms */
-        gsap.to( infoBlocks, {
-          autoAlpha: 1,
-          y:         0,
-          duration:  0.75,
-          ease:      'power3.out',
-          stagger:   0.1,
-          delay:     0.38,
-        } );
-
-      },
-    } );
-
-  } )();
-
   /* ── Curated section — random mosaic tile reveal ─────────────
      Mirrors effect-03 (random mosaic) from b2.html.
      A 6×4 grid of tiles covers each product card; tiles scatter
@@ -461,6 +399,77 @@
         },
       } );
     } );
+
+  } )();
+
+  /* ── Editorial slider — luxury blind strips reveal ───────────
+     Mirrors effect-03 (blind strips) from image.html.
+     5 vertical strips alternate up/down to reveal the first
+     slide as the section enters the viewport.
+     Uses MutationObserver because slider.js runs after
+     animations.js in the WordPress enqueue chain and the
+     .lumea-slide elements don't exist yet when this runs.
+  */
+  ( function initEditorialBlindReveal() {
+
+    var sliderEl = document.getElementById( 'lumeaSlider' );
+    if ( ! sliderEl ) return;
+
+    function setup( firstSlide ) {
+      /* Inject 5 strips into the slide (sibling of .lumea-slide-inner) */
+      var stripsWrap = document.createElement( 'div' );
+      stripsWrap.className = 'lumea-blind-strips';
+      for ( var i = 0; i < 5; i++ ) {
+        var s = document.createElement( 'div' );
+        s.className = 'lumea-blind-strip';
+        stripsWrap.appendChild( s );
+      }
+      firstSlide.appendChild( stripsWrap );
+
+      var strips = stripsWrap.querySelectorAll( '.lumea-blind-strip' );
+      var img    = firstSlide.querySelector( 'img' );
+
+      if ( img ) gsap.set( img, { scale: 1.18 } );
+
+      ScrollTrigger.create( {
+        trigger: sliderEl,
+        start:   'top 75%',
+        once:    true,
+        onEnter: function () {
+          var tl = gsap.timeline( {
+            onComplete: function () { stripsWrap.remove(); },
+          } );
+
+          /* Alternate strips fly up / down */
+          tl.to( strips, {
+            yPercent: function ( i ) { return i % 2 === 0 ? -105 : 105; },
+            duration: 1.1,
+            stagger:  0.08,
+            ease:     'power4.inOut',
+          } );
+
+          /* Image settles from zoom as strips depart */
+          if ( img ) {
+            tl.to( img, { scale: 1, duration: 1.45, ease: 'power4.out' }, 0 );
+          }
+        },
+      } );
+    }
+
+    /* Slides may not exist yet — use MutationObserver to wait */
+    var existing = sliderEl.querySelector( '.lumea-slide[data-index="0"]' );
+    if ( existing ) {
+      setup( existing );
+    } else {
+      var observer = new MutationObserver( function () {
+        var slide = sliderEl.querySelector( '.lumea-slide[data-index="0"]' );
+        if ( slide ) {
+          observer.disconnect();
+          setup( slide );
+        }
+      } );
+      observer.observe( sliderEl, { childList: true, subtree: true } );
+    }
 
   } )();
 

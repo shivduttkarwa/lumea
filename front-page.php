@@ -299,7 +299,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 					?>
 					<div class="swiper-slide">
 						<article class="lumea-best-card">
-							<div class="lumea-card-media-wrap">
+							<div class="lumea-card-media-wrap lumea-reveal-js lumea-reveal--clip-js">
 							<a href="<?php echo $bp_url; ?>" class="lumea-best-media-link">
 								<?php if ( $bp_badge ) : ?>
 								<span class="lumea-best-badge<?php echo ! empty( $bp['is_sale'] ) ? ' lumea-best-badge--sale' : ''; ?>" aria-hidden="true"><?php echo esc_html( $bp_badge ); ?></span>
@@ -312,7 +312,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 								</div>
 							</a>
 							</div>
-							<div class="lumea-best-info">
+							<div class="lumea-best-info lumea-reveal-js lumea-reveal--fade-js">
 								<div class="lumea-best-title-row">
 									<h3 class="lumea-best-name"><a href="<?php echo $bp_url; ?>"><?php echo $bp_name; ?></a></h3>
 									<button class="lumea-wish-btn" type="button" aria-label="<?php esc_attr_e( 'Add to wishlist', 'lumea' ); ?>" data-lumea-wish data-product_id="<?php echo esc_attr( $bp_id ); ?>">

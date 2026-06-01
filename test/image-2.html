@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refined Prism Shard Reveal</title>
+
+  <style>
+    :root {
+      --lumea-bg: #fffaf7;
+      --lumea-surface: #ffffff;
+      --lumea-text: #241816;
+      --lumea-muted: #7d6b66;
+      --lumea-accent: #c98578;
+      --lumea-accent-dark: #8f4d43;
+      --lumea-green: #c7f099;
+      --lumea-border: rgba(36, 24, 22, 0.12);
+
+      --lumea-radius: 28px;
+      --lumea-container: 76rem;
+      --lumea-container-gutter: clamp(1rem, 3vw, 2.5rem);
+
+      --lumea-font-heading: "Clash Display", Inter, system-ui, sans-serif;
+      --lumea-font-body: Inter, system-ui, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--lumea-font-body);
+      background: var(--lumea-bg);
+      color: var(--lumea-text);
+      overflow-x: hidden;
+    }
+
+    .dummy-section {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: var(--lumea-container-gutter);
+      background:
+        radial-gradient(circle at 18% 22%, rgba(201, 133, 120, 0.26), transparent 30%),
+        radial-gradient(circle at 82% 68%, rgba(199, 240, 153, 0.4), transparent 34%),
+        linear-gradient(135deg, #fffaf7, #fff1eb);
+    }
+
+    .hero-inner {
+      max-width: 850px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--lumea-accent-dark);
+      margin-bottom: 1rem;
+    }
+
+    h1,
+    h2 {
+      font-family: var(--lumea-font-heading);
+      font-weight: 600;
+      letter-spacing: -0.075em;
+    }
+
+    h1 {
+      font-size: clamp(3.6rem, 10vw, 9.5rem);
+      line-height: 0.86;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-inner p {
+      max-width: 580px;
+      margin: 0 auto;
+      color: var(--lumea-muted);
+      line-height: 1.75;
+      font-size: clamp(1rem, 1.4vw, 1.16rem);
+    }
+
+    .prism-section {
+      min-height: 100vh;
+      padding: 8rem var(--lumea-container-gutter);
+      display: grid;
+      place-items: center;
+    }
+
+    .prism-layout {
+      width: 100%;
+      max-width: var(--lumea-container);
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      align-items: center;
+      gap: clamp(2rem, 6vw, 6rem);
+    }
+
+    .copy span {
+      display: inline-block;
+      color: var(--lumea-accent-dark);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 1.1rem;
+    }
+
+    .copy h2 {
+      font-size: clamp(2.6rem, 5.8vw, 6.2rem);
+      line-height: 0.9;
+      margin-bottom: 1.3rem;
+    }
+
+    .copy p {
+      max-width: 440px;
+      color: var(--lumea-muted);
+      line-height: 1.75;
+    }
+
+    .image-stage {
+      height: clamp(440px, 62vw, 720px);
+      border-radius: var(--lumea-radius);
+      position: relative;
+      overflow: hidden;
+      background: var(--lumea-text);
+      box-shadow: 0 34px 90px rgba(36, 24, 22, 0.16);
+      isolation: isolate;
+      cursor: default;
+    }
+
+    .image-stage.is-hover-ready {
+      cursor: pointer;
+    }
+
+    .prism-final {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0;
+      transform: scale(1.01);
+      will-change: opacity, transform;
+    }
+
+    .shard {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      background-image: var(--prism-img);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      will-change: transform, opacity;
+      transform-origin: 50% 50%;
+      opacity: 0;
+    }
+
+    .shard-1 {
+      clip-path: polygon(0 0, 38% 0, 25% 38%, 0 48%);
+    }
+
+    .shard-2 {
+      clip-path: polygon(38% 0, 100% 0, 74% 34%, 25% 38%);
+    }
+
+    .shard-3 {
+      clip-path: polygon(0 48%, 25% 38%, 42% 72%, 0 100%);
+    }
+
+    .shard-4 {
+      clip-path: polygon(25% 38%, 74% 34%, 58% 74%, 42% 72%);
+    }
+
+    .shard-5 {
+      clip-path: polygon(74% 34%, 100% 0, 100% 55%, 58% 74%);
+    }
+
+    .shard-6 {
+      clip-path: polygon(42% 72%, 58% 74%, 74% 100%, 0 100%);
+    }
+
+    .shard-7 {
+      clip-path: polygon(58% 74%, 100% 55%, 100% 100%, 74% 100%);
+    }
+
+    .prism-light {
+      position: absolute;
+      inset: 0;
+      z-index: 6;
+      pointer-events: none;
+      background:
+        linear-gradient(
+          110deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.01) 14%,
+          transparent 64%
+        );
+      transform: translateX(-145%);
+      opacity: 0;
+      mix-blend-mode: soft-light;
+    }
+
+    .prism-glow {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.10), transparent 30%),
+        radial-gradient(circle at 72% 70%, rgba(201, 133, 120, 0.10), transparent 34%);
+      opacity: 0;
+      mix-blend-mode: soft-light;
+    }
+
+    .hover-hint {
+      position: absolute;
+      left: 1.4rem;
+      bottom: 1.4rem;
+      z-index: 8;
+      padding: 0.72rem 0.92rem;
+      border-radius: 999px;
+      background: rgba(255, 250, 247, 0.78);
+      backdrop-filter: blur(12px);
+      color: var(--lumea-text);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+    }
+
+    .image-stage::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 7;
+      pointer-events: none;
+      border-radius: inherit;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);=
+    }
+
+    @media (max-width: 800px) {
+      .prism-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .image-stage {
+        height: 460px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="dummy-section">
+    <div class="hero-inner">
+      <div class="eyebrow">Refined prism motion</div>
+      <h1>Prism Shard Reveal</h1>
+      <p>
+        Scroll down. The model image assembles from prism-like shards.
+        After two seconds, hover over it to break and reassemble again.
+      </p>
+    </div>
+  </section>
+
+  <section class="prism-section">
+    <div class="prism-layout">
+      <div class="copy">
+        <span>Luxury interaction</span>
+        <h2>Broken pieces become one image.</h2>
+        <p>
+          A refined image reveal where the shards come together smoothly,
+          then the final image fades in without any harsh white flash.
+        </p>
+      </div>
+
+      <div
+        class="image-stage fx-prism"
+        style="--prism-img: url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=85');"
+      >
+        <img
+          class="prism-final"
+          src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=85"
+          alt="Fashion model portrait"
+        />
+
+        <div class="shard shard-1"></div>
+        <div class="shard shard-2"></div>
+        <div class="shard shard-3"></div>
+        <div class="shard shard-4"></div>
+        <div class="shard shard-5"></div>
+        <div class="shard shard-6"></div>
+        <div class="shard shard-7"></div>
+
+        <div class="prism-glow"></div>
+        <div class="prism-light"></div>
+        <div class="hover-hint">Hover to fracture</div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.from(".hero-inner > *", {
+      y: 44,
+      opacity: 0,
+      duration: 1.1,
+      stagger: 0.12,
+      ease: "power3.out"
+    });
+
+    gsap.from(".copy > *", {
+      scrollTrigger: {
+        trigger: ".prism-section",
+        start: "top 72%"
+      },
+      y: 34,
+      opacity: 0,
+      duration: 0.9,
+      stagger: 0.1,
+      ease: "power3.out"
+    });
+
+    document.querySelectorAll(".fx-prism").forEach((stage) => {
+      const finalImg = stage.querySelector(".prism-final");
+      const shards = gsap.utils.toArray(stage.querySelectorAll(".shard"));
+      const light = stage.querySelector(".prism-light");
+      const glow = stage.querySelector(".prism-glow");
+      const hint = stage.querySelector(".hover-hint");
+
+      let isReadyForHover = false;
+      let isAnimating = false;
+
+      const breakStates = [
+        { x: -230, y: -150, rotate: -18, scale: 1.16 },
+        { x: 190, y: -170, rotate: 14, scale: 1.12 },
+        { x: -210, y: 150, rotate: 16, scale: 1.14 },
+        { x: 40, y: -220, rotate: -10, scale: 1.18 },
+        { x: 230, y: 40, rotate: 18, scale: 1.13 },
+        { x: -70, y: 220, rotate: -16, scale: 1.15 },
+        { x: 210, y: 180, rotate: 12, scale: 1.14 }
+      ];
+
+      function resetLightLayers() {
+        gsap.set(light, {
+          xPercent: -145,
+          opacity: 0
+        });
+
+        gsap.set(glow, {
+          opacity: 0
+        });
+      }
+
+      function setBrokenState() {
+        gsap.set(finalImg, {
+          opacity: 0,
+          scale: 1.01
+        });
+
+        resetLightLayers();
+
+        shards.forEach((shard, index) => {
+          gsap.set(shard, {
+            opacity: 0,
+            x: breakStates[index].x,
+            y: breakStates[index].y,
+            rotate: breakStates[index].rotate,
+            scale: breakStates[index].scale
+          });
+        });
+      }
+
+      function assemblePrism(options = {}) {
+        const { initial = false } = options;
+
+        isAnimating = true;
+
+        const tl = gsap.timeline({
+          defaults: {
+            overwrite: "auto"
+          },
+          onComplete: () => {
+            isAnimating = false;
+
+            if (initial) {
+              gsap.delayedCall(2, () => {
+                isReadyForHover = true;
+                stage.classList.add("is-hover-ready");
+
+                gsap.to(hint, {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.45,
+                  ease: "power3.out"
+                });
+              });
+            }
+          }
+        });
+
+        tl.to(shards, {
+          opacity: 1,
+          duration: 0.28,
+          ease: "power2.out"
+        })
+
+        .to(shards, {
+          x: 0,
+          y: 0,
+          rotate: 0,
+          scale: 1,
+          duration: initial ? 1.25 : 0.95,
+          stagger: {
+            amount: initial ? 0.42 : 0.25,
+            from: "random"
+          },
+          ease: initial ? "expo.out" : "power4.out"
+        }, 0.05)
+
+        .to(glow, {
+          opacity: 0.26,
+          duration: 0.55,
+          ease: "power2.out"
+        }, 0.35)
+
+        /*
+          Important:
+          Final image fades in while shards are still assembled.
+          This avoids the reposition/jump problem.
+        */
+        .to(finalImg, {
+          opacity: 1,
+          scale: 1,
+          duration: 0.75,
+          ease: "power2.out"
+        }, initial ? 0.95 : 0.68)
+
+        /*
+          Very subtle shine only.
+          No aggressive white flash.
+        */
+        .to(light, {
+          opacity: 0.45,
+          duration: 0.15,
+          ease: "none"
+        }, initial ? 1.05 : 0.78)
+
+        .to(light, {
+          xPercent: 285,
+          duration: 0.9,
+          ease: "power3.out"
+        }, initial ? 1.05 : 0.78)
+
+        .to(light, {
+          opacity: 0,
+          duration: 0.42,
+          ease: "power2.out"
+        }, initial ? 1.45 : 1.12)
+
+        .to(shards, {
+          opacity: 0,
+          duration: 0.42,
+          ease: "power2.out"
+        }, initial ? 1.42 : 1.06)
+
+        .to(glow, {
+          opacity: 0,
+          duration: 0.55,
+          ease: "power2.out"
+        }, initial ? 1.48 : 1.12);
+
+        return tl;
+      }
+
+      function breakAndReassemble() {
+        if (!isReadyForHover || isAnimating) return;
+
+        isAnimating = true;
+
+        gsap.to(hint, {
+          opacity: 0,
+          y: 10,
+          duration: 0.25,
+          ease: "power2.out"
+        });
+
+        resetLightLayers();
+
+        gsap.set(shards, {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          rotate: 0,
+          scale: 1
+        });
+
+        const tl = gsap.timeline({
+          onComplete: () => {
+            gsap.delayedCall(0.12, () => {
+              assemblePrism({ initial: false });
+            });
+          }
+        });
+
+        tl.to(finalImg, {
+          opacity: 0,
+          scale: 1.012,
+          duration: 0.2,
+          ease: "power2.out"
+        }, 0)
+
+        .to(shards, {
+          x: (index) => breakStates[index].x,
+          y: (index) => breakStates[index].y,
+          rotate: (index) => breakStates[index].rotate,
+          scale: (index) => breakStates[index].scale,
+          duration: 0.58,
+          stagger: {
+            amount: 0.16,
+            from: "random"
+          },
+          ease: "power3.inOut"
+        }, 0.02)
+
+        .to(glow, {
+          opacity: 0,
+          duration: 0.35,
+          ease: "power2.out"
+        }, 0.25);
+      }
+
+      setBrokenState();
+
+      ScrollTrigger.create({
+        trigger: stage,
+        start: "top 74%",
+        once: true,
+        onEnter: () => {
+          assemblePrism({ initial: true });
+        }
+      });
+
+      stage.addEventListener("mouseenter", breakAndReassemble);
+    });
+  </script>
+
+</body>
+</html>
