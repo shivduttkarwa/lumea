@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- generator="WordPress/6.8" created="2025-06-01 00:00" -->
+<rss version="2.0"
+    xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:wp="http://wordpress.org/export/1.2/">
+
+<channel>
+    <title>Luméa Demo</title>
+    <link>https://demo.lumeaskincare.com</link>
+    <description>Premium Beauty &amp; Skincare</description>
+    <pubDate>Sun, 01 Jun 2025 00:00:00 +0000</pubDate>
+    <language>en-US</language>
+    <wp:wxr_version>1.2</wp:wxr_version>
+    <wp:base_site_url>https://demo.lumeaskincare.com</wp:base_site_url>
+    <wp:base_blog_url>https://demo.lumeaskincare.com</wp:base_blog_url>
+
+    <wp:author>
+        <wp:author_id>1</wp:author_id>
+        <wp:author_login><![CDATA[lumea_admin]]></wp:author_login>
+        <wp:author_email><![CDATA[admin@example.com]]></wp:author_email>
+        <wp:author_display_name><![CDATA[Luméa]]></wp:author_display_name>
+        <wp:author_first_name><![CDATA[Luméa]]></wp:author_first_name>
+        <wp:author_last_name><![CDATA[Admin]]></wp:author_last_name>
+    </wp:author>
+
+    <!-- Blog post categories -->
+    <wp:category>
+        <wp:term_id>1</wp:term_id>
+        <wp:category_nicename><![CDATA[skincare]]></wp:category_nicename>
+        <wp:category_parent></wp:category_parent>
+        <wp:cat_name><![CDATA[Skincare]]></wp:cat_name>
+    </wp:category>
+    <wp:category>
+        <wp:term_id>2</wp:term_id>
+        <wp:category_nicename><![CDATA[ingredients]]></wp:category_nicename>
+        <wp:category_parent></wp:category_parent>
+        <wp:cat_name><![CDATA[Ingredients]]></wp:cat_name>
+    </wp:category>
+    <wp:category>
+        <wp:term_id>3</wp:term_id>
+        <wp:category_nicename><![CDATA[routines]]></wp:category_nicename>
+        <wp:category_parent></wp:category_parent>
+        <wp:cat_name><![CDATA[Routines]]></wp:cat_name>
+    </wp:category>
+
+
+    <!-- ============================================================
+         PAGES
+         ============================================================ -->
+
+    <!-- Home — triggers front-page.php when set as static front page -->
+    <item>
+        <title>Home</title>
+        <link>https://demo.lumeaskincare.com/home/</link>
+        <pubDate>Sun, 01 Jun 2025 00:00:00 +0000</pubDate>
+        <dc:creator><![CDATA[lumea_admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.lumeaskincare.com/?page_id=10</guid>
+        <description></description>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+        <wp:post_id>10</wp:post_id>
+        <wp:post_date><![CDATA[2025-06-01 00:00:00]]></wp:post_date>
+        <wp:post_date_gmt><![CDATA[2025-06-01 00:00:00]]></wp:post_date_gmt>
+        <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+        <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+        <wp:post_name><![CDATA[home]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_parent>0</wp:post_parent>
+        <wp:menu_order>0</wp:menu_order>
+        <wp:post_type><![CDATA[page]]></wp:post_type>
+        <wp:post_password></wp:post_password>
+        <wp:is_sticky>0</wp:is_sticky>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+            <wp:meta_value><![CDATA[default]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+    <!-- Blog — set as posts page under Settings > Reading -->
+    <item>
+        <title>Blog</title>
+        <link>https://demo.lumeaskincare.com/blog/</link>
+        <pubDate>Sun, 01 Jun 2025 00:00:01 +0000</pubDate>
+        <dc:creator><![CDATA[lumea_admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.lumeaskincare.com/?page_id=11</guid>
+        <description></description>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+        <wp:post_id>11</wp:post_id>
+        <wp:post_date><![CDATA[2025-06-01 00:00:01]]></wp:post_date>
+        <wp:post_date_gmt><![CDATA[2025-06-01 00:00:01]]></wp:post_date_gmt>
+        <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+        <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+        <wp:post_name><![CDATA[blog]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_parent>0</wp:post_parent>
+        <wp:menu_order>0</wp:menu_order>
+        <wp:post_type><![CDATA[page]]></wp:post_type>
+        <wp:post_password></wp:post_password>
+        <wp:is_sticky>0</wp:is_sticky>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+            <wp:meta_value><![CDATA[default]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+    <!-- Shop — WooCommerce shop page -->
+    <item>
+        <title>Shop</title>
+        <link>https://demo.lumeaskincare.com/shop/</link>
+        <pubDate>Sun, 01 Jun 2025 00:00:02 +0000</pubDate>
+        <dc:creator><![CDATA[lumea_admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.lumeaskincare.com/?page_id=12</guid>
+        <description></description>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+        <wp:post_id>12</wp:post_id>
+        <wp:post_date><![CDATA[2025-06-01 00:00:02]]></wp:post_date>
+        <wp:post_date_gmt><![CDATA[2025-06-01 00:00:02]]></wp:post_date_gmt>
+        <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+        <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+        <wp:post_name><![CDATA[shop]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_parent>0</wp:post_parent>
+        <wp:menu_order>0</wp:menu_order>
+        <wp:post_type><![CDATA[page]]></wp:post_type>
+        <wp:post_password></wp:post_password>
+        <wp:is_sticky>0</wp:is_sticky>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+            <wp:meta_value><![CDATA[default]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+    <!-- Cart -->
+    <item>
+        <title>Cart</title>
+        <link>https://demo.lumeaskincare.com/cart/</link>
+        <pubDate>Sun, 01 Jun 2025 00:00:03 +0000</pubDate>
+        <dc:creator><![CDATA[lumea_admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.lumeaskincare.com/?page_id=13</guid>
+        <description></description>
+        <content:encoded><![CDATA[[woocommerce_cart]]]></content:encoded>
+        <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+        <wp:post_id>13</wp:post_id>
+        <wp:post_date><![CDATA[2025-06-01 00:00:03]]></wp:post_date>
+        <wp:post_date_gmt><![CDATA[2025-06-01 00:00:03]]></wp:post_date_gmt>
+        <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+        <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+        <wp:post_name><![CDATA[cart]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_parent>0</wp:post_parent>
+        <wp:menu_order>0</wp:menu_order>
+        <wp:post_type><![CDATA[page]]></wp:post_type>
+        <wp:post_password></wp:post_password>
+        <wp:is_sticky>0</wp:is_sticky>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+            <wp:meta_value><![CDATA[default]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+    <!-- Checkout -->
+    <item>
+        <title>Checkout</title>
+        <link>https://demo.lumeaskincare.com/checkout/</link>
+        <pubDate>Sun, 01 Jun 2025 00:00:04 +0000</pubDate>
+        <dc:creator><![CDATA[lumea_admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.lumeaskincare.com/?page_id=14</guid>
+        <description></description>
+        <content:encoded><![CDATA[[woocommerce_checkout]]]></content:encoded>
+        <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+        <wp:post_id>14</wp:post_id>
+        <wp:post_date><![CDATA[2025-06-01 00:00:04]]></wp:post_date>
+        <wp:post_date_gmt><![CDATA[2025-06-01 00:00:04]]></wp:post_date_gmt>
+        <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+        <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+        <wp:post_name><![CDATA[checkout]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_parent>0</wp:post_parent>
+        <wp:menu_order>0</wp:menu_order>
+        <wp:post_type><![CDATA[page]]></wp:post_type>
+        <wp:post_password></wp:post_password>
+        <wp:is_sticky>0</wp:is_sticky>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+            <wp:meta_value><![CDATA[default]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+    <!-- My Account -->
+    <item>
+        <title>My Account</title>
+        <link>https://demo.lumeaskincare.com/my-account/</link>
+        <pubDate>Sun, 01 Jun 2025 00:00:05 +0000</pubDate>
+        <dc:creator><![CDATA[lumea_admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.lumeaskincare.com/?page_id=15</guid>
+        <description></description>
+        <content:encoded><![CDATA[[woocommerce_my_account]]]></content:encoded>
+        <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+        <wp:post_id>15</wp:post_id>
+        <wp:post_date><![CDATA[2025-06-01 00:00:05]]></wp:post_date>
+        <wp:post_date_gmt><![CDATA[2025-06-01 00:00:05]]></wp:post_date_gmt>
+        <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+        <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+        <wp:post_name><![CDATA[my-account]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_parent>0</wp:post_parent>
+        <wp:menu_order>0</wp:menu_order>
+        <wp:post_type><![CDATA[page]]></wp:post_type>
+        <wp:post_password></wp:post_password>
+        <wp:is_sticky>0</wp:is_sticky>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+            <wp:meta_value><![CDATA[default]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+    <!-- About — page-about.php template -->
+    <item>
+        <title>About</title>
+        <link>https://demo.lumeaskincare.com/about/</link>
+        <pubDate>Sun, 01 Jun 2025 00:00:06 +0000</pubDate>
+        <dc:creator><![CDATA[lumea_admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.lumeaskincare.com/?page_id=16</guid>
+        <description></description>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+        <wp:post_id>16</wp:post_id>
+        <wp:post_date><![CDATA[2025-06-01 00:00:06]]></wp:post_date>
+        <wp:post_date_gmt><![CDATA[2025-06-01 00:00:06]]></wp:post_date_gmt>
+        <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+        <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+        <wp:post_name><![CDATA[about]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_parent>0</wp:post_parent>
+        <wp:menu_order>0</wp:menu_order>
+        <wp:post_type><![CDATA[page]]></wp:post_type>
+        <wp:post_password></wp:post_password>
+        <wp:is_sticky>0</wp:is_sticky>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+            <wp:meta_value><![CDATA[page-about.php]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+    <!-- Contact — page-contact.php template -->
+    <item>
+        <title>Contact</title>
+        <link>https://demo.lumeaskincare.com/contact/</link>
+        <pubDate>Sun, 01 Jun 2025 00:00:07 +0000</pubDate>
+        <dc:creator><![CDATA[lumea_admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.lumeaskincare.com/?page_id=17</guid>
+        <description></description>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+        <wp:post_id>17</wp:post_id>
+        <wp:post_date><![CDATA[2025-06-01 00:00:07]]></wp:post_date>
+        <wp:post_date_gmt><![CDATA[2025-06-01 00:00:07]]></wp:post_date_gmt>
+        <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+        <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+        <wp:post_name><![CDATA[contact]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_parent>0</wp:post_parent>
+        <wp:menu_order>0</wp:menu_order>
+        <wp:post_type><![CDATA[page]]></wp:post_type>
+        <wp:post_password></wp:post_password>
+        <wp:is_sticky>0</wp:is_sticky>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+            <wp:meta_value><![CDATA[page-contact.php]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+    <!-- FAQ — page-faq.php template -->
+    <item>
+        <title>FAQ</title>
+        <link>https://demo.lumeaskincare.com/faq/</link>
+        <pubDate>Sun, 01 Jun 2025 00:00:08 +0000</pubDate>
+        <dc:creator><![CDATA[lumea_admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.lumeaskincare.com/?page_id=18</guid>
+        <description></description>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+        <wp:post_id>18</wp:post_id>
+        <wp:post_date><![CDATA[2025-06-01 00:00:08]]></wp:post_date>
+        <wp:post_date_gmt><![CDATA[2025-06-01 00:00:08]]></wp:post_date_gmt>
+        <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+        <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+        <wp:post_name><![CDATA[faq]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_parent>0</wp:post_parent>
+        <wp:menu_order>0</wp:menu_order>
+        <wp:post_type><![CDATA[page]]></wp:post_type>
+        <wp:post_password></wp:post_password>
+        <wp:is_sticky>0</wp:is_sticky>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+            <wp:meta_value><![CDATA[page-faq.php]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+    <!-- Wishlist — page-wishlist.php template -->
+    <item>
+        <title>Wishlist</title>
+        <link>https://demo.lumeaskincare.com/wishlist/</link>
+        <pubDate>Sun, 01 Jun 2025 00:00:09 +0000</pubDate>
+        <dc:creator><![CDATA[lumea_admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.lumeaskincare.com/?page_id=19</guid>
+        <description></description>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+        <wp:post_id>19</wp:post_id>
+        <wp:post_date><![CDATA[2025-06-01 00:00:09]]></wp:post_date>
+        <wp:post_date_gmt><![CDATA[2025-06-01 00:00:09]]></wp:post_date_gmt>
+        <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+        <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+        <wp:post_name><![CDATA[wishlist]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_parent>0</wp:post_parent>
+        <wp:menu_order>0</wp:menu_order>
+        <wp:post_type><![CDATA[page]]></wp:post_type>
+        <wp:post_password></wp:post_password>
+        <wp:is_sticky>0</wp:is_sticky>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+            <wp:meta_value><![CDATA[page-wishlist.php]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+    <!-- Bundles & Gifts — page-bundle.php template -->
+    <item>
+        <title>Bundles</title>
+        <link>https://demo.lumeaskincare.com/bundles/</link>
+        <pubDate>Sun, 01 Jun 2025 00:00:10 +0000</pubDate>
+        <dc:creator><![CDATA[lumea_admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.lumeaskincare.com/?page_id=20</guid>
+        <description></description>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+        <wp:post_id>20</wp:post_id>
+        <wp:post_date><![CDATA[2025-06-01 00:00:10]]></wp:post_date>
+        <wp:post_date_gmt><![CDATA[2025-06-01 00:00:10]]></wp:post_date_gmt>
+        <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+        <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+        <wp:post_name><![CDATA[bundles]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_parent>0</wp:post_parent>
+        <wp:menu_order>0</wp:menu_order>
+        <wp:post_type><![CDATA[page]]></wp:post_type>
+        <wp:post_password></wp:post_password>
+        <wp:is_sticky>0</wp:is_sticky>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+            <wp:meta_value><![CDATA[page-bundle.php]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+    <!-- Our Ingredients — page-ingredients.php template -->
+    <item>
+        <title>Our Ingredients</title>
+        <link>https://demo.lumeaskincare.com/ingredients/</link>
+        <pubDate>Sun, 01 Jun 2025 00:00:11 +0000</pubDate>
+        <dc:creator><![CDATA[lumea_admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.lumeaskincare.com/?page_id=21</guid>
+        <description></description>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+        <wp:post_id>21</wp:post_id>
+        <wp:post_date><![CDATA[2025-06-01 00:00:11]]></wp:post_date>
+        <wp:post_date_gmt><![CDATA[2025-06-01 00:00:11]]></wp:post_date_gmt>
+        <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+        <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+        <wp:post_name><![CDATA[ingredients]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_parent>0</wp:post_parent>
+        <wp:menu_order>0</wp:menu_order>
+        <wp:post_type><![CDATA[page]]></wp:post_type>
+        <wp:post_password></wp:post_password>
+        <wp:is_sticky>0</wp:is_sticky>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+            <wp:meta_value><![CDATA[page-ingredients.php]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+    <!-- Shipping & Returns — page-shipping.php template -->
+    <item>
+        <title>Shipping &amp; Returns</title>
+        <link>https://demo.lumeaskincare.com/shipping-returns/</link>
+        <pubDate>Sun, 01 Jun 2025 00:00:12 +0000</pubDate>
+        <dc:creator><![CDATA[lumea_admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.lumeaskincare.com/?page_id=22</guid>
+        <description></description>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+        <wp:post_id>22</wp:post_id>
+        <wp:post_date><![CDATA[2025-06-01 00:00:12]]></wp:post_date>
+        <wp:post_date_gmt><![CDATA[2025-06-01 00:00:12]]></wp:post_date_gmt>
+        <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+        <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+        <wp:post_name><![CDATA[shipping-returns]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_parent>0</wp:post_parent>
+        <wp:menu_order>0</wp:menu_order>
+        <wp:post_type><![CDATA[page]]></wp:post_type>
+        <wp:post_password></wp:post_password>
+        <wp:is_sticky>0</wp:is_sticky>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+            <wp:meta_value><![CDATA[page-shipping.php]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+    <!-- Privacy Policy — default template -->
+    <item>
+        <title>Privacy Policy</title>
+        <link>https://demo.lumeaskincare.com/privacy-policy/</link>
+        <pubDate>Sun, 01 Jun 2025 00:00:13 +0000</pubDate>
+        <dc:creator><![CDATA[lumea_admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.lumeaskincare.com/?page_id=23</guid>
+        <description></description>
+        <content:encoded><![CDATA[<h2>Privacy Policy</h2>
+<p>This Privacy Policy describes how Luméa Skincare collects, uses, and shares information about you when you use our website and purchase our products.</p>
+<h3>Information We Collect</h3>
+<p>We collect information you provide directly to us, such as when you create an account, make a purchase, or contact us for support. This includes your name, email address, shipping address, and payment information.</p>
+<h3>How We Use Your Information</h3>
+<p>We use the information we collect to process transactions, send order confirmations, provide customer support, and send promotional communications where you have opted in.</p>
+<h3>Sharing of Information</h3>
+<p>We do not sell your personal information. We share information only with service providers who assist us in operating our website and fulfilling orders, such as payment processors and shipping carriers.</p>
+<h3>Contact Us</h3>
+<p>If you have questions about this Privacy Policy, please contact us through our <a href="/contact/">Contact page</a>.</p>]]></content:encoded>
+        <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+        <wp:post_id>23</wp:post_id>
+        <wp:post_date><![CDATA[2025-06-01 00:00:13]]></wp:post_date>
+        <wp:post_date_gmt><![CDATA[2025-06-01 00:00:13]]></wp:post_date_gmt>
+        <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+        <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+        <wp:post_name><![CDATA[privacy-policy]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_parent>0</wp:post_parent>
+        <wp:menu_order>0</wp:menu_order>
+        <wp:post_type><![CDATA[page]]></wp:post_type>
+        <wp:post_password></wp:post_password>
+        <wp:is_sticky>0</wp:is_sticky>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+            <wp:meta_value><![CDATA[default]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+
+    <!-- ============================================================
+         BLOG POSTS
+         ============================================================ -->
+
+    <!-- Post 1: The Science of Bakuchiol -->
+    <item>
+        <title>The Science of Bakuchiol: Nature's Retinol Alternative</title>
+        <link>https://demo.lumeaskincare.com/the-science-of-bakuchiol/</link>
+        <pubDate>Mon, 02 Jun 2025 09:00:00 +0000</pubDate>
+        <dc:creator><![CDATA[lumea_admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.lumeaskincare.com/?p=50</guid>
+        <description></description>
+        <content:encoded><![CDATA[<p>Bakuchiol is extracted from the seeds and leaves of <em>Psoralea corylifolia</em>, a plant used in Ayurvedic and traditional Chinese medicine for centuries. What makes it remarkable is its ability to activate retinol-like pathways in the skin — delivering comparable results to vitamin A without the associated irritation, photosensitivity, or the requirement to use it only at night.</p>
+
+<h2>Clinical Evidence</h2>
+
+<p>A landmark double-blind study published in the <em>British Journal of Dermatology</em> demonstrated that bakuchiol at 0.5% concentration delivers improvements in fine line depth, skin texture, and pigmentation equivalent to 0.5% retinol — with significantly fewer adverse events. Participants reported less stinging, dryness, and redness compared to the retinol group.</p>
+
+<p>For those with reactive, sensitised, or rosacea-prone skin who cannot tolerate retinoids, this finding is genuinely transformative. Bakuchiol can be used morning and evening, during pregnancy discussions with a healthcare provider, and alongside active ingredients that would otherwise conflict with retinol.</p>
+
+<h2>How We Source Ours</h2>
+
+<p>At Luméa, we source our bakuchiol from certified organic farms in Rajasthan, India, where the harvest season and cold-press extraction process are tightly controlled for bioactive potency. Each batch is third-party tested for purity before formulation.</p>
+
+<p>In our Bakuchiol Night Serum, it is paired with squalane and Snow Mushroom extract to maximise cellular renewal while maintaining the skin's moisture barrier — so you wake up to visibly smoother, more even-toned skin without the morning-after sensitivity of traditional retinol.</p>
+
+<h2>Who It Is For</h2>
+
+<p>Bakuchiol suits all skin types and is particularly beneficial for: sensitive or reactive skin that cannot tolerate retinol, anyone looking to address fine lines and uneven tone without downtime, those who prefer plant-based active ingredients, and beginners to anti-ageing who want to start gently.</p>
+
+<p>Add it to your evening routine after cleansing and toning, before your moisturiser. Consistency over four to six weeks will deliver the most visible results.</p>]]></content:encoded>
+        <excerpt:encoded><![CDATA[Bakuchiol activates retinol-like pathways in the skin without the irritation — clinical studies show results equivalent to vitamin A at the same concentration, with significantly fewer adverse events.]]></excerpt:encoded>
+        <wp:post_id>50</wp:post_id>
+        <wp:post_date><![CDATA[2025-06-02 09:00:00]]></wp:post_date>
+        <wp:post_date_gmt><![CDATA[2025-06-02 09:00:00]]></wp:post_date_gmt>
+        <wp:comment_status><![CDATA[open]]></wp:comment_status>
+        <wp:ping_status><![CDATA[open]]></wp:ping_status>
+        <wp:post_name><![CDATA[the-science-of-bakuchiol]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_parent>0</wp:post_parent>
+        <wp:menu_order>0</wp:menu_order>
+        <wp:post_type><![CDATA[post]]></wp:post_type>
+        <wp:post_password></wp:post_password>
+        <wp:is_sticky>0</wp:is_sticky>
+        <category domain="category" nicename="ingredients"><![CDATA[Ingredients]]></category>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_thumbnail_id]]></wp:meta_key>
+            <wp:meta_value><![CDATA[-1]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+    <!-- Post 2: Morning Skincare Routine -->
+    <item>
+        <title>How to Build a Morning Skincare Routine That Actually Works</title>
+        <link>https://demo.lumeaskincare.com/morning-skincare-routine/</link>
+        <pubDate>Thu, 05 Jun 2025 09:00:00 +0000</pubDate>
+        <dc:creator><![CDATA[lumea_admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.lumeaskincare.com/?p=51</guid>
+        <description></description>
+        <content:encoded><![CDATA[<p>A morning routine has one clear objective: prepare your skin to face the day — UV radiation, pollution, blue light, and environmental stressors — while maintaining hydration and reinforcing your barrier. Five steps, done consistently, are worth more than ten steps done sporadically.</p>
+
+<h2>Step 1 — Cleanse Gently</h2>
+
+<p>Morning cleansing removes overnight sebum, any residue from your evening products, and the fine layer of environmental particles that settle on the skin while you sleep. Choose a low-pH gel or milky cleanser that rinses clean without stripping the acid mantle. If your skin feels immediately tight after cleansing, your cleanser is too harsh.</p>
+
+<h2>Step 2 — Tone and Prep</h2>
+
+<p>A hydrating toner or essence delivers the first meaningful layer of moisture and primes the skin to absorb everything that follows. Look for ingredients like niacinamide, hyaluronic acid, or centella asiatica. Apply while skin is still slightly damp for maximum absorption.</p>
+
+<h2>Step 3 — Targeted Serum</h2>
+
+<p>Vitamin C in the morning provides antioxidant protection against UV-induced free radical damage while gradually brightening uneven tone. Apply after toner and allow it to absorb fully before the next step. If you use an acidic vitamin C (L-ascorbic acid), allow two to three minutes before layering.</p>
+
+<h2>Step 4 — Moisturise</h2>
+
+<p>Even oily and combination skin needs hydration — dehydration and oiliness are different things, and an intact barrier produces less excess sebum over time. A lightweight gel-cream locks in the serum and supports your barrier function throughout the day.</p>
+
+<h2>Step 5 — SPF, Every Single Day</h2>
+
+<p>SPF is non-negotiable and is the most evidence-backed anti-ageing product in existence. UV damage is cumulative, accounts for up to 80% of visible ageing, and is largely preventable. Apply a broad-spectrum SPF 30–50 as the final step, every morning, regardless of weather, season, or whether you plan to be indoors.</p>
+
+<p>That is your morning routine. Five steps. Ten to fifteen minutes. Consistent daily protection and hydration will deliver more visible, long-term results than any treatment or overnight corrective applied without this foundation in place.</p>]]></content:encoded>
+        <excerpt:encoded><![CDATA[Five steps, done consistently, are worth more than ten steps done sporadically. Here is how to build a morning routine that protects, hydrates, and delivers visible long-term results.]]></excerpt:encoded>
+        <wp:post_id>51</wp:post_id>
+        <wp:post_date><![CDATA[2025-06-05 09:00:00]]></wp:post_date>
+        <wp:post_date_gmt><![CDATA[2025-06-05 09:00:00]]></wp:post_date_gmt>
+        <wp:comment_status><![CDATA[open]]></wp:comment_status>
+        <wp:ping_status><![CDATA[open]]></wp:ping_status>
+        <wp:post_name><![CDATA[morning-skincare-routine]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_parent>0</wp:post_parent>
+        <wp:menu_order>0</wp:menu_order>
+        <wp:post_type><![CDATA[post]]></wp:post_type>
+        <wp:post_password></wp:post_password>
+        <wp:is_sticky>0</wp:is_sticky>
+        <category domain="category" nicename="routines"><![CDATA[Routines]]></category>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_thumbnail_id]]></wp:meta_key>
+            <wp:meta_value><![CDATA[-1]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+    <!-- Post 3: Understanding Your Skin Barrier -->
+    <item>
+        <title>Understanding Your Skin Barrier — and How to Repair It</title>
+        <link>https://demo.lumeaskincare.com/understanding-your-skin-barrier/</link>
+        <pubDate>Mon, 09 Jun 2025 09:00:00 +0000</pubDate>
+        <dc:creator><![CDATA[lumea_admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.lumeaskincare.com/?p=52</guid>
+        <description></description>
+        <content:encoded><![CDATA[<p>The skin barrier — technically the stratum corneum — is the outermost layer of your epidermis and your first line of defence against the world. It is a remarkably engineered structure: protein-rich corneocytes (flattened skin cells) embedded in a lipid matrix of ceramides, cholesterol, and fatty acids. Think of it as a brick-and-mortar wall, where the cells are the bricks and the lipid matrix is the mortar.</p>
+
+<h2>What a Healthy Barrier Does</h2>
+
+<p>When intact, your barrier performs two critical functions simultaneously: it keeps the good in — water and nutrients — and the bad out — irritants, pathogens, and allergens. When it is compromised, both functions fail at once. You lose moisture through transepidermal water loss (TEWL) and allow external triggers to penetrate more freely, setting up a cycle of sensitivity and inflammation.</p>
+
+<h2>Signs Your Barrier Is Compromised</h2>
+
+<ul>
+<li>Persistent tightness or a feeling of rawness</li>
+<li>Redness, blotchiness, or uneven skin tone</li>
+<li>Stinging or burning on application of products that previously caused no reaction</li>
+<li>Increased sensitivity to temperature changes</li>
+<li>A rough, dull, or flaky texture that moisturiser does not seem to resolve</li>
+</ul>
+
+<h2>The Most Common Causes</h2>
+
+<p>Over-exfoliation is the leading culprit — physical scrubs, AHAs, BHAs, and retinoids used too frequently or in too high a concentration damage the lipid matrix faster than the skin can rebuild it. Other common causes include harsh surfactants in cleansers, alcohol-heavy products, extended exposure to hot water, and prolonged environmental dryness such as air travel or winter heating.</p>
+
+<p>Paradoxically, attempting to "fix" a compromised barrier by adding more actives — more acids, more treatments — almost always makes it worse.</p>
+
+<h2>How to Repair It</h2>
+
+<p>Repair begins with simplification. Strip your routine back to three products: a gentle cleanser, a ceramide-rich moisturiser, and SPF. Remove all actives — exfoliants, retinoids, vitamin C — for a minimum of two weeks.</p>
+
+<p>During recovery, prioritise barrier-supporting ingredients: ceramides (particularly NP, AP, and EOP), squalane, Snow Mushroom extract, sodium PCA, and oat-derived beta-glucan. Avoid anything with essential oils, fragrance, or denatured alcohol while the barrier is rebuilding.</p>
+
+<p>Most compromised barriers respond within two to four weeks of consistent, gentle care. Reintroduce actives slowly — one at a time, at the lowest available concentration — to identify your skin's actual tolerance.</p>]]></content:encoded>
+        <excerpt:encoded><![CDATA[The skin barrier is your first line of defence and the foundation of every skincare routine. Here is how to identify damage, understand its causes, and repair it methodically.]]></excerpt:encoded>
+        <wp:post_id>52</wp:post_id>
+        <wp:post_date><![CDATA[2025-06-09 09:00:00]]></wp:post_date>
+        <wp:post_date_gmt><![CDATA[2025-06-09 09:00:00]]></wp:post_date_gmt>
+        <wp:comment_status><![CDATA[open]]></wp:comment_status>
+        <wp:ping_status><![CDATA[open]]></wp:ping_status>
+        <wp:post_name><![CDATA[understanding-your-skin-barrier]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_parent>0</wp:post_parent>
+        <wp:menu_order>0</wp:menu_order>
+        <wp:post_type><![CDATA[post]]></wp:post_type>
+        <wp:post_password></wp:post_password>
+        <wp:is_sticky>0</wp:is_sticky>
+        <category domain="category" nicename="skincare"><![CDATA[Skincare]]></category>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_thumbnail_id]]></wp:meta_key>
+            <wp:meta_value><![CDATA[-1]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+</channel>
+</rss>

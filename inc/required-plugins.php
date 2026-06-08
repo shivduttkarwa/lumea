@@ -27,6 +27,12 @@ function lumea_register_required_plugins() {
 			'required' => true,
 			'version'  => '10.0',
 		),
+		array(
+			'name'        => 'One Click Demo Import',
+			'slug'        => 'one-click-demo-import',
+			'required'    => false,
+			'description' => __( 'Required to import demo content and replicate the live preview in one click.', 'lumea' ),
+		),
 	);
 
 	$config = array(

@@ -4,7 +4,7 @@ Theme Name:  Luméa
 Theme URI:   https://themeforest.net/user/shivdutt/portfolio
 Author:      Shivdutt Karwa
 Author URI:  https://themeforest.net/user/shivdutt
-Version:     1.1.4
+Version:     1.1.5
 License:     GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,7 +44,18 @@ After activating the theme, follow these steps to replicate the demo:
 
 1. INSTALL REQUIRED PLUGINS
    Go to Appearance > Install Plugins and install the bundled Lumea Core plugin
-   and WooCommerce.
+   and WooCommerce. Also install the free "One Click Demo Import" plugin if you
+   want to replicate the demo site in one click.
+
+1b. ONE-CLICK DEMO IMPORT (optional but recommended)
+   - Install and activate the "One Click Demo Import" plugin.
+   - Go to Appearance > Import Demo Data.
+   - Click "Import" next to "Luméa Main Demo".
+   - The importer will create all pages, blog posts, menus, and WooCommerce page
+     assignments automatically. It will also set the front page, posts page, and
+     permalink structure.
+   - After import: replace the placeholder hero and section images in
+     Appearance > Customize with your own licensed photography.
 
 2. CONFIGURE WOOCOMMERCE
    Go to Plugins > Add New, search for "WooCommerce", install and activate it.
@@ -249,6 +260,14 @@ the buyer ZIP before packaging.
 
 
 == CHANGELOG ==
+
+= 1.1.5 =
+* Feature: Added One Click Demo Import support (OCDI) with a complete demo content pack.
+* Feature: Demo import sets front page, posts page, permalinks, nav menus, and WooCommerce
+  page IDs automatically in the after-import hook.
+* Feature: Added three professional blog post templates covering Bakuchiol, morning routines,
+  and skin barrier science to demonstrate the Journal layout.
+* Feature: Added "One Click Demo Import" as a recommended plugin via TGMPA.
 
 = 1.1.4 =
 * Fix: Prevented the cart drawer from opening automatically after the first add-to-cart event.

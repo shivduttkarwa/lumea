@@ -1,0 +1,21 @@
+{
+    "lumea-sidebar": {
+        "search-1": {
+            "title": ""
+        },
+        "recent-posts-1": {
+            "title": "Recent Posts",
+            "number": 3,
+            "show_date": false
+        }
+    },
+    "lumea-footer": {
+        "text-1": {
+            "title": "Stay in Touch",
+            "text": "Discover new rituals, seasonal collections, and behind-the-scenes stories from our formulation team. Follow us @lumeaskincare.",
+            "filter": false,
+            "visual": false
+        }
+    },
+    "_multiwidget": 1
+}
