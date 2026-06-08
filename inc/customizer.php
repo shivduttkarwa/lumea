@@ -737,7 +737,7 @@ function lumea_customize_register( $wp_customize ) {
 
 	
 	$wp_customize->add_setting( 'lumea_support_email', array(
-		'default'           => 'hello@lumeaskincare.com',
+		'default'           => '',
 		'sanitize_callback' => 'sanitize_email',
 		'transport'         => 'refresh',
 	) );

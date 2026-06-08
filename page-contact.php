@@ -15,7 +15,8 @@ $email   = '';
 $subject = '';
 $message = '';
 
-if ( isset( $_POST['lumea_contact_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['lumea_contact_nonce'] ) ), 'lumea_contact' ) ) {
+$_contact_nonce = isset( $_POST['lumea_contact_nonce'] ) ? wp_unslash( $_POST['lumea_contact_nonce'] ) : '';
+if ( wp_verify_nonce( $_contact_nonce, 'lumea_contact' ) ) {
 	$name    = sanitize_text_field( wp_unslash( $_POST['contact_name'] ?? '' ) );
 	$email   = sanitize_email( wp_unslash( $_POST['contact_email'] ?? '' ) );
 	$subject = sanitize_text_field( wp_unslash( $_POST['contact_subject'] ?? '' ) );
@@ -143,7 +144,7 @@ get_header();
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
 						<div>
 							<p class="lumea-contact-info-label"><?php esc_html_e( 'Email', 'lumea' ); ?></p>
-							<?php $support_email = sanitize_email( get_theme_mod( 'lumea_support_email', 'hello@lumeaskincare.com' ) ); ?>
+							<?php $support_email = sanitize_email( get_theme_mod( 'lumea_support_email', get_option( 'admin_email' ) ) ); ?>
 							<a href="mailto:<?php echo esc_attr( $support_email ); ?>" class="lumea-contact-info-value"><?php echo esc_html( $support_email ); ?></a>
 						</div>
 					</div>

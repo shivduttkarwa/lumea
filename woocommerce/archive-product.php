@@ -3,6 +3,7 @@
  * Shop / archive-product template — world-class edition.
  *
  * @package Lumea
+ * @version 8.0.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -60,14 +61,6 @@ if ( $active_min_price !== '' || $active_max_price !== '' ) {
 }
 
 $base_url = $is_category ? get_term_link( $current_cat ) : get_permalink( wc_get_page_id( 'shop' ) );
-
-function lumea_filter_url( $base, $params ) {
-	$current = $_GET;
-	unset( $current['paged'], $current['page'] );
-	$merged = array_merge( $current, $params );
-	$merged = array_filter( $merged, function( $v ) { return $v !== ''; } );
-	return esc_url( add_query_arg( $merged, $base ) );
-}
 ?>
 
 <main class="lumea-shop" id="lumeaShop">

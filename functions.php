@@ -16,6 +16,7 @@ define( 'LUMEA_THEME_URI', get_template_directory_uri() );
 
 
 require LUMEA_THEME_DIR . '/inc/setup.php';
+require LUMEA_THEME_DIR . '/inc/helpers.php';
 require LUMEA_THEME_DIR . '/inc/enqueue.php';
 require LUMEA_THEME_DIR . '/inc/block-styles.php';
 require LUMEA_THEME_DIR . '/inc/buttons.php';

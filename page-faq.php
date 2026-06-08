@@ -9,7 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 get_header();
 
-$support_email  = sanitize_email( get_theme_mod( 'lumea_support_email', 'hello@lumeaskincare.com' ) );
+$support_email  = sanitize_email( get_theme_mod( 'lumea_support_email', get_option( 'admin_email' ) ) );
 $faq_categories = array(
 	'skincare'  => array(
 		'label' => 'Skincare',

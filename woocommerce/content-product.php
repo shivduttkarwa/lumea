@@ -3,6 +3,7 @@
  * Product card — shop loop.
  *
  * @package Lumea
+ * @version 8.0.0
  */
 
 defined( 'ABSPATH' ) || exit;

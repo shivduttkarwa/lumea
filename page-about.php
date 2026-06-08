@@ -8,15 +8,6 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! function_exists( 'lumea_about_body_class' ) ) {
-	
-	function lumea_about_body_class( $classes ) {
-		$classes[] = 'lumea-about-template';
-		return $classes;
-	}
-}
-add_filter( 'body_class', 'lumea_about_body_class' );
-
 get_header();
 
 $a = array(
@@ -81,9 +72,6 @@ $a = array(
 	'cta_btn2'         => get_theme_mod( 'lma_about_cta_btn2',       'Get In Touch' ),
 );
 
-function lma_lines( $str ) {
-	return array_filter( array_map( 'trim', explode( "\n", $str ) ) );
-}
 ?>
 
 <main class="lma-page" id="lumeaPage">

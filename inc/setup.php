@@ -64,10 +64,16 @@ function lumea_theme_setup() {
 		)
 	);
 
-	
+
 	add_theme_support( 'wc-product-gallery-zoom' );
 	add_theme_support( 'wc-product-gallery-lightbox' );
 	add_theme_support( 'wc-product-gallery-slider' );
+
+
+	add_theme_support( 'post-formats', array( 'aside', 'gallery', 'quote', 'image', 'video' ) );
+
+
+	add_editor_style( 'assets/css/editor-style.css' );
 
 	
 	register_nav_menus(
@@ -106,3 +112,12 @@ function lumea_widgets_init() {
 	);
 }
 add_action( 'widgets_init', 'lumea_widgets_init' );
+
+
+function lumea_about_body_class( $classes ) {
+	if ( is_page_template( 'page-about.php' ) ) {
+		$classes[] = 'lumea-about-template';
+	}
+	return $classes;
+}
+add_filter( 'body_class', 'lumea_about_body_class' );

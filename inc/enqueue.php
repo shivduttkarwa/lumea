@@ -17,15 +17,15 @@ function lumea_enqueue_assets() {
 		'lumea-clash-display',
 		'https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600&display=swap',
 		array(),
-		null
+		false
 	);
 
-	
+
 	wp_enqueue_style(
 		'lumea-inter',
 		'https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap',
 		array(),
-		null
+		false
 	);
 
 	

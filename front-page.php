@@ -11,14 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-function lumea_product_url( $setting_key ) {
-	$custom = get_theme_mod( $setting_key, '' );
-	if ( $custom ) {
-		return esc_url( $custom );
-	}
-	return esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : '#' );
-}
-
 $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : '#' );
 ?>
 <?php get_header(); ?>

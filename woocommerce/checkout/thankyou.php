@@ -3,6 +3,7 @@
  * Order received / Thank you page — Luméa premium edition.
  *
  * @package Lumea
+ * @version 8.0.0
  */
 
 defined( 'ABSPATH' ) || exit;
