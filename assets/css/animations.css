@@ -17,7 +17,7 @@
 .lumea-transition-fast   { transition: var(--lumea-anim-fast); }
 .lumea-transition-smooth { transition: var(--lumea-anim-smooth); }
 .lumea-transition-slow   { transition: var(--lumea-anim-slow); }
-.lumea-transition-none   { transition: none !important; }
+.lumea-transition-none   { transition: none; }
 
 .lumea-parallax--img-js {
   position: absolute;

@@ -541,6 +541,7 @@ add_action( 'woocommerce_product_data_panels', function () {
 		return;
 	}
 	echo '<div id="lumea_product_data" class="panel woocommerce_options_panel">';
+	wp_nonce_field( 'lumea_save_product_meta', 'lumea_product_nonce' );
 	woocommerce_wp_checkbox( array(
 		'id'          => '_lumea_is_bestseller',
 		'label'       => __( 'Show in Bestsellers', 'lumea' ),
@@ -555,16 +556,18 @@ add_action( 'woocommerce_product_data_panels', function () {
 } );
 
 add_action( 'woocommerce_process_product_meta', function ( $post_id ) {
+	if ( ! isset( $_POST['lumea_product_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['lumea_product_nonce'] ), 'lumea_save_product_meta' ) ) {
+		return;
+	}
 	if ( ! current_user_can( 'edit_post', $post_id ) ) {
 		return;
 	}
 	$is_bestseller = isset( $_POST['_lumea_is_bestseller'] ) ? 'yes' : 'no';
 	$is_latest     = isset( $_POST['_lumea_is_latest'] )     ? 'yes' : 'no';
 
-	update_post_meta( $post_id, '_lumea_is_bestseller', $is_bestseller );
-	update_post_meta( $post_id, '_lumea_is_latest',     $is_latest );
+	update_post_meta( $post_id, '_lumea_is_bestseller', sanitize_key( $is_bestseller ) );
+	update_post_meta( $post_id, '_lumea_is_latest',     sanitize_key( $is_latest ) );
 
-	
 	lumea_sync_product_placement_cats( $post_id, $is_bestseller, $is_latest );
 } );
 
