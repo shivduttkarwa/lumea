@@ -1,7 +1,7 @@
 ( function () {
 	var i18n = ( window.lumeaData && window.lumeaData.i18n ) ? window.lumeaData.i18n : {};
 
-	/* Show / hide password toggle */
+	
 	document.querySelectorAll( '[data-lumea-pw-toggle]' ).forEach( function ( btn ) {
 		btn.addEventListener( 'click', function () {
 			var wrap  = btn.closest( '.lumea-pw-wrap' );
@@ -23,7 +23,7 @@
 		} );
 	} );
 
-	/* Password strength meter */
+	
 	var newPwInput   = document.getElementById( 'password_1' );
 	var strengthWrap = document.getElementById( 'lumea-pw-strength' );
 

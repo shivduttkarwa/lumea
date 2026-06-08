@@ -9,23 +9,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/*
- * The register form always shows username + email + password fields.
- * Lock WooCommerce to manual entry for both so it never silently auto-generates
- * credentials the user didn't choose.
- */
+
 add_filter( 'pre_option_woocommerce_registration_generate_username', '__return_false' );
 add_filter( 'pre_option_woocommerce_registration_generate_password', '__return_false' );
 
-/* Never let WooCommerce redirect any user away from wp-admin. */
+
 add_filter( 'woocommerce_prevent_admin_access', '__return_false' );
 
-/**
- * Build normalized card data from a WooCommerce product.
- *
- * @param mixed $product WC_Product object or product ID.
- * @return array
- */
+
 function lumea_get_product_card_data( $product ) {
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		return array();
@@ -71,12 +62,7 @@ function lumea_get_product_card_data( $product ) {
 	);
 }
 
-/**
- * Render reusable latest-style product card component.
- *
- * @param mixed $product Product ID, WC_Product object, or prepared card-data array.
- * @param array $overrides Values to override card data.
- */
+
 function lumea_render_product_card( $product, $overrides = array() ) {
 	$data = array();
 
@@ -122,17 +108,7 @@ function lumea_render_product_card( $product, $overrides = array() ) {
 	get_template_part( 'template-parts/components/product-card', null, $data );
 }
 
-/**
- * Render reusable product card purchase actions.
- *
- * Output includes:
- * - Add to cart button
- * - Qty stepper
- * - View cart button
- * Or a fallback CTA when product cannot be directly added.
- *
- * @param array $args Rendering options.
- */
+
 function lumea_render_product_card_actions( $args = array() ) {
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		return;
@@ -175,6 +151,7 @@ function lumea_render_product_card_actions( $args = array() ) {
 		}
 
 		$atc_url  = add_query_arg( 'add-to-cart', $product_id, $product_url );
+		/* translators: %s: product name */
 		$atc_aria = sprintf( __( 'Add %s to cart', 'lumea' ), $product_name );
 		?>
 		<div class="lumea-card-atc-wrap">
@@ -203,21 +180,19 @@ function lumea_render_product_card_actions( $args = array() ) {
 	echo '</div>';
 }
 
-/**
- * Update cart count and mini-cart HTML via WooCommerce AJAX fragments.
- */
+
 function lumea_cart_fragments( $fragments ) {
 
-	/* Cart count bubble */
+	
 	$count = WC()->cart->get_cart_contents_count();
 	$fragments['span.lumea-cart-count'] = '<span class="lumea-cart-count' . ( $count ? ' lumea-cart-count--visible' : '' ) . '">' . $count . '</span>';
 
-	/* Items list */
+	
 	ob_start();
 	lumea_mini_cart_items();
 	$fragments['div.lumea-drawer-items'] = ob_get_clean();
 
-	/* Footer (subtotal + buttons) */
+	
 	ob_start();
 	lumea_drawer_footer();
 	$fragments['div.lumea-drawer-footer'] = ob_get_clean();
@@ -226,9 +201,7 @@ function lumea_cart_fragments( $fragments ) {
 }
 add_filter( 'woocommerce_add_to_cart_fragments', 'lumea_cart_fragments' );
 
-/**
- * Render the scrollable items list inside the cart drawer.
- */
+
 function lumea_mini_cart_items() {
 	$cart = WC()->cart;
 	echo '<div class="lumea-drawer-items">';
@@ -273,9 +246,7 @@ function lumea_mini_cart_items() {
 	echo '</div>';
 }
 
-/**
- * Render the cart drawer footer (subtotal + buttons). Always wrapped by a div.lumea-drawer-footer in the template.
- */
+
 function lumea_drawer_footer() {
 	$cart = WC()->cart;
 	echo '<div class="lumea-drawer-footer">';
@@ -283,7 +254,7 @@ function lumea_drawer_footer() {
 		?>
 		<div class="lumea-drawer-subtotal">
 			<span><?php esc_html_e( 'Subtotal', 'lumea' ); ?></span>
-			<span><?php echo $cart->get_cart_subtotal(); ?></span>
+			<span><?php echo wp_kses_post( $cart->get_cart_subtotal() ); ?></span>
 		</div>
 		<a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="lumea-drawer-cart-btn"><?php esc_html_e( 'View Cart', 'lumea' ); ?></a>
 		<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="lumea-drawer-checkout-btn"><?php esc_html_e( 'Checkout', 'lumea' ); ?></a>
@@ -292,9 +263,7 @@ function lumea_drawer_footer() {
 	echo '</div>';
 }
 
-/**
- * Add WooCommerce body classes for AJAX cart to work.
- */
+
 function lumea_wc_body_class( $classes ) {
 	if ( function_exists( 'is_woocommerce' ) ) {
 		$classes[] = 'woocommerce-js';
@@ -303,40 +272,24 @@ function lumea_wc_body_class( $classes ) {
 }
 add_filter( 'body_class', 'lumea_wc_body_class' );
 
-/**
- * Remove default WooCommerce styles — we use our own.
- */
+
 add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 
-/**
- * Remove default WooCommerce breadcrumb on shop — we have the banner.
- */
+
 add_action( 'init', function () {
 	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
 	remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
 	remove_action( 'woocommerce_after_main_content',  'woocommerce_output_content_wrapper_end', 10 );
-	// Coupon form is in the order summary sidebar — suppress the default top banner.
+	
 	remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
 } );
 
-/**
- * Set 4 products per row on archive pages.
- */
+
 add_filter( 'loop_shop_columns', function () {
 	return 4;
 } );
 
-/**
- * Ensure WooCommerce cart and checkout pages use classic PHP template files.
- *
- * WooCommerce 7+ ships with block-based cart/checkout by default, which
- * bypasses our custom template overrides in woocommerce/cart/cart.php and
- * woocommerce/checkout/form-checkout.php.
- *
- * This runs once on first admin visit (or theme activation) and converts
- * any block-based WC pages to the classic shortcode equivalent so our
- * premium templates are rendered correctly.
- */
+
 function lumea_ensure_classic_wc_pages() {
 	if ( get_option( 'lumea_classic_wc_v1' ) || ! function_exists( 'wc_get_page_id' ) ) {
 		return;
@@ -365,9 +318,7 @@ function lumea_ensure_classic_wc_pages() {
 add_action( 'after_switch_theme', 'lumea_ensure_classic_wc_pages' );
 add_action( 'admin_init',         'lumea_ensure_classic_wc_pages' );
 
-/**
- * Ensure the Wishlist page exists and uses the Wishlist template.
- */
+
 function lumea_ensure_wishlist_page() {
 	$page    = get_page_by_path( 'wishlist', OBJECT, 'page' );
 	$page_id = $page ? (int) $page->ID : 0;
@@ -397,9 +348,7 @@ function lumea_ensure_wishlist_page() {
 add_action( 'after_switch_theme', 'lumea_ensure_wishlist_page' );
 add_action( 'admin_init',         'lumea_ensure_wishlist_page' );
 
-/**
- * AJAX handler — update cart item quantity for a product.
- */
+
 function lumea_update_cart_qty() {
 	check_ajax_referer( 'lumea_wishlist', 'nonce' );
 
@@ -441,13 +390,9 @@ function lumea_update_cart_qty() {
 add_action( 'wp_ajax_lumea_update_cart_qty',        'lumea_update_cart_qty' );
 add_action( 'wp_ajax_nopriv_lumea_update_cart_qty', 'lumea_update_cart_qty' );
 
-/**
- * AJAX handler — update a specific cart row quantity by cart item key.
- *
- * Used by cart page live updates to refresh only the affected row + totals.
- */
+
 function lumea_update_cart_line_qty() {
-	$cart_nonce = isset( $_POST['cart_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['cart_nonce'] ) ) : '';
+	$cart_nonce = isset( $_POST['cart_nonce'] ) ? wp_unslash( $_POST['cart_nonce'] ) : '';
 	if ( ! $cart_nonce || ! wp_verify_nonce( $cart_nonce, 'woocommerce-cart' ) ) {
 		wp_send_json_error( 'invalid_nonce' );
 	}
@@ -517,6 +462,7 @@ function lumea_update_cart_line_qty() {
 
 	$item_count  = WC()->cart->get_cart_contents_count();
 	$hero_title  = sprintf(
+		/* translators: %d: number of items in the cart */
 		_n( 'Your Bag (%d item)', 'Your Bag (%d items)', $item_count, 'lumea' ),
 		$item_count
 	);
@@ -539,9 +485,7 @@ function lumea_update_cart_line_qty() {
 add_action( 'wp_ajax_lumea_update_cart_line_qty',        'lumea_update_cart_line_qty' );
 add_action( 'wp_ajax_nopriv_lumea_update_cart_line_qty', 'lumea_update_cart_line_qty' );
 
-/**
- * AJAX handler — return product data for wishlist IDs stored in localStorage.
-*/
+
 function lumea_get_wishlist_items() {
 	check_ajax_referer( 'lumea_wishlist', 'nonce' );
 
@@ -557,7 +501,9 @@ function lumea_get_wishlist_items() {
 		$product_type    = $product->get_type();
 		$cart_text       = $can_add_to_cart ? $product->add_to_cart_text() : __( 'View product', 'lumea' );
 		$cart_aria       = $can_add_to_cart
+			/* translators: %s: product name */
 			? sprintf( __( 'Add %s to cart', 'lumea' ), $product->get_name() )
+			/* translators: %s: product name */
 			: sprintf( __( 'View %s', 'lumea' ), $product->get_name() );
 
 		$items[] = array(
@@ -580,9 +526,7 @@ function lumea_get_wishlist_items() {
 add_action( 'wp_ajax_lumea_wishlist_items',        'lumea_get_wishlist_items' );
 add_action( 'wp_ajax_nopriv_lumea_wishlist_items', 'lumea_get_wishlist_items' );
 
-/**
- * Product admin: Luméa tab with homepage placement checkboxes.
- */
+
 add_filter( 'woocommerce_product_data_tabs', function ( $tabs ) {
 	$tabs['lumea'] = array(
 		'label'  => 'Luméa',
@@ -593,6 +537,9 @@ add_filter( 'woocommerce_product_data_tabs', function ( $tabs ) {
 } );
 
 add_action( 'woocommerce_product_data_panels', function () {
+	if ( ! current_user_can( 'edit_products' ) ) {
+		return;
+	}
 	echo '<div id="lumea_product_data" class="panel woocommerce_options_panel">';
 	woocommerce_wp_checkbox( array(
 		'id'          => '_lumea_is_bestseller',
@@ -608,25 +555,27 @@ add_action( 'woocommerce_product_data_panels', function () {
 } );
 
 add_action( 'woocommerce_process_product_meta', function ( $post_id ) {
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
 	$is_bestseller = isset( $_POST['_lumea_is_bestseller'] ) ? 'yes' : 'no';
 	$is_latest     = isset( $_POST['_lumea_is_latest'] )     ? 'yes' : 'no';
 
 	update_post_meta( $post_id, '_lumea_is_bestseller', $is_bestseller );
 	update_post_meta( $post_id, '_lumea_is_latest',     $is_latest );
 
-	// Sync meta checkboxes → WooCommerce product categories so shop filter counts stay accurate.
+	
 	lumea_sync_product_placement_cats( $post_id, $is_bestseller, $is_latest );
 } );
 
-/**
- * Ensure the product belongs to (or is removed from) the "Bestseller" and
- * "Latest" WooCommerce product categories to match the meta checkboxes.
- * Creates the categories automatically if they don't exist yet.
- */
+
 function lumea_sync_product_placement_cats( $post_id, $is_bestseller, $is_latest ) {
+	$bestseller_name = sanitize_text_field( get_theme_mod( 'lumea_bestseller_cat_name', 'Bestseller' ) );
+	$latest_name     = sanitize_text_field( get_theme_mod( 'lumea_latest_cat_name', 'Latest' ) );
+
 	$map = array(
-		'Bestseller' => $is_bestseller,
-		'Latest'     => $is_latest,
+		$bestseller_name => $is_bestseller,
+		$latest_name     => $is_latest,
 	);
 
 	$current_terms = wp_get_post_terms( $post_id, 'product_cat', array( 'fields' => 'ids' ) );
@@ -637,7 +586,7 @@ function lumea_sync_product_placement_cats( $post_id, $is_bestseller, $is_latest
 	foreach ( $map as $cat_name => $enabled ) {
 		$term = get_term_by( 'name', $cat_name, 'product_cat' );
 
-		// Create category if missing.
+		
 		if ( ! $term ) {
 			$result = wp_insert_term( $cat_name, 'product_cat' );
 			if ( is_wp_error( $result ) ) {
@@ -649,12 +598,12 @@ function lumea_sync_product_placement_cats( $post_id, $is_bestseller, $is_latest
 		}
 
 		if ( $enabled === 'yes' ) {
-			// Add to category (append, don't replace existing ones).
+			
 			if ( ! in_array( $term_id, $current_terms, true ) ) {
 				$current_terms[] = $term_id;
 			}
 		} else {
-			// Remove from category.
+			
 			$current_terms = array_diff( $current_terms, array( $term_id ) );
 		}
 	}
@@ -662,40 +611,15 @@ function lumea_sync_product_placement_cats( $post_id, $is_bestseller, $is_latest
 	wp_set_post_terms( $post_id, array_values( $current_terms ), 'product_cat' );
 }
 
-/**
- * Force-enable WooCommerce's built-in Cash on Delivery gateway as a
- * dummy/local payment method for checkout testing.
- */
-function lumea_force_cod_demo_gateway_settings( $settings ) {
-	if ( ! is_array( $settings ) ) {
-		$settings = array();
-	}
 
-	$settings['enabled']            = 'yes';
-	$settings['title']              = __( 'Pay on Delivery (Demo)', 'lumea' );
-	$settings['description']        = __( 'Demo payment method for local testing. No real charge will be made.', 'lumea' );
-	$settings['enable_for_methods'] = array();
-	$settings['enable_for_virtual'] = 'yes';
 
-	return $settings;
-}
-add_filter( 'option_woocommerce_cod_settings', 'lumea_force_cod_demo_gateway_settings' );
-
-/**
- * Register a local-only dummy payment gateway for checkout flow testing.
- *
- * @param array $gateways Gateway class names.
- * @return array
- */
 function lumea_register_demo_payment_gateway( $gateways ) {
 	$gateways[] = 'Lumea_WC_Gateway_Demo';
 	return $gateways;
 }
 add_filter( 'woocommerce_payment_gateways', 'lumea_register_demo_payment_gateway' );
 
-/**
- * Initialize the local-only dummy payment gateway class.
- */
+
 function lumea_init_demo_payment_gateway() {
 	if ( ! class_exists( 'WC_Payment_Gateway' ) || class_exists( 'Lumea_WC_Gateway_Demo' ) ) {
 		return;
@@ -703,9 +627,7 @@ function lumea_init_demo_payment_gateway() {
 
 	class Lumea_WC_Gateway_Demo extends WC_Payment_Gateway {
 
-		/**
-		 * Constructor.
-		 */
+		
 		public function __construct() {
 			$this->id                 = 'lumea_demo_gateway';
 			$this->method_title       = __( 'Lumea Demo Gateway', 'lumea' );
@@ -723,9 +645,7 @@ function lumea_init_demo_payment_gateway() {
 			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		}
 
-		/**
-		 * Admin settings fields.
-		 */
+		
 		public function init_form_fields() {
 			$this->form_fields = array(
 				'enabled'     => array(
@@ -751,21 +671,12 @@ function lumea_init_demo_payment_gateway() {
 			);
 		}
 
-		/**
-		 * Keep gateway available while testing checkout flow.
-		 *
-		 * @return bool
-		 */
+		
 		public function is_available() {
 			return 'yes' === $this->enabled;
 		}
 
-		/**
-		 * Process checkout payment.
-		 *
-		 * @param int $order_id WooCommerce order ID.
-		 * @return array
-		 */
+		
 		public function process_payment( $order_id ) {
 			$order = wc_get_order( $order_id );
 			if ( ! $order ) {
@@ -792,103 +703,10 @@ function lumea_init_demo_payment_gateway() {
 lumea_init_demo_payment_gateway();
 add_action( 'init', 'lumea_init_demo_payment_gateway', 1 );
 
-/**
- * Safety fallback: keep at least one testable gateway on checkout when possible.
- *
- * @param array $available_gateways Available gateways.
- * @return array
- */
-function lumea_checkout_gateway_fallback( $available_gateways ) {
-	if ( ! function_exists( 'is_checkout' ) || ! is_checkout() ) {
-		return $available_gateways;
-	}
 
-	if ( function_exists( 'is_order_received_page' ) && is_order_received_page() ) {
-		return $available_gateways;
-	}
 
-	if ( ! empty( $available_gateways ) ) {
-		return $available_gateways;
-	}
 
-	if ( ! WC()->cart || ! WC()->cart->needs_payment() ) {
-		return $available_gateways;
-	}
 
-	$all_gateways = WC()->payment_gateways()->payment_gateways();
-
-	if ( isset( $all_gateways['lumea_demo_gateway'] ) && $all_gateways['lumea_demo_gateway']->is_available() ) {
-		$available_gateways['lumea_demo_gateway'] = $all_gateways['lumea_demo_gateway'];
-		return $available_gateways;
-	}
-
-	if ( isset( $all_gateways['cod'] ) && $all_gateways['cod']->is_available() ) {
-		$available_gateways['cod'] = $all_gateways['cod'];
-	}
-
-	return $available_gateways;
-}
-add_filter( 'woocommerce_available_payment_gateways', 'lumea_checkout_gateway_fallback', 999 );
-
-/**
- * Clear checkout session data on every fresh checkout page load
- * so previously typed values don't persist across visits.
- */
-function lumea_reset_checkout_session() {
-	if ( ! function_exists( 'is_checkout' ) || ! is_checkout() ) {
-		return;
-	}
-
-	if ( function_exists( 'is_order_received_page' ) && is_order_received_page() ) {
-		return;
-	}
-
-	// Keep submitted values when checkout is being processed.
-	if ( isset( $_POST['woocommerce-process-checkout-nonce'] ) ) {
-		return;
-	}
-
-	if ( WC()->session ) {
-		WC()->session->__unset( 'customer' );
-		WC()->session->__unset( 'chosen_payment_method' );
-		WC()->session->__unset( 'chosen_shipping_methods' );
-	}
-}
-add_action( 'template_redirect', 'lumea_reset_checkout_session', 5 );
-
-/**
- * Force blank defaults for checkout fields on each fresh page load.
- *
- * @param string|null $value Existing field value.
- * @param string      $input Checkout field key.
- * @return string|null
- */
-function lumea_clear_checkout_field_defaults( $value, $input ) {
-	if ( ! function_exists( 'is_checkout' ) || ! is_checkout() ) {
-		return $value;
-	}
-
-	if ( function_exists( 'is_order_received_page' ) && is_order_received_page() ) {
-		return $value;
-	}
-
-	// Preserve user-entered values during a checkout postback.
-	if ( isset( $_POST['woocommerce-process-checkout-nonce'] ) || isset( $_POST[ $input ] ) ) {
-		return $value;
-	}
-
-	if ( 0 === strpos( $input, 'billing_' ) || 0 === strpos( $input, 'shipping_' ) || 0 === strpos( $input, 'account_' ) || 'order_comments' === $input ) {
-		return '';
-	}
-
-	return $value;
-}
-add_filter( 'woocommerce_checkout_get_value', 'lumea_clear_checkout_field_defaults', 10, 2 );
-
-/**
- * Front-end fallback: if cart/checkout pages still have blocks on the
- * first front-end visit (before any admin visit), convert and redirect once.
- */
 add_action( 'template_redirect', function () {
 	if ( get_option( 'lumea_classic_wc_v1' ) ) {
 		return;

@@ -9,9 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Register reusable button styles for the core Button block.
- */
+
 function lumea_register_block_styles() {
 	register_block_style(
 		'core/button',

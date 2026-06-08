@@ -1,44 +1,941 @@
-# Copyright (C) 2024 Shivdutt Karwa
+# Copyright (C) 2026 Shivdutt Karwa
 # This file is distributed under the GNU General Public License v2 or later.
-# https://www.gnu.org/licenses/gpl-2.0.html
-#
-# Authors:
-# Shivdutt Karwa <kailash@cimarketing.com.au>
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: Luméa 1.1.0\n"
-"Report-Msgid-Bugs-To: https://themeforest.net/user/shivdutt/portfolio\n"
-"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"Project-Id-Version: Luméa 1.1.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/lumea\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2024-01-01 00:00+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Poedit 3.0\n"
+"POT-Creation-Date: 2026-06-08T04:12:07+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: lumea\n"
 
 #. Theme Name of the theme
+#: style.css
 msgid "Luméa"
 msgstr ""
 
 #. Theme URI of the theme
+#: style.css
 msgid "https://themeforest.net/user/shivdutt/portfolio"
 msgstr ""
 
 #. Description of the theme
+#: style.css
 msgid "A premium beauty and skincare WooCommerce WordPress theme for modern cosmetic, wellness, and personal care brands."
 msgstr ""
 
 #. Author of the theme
+#: style.css
 msgid "Shivdutt Karwa"
 msgstr ""
 
 #. Author URI of the theme
+#: style.css
 msgid "https://themeforest.net/user/shivdutt"
+msgstr ""
+
+#: 404.php:19
+msgid "404 — Not Found"
+msgstr ""
+
+#: 404.php:20
+msgid "Page not found"
+msgstr ""
+
+#: 404.php:22
+msgid "The page you were looking for has moved, or perhaps it never existed. Let’s get you back to something beautiful."
+msgstr ""
+
+#: 404.php:26
+#: archive.php:165
+msgid "Back to Home"
+msgstr ""
+
+#: 404.php:29
+#: inc/enqueue.php:352
+#: page-contact.php:178
+#: woocommerce/cart/cart-empty.php:55
+msgid "Shop the Collection"
+msgstr ""
+
+#: archive.php:53
+#: search.php:73
+#: woocommerce/archive-product.php:105
+msgid "All"
+msgstr ""
+
+#. translators: %d: estimated reading time in minutes
+#: archive.php:99
+#: archive.php:137
+#, php-format
+msgid "%d min"
+msgstr ""
+
+#: archive.php:102
+msgid "Read Article"
+msgstr ""
+
+#: archive.php:140
+#: author.php:69
+#: search.php:144
+#: single.php:157
+msgid "Read"
+msgstr ""
+
+#: archive.php:164
+msgid "No articles found. Check back soon."
+msgstr ""
+
+#. translators: %d: estimated reading time in minutes
+#: author.php:65
+#: single.php:52
+#, php-format
+msgid "%d min read"
+msgstr ""
+
+#: author.php:80
+#: front-page.php:354
+#: single.php:106
+msgid "Previous"
+msgstr ""
+
+#: author.php:81
+#: front-page.php:357
+#: single.php:113
+msgid "Next"
+msgstr ""
+
+#: author.php:82
+msgid "Posts navigation"
+msgstr ""
+
+#: author.php:87
+msgid "No posts found."
+msgstr ""
+
+#: comments.php:24
+msgid "One Comment"
+msgstr ""
+
+#. translators: %s: number of comments.
+#: comments.php:28
+#, php-format
+msgid "%s Comments"
+msgstr ""
+
+#: comments.php:53
+msgid "Comments are closed."
+msgstr ""
+
+#: comments.php:59
+msgid "Leave a Comment"
+msgstr ""
+
+#: comments.php:64
+msgid "Post Comment"
+msgstr ""
+
+#: comments.php:69
+msgid "Name"
+msgstr ""
+
+#: comments.php:70
+#: page-contact.php:145
+msgid "Email"
+msgstr ""
+
+#: footer.php:32
+#: header.php:81
+#: header.php:280
+#: page-contact.php:53
+#: page-faq.php:102
+#: woocommerce/cart/cart-empty.php:27
+#: woocommerce/cart/cart.php:21
+#: woocommerce/checkout/form-checkout.php:23
+#: woocommerce/checkout/thankyou.php:16
+#: woocommerce/myaccount/form-lost-password.php:29
+#: woocommerce/myaccount/form-reset-password.php:29
+#: woocommerce/myaccount/lost-password-confirmation.php:27
+#: woocommerce/myaccount/my-account.php:28
+#: woocommerce/single-product.php:99
+msgid "Home"
+msgstr ""
+
+#: footer.php:33
+#: header.php:82
+#: header.php:281
+#: woocommerce/single-product.php:44
+#: woocommerce/single-product.php:45
+msgid "Shop"
+msgstr ""
+
+#: footer.php:34
+#: header.php:83
+#: header.php:282
+msgid "Bestsellers"
+msgstr ""
+
+#: footer.php:35
+#: header.php:84
+#: header.php:283
+msgid "Blog"
+msgstr ""
+
+#: footer.php:36
+#: header.php:85
+#: header.php:284
+msgid "About"
+msgstr ""
+
+#. Template Name of the theme
+#: footer.php:37
+#: header.php:86
+#: header.php:285
+#: page-contact.php:55
+#: woocommerce/checkout/form-checkout.php:74
+msgid "Contact"
+msgstr ""
+
+#: footer.php:58
+msgid "Footer navigation"
+msgstr ""
+
+#: footer.php:70
+#: page-coming-soon.php:95
+msgid "Instagram"
+msgstr ""
+
+#: footer.php:73
+#: page-coming-soon.php:100
+msgid "TikTok"
+msgstr ""
+
+#: footer.php:76
+#: page-coming-soon.php:105
+msgid "Pinterest"
+msgstr ""
+
+#: front-page.php:73
+msgid "Luméa editorial product drops"
+msgstr ""
+
+#: front-page.php:91
+#: front-page.php:142
+#: front-page.php:171
+#: front-page.php:335
+#: front-page.php:343
+#: front-page.php:549
+#: inc/woocommerce.php:68
+#: inc/woocommerce.php:148
+#: page-wishlist.php:72
+#: template-parts/components/product-card.php:27
+#: woocommerce/myaccount/dashboard.php:140
+#: woocommerce/single-product.php:438
+msgid "Shop Now"
+msgstr ""
+
+#: front-page.php:94
+msgid "Slider controls"
+msgstr ""
+
+#: front-page.php:96
+msgid "Previous slide"
+msgstr ""
+
+#: front-page.php:98
+msgid "Next slide"
+msgstr ""
+
+#: front-page.php:255
+#: front-page.php:507
+#: inc/woocommerce.php:60
+#: page-wishlist.php:69
+#: woocommerce/single-product.php:137
+#: woocommerce/single-product.php:430
+msgid "Sale"
+msgstr ""
+
+#: front-page.php:268
+#: inc/customizer.php:385
+msgid "Shop Bestsellers"
+msgstr ""
+
+#: front-page.php:320
+#: inc/enqueue.php:166
+#: template-parts/components/product-card.php:76
+msgid "Add to wishlist"
+msgstr ""
+
+#: front-page.php:334
+#: front-page.php:548
+#: inc/enqueue.php:168
+#: inc/woocommerce.php:67
+#: inc/woocommerce.php:147
+#: page-wishlist.php:71
+#: template-parts/components/product-card.php:26
+#: woocommerce/content-product.php:26
+msgid "Add to Cart"
+msgstr ""
+
+#: front-page.php:377
+#: woocommerce/archive-product.php:88
+msgid "The Collection"
+msgstr ""
+
+#: front-page.php:469
+msgid "Latest products"
+msgstr ""
+
+#: front-page.php:474
+msgid "Just Arrived"
+msgstr ""
+
+#: front-page.php:478
+#: woocommerce/myaccount/dashboard.php:80
+msgid "View all"
+msgstr ""
+
+#: front-page.php:507
+#: inc/woocommerce.php:60
+#: page-wishlist.php:69
+#: woocommerce/single-product.php:139
+msgid "New"
+msgstr ""
+
+#: front-page.php:591
+msgid "Luméa skincare ritual"
+msgstr ""
+
+#: front-page.php:687
+msgid "Luméa skincare background"
+msgstr ""
+
+#: header.php:48
+#: page-blank.php:25
+#: page-coming-soon.php:24
+msgid "Skip to content"
+msgstr ""
+
+#: header.php:64
+msgid "Primary navigation"
+msgstr ""
+
+#: header.php:102
+#: header.php:205
+#: header.php:207
+#: search.php:43
+#: search.php:55
+#: search.php:58
+msgid "Search"
+msgstr ""
+
+#: header.php:108
+msgid "My account"
+msgstr ""
+
+#: header.php:113
+msgid "Welcome"
+msgstr ""
+
+#. translators: %s: customer first name.
+#: header.php:121
+#, php-format
+msgid "Hi %s, manage your profile and orders."
+msgstr ""
+
+#: header.php:126
+msgid "View Profile"
+msgstr ""
+
+#: header.php:128
+msgid "To access your account and manage orders"
+msgstr ""
+
+#: header.php:129
+msgid "Login / Signup"
+msgstr ""
+
+#: header.php:134
+msgid "Account quick links"
+msgstr ""
+
+#: header.php:135
+msgid "Orders"
+msgstr ""
+
+#. Template Name of the theme
+#: header.php:136
+#: inc/woocommerce.php:381
+msgid "Wishlist"
+msgstr ""
+
+#: header.php:137
+#: woocommerce/checkout/form-checkout.php:42
+#: woocommerce/checkout/thankyou.php:52
+msgid "Bag"
+msgstr ""
+
+#: header.php:138
+msgid "Saved Addresses"
+msgstr ""
+
+#: header.php:139
+#: page-faq.php:178
+msgid "Contact Us"
+msgstr ""
+
+#: header.php:141
+msgid "Account Details"
+msgstr ""
+
+#: header.php:147
+#: woocommerce/myaccount/dashboard.php:144
+msgid "Sign Out"
+msgstr ""
+
+#: header.php:155
+#: header.php:241
+msgid "Favourites"
+msgstr ""
+
+#: header.php:163
+msgid "Open cart"
+msgstr ""
+
+#: header.php:175
+msgid "Open menu"
+msgstr ""
+
+#: header.php:189
+msgid "Close search"
+msgstr ""
+
+#: header.php:196
+msgid "What are you looking for?"
+msgstr ""
+
+#: header.php:203
+#: search.php:53
+msgid "Search products, articles\\xe2\\x80\\xa6"
+msgstr ""
+
+#: header.php:224
+msgid "Popular"
+msgstr ""
+
+#: header.php:242
+msgid "Close favourites"
+msgstr ""
+
+#: header.php:250
+msgid "No saved items yet"
+msgstr ""
+
+#: header.php:251
+msgid "Save products you love and find them here."
+msgstr ""
+
+#: header.php:253
+#: search.php:179
+msgid "Shop All"
+msgstr ""
+
+#: header.php:263
+msgid "Mobile navigation"
+msgstr ""
+
+#: inc/block-styles.php:20
+msgid "Lumea Black"
+msgstr ""
+
+#: inc/block-styles.php:28
+msgid "Lumea White"
+msgstr ""
+
+#: inc/block-styles.php:36
+msgid "Lumea Outline"
+msgstr ""
+
+#: inc/block-styles.php:44
+msgid "Lumea Dark"
+msgstr ""
+
+#: inc/block-styles.php:52
+msgid "Lumea Outline Alt"
+msgstr ""
+
+#: inc/block-styles.php:60
+msgid "Lumea Soft"
+msgstr ""
+
+#: inc/block-styles.php:68
+msgid "Lumea Accent"
+msgstr ""
+
+#: inc/block-styles.php:76
+msgid "Lumea Arrow"
+msgstr ""
+
+#. translators: 1: theme name, 2: comma-separated plugin name(s).
+#: inc/class-tgm-plugin-activation.php:173
+#, php-format
+msgid "%1$s requires the following plugin(s) to work correctly: %2$s."
+msgstr ""
+
+#. translators: 1: theme name, 2: comma-separated plugin name(s).
+#: inc/class-tgm-plugin-activation.php:180
+#, php-format
+msgid "%1$s recommends installing: %2$s."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:204
+msgid "Install Now"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:216
+msgid "Activate Now"
+msgstr ""
+
+#: inc/customizer.php:23
+msgid "Luméa Theme"
+msgstr ""
+
+#: inc/customizer.php:34
+msgid "Hero"
+msgstr ""
+
+#: inc/customizer.php:51
+msgid "Slide 1 Image (required)"
+msgstr ""
+
+#. translators: %d: slide number
+#: inc/customizer.php:53
+#, php-format
+msgid "Slide %d Image (optional)"
+msgstr ""
+
+#: inc/customizer.php:73
+msgid "Label (above title)"
+msgstr ""
+
+#. translators: %d: slide number
+#: inc/customizer.php:96
+#, php-format
+msgid "Slide %d Label (above title)"
+msgstr ""
+
+#: inc/customizer.php:97
+msgid "Use a short word like Glow, Hydrate, Protect."
+msgstr ""
+
+#: inc/customizer.php:128
+msgid "CTA Button Text"
+msgstr ""
+
+#: inc/customizer.php:139
+msgid "Editorial Slider"
+msgstr ""
+
+#: inc/customizer.php:167
+#: inc/customizer.php:293
+#: inc/customizer.php:413
+msgid "Section Description"
+msgstr ""
+
+#: inc/customizer.php:179
+msgid "\"Shop All\" Button Text"
+msgstr ""
+
+#. translators: %d: slide number
+#: inc/customizer.php:224
+#, php-format
+msgid "Slide %d Image"
+msgstr ""
+
+#. translators: %d: slide number
+#: inc/customizer.php:235
+#, php-format
+msgid "Slide %d Caption"
+msgstr ""
+
+#. translators: %d: slide number
+#: inc/customizer.php:247
+#, php-format
+msgid "Slide %d Product URL (blank = shop)"
+msgstr ""
+
+#: inc/customizer.php:259
+msgid "Curated Glow"
+msgstr ""
+
+#: inc/customizer.php:271
+msgid "Eyebrow Label"
+msgstr ""
+
+#: inc/customizer.php:282
+msgid "Section Title"
+msgstr ""
+
+#. translators: %d: product number
+#: inc/customizer.php:326
+#, php-format
+msgid "Product %d Image"
+msgstr ""
+
+#. translators: %d: product number
+#: inc/customizer.php:337
+#: inc/customizer.php:437
+#, php-format
+msgid "Product %d Name"
+msgstr ""
+
+#. translators: %d: product number
+#: inc/customizer.php:349
+#: inc/customizer.php:449
+#, php-format
+msgid "Product %d Price"
+msgstr ""
+
+#. translators: %d: product number
+#: inc/customizer.php:361
+#, php-format
+msgid "Product %d Description"
+msgstr ""
+
+#. translators: %d: product number
+#: inc/customizer.php:373
+#, php-format
+msgid "Product %d Link URL (leave blank for shop)"
+msgstr ""
+
+#. translators: %d: product number
+#: inc/customizer.php:461
+#, php-format
+msgid "Product %d Badge (leave blank to hide)"
+msgstr ""
+
+#. translators: %d: product number
+#: inc/customizer.php:473
+#, php-format
+msgid "Product %d — Main Image"
+msgstr ""
+
+#. translators: %d: product number
+#: inc/customizer.php:484
+#, php-format
+msgid "Product %d — Hover Image"
+msgstr ""
+
+#. translators: %d: product number
+#: inc/customizer.php:495
+#, php-format
+msgid "Product %d Link URL (blank = shop)"
+msgstr ""
+
+#: inc/customizer.php:507
+msgid "The Ritual"
+msgstr ""
+
+#: inc/customizer.php:519
+msgid "Heading Line 1"
+msgstr ""
+
+#: inc/customizer.php:530
+msgid "Heading Line 2 (faded)"
+msgstr ""
+
+#: inc/customizer.php:542
+msgid "Intro Paragraph"
+msgstr ""
+
+#. translators: %d: step number
+#: inc/customizer.php:585
+#, php-format
+msgid "Step %d Title"
+msgstr ""
+
+#. translators: %d: step number
+#: inc/customizer.php:597
+#, php-format
+msgid "Step %d Description"
+msgstr ""
+
+#. translators: %d: step number
+#: inc/customizer.php:609
+#, php-format
+msgid "Step %d — Image 1"
+msgstr ""
+
+#. translators: %d: step number
+#: inc/customizer.php:620
+#, php-format
+msgid "Step %d — Image 2"
+msgstr ""
+
+#: inc/customizer.php:631
+msgid "Manifest Section"
+msgstr ""
+
+#: inc/customizer.php:643
+msgid "Background Image"
+msgstr ""
+
+#. translators: %d: line number
+#: inc/customizer.php:661
+#, php-format
+msgid "Kicker Line %d"
+msgstr ""
+
+#. translators: %d: line number
+#: inc/customizer.php:681
+#, php-format
+msgid "Heading Line %d"
+msgstr ""
+
+#: inc/customizer.php:692
+msgid "Footer"
+msgstr ""
+
+#: inc/customizer.php:704
+msgid "CTA Headline"
+msgstr ""
+
+#: inc/customizer.php:716
+msgid "CTA Button Label"
+msgstr ""
+
+#: inc/customizer.php:728
+msgid "Connect Column Heading"
+msgstr ""
+
+#: inc/customizer.php:740
+msgid "Address (one line per row)"
+msgstr ""
+
+#: inc/customizer.php:752
+msgid "Contact Email"
+msgstr ""
+
+#: inc/customizer.php:764
+msgid "Support Email (Contact & FAQ pages)"
+msgstr ""
+
+#: inc/customizer.php:765
+msgid "Displayed as a clickable mailto link on the Contact page and in FAQ answers."
+msgstr ""
+
+#: inc/customizer.php:777
+msgid "Brand Video URL (.mp4) — shows through \"LUMÉA\" letters"
+msgstr ""
+
+#: inc/customizer.php:778
+msgid "Upload an MP4 to Media Library, paste its URL here. Leave blank to use the fallback image instead."
+msgstr ""
+
+#: inc/customizer.php:790
+msgid "Brand Fallback Image (shows if no video)"
+msgstr ""
+
+#: inc/customizer.php:801
+msgid "Copyright Text (after the year)"
+msgstr ""
+
+#: inc/customizer.php:813
+msgid "Copyright Text (year prepended automatically)"
+msgstr ""
+
+#. translators: %d: link number
+#: inc/customizer.php:833
+#, php-format
+msgid "Nav Link %d Label"
+msgstr ""
+
+#. translators: %d: link number
+#: inc/customizer.php:844
+#, php-format
+msgid "Nav Link %d URL"
+msgstr ""
+
+#: inc/customizer.php:869
+msgid "Shop & Category Heroes"
+msgstr ""
+
+#: inc/customizer.php:875
+msgid "Shop Page Hero Image"
+msgstr ""
+
+#: inc/customizer.php:879
+msgid "Bestseller Category Hero Image"
+msgstr ""
+
+#: inc/customizer.php:883
+msgid "Latest Category Hero Image"
+msgstr ""
+
+#: inc/customizer.php:907
+msgid "Journal Page Hero Image"
+msgstr ""
+
+#: inc/customizer.php:908
+msgid "Used on the main blog page hero."
+msgstr ""
+
+#: inc/customizer.php:918
+msgid "Journal Hero Title"
+msgstr ""
+
+#: inc/customizer.php:929
+msgid "Journal Hero Subtitle"
+msgstr ""
+
+#: inc/customizer.php:940
+msgid "Journal Detail Hero Image"
+msgstr ""
+
+#: inc/customizer.php:941
+msgid "Used on single blog post pages."
+msgstr ""
+
+#: inc/customizer.php:951
+msgid "Journal Detail Hero Subtitle"
+msgstr ""
+
+#: inc/customizer.php:959
+msgid "About Page"
+msgstr ""
+
+#: inc/customizer.php:1070
+msgid "Shop Sections"
+msgstr ""
+
+#: inc/customizer.php:1071
+msgid "Configure the product category names used for homepage sections."
+msgstr ""
+
+#: inc/customizer.php:1087
+msgid "Bestsellers Category Name"
+msgstr ""
+
+#: inc/customizer.php:1088
+msgid "Exact name of the WooCommerce product category used for the Bestsellers section."
+msgstr ""
+
+#: inc/customizer.php:1105
+msgid "Latest Products Category Name"
+msgstr ""
+
+#: inc/customizer.php:1106
+msgid "Exact name of the WooCommerce product category used for the Latest Products section."
+msgstr ""
+
+#: inc/enqueue.php:167
+msgid "Remove from wishlist"
+msgstr ""
+
+#: inc/enqueue.php:169
+#: woocommerce/content-product.php:26
+#: woocommerce/content-product.php:27
+msgid "View Product"
+msgstr ""
+
+#: inc/enqueue.php:170
+#: inc/woocommerce.php:197
+#: inc/woocommerce.php:289
+msgid "View Cart"
+msgstr ""
+
+#: inc/enqueue.php:171
+#: inc/woocommerce.php:189
+#: woocommerce/cart/cart.php:143
+msgid "Quantity"
+msgstr ""
+
+#: inc/enqueue.php:172
+#: inc/woocommerce.php:190
+#: woocommerce/cart/cart.php:132
+#: woocommerce/single-product.php:224
+msgid "Decrease"
+msgstr ""
+
+#: inc/enqueue.php:173
+#: inc/woocommerce.php:192
+#: woocommerce/cart/cart.php:149
+#: woocommerce/single-product.php:236
+msgid "Increase"
+msgstr ""
+
+#: inc/enqueue.php:174
+msgid "Loading favourites..."
+msgstr ""
+
+#: inc/enqueue.php:175
+msgid "Remove"
+msgstr ""
+
+#. translators: %s: product name
+#: inc/enqueue.php:177
+#, php-format
+msgid "Remove %s from wishlist"
+msgstr ""
+
+#: inc/enqueue.php:179
+#: woocommerce/myaccount/form-edit-account.php:55
+#: woocommerce/myaccount/form-edit-account.php:67
+#: woocommerce/myaccount/form-edit-account.php:84
+msgid "Show password"
+msgstr ""
+
+#: inc/enqueue.php:180
+msgid "Hide password"
+msgstr ""
+
+#: inc/enqueue.php:181
+msgid "Weak"
+msgstr ""
+
+#: inc/enqueue.php:182
+msgid "Fair"
+msgstr ""
+
+#: inc/enqueue.php:183
+msgid "Good"
+msgstr ""
+
+#: inc/enqueue.php:184
+msgid "Strong"
+msgstr ""
+
+#: inc/enqueue.php:348
+msgid "Could not update quantity. Please try again."
+msgstr ""
+
+#: inc/enqueue.php:349
+#: woocommerce/cart/cart-empty.php:29
+#: woocommerce/cart/cart-empty.php:51
+#: woocommerce/cart/cart.php:23
+#: woocommerce/checkout/form-checkout.php:25
+#: woocommerce/checkout/thankyou.php:18
+msgid "Your Bag"
+msgstr ""
+
+#: inc/enqueue.php:350
+#: woocommerce/cart/cart-empty.php:52
+msgid "Nothing here yet"
+msgstr ""
+
+#: inc/enqueue.php:351
+#: woocommerce/cart/cart-empty.php:53
+msgid "Your bag is empty. Browse our botanical skincare collection and find your ritual."
+msgstr ""
+
+#: inc/enqueue.php:353
+#: woocommerce/cart/cart-empty.php:64
+msgid "Free returns on all orders"
 msgstr ""
 
 #: inc/setup.php:91
@@ -49,409 +946,1096 @@ msgstr ""
 msgid "Footer Menu"
 msgstr ""
 
-#: inc/setup.php
+#: inc/setup.php:104
 msgid "Sidebar"
 msgstr ""
 
-#: inc/setup.php
+#: inc/setup.php:106
+msgid "Widgets in this area appear in the blog sidebar."
+msgstr ""
+
+#: inc/setup.php:116
 msgid "Footer Column"
 msgstr ""
 
-#: header.php
-msgid "Skip to content"
+#: inc/setup.php:118
+msgid "Widgets in this area appear in the footer."
 msgstr ""
 
-#: header.php
-msgid "Primary navigation"
+#. translators: %s: product name
+#: inc/woocommerce.php:179
+#: inc/woocommerce.php:563
+#, php-format
+msgid "Add %s to cart"
 msgstr ""
 
-#: header.php
-msgid "Home"
+#: inc/woocommerce.php:240
+msgid "Your cart is empty."
 msgstr ""
 
-#: header.php
-msgid "Shop"
+#: inc/woocommerce.php:241
+#: page-wishlist.php:37
+msgid "Shop Products"
 msgstr ""
 
-#: header.php
-msgid "Bestsellers"
+#: inc/woocommerce.php:261
+msgid "Decrease quantity"
 msgstr ""
 
-#: header.php
-msgid "Blog"
+#: inc/woocommerce.php:263
+msgid "Increase quantity"
 msgstr ""
 
-#: header.php
-msgid "About"
+#: inc/woocommerce.php:266
+#: woocommerce/cart/cart.php:90
+msgid "Remove item"
 msgstr ""
 
-#: header.php
-msgid "Contact"
+#: inc/woocommerce.php:286
+#: woocommerce/checkout/form-checkout.php:174
+msgid "Subtotal"
 msgstr ""
 
-#: header.php
-msgid "Search"
+#: inc/woocommerce.php:290
+#: woocommerce/checkout/form-checkout.php:27
+msgid "Checkout"
 msgstr ""
 
-#: header.php
-msgid "My account"
-msgstr ""
-
-#: header.php
-msgid "Account quick links"
-msgstr ""
-
-#: header.php
-msgid "Welcome"
-msgstr ""
-
-#: header.php
-#. translators: %s: customer first name.
-msgid "Hi %s, manage your profile and orders."
-msgstr ""
-
-#: header.php
-msgid "View Profile"
-msgstr ""
-
-#: header.php
-msgid "To access your account and manage orders"
-msgstr ""
+#. translators: %d: number of items in the cart
+#: inc/woocommerce.php:522
+#: woocommerce/cart/cart.php:33
+#, php-format
+msgid "Your Bag (%d item)"
+msgid_plural "Your Bag (%d items)"
+msgstr[0] ""
+msgstr[1] ""
 
-#: header.php
-msgid "Login / Signup"
+#: inc/woocommerce.php:560
+msgid "View product"
 msgstr ""
 
-#: header.php
-msgid "Orders"
+#. translators: %s: product name
+#: inc/woocommerce.php:565
+#, php-format
+msgid "View %s"
 msgstr ""
 
-#: header.php
-msgid "Wishlist"
+#: inc/woocommerce.php:606
+msgid "Show in Bestsellers"
 msgstr ""
 
-#: header.php
-msgid "Bag"
+#: inc/woocommerce.php:607
+msgid "Display on the homepage Bestsellers section."
 msgstr ""
 
-#: header.php
-msgid "Saved Addresses"
+#: inc/woocommerce.php:611
+msgid "Show in Latest Products"
 msgstr ""
 
-#: header.php
-msgid "Contact Us"
+#: inc/woocommerce.php:612
+msgid "Display on the homepage Latest Products section."
 msgstr ""
 
-#: header.php
-msgid "Account Details"
+#: inc/woocommerce.php:706
+msgid "Lumea Demo Gateway"
 msgstr ""
 
-#: header.php
-msgid "Sign Out"
+#: inc/woocommerce.php:707
+msgid "Dummy payment method for local checkout testing. No money is charged."
 msgstr ""
 
-#: header.php
-msgid "Favourites"
+#: inc/woocommerce.php:715
+#: inc/woocommerce.php:736
+msgid "Test Payment (No Charge)"
 msgstr ""
 
-#: header.php
-msgid "Close favourites"
+#: inc/woocommerce.php:716
+#: inc/woocommerce.php:743
+msgid "Use this local test method to place a demo order and reach the confirmation page."
 msgstr ""
 
-#: header.php
-msgid "No saved items yet"
+#: inc/woocommerce.php:727
+msgid "Enable/Disable"
 msgstr ""
 
-#: header.php
-msgid "Save products you love and find them here."
+#: inc/woocommerce.php:729
+msgid "Enable Lumea Demo Gateway"
 msgstr ""
 
-#: header.php
-msgid "Shop All"
+#: inc/woocommerce.php:733
+msgid "Title"
 msgstr ""
 
-#: header.php
-msgid "Open cart"
+#: inc/woocommerce.php:735
+msgid "Shown at checkout."
 msgstr ""
 
-#: header.php
-msgid "Open menu"
+#: inc/woocommerce.php:740
+#: woocommerce/single-product.php:314
+msgid "Description"
 msgstr ""
 
-#: header.php
-msgid "Mobile navigation"
+#: inc/woocommerce.php:742
+msgid "Shown under the payment method on checkout."
 msgstr ""
 
-#: header.php
-msgid "What are you looking for?"
+#: inc/woocommerce.php:767
+msgid "Unable to process demo payment. Please try again."
 msgstr ""
 
-#: header.php
-msgid "Search products, articles\xe2\x80\xa6"
+#: inc/woocommerce.php:774
+msgid "Order placed using Lumea Demo Gateway (no real payment)."
 msgstr ""
 
-#: header.php
-msgid "Popular"
+#: index.php:48
+msgid "Welcome to Luméa"
 msgstr ""
 
-#: header.php
-msgid "Close search"
+#: index.php:49
+msgid "A premium beauty and skincare WooCommerce theme is now active."
 msgstr ""
 
-#: footer.php
-msgid "Connect"
+#. Template Name of the theme
+msgid "About Us"
 msgstr ""
 
-#: footer.php
-msgid "Instagram"
+#: page-about.php:111
+msgid "Lumea highlights"
 msgstr ""
 
-#: footer.php
-msgid "TikTok"
+#: page-about.php:172
+msgid "Lumea story"
 msgstr ""
 
-#: footer.php
-msgid "Pinterest"
+#: page-about.php:253
+msgid "As Featured In"
 msgstr ""
 
-#: 404.php
-msgid "Page Not Found"
+#. Template Name of the theme
+msgid "Blank (No Header / Footer)"
 msgstr ""
 
-#: 404.php
-msgid "The page you are looking for doesn't exist or has been moved."
+#. Template Name of the theme
+msgid "Coming Soon"
 msgstr ""
 
-#: 404.php
-msgid "Back Home"
+#: page-coming-soon.php:58
+msgid "Something beautiful is coming"
 msgstr ""
 
-#: 404.php
-msgid "Shop Collection"
+#: page-coming-soon.php:75
+msgid "Enter your email"
 msgstr ""
 
-#: single.php
-#. translators: %d: estimated reading time in minutes.
-msgid "%d min read"
+#: page-coming-soon.php:77
+msgid "Email address for launch notification"
 msgstr ""
 
-#: single.php
-msgid "Share"
+#: page-coming-soon.php:79
+msgid "Notify Me"
 msgstr ""
 
-#: single.php
-msgid "Share on X"
+#: page-contact.php:24
+msgid "Please enter your name."
 msgstr ""
 
-#: single.php
-msgid "Share on Facebook"
+#: page-contact.php:25
+msgid "Please enter a valid email address."
 msgstr ""
 
-#: single.php
-msgid "Back to Journal"
+#: page-contact.php:26
+msgid "Please enter a message."
 msgstr ""
 
-#: single.php
-msgid "Article navigation"
+#: page-contact.php:51
+#: page-faq.php:100
+#: woocommerce/cart/cart-empty.php:25
+#: woocommerce/cart/cart.php:19
+#: woocommerce/checkout/form-checkout.php:21
+#: woocommerce/checkout/thankyou.php:14
+#: woocommerce/myaccount/form-lost-password.php:27
+#: woocommerce/myaccount/form-reset-password.php:27
+#: woocommerce/myaccount/lost-password-confirmation.php:25
+#: woocommerce/myaccount/my-account.php:26
+#: woocommerce/single-product.php:97
+msgid "Breadcrumb"
 msgstr ""
 
-#: single.php
-msgid "Previous"
+#: page-contact.php:62
+msgid "We'd Love to Hear From You"
 msgstr ""
 
-#: single.php
-msgid "Next"
+#: page-contact.php:63
+msgid "Get in Touch"
 msgstr ""
 
-#: single.php
-msgid "You Might Also Like"
+#: page-contact.php:64
+msgid "Questions about your order, a product recommendation, or just want to say hello — we reply within 24 hours."
 msgstr ""
 
-#: single.php
-msgid "Read"
+#: page-contact.php:81
+msgid "Message sent!"
 msgstr ""
 
-#: archive.php
-msgid "All"
+#: page-contact.php:82
+msgid "Thank you for reaching out. We'll be in touch within 24 hours."
 msgstr ""
 
-#: archive.php
-msgid "No posts found."
+#: page-contact.php:94
+msgid "Send a Message"
 msgstr ""
 
-#: search.php
-#. translators: %s: search term.
-msgid "Results for \"%s\""
+#: page-contact.php:101
+msgid "Your name"
 msgstr ""
 
-#: search.php
-msgid "All"
+#: page-contact.php:102
+msgid "Jane Doe"
 msgstr ""
 
-#: search.php
-msgid "Products"
+#: page-contact.php:105
+#: woocommerce/checkout/form-checkout.php:79
+msgid "Email address"
 msgstr ""
 
-#: search.php
-msgid "Articles"
+#: page-contact.php:106
+#: woocommerce/checkout/form-checkout.php:80
+msgid "you@example.com"
 msgstr ""
 
-#: search.php
-msgid "No results found."
+#: page-contact.php:111
+msgid "Subject"
 msgstr ""
 
-#: search.php
-msgid "Try a different search term or browse our shop."
+#: page-contact.php:113
+msgid "Select a topic…"
 msgstr ""
 
-#: page-contact.php
-msgid "Contact"
+#: page-contact.php:114
+msgid "Order Enquiry"
 msgstr ""
 
-#: page-contact.php
-msgid "Home"
+#: page-contact.php:115
+msgid "Product Recommendation"
 msgstr ""
 
-#: page-contact.php
-msgid "Send Message"
+#: page-contact.php:116
+msgid "Returns & Exchanges"
 msgstr ""
 
-#: page-contact.php
-msgid "Your Name"
+#: page-contact.php:117
+msgid "Partnership Enquiry"
 msgstr ""
 
-#: page-contact.php
-msgid "Your Email"
+#: page-contact.php:118
+msgid "Other"
 msgstr ""
 
-#: page-contact.php
+#: page-contact.php:123
 msgid "Message"
 msgstr ""
 
-#: page-contact.php
-msgid "Message sent successfully."
+#: page-contact.php:124
+msgid "Tell us how we can help…"
 msgstr ""
 
-#: page-contact.php
-msgid "Please fill in all required fields."
+#: page-contact.php:128
+msgid "Send Message"
 msgstr ""
 
-#: page-faq.php
+#: page-contact.php:141
+msgid "Customer Care"
+msgstr ""
+
+#: page-contact.php:153
+msgid "Response time"
+msgstr ""
+
+#: page-contact.php:154
+msgid "Within 24 hours"
+msgstr ""
+
+#: page-contact.php:160
+msgid "Hours"
+msgstr ""
+
+#: page-contact.php:161
+msgid "Mon–Fri, 9am–6pm AEST"
+msgstr ""
+
+#: page-contact.php:167
+msgid "Quick Links"
+msgstr ""
+
+#: page-contact.php:170
+msgid "Browse FAQs"
+msgstr ""
+
+#: page-contact.php:174
+msgid "Track your order"
+msgstr ""
+
+#. Template Name of the theme
+#: page-faq.php:104
 msgid "FAQ"
 msgstr ""
 
-#: page-wishlist.php
-msgid "Favourites"
+#: page-faq.php:111
+msgid "Help Centre"
 msgstr ""
 
-#: page-wishlist.php
-msgid "items"
+#: page-faq.php:112
+msgid "Frequently Asked Questions"
 msgstr ""
 
-#: page-wishlist.php
-msgid "Similar Products"
+#: page-faq.php:113
+msgid "Everything you need to know about our products, shipping, and returns."
 msgstr ""
 
-#: inc/buttons.php
-msgid "Shop Now"
+#: page-faq.php:122
+msgid "FAQ Categories"
 msgstr ""
 
-#: inc/customizer.php
-msgid "Luméa Theme"
+#: page-faq.php:174
+msgid "Still have questions?"
 msgstr ""
 
-#: inc/customizer.php
-msgid "Hero Section"
+#: page-faq.php:175
+msgid "Our skincare specialists reply within 24 hours."
 msgstr ""
 
-#: inc/customizer.php
-msgid "Editorial Slider"
+#: page-wishlist.php:19
+msgid "Wishlist overview"
 msgstr ""
 
-#: inc/customizer.php
-msgid "Curated Glow Section"
+#: page-wishlist.php:21
+msgid "Saved Favourites"
 msgstr ""
 
-#: inc/customizer.php
-msgid "Latest Products"
+#: page-wishlist.php:22
+msgid "Your Wishlist"
 msgstr ""
 
-#: inc/customizer.php
-msgid "Bestsellers Section"
+#: page-wishlist.php:24
+msgid "Products you saved for your next ritual."
 msgstr ""
 
-#: inc/customizer.php
-msgid "Blog / Journal"
+#: page-wishlist.php:25
+msgid "item(s)"
 msgstr ""
 
-#: inc/customizer.php
-msgid "About Page"
+#: page-wishlist.php:27
+#: woocommerce/cart/cart.php:170
+#: woocommerce/checkout/thankyou.php:196
+#: woocommerce/checkout/thankyou.php:213
+msgid "Continue Shopping"
 msgstr ""
 
-#: inc/customizer.php
-msgid "Footer"
+#: page-wishlist.php:35
+msgid "Your wishlist is empty"
 msgstr ""
 
-#: inc/customizer.php
-msgid "Shop / Category Heroes"
+#: page-wishlist.php:36
+msgid "Tap the heart icon on products you love and they will appear here."
 msgstr ""
 
-#: inc/enqueue.php
-msgid "Add to wishlist"
+#: page-wishlist.php:52
+msgid "Similar products"
 msgstr ""
 
-#: inc/enqueue.php
-msgid "Remove from wishlist"
+#: page-wishlist.php:55
+msgid "Discover More"
 msgstr ""
 
-#: inc/enqueue.php
-msgid "Add to Cart"
+#: page-wishlist.php:56
+msgid "Similar Items"
 msgstr ""
 
-#: inc/enqueue.php
-msgid "View Product"
+#: page-wishlist.php:80
+msgid "More products are coming soon."
 msgstr ""
 
-#: inc/enqueue.php
-msgid "View Cart"
-msgstr ""
-
-#: inc/enqueue.php
-msgid "Quantity"
-msgstr ""
-
-#: inc/enqueue.php
-msgid "Decrease"
-msgstr ""
-
-#: inc/enqueue.php
-msgid "Increase"
-msgstr ""
-
-#: inc/enqueue.php
-msgid "Loading favourites..."
-msgstr ""
-
-#: inc/enqueue.php
-msgid "Remove"
-msgstr ""
-
-#: inc/enqueue.php
-#. translators: %s: product name.
-msgid "Remove %s from wishlist"
-msgstr ""
-
-#: comments.php
-msgid "Leave a Comment"
-msgstr ""
-
-#: comments.php
-msgid "Comments are closed."
-msgstr ""
-
-#: comments.php
-#. translators: 1: number of comments.
-msgid "One Comment"
-msgid_plural "%s Comments"
+#. translators: %s: formatted number of results (e.g. "3")
+#: search.php:34
+#, php-format
+msgid "%s result for"
+msgid_plural "%s results for"
 msgstr[0] ""
 msgstr[1] ""
+
+#: search.php:78
+msgid "Products"
+msgstr ""
+
+#: search.php:84
+msgid "Articles"
+msgstr ""
+
+#: search.php:118
+#: woocommerce/cart/cart.php:56
+msgid "Product"
+msgstr ""
+
+#: search.php:118
+msgid "Article"
+msgstr ""
+
+#: search.php:144
+msgid "View"
+msgstr ""
+
+#. translators: %s: search query string
+#: search.php:171
+#, php-format
+msgid "No results for &#8220;%s&#8221;"
+msgstr ""
+
+#. translators: %s: search query string
+#: search.php:172
+msgid "No results found"
+msgstr ""
+
+#: search.php:175
+msgid "Try a different keyword, or explore what we have to offer."
+msgstr ""
+
+#: search.php:182
+msgid "Browse Articles"
+msgstr ""
+
+#: sidebar.php:17
+msgid "Blog Sidebar"
+msgstr ""
+
+#: single.php:71
+msgid "Share"
+msgstr ""
+
+#: single.php:72
+msgid "Share on X"
+msgstr ""
+
+#: single.php:75
+msgid "Share on Facebook"
+msgstr ""
+
+#: single.php:83
+msgid "Back to Journal"
+msgstr ""
+
+#: single.php:103
+msgid "Article navigation"
+msgstr ""
+
+#: single.php:135
+msgid "You Might Also Like"
+msgstr ""
+
+#: template-parts/components/cart-drawer.php:6
+msgid "Shopping cart"
+msgstr ""
+
+#: template-parts/components/cart-drawer.php:8
+msgid "Your Cart"
+msgstr ""
+
+#: template-parts/components/cart-drawer.php:9
+msgid "Close cart"
+msgstr ""
+
+#: woocommerce/archive-product.php:47
+msgid "Featured"
+msgstr ""
+
+#: woocommerce/archive-product.php:48
+msgid "Newest"
+msgstr ""
+
+#: woocommerce/archive-product.php:49
+msgid "Price: Low — High"
+msgstr ""
+
+#: woocommerce/archive-product.php:50
+msgid "Price: High — Low"
+msgstr ""
+
+#: woocommerce/archive-product.php:51
+msgid "Best Selling"
+msgstr ""
+
+#: woocommerce/archive-product.php:52
+msgid "Top Rated"
+msgstr ""
+
+#: woocommerce/archive-product.php:56
+msgid "All Prices"
+msgstr ""
+
+#: woocommerce/archive-product.php:57
+msgid "Under $25"
+msgstr ""
+
+#: woocommerce/archive-product.php:58
+msgid "$25 — $50"
+msgstr ""
+
+#: woocommerce/archive-product.php:59
+msgid "$50 — $100"
+msgstr ""
+
+#: woocommerce/archive-product.php:60
+msgid "Over $100"
+msgstr ""
+
+#: woocommerce/archive-product.php:125
+#: woocommerce/cart/cart.php:57
+#: woocommerce/cart/cart.php:125
+msgid "Price"
+msgstr ""
+
+#: woocommerce/archive-product.php:147
+msgid "Sort"
+msgstr ""
+
+#: woocommerce/archive-product.php:175
+msgid "Active:"
+msgstr ""
+
+#: woocommerce/archive-product.php:194
+msgid "Clear all"
+msgstr ""
+
+#: woocommerce/archive-product.php:215
+msgid "No products found."
+msgstr ""
+
+#: woocommerce/archive-product.php:216
+msgid "Browse all products"
+msgstr ""
+
+#: woocommerce/cart/cart-empty.php:36
+#: woocommerce/cart/cart.php:29
+msgid "Review & Checkout"
+msgstr ""
+
+#: woocommerce/cart/cart-empty.php:37
+msgid "Your Bag (0 items)"
+msgstr ""
+
+#: woocommerce/cart/cart-empty.php:56
+msgid "Browse Bestsellers"
+msgstr ""
+
+#: woocommerce/cart/cart-empty.php:82
+msgid "Start Here"
+msgstr ""
+
+#: woocommerce/cart/cart-empty.php:83
+msgid "Our Most-Loved"
+msgstr ""
+
+#: woocommerce/cart/cart.php:58
+#: woocommerce/cart/cart.php:130
+#: woocommerce/single-product.php:222
+msgid "Qty"
+msgstr ""
+
+#: woocommerce/cart/cart.php:59
+#: woocommerce/cart/cart.php:156
+#: woocommerce/checkout/form-checkout.php:190
+#: woocommerce/checkout/thankyou.php:89
+msgid "Total"
+msgstr ""
+
+#: woocommerce/cart/cart.php:172
+msgid "Update bag"
+msgstr ""
+
+#: woocommerce/cart/cart.php:173
+msgid "Update Bag"
+msgstr ""
+
+#: woocommerce/cart/cart.php:191
+#: woocommerce/checkout/form-checkout.php:135
+msgid "Order Summary"
+msgstr ""
+
+#: woocommerce/cart/cart.php:205
+msgid "Secure checkout"
+msgstr ""
+
+#: woocommerce/cart/cart.php:209
+msgid "30-day free returns"
+msgstr ""
+
+#: woocommerce/cart/cart.php:213
+msgid "Free shipping over $50"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:34
+msgid "Almost There"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:35
+msgid "Secure Checkout"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:47
+#: woocommerce/checkout/thankyou.php:59
+msgid "Details"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:52
+#: woocommerce/checkout/thankyou.php:64
+msgid "Confirmation"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:91
+#: woocommerce/checkout/thankyou.php:137
+msgid "Delivery Address"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:102
+msgid "Shipping Method"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:114
+#: woocommerce/checkout/thankyou.php:93
+msgid "Payment"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:166
+msgid "Gift or discount code"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:167
+msgid "Apply"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:179
+msgid "Shipping"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:180
+msgid "Free"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:198
+msgid "SSL encrypted · 256-bit secure checkout"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:20
+msgid "Order Confirmed"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:34
+#: woocommerce/checkout/thankyou.php:210
+msgid "Thank You"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:35
+#: woocommerce/checkout/thankyou.php:211
+msgid "Your order is confirmed"
+msgstr ""
+
+#. translators: %s: customer billing email address
+#: woocommerce/checkout/thankyou.php:40
+#, php-format
+msgid "We&rsquo;ve sent a confirmation to <strong>%s</strong>. Your ritual is on its way."
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:81
+msgid "Order number"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:85
+msgid "Date"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:101
+msgid "Your Order"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:160
+msgid "What happens next?"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:165
+msgid "Order Processing"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:166
+msgid "Our team carefully prepares and quality-checks your order."
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:172
+msgid "Dispatched"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:173
+msgid "You'll receive a shipping confirmation with tracking details."
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:179
+msgid "Delivered"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:180
+msgid "Your ritual arrives, elegantly packaged, ready to transform your routine."
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:189
+msgid "Create an account to track your order, save your skin profile, and earn rewards."
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:190
+#: woocommerce/myaccount/form-login.php:71
+msgid "Create Account"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:212
+msgid "A confirmation email is on its way."
+msgstr ""
+
+#. translators: %s customer first name
+#: woocommerce/myaccount/dashboard.php:47
+#, php-format
+msgid "Hello, %s"
+msgstr ""
+
+#: woocommerce/myaccount/dashboard.php:50
+msgid "From your account dashboard you can view your recent orders, manage your shipping and billing addresses, and edit your account details."
+msgstr ""
+
+#: woocommerce/myaccount/dashboard.php:62
+msgid "Orders placed"
+msgstr ""
+
+#: woocommerce/myaccount/dashboard.php:66
+msgid "Total spent"
+msgstr ""
+
+#: woocommerce/myaccount/dashboard.php:70
+msgid "Member since"
+msgstr ""
+
+#: woocommerce/myaccount/dashboard.php:78
+msgid "Recent Orders"
+msgstr ""
+
+#. translators: %s: order number
+#: woocommerce/myaccount/dashboard.php:100
+#, php-format
+msgid "Order #%s"
+msgstr ""
+
+#. translators: %s: order number
+#: woocommerce/myaccount/dashboard.php:111
+#, php-format
+msgid "View order %s"
+msgstr ""
+
+#: woocommerce/myaccount/dashboard.php:122
+msgid "No orders yet"
+msgstr ""
+
+#: woocommerce/myaccount/dashboard.php:123
+msgid "When you place your first order, it will appear here with delivery updates."
+msgstr ""
+
+#: woocommerce/myaccount/dashboard.php:124
+msgid "Start Shopping"
+msgstr ""
+
+#: woocommerce/myaccount/dashboard.php:132
+msgid "Edit Profile"
+msgstr ""
+
+#: woocommerce/myaccount/dashboard.php:136
+msgid "Addresses"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:38
+#: woocommerce/myaccount/form-login.php:78
+msgid "Welcome Back"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:43
+#: woocommerce/myaccount/form-login.php:92
+msgid "email"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:44
+#: woocommerce/myaccount/form-login.php:93
+msgid "password"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:49
+msgid "Remember me"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:51
+msgid "Forgot password?"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:58
+msgid "Log in"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:58
+msgid "Log In"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:69
+msgid "New here?"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:70
+msgid "Create an account to track orders, save favourites, and enjoy a more personal experience."
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:79
+msgid "Already have an account? Sign in to continue your journey with Lumea."
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:80
+msgid "Sign In"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:86
+msgid "Sign Up"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:87
+msgid "Or sign up with email"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:91
+msgid "username"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:98
+msgid "Register"
+msgstr ""
+
+#: woocommerce/myaccount/form-lost-password.php:31
+#: woocommerce/myaccount/form-reset-password.php:31
+#: woocommerce/myaccount/lost-password-confirmation.php:29
+#: woocommerce/myaccount/my-account.php:30
+#: woocommerce/myaccount/my-account.php:44
+msgid "My Account"
+msgstr ""
+
+#: woocommerce/myaccount/form-lost-password.php:33
+msgid "Reset Password"
+msgstr ""
+
+#: woocommerce/myaccount/form-lost-password.php:39
+msgid "Account Access"
+msgstr ""
+
+#: woocommerce/myaccount/form-lost-password.php:40
+msgid "Reset your password"
+msgstr ""
+
+#: woocommerce/myaccount/form-lost-password.php:41
+msgid "Enter your email and we will send you a secure reset link."
+msgstr ""
+
+#: woocommerce/myaccount/form-lost-password.php:80
+msgid "Back to sign in"
+msgstr ""
+
+#: woocommerce/myaccount/form-reset-password.php:33
+msgid "Create New Password"
+msgstr ""
+
+#: woocommerce/myaccount/form-reset-password.php:39
+msgid "Account Security"
+msgstr ""
+
+#: woocommerce/myaccount/form-reset-password.php:40
+msgid "Create a new password"
+msgstr ""
+
+#: woocommerce/myaccount/form-reset-password.php:41
+msgid "Choose a strong password to keep your account safe."
+msgstr ""
+
+#: woocommerce/myaccount/form-reset-password.php:80
+msgid "Save new password"
+msgstr ""
+
+#: woocommerce/myaccount/lost-password-confirmation.php:31
+msgid "Check Your Email"
+msgstr ""
+
+#: woocommerce/myaccount/lost-password-confirmation.php:37
+msgid "Password Reset"
+msgstr ""
+
+#: woocommerce/myaccount/lost-password-confirmation.php:38
+msgid "Check your inbox"
+msgstr ""
+
+#: woocommerce/myaccount/lost-password-confirmation.php:39
+msgid "We sent a secure reset link to your email address."
+msgstr ""
+
+#: woocommerce/myaccount/lost-password-confirmation.php:64
+msgid "Return to sign in"
+msgstr ""
+
+#: woocommerce/myaccount/my-account.php:41
+msgid "Welcome back"
+msgstr ""
+
+#: woocommerce/myaccount/my-account.php:45
+msgid "Sign in to your account"
+msgstr ""
+
+#: woocommerce/myaccount/my-account.php:55
+msgid "Account navigation"
+msgstr ""
+
+#. translators: %d: image number
+#: woocommerce/single-product.php:128
+#, php-format
+msgid "View image %d"
+msgstr ""
+
+#: woocommerce/single-product.php:152
+msgid "Zoom image"
+msgstr ""
+
+#: woocommerce/single-product.php:154
+msgid "Zoom"
+msgstr ""
+
+#: woocommerce/single-product.php:168
+msgid "Out of stock"
+msgstr ""
+
+#. translators: %d: remaining stock quantity
+#: woocommerce/single-product.php:170
+#, php-format
+msgid "Only %d left"
+msgstr ""
+
+#: woocommerce/single-product.php:172
+msgid "In stock"
+msgstr ""
+
+#. translators: %.1f: product rating (e.g. 4.5)
+#: woocommerce/single-product.php:180
+#, php-format
+msgid "Rated %.1f out of 5"
+msgstr ""
+
+#. translators: %s: formatted number of reviews
+#: woocommerce/single-product.php:195
+#, php-format
+msgid "%s review"
+msgid_plural "%s reviews"
+msgstr[0] ""
+msgstr[1] ""
+
+#: woocommerce/single-product.php:235
+msgid "Product quantity"
+msgstr ""
+
+#: woocommerce/single-product.php:249
+msgid "Add to Bag"
+msgstr ""
+
+#: woocommerce/single-product.php:253
+msgid "Out of Stock"
+msgstr ""
+
+#: woocommerce/single-product.php:257
+msgid "Save to wishlist"
+msgstr ""
+
+#: woocommerce/single-product.php:278
+msgid "Free Delivery"
+msgstr ""
+
+#: woocommerce/single-product.php:279
+msgid "Orders over $50"
+msgstr ""
+
+#: woocommerce/single-product.php:285
+msgid "30-Day Returns"
+msgstr ""
+
+#: woocommerce/single-product.php:286
+msgid "Hassle-free guarantee"
+msgstr ""
+
+#: woocommerce/single-product.php:292
+msgid "Clean Beauty"
+msgstr ""
+
+#: woocommerce/single-product.php:293
+msgid "Cruelty-free & vegan"
+msgstr ""
+
+#: woocommerce/single-product.php:299
+msgid "SKU:"
+msgstr ""
+
+#: woocommerce/single-product.php:325
+msgid "Key Ingredients"
+msgstr ""
+
+#: woocommerce/single-product.php:335
+msgid "Formulated with nature-powered actives. Full ingredient list available on packaging."
+msgstr ""
+
+#: woocommerce/single-product.php:343
+msgid "How to Use"
+msgstr ""
+
+#: woocommerce/single-product.php:353
+msgid "Apply a small amount to cleansed skin morning and evening. Gently pat until absorbed. Follow with SPF in the morning."
+msgstr ""
+
+#: woocommerce/single-product.php:361
+msgid "Delivery & Returns"
+msgstr ""
+
+#: woocommerce/single-product.php:366
+msgid "Standard delivery 3–5 business days. Free on orders over $50. Express shipping available at checkout."
+msgstr ""
+
+#: woocommerce/single-product.php:367
+msgid "Returns accepted within 30 days for unused, sealed products. Contact us to begin your return."
+msgstr ""
+
+#. translators: %s: formatted number of reviews
+#: woocommerce/single-product.php:389
+#, php-format
+msgid "Based on %s review"
+msgid_plural "Based on %s reviews"
+msgstr[0] ""
+msgstr[1] ""
+
+#: woocommerce/single-product.php:392
+msgid "Customer Reviews"
+msgstr ""
+
+#: woocommerce/single-product.php:413
+msgid "You May Also Like"
+msgstr ""
+
+#: woocommerce/single-product.php:414
+msgid "Complete Your Ritual"
+msgstr ""
+
+#: woocommerce/single-product.php:449
+msgid "Image zoom"
+msgstr ""
+
+#: woocommerce/single-product.php:450
+msgid "Close"
+msgstr ""

@@ -12,10 +12,6 @@ get_header();
 $current_cat = get_queried_object();
 $is_category = is_product_category();
 
-/* ── Per-page hero background ─────────────────────────────────────────────
-   Shop page uses lumea_shop_hero_bg.
-   Category pages use lumea_cat_{slug}_hero_bg with their own defaults so
-   each page can have a distinct hero image set independently in Customizer. */
 if ( $is_category && ! empty( $current_cat->slug ) ) {
 	$cat_slug     = sanitize_key( $current_cat->slug );
 	$cat_defaults = array(
@@ -30,7 +26,6 @@ if ( $is_category && ! empty( $current_cat->slug ) ) {
 	$shop_hero_bg = get_theme_mod( 'lumea_shop_hero_bg', LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg' );
 }
 
-/* ── Build category list for filter pills ───────────────────── */
 $shop_cats = get_terms( array(
 	'taxonomy'   => 'product_cat',
 	'hide_empty' => true,
@@ -38,10 +33,9 @@ $shop_cats = get_terms( array(
 	'exclude'    => array( get_option( 'default_product_cat' ) ),
 ) );
 
-/* ── Active filters ─────────────────────────────────────────── */
-$active_orderby   = isset( $_GET['orderby'] ) ? sanitize_text_field( $_GET['orderby'] ) : get_option( 'woocommerce_default_catalog_orderby', 'menu_order' );
-$active_min_price = isset( $_GET['min_price'] ) ? (int) $_GET['min_price'] : '';
-$active_max_price = isset( $_GET['max_price'] ) ? (int) $_GET['max_price'] : '';
+$active_orderby   = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) : get_option( 'woocommerce_default_catalog_orderby', 'menu_order' );
+$active_min_price = isset( $_GET['min_price'] ) ? absint( $_GET['min_price'] ) : '';
+$active_max_price = isset( $_GET['max_price'] ) ? absint( $_GET['max_price'] ) : '';
 
 $orderby_options = array(
 	'menu_order' => __( 'Featured',        'lumea' ),
@@ -60,13 +54,11 @@ $price_ranges = array(
 	'100-999' => __( 'Over $100',  'lumea' ),
 );
 
-/* Current price key */
 $active_price_key = '';
 if ( $active_min_price !== '' || $active_max_price !== '' ) {
 	$active_price_key = $active_min_price . '-' . $active_max_price;
 }
 
-/* Base URL for building filter links */
 $base_url = $is_category ? get_term_link( $current_cat ) : get_permalink( wc_get_page_id( 'shop' ) );
 
 function lumea_filter_url( $base, $params ) {

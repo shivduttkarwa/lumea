@@ -1,4 +1,4 @@
-/* ─── Lumea Reusable Buttons ─────────────────────────────────────────────── */
+
 
 .lumea-btn {
   min-width: 150px;
@@ -35,8 +35,6 @@
   transform: translateY(-1px);
 }
 
-/* ── Dark ────────────────────────────────────────────────────────────────── */
-
 .btn-dark,
 .btn-black {
   background: var(--lumea-text);
@@ -50,8 +48,6 @@
   border-color: #8f4d43;
   box-shadow: 0 8px 20px rgba(143, 77, 67, 0.14);
 }
-
-/* ── Outline ─────────────────────────────────────────────────────────────── */
 
 .btn-outline,
 .btn-white {
@@ -68,8 +64,6 @@
   box-shadow: 0 8px 20px rgba(120, 154, 75, 0.18);
 }
 
-/* ── Soft ────────────────────────────────────────────────────────────────── */
-
 .btn-soft {
   background: rgba(201, 133, 120, 0.12);
   color: var(--lumea-accent-dark);
@@ -80,8 +74,6 @@
   background: rgba(201, 133, 120, 0.18);
   border-color: rgba(201, 133, 120, 0.38);
 }
-
-/* ── Accent ──────────────────────────────────────────────────────────────── */
 
 .btn-accent {
   background: var(--lumea-accent);
@@ -94,8 +86,6 @@
   border-color: var(--lumea-accent-dark);
   box-shadow: 0 8px 20px rgba(143, 77, 67, 0.14);
 }
-
-/* ── Arrow ───────────────────────────────────────────────────────────────── */
 
 .btn-arrow {
   background: transparent;
@@ -127,8 +117,6 @@
 .btn-arrow-left:hover svg {
   transform: translateX(-3px);
 }
-
-/* ── Responsive ──────────────────────────────────────────────────────────── */
 
 @media (max-width: 640px) {
   .lumea-btn {

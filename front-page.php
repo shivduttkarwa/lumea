@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/* ── Helper: product tile URL ─────────────────────────────── */
+
 function lumea_product_url( $setting_key ) {
 	$custom = get_theme_mod( $setting_key, '' );
 	if ( $custom ) {
@@ -86,7 +86,7 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 					<?php echo esc_html( get_theme_mod( 'lumea_slide_1_text', 'Botanical skincare rituals designed for luminous skin, soft texture, and everyday radiance.' ) ); ?>
 				</p>
 			</div>
-			<a href="<?php echo $shop_url; ?>"
+			<a href="<?php echo esc_url( $shop_url ); ?>"
 			   id="lumeaCardButton"
 			   class="lumea-card-button"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></a>
 		</article>
@@ -116,14 +116,14 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 	<div class="lumea-curated-row">
 
 		<?php
-		// Product 1
+		
 		$p1_image = get_theme_mod( 'lumea_product1_image', LUMEA_THEME_URI . '/assets/images/hero1.jpg' );
 		$p1_name  = get_theme_mod( 'lumea_product1_name',  'Radiance Serum' );
 		$p1_price = get_theme_mod( 'lumea_product1_price', '$48.00' );
 		$p1_desc  = get_theme_mod( 'lumea_product1_desc',  'A lightweight botanical serum for dewy, luminous, everyday skin.' );
 		$p1_url   = lumea_product_url( 'lumea_product1_url' );
 		?>
-		<a class="lumea-product-tile" href="<?php echo $p1_url; ?>">
+		<a class="lumea-product-tile" href="<?php echo esc_url( $p1_url ); ?>">
 			<div class="lumea-product-image-wrap">
 				<img
 					class="lumea-product-image"
@@ -145,7 +145,7 @@ $shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'sho
 		</a>
 
 		<?php
-		// Product 2
+		
 		$p2_image = get_theme_mod( 'lumea_product2_image', LUMEA_THEME_URI . '/assets/images/her02.jpg' );
 		$p2_name  = get_theme_mod( 'lumea_product2_name',  'Velvet Cream' );
 		$p2_price = get_theme_mod( 'lumea_product2_price', '$42.00' );
@@ -230,7 +230,7 @@ $lumea_best_defaults = array(
 	),
 );
 
-/* WooCommerce product query — tag: bestseller, fallback: top sellers */
+
 $lumea_best_products = array();
 if ( class_exists( 'WooCommerce' ) ) {
 	$_bq = new WP_Query( array(
@@ -309,7 +309,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 								<div class="lumea-best-media">
 									<img class="lumea-best-img lumea-best-img--main" src="<?php echo esc_url( $bp_main ); ?>" alt="<?php echo esc_attr( $bp_name ); ?>" loading="lazy" />
 									<?php if ( $bp_hover ) : ?>
-									<img class="lumea-best-img lumea-best-img--hover" src="<?php echo $bp_hover; ?>" alt="" loading="lazy" aria-hidden="true" />
+									<img class="lumea-best-img lumea-best-img--hover" src="<?php echo esc_url( $bp_hover ); ?>" alt="" loading="lazy" aria-hidden="true" />
 									<?php endif; ?>
 								</div>
 							</a>

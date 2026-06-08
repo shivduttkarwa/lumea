@@ -1,9 +1,5 @@
-/**
- * Global typography scale.
- * Scoped to content/editor so existing bespoke section styling remains unchanged.
- */
 
-/* Rem scale baseline across device sizes */
+
 html {
   font-size: 16px;
 }

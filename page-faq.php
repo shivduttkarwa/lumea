@@ -9,13 +9,14 @@
 defined( 'ABSPATH' ) || exit;
 get_header();
 
+$support_email  = sanitize_email( get_theme_mod( 'lumea_support_email', 'hello@lumeaskincare.com' ) );
 $faq_categories = array(
 	'skincare'  => array(
 		'label' => 'Skincare',
 		'items' => array(
 			array(
 				'q' => 'How do I know which products are right for my skin type?',
-				'a' => 'Start with our Skin Quiz — a 2-minute questionnaire that analyses your concerns and environment to recommend a personalised ritual. You can also browse by Skin Concern in our Shop. If you\'re ever unsure, email our skincare specialists at hello@lumeaskincare.com.',
+				'a' => 'Start with our Skin Quiz — a 2-minute questionnaire that analyses your concerns and environment to recommend a personalised ritual. You can also browse by Skin Concern in our Shop. If you\'re ever unsure, email our skincare specialists at ' . $support_email . '.',
 			),
 			array(
 				'q' => 'Are Luméa products safe for sensitive skin?',
@@ -65,7 +66,7 @@ $faq_categories = array(
 			),
 			array(
 				'q' => 'How do I start a return?',
-				'a' => 'Email hello@lumeaskincare.com with your order number and reason for return. Our team will respond within 24 hours with a prepaid return label (Australia only) and next steps.',
+				'a' => 'Email ' . $support_email . ' with your order number and reason for return. Our team will respond within 24 hours with a prepaid return label (Australia only) and next steps.',
 			),
 			array(
 				'q' => 'When will I receive my refund?',
@@ -86,7 +87,7 @@ $faq_categories = array(
 			),
 			array(
 				'q' => 'Can I modify or cancel my order?',
-				'a' => 'Orders can be modified or cancelled within 1 hour of placement. After that, our warehouse begins picking and packing and changes can no longer be made. Contact us immediately at hello@lumeaskincare.com if you need to make a change.',
+				'a' => 'Orders can be modified or cancelled within 1 hour of placement. After that, our warehouse begins picking and packing and changes can no longer be made. Contact us immediately at ' . $support_email . ' if you need to make a change.',
 			),
 		),
 	),

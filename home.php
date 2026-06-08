@@ -8,5 +8,4 @@
 
 defined( 'ABSPATH' ) || exit;
 
-// Delegate to archive template — identical layout.
 include get_theme_file_path( 'archive.php' );

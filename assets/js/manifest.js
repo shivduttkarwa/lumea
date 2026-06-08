@@ -1,7 +1,5 @@
-/**
- * Luméa Manifest — scroll-triggered letter animation + parallax.
- * Animation fires once when the section enters the viewport.
- */
+
+
 ( function () {
   'use strict';
 
@@ -11,7 +9,7 @@
   const splitLines = section.querySelectorAll( '[data-split]' );
   if ( ! splitLines.length ) return;
 
-  /* ── Split text into animated chars ─────────────────────── */
+  
   function splitLineToLetters( line, baseDelay, speed ) {
     const text = line.textContent;
     line.textContent = '';
@@ -50,7 +48,7 @@
     splitLineToLetters( line, baseDelay, speed );
   } );
 
-  /* ── Scroll parallax on bg image ────────────────────────── */
+  
   const bgImage = section.querySelector( '.lumea-manifest-bg img' );
 
   if ( bgImage ) {
@@ -62,7 +60,7 @@
     }, { passive: true } );
   }
 
-  /* ── IntersectionObserver — trigger animation on enter ───── */
+  
   const observer = new IntersectionObserver( function ( entries, obs ) {
     entries.forEach( function ( entry ) {
       if ( ! entry.isIntersecting ) return;

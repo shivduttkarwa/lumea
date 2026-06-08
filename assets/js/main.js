@@ -1,6 +1,4 @@
-/**
- * Lumea main JavaScript.
- */
+
 
 (function () {
   'use strict';

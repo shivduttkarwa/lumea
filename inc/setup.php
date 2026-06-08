@@ -9,28 +9,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Sets up theme defaults and registers WordPress features.
- */
+
 function lumea_theme_setup() {
 
-	/**
-	 * Make theme available for translation.
-	 */
+	
 	load_theme_textdomain( 'lumea', get_template_directory() . '/languages' );
 
-	/**
-	 * Core WordPress supports.
-	 */
+	
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'responsive-embeds' );
 	add_theme_support( 'align-wide' );
 
-	/**
-	 * Custom logo support.
-	 */
+	
 	add_theme_support(
 		'custom-logo',
 		array(
@@ -41,9 +33,7 @@ function lumea_theme_setup() {
 		)
 	);
 
-	/**
-	 * HTML5 markup support.
-	 */
+	
 	add_theme_support(
 		'html5',
 		array(
@@ -57,9 +47,7 @@ function lumea_theme_setup() {
 		)
 	);
 
-	/**
-	 * WooCommerce support.
-	 */
+	
 	add_theme_support(
 		'woocommerce',
 		array(
@@ -76,16 +64,12 @@ function lumea_theme_setup() {
 		)
 	);
 
-	/**
-	 * WooCommerce product gallery features.
-	 */
+	
 	add_theme_support( 'wc-product-gallery-zoom' );
 	add_theme_support( 'wc-product-gallery-lightbox' );
 	add_theme_support( 'wc-product-gallery-slider' );
 
-	/**
-	 * Navigation menus.
-	 */
+	
 	register_nav_menus(
 		array(
 			'primary' => esc_html__( 'Primary Menu', 'lumea' ),
@@ -95,9 +79,7 @@ function lumea_theme_setup() {
 }
 add_action( 'after_setup_theme', 'lumea_theme_setup' );
 
-/**
- * Register widget areas.
- */
+
 function lumea_widgets_init() {
 	register_sidebar(
 		array(

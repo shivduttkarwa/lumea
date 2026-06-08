@@ -9,12 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Enqueue theme styles and scripts.
- */
+
 function lumea_enqueue_assets() {
 
-	/* Clash Display — Fontshare */
+	
 	wp_enqueue_style(
 		'lumea-clash-display',
 		'https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600&display=swap',
@@ -22,7 +20,7 @@ function lumea_enqueue_assets() {
 		null
 	);
 
-	/* Inter — Google Fonts */
+	
 	wp_enqueue_style(
 		'lumea-inter',
 		'https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap',
@@ -30,7 +28,7 @@ function lumea_enqueue_assets() {
 		null
 	);
 
-	/* Bootstrap 5.3 foundation */
+	
 	wp_enqueue_style(
 		'lumea-bootstrap',
 		'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
@@ -46,7 +44,7 @@ function lumea_enqueue_assets() {
 		true
 	);
 
-	/* Theme tokens and typography layers */
+	
 	wp_enqueue_style(
 		'lumea-tokens',
 		LUMEA_THEME_URI . '/assets/css/tokens.css',
@@ -68,7 +66,7 @@ function lumea_enqueue_assets() {
 		LUMEA_VERSION
 	);
 
-	/* Main stylesheet */
+	
 	wp_enqueue_style(
 		'lumea-main',
 		LUMEA_THEME_URI . '/assets/css/main.css',
@@ -76,7 +74,7 @@ function lumea_enqueue_assets() {
 		LUMEA_VERSION
 	);
 
-	/* Reusable button styles — loads after main.css to override its .lumea-btn defaults */
+	
 	wp_enqueue_style(
 		'lumea-buttons',
 		LUMEA_THEME_URI . '/assets/css/buttons.css',
@@ -84,7 +82,7 @@ function lumea_enqueue_assets() {
 		LUMEA_VERSION
 	);
 
-	/* Scroll-reveal, clip-path reveal, transition utilities */
+	
 	wp_enqueue_style(
 		'lumea-animations',
 		LUMEA_THEME_URI . '/assets/css/animations.css',
@@ -92,43 +90,51 @@ function lumea_enqueue_assets() {
 		LUMEA_VERSION
 	);
 
-	/* GSAP core */
+	
+	wp_enqueue_style(
+		'lumea-blocks',
+		LUMEA_THEME_URI . '/assets/css/blocks.css',
+		array( 'lumea-tokens', 'lumea-typography' ),
+		LUMEA_VERSION
+	);
+
+	
 	wp_enqueue_script(
 		'gsap',
 		'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js',
 		array(),
-		null,
+		'3.12.5',
 		true
 	);
 
-	/* GSAP ScrollTrigger */
+	
 	wp_enqueue_script(
 		'gsap-scrolltrigger',
 		'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js',
 		array( 'gsap' ),
-		null,
+		'3.12.5',
 		true
 	);
 
-	/* GSAP DrawSVGPlugin */
+	
 	wp_enqueue_script(
 		'gsap-drawsvg',
 		'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/DrawSVGPlugin.min.js',
 		array( 'gsap' ),
-		null,
+		'3.12.5',
 		true
 	);
 
-	/* GSAP SplitText */
+	
 	wp_enqueue_script(
 		'gsap-splittext',
 		'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/SplitText.min.js',
 		array( 'gsap' ),
-		null,
+		'3.12.5',
 		true
 	);
 
-	/* Main script */
+	
 	wp_enqueue_script(
 		'lumea-main',
 		LUMEA_THEME_URI . '/assets/js/main.js',
@@ -137,7 +143,7 @@ function lumea_enqueue_assets() {
 		true
 	);
 
-	/* Scroll-reveal / parallax animation system — available on all templates */
+	
 	wp_enqueue_script(
 		'lumea-animations',
 		LUMEA_THEME_URI . '/assets/js/animations.js',
@@ -165,8 +171,9 @@ function lumea_enqueue_assets() {
 				'increase'             => __( 'Increase', 'lumea' ),
 				'loadingFavourites'    => __( 'Loading favourites...', 'lumea' ),
 				'remove'               => __( 'Remove', 'lumea' ),
+				/* translators: %s: product name */
 				'removeFromWishlistOf' => __( 'Remove %s from wishlist', 'lumea' ),
-				/* account-edit.js */
+				
 				'showPassword'         => __( 'Show password', 'lumea' ),
 				'hidePassword'         => __( 'Hide password', 'lumea' ),
 				'pwWeak'               => __( 'Weak', 'lumea' ),
@@ -177,7 +184,7 @@ function lumea_enqueue_assets() {
 		)
 	);
 
-	/* Hero canvas script + editorial slider — front page only */
+	
 	if ( is_front_page() ) {
 		wp_enqueue_script(
 			'lumea-hero',
@@ -187,8 +194,8 @@ function lumea_enqueue_assets() {
 			true
 		);
 
-		// Collect hero slider images (slot 1 is required, 2–5 are optional)
-		// and matching per-slide labels.
+		
+		
 		$lumea_hero_images = array();
 		$lumea_hero_labels = array();
 
@@ -267,18 +274,18 @@ function lumea_enqueue_assets() {
 
 		wp_localize_script( 'lumea-slider', 'lumea_slider', array( 'slides' => $lumea_slides ) );
 
-		/* Swiper (bestsellers section) */
+		
 		wp_enqueue_style(
 			'swiper',
 			'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css',
 			array(),
-			null
+			'11.0.0'
 		);
 		wp_enqueue_script(
 			'swiper',
 			'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js',
 			array(),
-			null,
+			'11.0.0',
 			true
 		);
 		wp_enqueue_script(
@@ -289,7 +296,7 @@ function lumea_enqueue_assets() {
 			true
 		);
 
-		/* Ritual section scroll animations */
+		
 		wp_enqueue_script(
 			'lumea-ritual',
 			LUMEA_THEME_URI . '/assets/js/ritual.js',
@@ -299,7 +306,7 @@ function lumea_enqueue_assets() {
 		);
 	}
 
-	/* Checkout coupon AJAX — checkout page only */
+	
 	if ( function_exists( 'is_checkout' ) && is_checkout() ) {
 		wp_enqueue_script(
 			'lumea-checkout',
@@ -310,7 +317,7 @@ function lumea_enqueue_assets() {
 		);
 	}
 
-	/* Single product page interactions */
+	
 	if ( function_exists( 'is_product' ) && is_product() ) {
 		wp_enqueue_script(
 			'lumea-single-product',
@@ -321,7 +328,7 @@ function lumea_enqueue_assets() {
 		);
 	}
 
-	/* Cart page interactions — cart page only */
+	
 	if ( function_exists( 'is_cart' ) && is_cart() ) {
 		wp_enqueue_script(
 			'lumea-cart-page',
@@ -347,7 +354,7 @@ function lumea_enqueue_assets() {
 		);
 	}
 
-	/* Account edit page — my-account only */
+	
 	if ( function_exists( 'is_account_page' ) && is_account_page() ) {
 		wp_enqueue_script(
 			'lumea-account-edit',
@@ -360,9 +367,7 @@ function lumea_enqueue_assets() {
 }
 add_action( 'wp_enqueue_scripts', 'lumea_enqueue_assets' );
 
-/**
- * Load theme styles in block editor for consistent button previews.
- */
+
 function lumea_enqueue_editor_assets() {
 	wp_enqueue_style(
 		'lumea-editor-bootstrap',
@@ -392,6 +397,14 @@ function lumea_enqueue_editor_assets() {
 		'lumea-editor-main',
 		LUMEA_THEME_URI . '/assets/css/main.css',
 		array( 'lumea-editor-bootstrap-overrides' ),
+		LUMEA_VERSION
+	);
+
+	
+	wp_enqueue_style(
+		'lumea-editor-blocks',
+		LUMEA_THEME_URI . '/assets/css/blocks.css',
+		array( 'lumea-editor-tokens', 'lumea-editor-typography' ),
 		LUMEA_VERSION
 	);
 }

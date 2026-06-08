@@ -52,15 +52,17 @@ $card_class      = sanitize_text_field( (string) $data['card_class'] );
 ?>
 <article class="<?php echo esc_attr( $card_class ); ?>">
 	<div class="lumea-card-media-wrap">
-	<a href="<?php echo $product_url; ?>" class="lumea-lp-media">
+	<a href="<?php echo esc_url( $product_url ); ?>" class="lumea-lp-media">
 		<?php if ( $badge ) : ?>
 		<span class="lumea-lp-badge<?php echo $is_sale ? ' lumea-lp-badge--sale' : ''; ?>"><?php echo esc_html( $badge ); ?></span>
 		<?php endif; ?>
 		<?php if ( $main_image ) : ?>
-		<img src="<?php echo $main_image; ?>" alt="<?php echo esc_attr( $product_name ); ?>" class="lumea-lp-img lumea-lp-img--main" loading="lazy" />
+		<img src="<?php echo esc_url( $main_image ); ?>" alt="<?php echo esc_attr( $product_name ); ?>" class="lumea-lp-img lumea-lp-img--main" loading="lazy" />
+		<?php else : ?>
+		<?php echo wc_placeholder_img( 'woocommerce_thumbnail', array( 'class' => 'lumea-lp-img lumea-lp-img--main', 'alt' => esc_attr( $product_name ) ) ); ?>
 		<?php endif; ?>
 		<?php if ( $hover_image ) : ?>
-		<img src="<?php echo $hover_image; ?>" alt="" class="lumea-lp-img lumea-lp-img--hover" loading="lazy" aria-hidden="true" />
+		<img src="<?php echo esc_url( $hover_image ); ?>" alt="" class="lumea-lp-img lumea-lp-img--hover" loading="lazy" aria-hidden="true" />
 		<?php endif; ?>
 	</a>
 	</div>
@@ -69,7 +71,7 @@ $card_class      = sanitize_text_field( (string) $data['card_class'] );
 		<p class="lumea-lp-category"><?php echo esc_html( $category ); ?></p>
 		<?php endif; ?>
 		<div class="lumea-lp-title-row">
-			<h3 class="lumea-lp-name"><a href="<?php echo $product_url; ?>"><?php echo $product_name_esc; ?></a></h3>
+			<h3 class="lumea-lp-name"><a href="<?php echo esc_url( $product_url ); ?>"><?php echo $product_name_esc; ?></a></h3>
 			<?php if ( $product_id ) : ?>
 			<button class="lumea-wish-btn" type="button" aria-label="<?php esc_attr_e( 'Add to wishlist', 'lumea' ); ?>" data-lumea-wish data-product_id="<?php echo esc_attr( $product_id ); ?>">
 				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -100,7 +102,7 @@ $card_class      = sanitize_text_field( (string) $data['card_class'] );
 			?>
 		<?php else : ?>
 		<div class="lumea-card-actions">
-			<a href="<?php echo $product_url; ?>" class="<?php echo esc_attr( $button_class ); ?>"><?php echo esc_html( $fallback_label ); ?></a>
+			<a href="<?php echo esc_url( $product_url ); ?>" class="<?php echo esc_attr( $button_class ); ?>"><?php echo esc_html( $fallback_label ); ?></a>
 		</div>
 		<?php endif; ?>
 	</div>

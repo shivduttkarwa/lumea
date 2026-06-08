@@ -1,7 +1,4 @@
-/**
- * Bootstrap bridge layer.
- * Keep lightweight so Luméa bespoke styling from main.css stays unchanged.
- */
+
 
 :root {
   --bs-body-bg: var(--lumea-bg);

@@ -61,7 +61,8 @@ $lumea_bio        = get_the_author_meta( 'description', $lumea_author->ID );
 						<div class="lumea-blog-card-meta">
 							<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
 							<span aria-hidden="true">&middot;</span>
-							<span><?php printf( esc_html__( '%d min read', 'lumea' ), $reading_time ); ?></span>
+							<span><?php /* translators: %d: estimated reading time in minutes */
+							printf( esc_html__( '%d min read', 'lumea' ), $reading_time ); ?></span>
 						</div>
 						<p class="lumea-blog-card-excerpt"><?php echo wp_trim_words( get_the_excerpt(), 18, '&hellip;' ); ?></p>
 						<a href="<?php the_permalink(); ?>" class="lumea-blog-card-link">

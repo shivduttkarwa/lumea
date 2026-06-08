@@ -30,6 +30,7 @@ foreach ( $wp_query->posts as $p ) {
 			<?php if ( $query_term ) : ?>
 			<p class="lumea-search-eyebrow">
 				<?php printf(
+					/* translators: %s: formatted number of results (e.g. "3") */
 					wp_kses( _n( '%s result for', '%s results for', $count, 'lumea' ), array( 'strong' => array() ) ),
 					'<strong>' . number_format_i18n( $count ) . '</strong>'
 				); ?>
@@ -167,7 +168,7 @@ foreach ( $wp_query->posts as $p ) {
 				</div>
 				<h2 class="lumea-search-empty-title">
 					<?php $query_term
-						? printf( esc_html__( 'No results for &#8220;%s&#8221;', 'lumea' ), esc_html( $query_term ) )
+						? printf( /* translators: %s: search query string */ esc_html__( 'No results for &#8220;%s&#8221;', 'lumea' ), esc_html( $query_term ) )
 						: esc_html_e( 'No results found', 'lumea' ); ?>
 				</h2>
 				<p class="lumea-search-empty-text">

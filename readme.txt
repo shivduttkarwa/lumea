@@ -226,6 +226,22 @@ before launching your store.
 
 == CHANGELOG ==
 
+= 1.1.1 =
+* Security: Escaped all unescaped echo output points (esc_url, esc_attr, wp_kses).
+* Security: Fixed email header injection risk on Contact page (removed name from Reply-To).
+* Security: Added wp_unslash() before sanitize_*() on all $_GET/$_POST reads.
+* Security: Replaced phpcs:ignore in buttons.php with proper wp_kses() call.
+* Security: Added nonce and capability checks to WooCommerce meta save callbacks.
+* Security: Removed demo-only checkout override functions that bypassed gateway settings.
+* Feature: Support/contact email is now configurable via Customizer > Footer.
+* Feature: Bestseller and Latest product category names are now configurable via Customizer.
+* Feature: Added Schema.org JSON-LD Product markup on single product pages.
+* Feature: Added TGM Plugin Activation for required plugin (WooCommerce) notification.
+* Asset: Added blocks.css with styling for all core Gutenberg blocks.
+* Asset: Set explicit version strings on GSAP (3.12.5) and Swiper (11.0.0) enqueues.
+* Asset: Removed developer-only Python utility scripts from the theme package.
+* Compatibility: Tested up to WordPress 6.8.
+
 = 1.1.0 =
 * Initial ThemeForest release.
 

@@ -6,12 +6,8 @@
   gsap.registerPlugin( ScrollTrigger );
   if ( typeof SplitText !== 'undefined' ) gsap.registerPlugin( SplitText );
 
-  /* ── Text splitting ──────────────────────────────────────────
-     Elements opt in via:
-       .lumea-split-js               — required on the text element
-       .lumea-split--lines-js        — split into lines
-       .lumea-split--chars-js        — split into chars (also wraps lines)
-  */
+  
+
   if ( typeof SplitText !== 'undefined' ) {
     document.querySelectorAll( '.lumea-split-js' ).forEach( function ( el ) {
       if ( el.classList.contains( 'lumea-split--chars-js' ) ) {
@@ -31,12 +27,8 @@
     } );
   }
 
-  /* ── Initial hidden states ───────────────────────────────────
-     Set before the first paint so nothing flashes visible.
-     Each modifier class sets its own starting transform/opacity.
-     Guard with gsap.utils.toArray() so GSAP never warns about
-     selectors that match zero elements on a given page.
-  */
+  
+
   var _fade   = gsap.utils.toArray( '.lumea-reveal--fade-js' );
   var _static = gsap.utils.toArray( '.lumea-reveal--static-js' );
   var _right  = gsap.utils.toArray( '.lumea-reveal--right-js' );
@@ -51,11 +43,8 @@
   if ( _lines.length  ) gsap.set( _lines,  { y: 30,     autoAlpha: 0 } );
   if ( _chars.length  ) gsap.set( _chars,  {             autoAlpha: 0 } );
 
-  /* ── Core fade/move animation ────────────────────────────────
-     Always animates back to the natural resting position
-     (x:0, y:0, autoAlpha:1) regardless of starting state.
-     Pass isStatic=true to skip the positional tween.
-  */
+  
+
   function animateDef( el, index, isStatic ) {
     var ease  = 'power1.out';
     var delay = index * 0.1;
@@ -65,14 +54,12 @@
     gsap.to( el, { autoAlpha: 1, duration: 0.5, ease: ease, delay: delay + 0.1 } );
   }
 
-  /* ── Batch animation handler ─────────────────────────────────
-     Called by ScrollTrigger.batch() with the array of elements
-     that entered the viewport together.
-  */
+  
+
   function animateBatch( batch ) {
     batch.forEach( function ( el, index ) {
 
-      /* Clip-path reveal — tweens the CSS custom property */
+      
       if ( el.classList.contains( 'lumea-reveal--clip-js' ) ) {
         gsap.fromTo( el,
           { '--lumea-clip': '100%' },
@@ -87,7 +74,7 @@
         return;
       }
 
-      /* Text reveal — chars or lines via SplitText */
+      
       if ( el.classList.contains( 'lumea-reveal--text-js' ) ) {
         var chars = el.querySelectorAll( '.lumea-st-char' );
         var lines = el.querySelectorAll( '.lumea-st-line' );
@@ -122,23 +109,20 @@
         return;
       }
 
-      /* Fade-in only, no positional movement */
+      
       if ( el.classList.contains( 'lumea-reveal--static-js' ) ) {
         animateDef( el, index, true );
         return;
       }
 
-      /* Default: fade-up, slide-from-right, slide-from-left
-         all animate back to x:0, y:0 from their gsap.set state */
+      
+
       animateDef( el, index, false );
     } );
   }
 
-  /* ── Scroll batch triggers ───────────────────────────────────
-     Standard elements: trigger 100px before bottom of viewport.
-     Hero elements:     trigger at bottom of viewport (earlier).
-     once:true means each element only ever animates in once.
-  */
+  
+
   ScrollTrigger.batch( '.lumea-reveal-js:not(.lumea-reveal--hero-js)', {
     start:   'top bottom-=100',
     once:    true,
@@ -151,21 +135,8 @@
     onEnter: animateBatch,
   } );
 
-  /* ── Parallax ────────────────────────────────────────────────
-     Opt-in classes:
-       .lumea-parallax-js               — base, required
-       .lumea-parallax--img-js          — image translate (oversized)
-       .lumea-parallax--x-js            — horizontal translate
-       .lumea-parallax--scale-js        — scale effect
-       .lumea-parallax--reverse-js      — flip the direction
-       (default with none of the above) — vertical translate
+  
 
-     Data attributes:
-       data-parallax-value="15"         — translate/scale amount
-       data-parallax-scrub="1"          — ScrollTrigger scrub value
-       data-parallax-trigger-start      — custom start (default: "top bottom")
-       data-parallax-trigger-end        — custom end   (default: "bottom top")
-  */
   document.querySelectorAll( '.lumea-parallax-js' ).forEach( function ( el ) {
     var value = parseFloat( el.dataset.parallaxValue        ) || 15;
     var scrub = parseFloat( el.dataset.parallaxScrub        ) || 1;
@@ -191,13 +162,8 @@
     }
   } );
 
-  /* ── Hero / pinned parallax ──────────────────────────────────
-     Wrap the image in .lumea-parallax-wrap-js and tag the image
-     itself with .lumea-parallax--hero-js. The wrap becomes the
-     ScrollTrigger reference so the effect runs from entry to exit.
+  
 
-       data-parallax-value="20"   — yPercent travel amount
-  */
   document.querySelectorAll( '.lumea-parallax-wrap-js' ).forEach( function ( wrap ) {
     var img = wrap.querySelector( '.lumea-parallax--hero-js' );
     if ( ! img ) return;
@@ -210,20 +176,12 @@
     } );
   } );
 
-  /* ── Page intro animation ────────────────────────────────────
-     Header  : slides down; logo, nav, actions fade in cleanly.
-     LUMÉA   : letters start spread (letter-spacing wide) and
-               contract to their natural tight-set position.
-               This is the only "trick" — everything else is
-               pure opacity and precise clip-path reveals.
-     Label   : wipes in from the right (clip-path).
-     Subtitles: wipe from the left, staggered (clip-path).
-     CTA     : fades in last.
-  */
+  
+
   ( function initIntroAnim() {
 
-    /* Skip intro animation entirely in the WordPress Customizer preview —
-       controls would stay hidden because the Customizer intercepts JS timing. */
+    
+
     if ( window.wp && window.wp.customize ) return;
 
     var header    = document.querySelector( '.lumea-header' );
@@ -238,12 +196,12 @@
     var subtitles = document.querySelectorAll( '.subtitles span' );
     var ctaWrap   = document.querySelector( '.cta-wrap' );
 
-    /* Capture natural letter-spacing BEFORE we alter anything */
+    
     var naturalLS = ( hero && heroTitle )
       ? window.getComputedStyle( heroTitle ).letterSpacing
       : '0px';
 
-    /* ── Initial states ────────────────────────────────────── */
+    
     if ( logo        ) gsap.set( logo,     { autoAlpha: 0 } );
     if ( navItems.length ) gsap.set( navItems, { autoAlpha: 0 } );
     if ( actions.length  ) gsap.set( actions,  { autoAlpha: 0 } );
@@ -268,7 +226,7 @@
       }
     }
 
-    /* ── Timeline ──────────────────────────────────────────── */
+    
     var tl = gsap.timeline( { delay: 0.15, defaults: { ease: 'power3.out' } } );
 
     if ( logo ) {
@@ -283,7 +241,7 @@
 
     if ( ! hero ) return;
 
-    /* LUMÉA — letters contract from wide tracking to natural */
+    
     if ( heroTitle ) {
       tl.to( heroTitle, {
         letterSpacing: naturalLS,
@@ -297,7 +255,7 @@
       }, 0.06 );
     }
 
-    /* Label — precision wipe from right */
+    
     if ( heroLabel ) {
       tl.to( heroLabel, {
         clipPath:  'inset(0% 0% 0% 0%)',
@@ -310,7 +268,7 @@
       }, 1.05 );
     }
 
-    /* Subtitles — three horizontal wipes, left to right */
+    
     if ( subtitles.length ) {
       tl.to( subtitles, {
         clipPath:  'inset(0% 0% 0% 0%)',
@@ -324,19 +282,15 @@
       }, 1.2 );
     }
 
-    /* CTA — appears last, no movement */
+    
     if ( ctaWrap ) {
       tl.to( ctaWrap, { autoAlpha: 1, duration: 1.0, ease: 'power2.out' }, 1.55 );
     }
 
   } )();
 
-  /* ── Curated section — random mosaic tile reveal ─────────────
-     Mirrors effect-03 (random mosaic) from b2.html.
-     A 6×4 grid of tiles covers each product card; tiles scatter
-     randomly as the section enters view, revealing the image
-     beneath. Both cards stagger so the second blooms 220ms later.
-  */
+  
+
   ( function initCuratedMosaicReveal() {
 
     var section = document.querySelector( '.lumea-curated' );
@@ -346,7 +300,7 @@
     var productTiles = section.querySelectorAll( '.lumea-product-tile' );
     if ( ! productTiles.length ) return;
 
-    /* Inject mosaic grid into each product tile */
+    
     productTiles.forEach( function ( tile ) {
       var grid = document.createElement( 'div' );
       grid.className = 'lumea-mosaic-grid';
@@ -358,11 +312,11 @@
       tile.appendChild( grid );
     } );
 
-    /* Initial image states — slightly zoomed + softly blurred */
+    
     var productImgs = section.querySelectorAll( '.lumea-product-image' );
     gsap.set( productImgs, { scale: 1.18, filter: 'blur(8px)' } );
 
-    /* One ScrollTrigger per card so they stagger naturally */
+    
     productTiles.forEach( function ( tile, index ) {
       var mosaic = tile.querySelector( '.lumea-mosaic-grid' );
       var tiles  = mosaic.querySelectorAll( '.lumea-mosaic-tile' );
@@ -375,7 +329,7 @@
         once:    true,
         onEnter: function () {
 
-          /* Tiles scatter in random directions simultaneously */
+          
           gsap.to( tiles, {
             opacity:  0,
             scale:    0.4,
@@ -389,7 +343,7 @@
             onComplete: function () { gsap.set( mosaic, { display: 'none' } ); },
           } );
 
-          /* Image sharpens as tiles scatter */
+          
           gsap.to( img, {
             scale:    1,
             filter:   'blur(0px)',
@@ -404,21 +358,15 @@
 
   } )();
 
-  /* ── Editorial slider — luxury blind strips reveal ───────────
-     Mirrors effect-03 (blind strips) from image.html.
-     5 vertical strips alternate up/down to reveal the first
-     slide as the section enters the viewport.
-     Uses MutationObserver because slider.js runs after
-     animations.js in the WordPress enqueue chain and the
-     .lumea-slide elements don't exist yet when this runs.
-  */
+  
+
   ( function initEditorialBlindReveal() {
 
     var sliderEl = document.getElementById( 'lumeaSlider' );
     if ( ! sliderEl ) return;
 
     function setup( firstSlide ) {
-      /* Inject 5 strips into the slide (sibling of .lumea-slide-inner) */
+      
       var stripsWrap = document.createElement( 'div' );
       stripsWrap.className = 'lumea-blind-strips';
       for ( var i = 0; i < 5; i++ ) {
@@ -442,7 +390,7 @@
             onComplete: function () { stripsWrap.remove(); },
           } );
 
-          /* Alternate strips fly up / down */
+          
           tl.to( strips, {
             yPercent: function ( i ) { return i % 2 === 0 ? -105 : 105; },
             duration: 1.1,
@@ -450,7 +398,7 @@
             ease:     'power4.inOut',
           } );
 
-          /* Image settles from zoom as strips depart */
+          
           if ( img ) {
             tl.to( img, { scale: 1, duration: 1.45, ease: 'power4.out' }, 0 );
           }
@@ -458,7 +406,7 @@
       } );
     }
 
-    /* Slides may not exist yet — use MutationObserver to wait */
+    
     var existing = sliderEl.querySelector( '.lumea-slide[data-index="0"]' );
     if ( existing ) {
       setup( existing );
@@ -475,15 +423,8 @@
 
   } )();
 
-  /* ── Section intro — eyebrow / title / desc reveal ──────────────
-     Opt-in: add .lumea-section-intro-js to any wrapper that contains
-     .lumea-eyebrow, .lumea-section-title, and .lumea-section-desc.
+  
 
-     Eyebrow  : blur-fade — drifts up while snapping into focus.
-     Title    : per-line skewed slide — each line shears as it rises
-                and straightens on arrival (luxury editorial style).
-     Desc     : blur-focus reveal — soft focus pulls in last.
-  */
   ( function initSectionIntroReveal() {
 
     var hasSplit = typeof SplitText !== 'undefined';
@@ -495,7 +436,7 @@
 
       if ( ! title ) return;
 
-      /* ── Split lines or fall back to whole-title tween ──────── */
+      
       var titleTargets;
 
       if ( hasSplit ) {
@@ -509,7 +450,7 @@
         } );
 
         titleTargets = split.lines;
-        /* Start: hidden below + sheared — the mask clips the overhang */
+        
         gsap.set( titleTargets, { yPercent: 112, skewY: 7 } );
 
       } else {
@@ -517,17 +458,17 @@
         gsap.set( title, { autoAlpha: 0, y: 40, skewY: 4 } );
       }
 
-      /* Eyebrow: blurred and drifted up */
+      
       if ( eyebrow ) {
         gsap.set( eyebrow, { autoAlpha: 0, y: 8, filter: 'blur(5px)' } );
       }
 
-      /* Desc: blurred and offset */
+      
       if ( desc ) {
         gsap.set( desc, { autoAlpha: 0, y: 16, filter: 'blur(8px)' } );
       }
 
-      /* ── Scroll-triggered timeline ──────────────────────────── */
+      
       var tl = gsap.timeline( {
         scrollTrigger: {
           trigger: intro,
@@ -537,7 +478,7 @@
         defaults: { ease: 'power4.out' },
       } );
 
-      /* Eyebrow: snap into focus from above */
+      
       if ( eyebrow ) {
         tl.to( eyebrow, {
           autoAlpha: 1,
@@ -550,7 +491,7 @@
 
       var titlePos = eyebrow ? 0.18 : 0;
 
-      /* Title: skewed upward slide, each line straightens on landing */
+      
       if ( hasSplit ) {
         tl.to( titleTargets, {
           yPercent: 0,
@@ -567,7 +508,7 @@
         }, titlePos );
       }
 
-      /* Desc: blur-focus pull, overlaps last line landing */
+      
       if ( desc ) {
         tl.to( desc, {
           autoAlpha: 1,

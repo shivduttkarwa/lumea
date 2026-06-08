@@ -1,7 +1,7 @@
 ( function () {
 	'use strict';
 
-	/* ── Gallery ── */
+	
 	var mainImg = document.getElementById( 'lumeaPdpMainImg' );
 	document.querySelectorAll( '.lumea-pdp-thumb' ).forEach( function ( btn ) {
 		btn.addEventListener( 'click', function () {
@@ -22,7 +22,7 @@
 		} );
 	} );
 
-	/* ── Lightbox ── */
+	
 	var lb      = document.getElementById( 'lumeaLightbox' );
 	var lbImg   = document.getElementById( 'lumeaLightboxImg' );
 	var lbClose = document.getElementById( 'lumeaLightboxClose' );
@@ -47,7 +47,7 @@
 		document.addEventListener( 'keydown', function ( e ) { if ( e.key === 'Escape' ) closeLb(); } );
 	}
 
-	/* ── Qty stepper ── */
+	
 	var qtyInput = document.querySelector( '.lumea-qty-input' );
 	if ( qtyInput ) {
 		var minusBtn = document.querySelector( '.lumea-qty-minus' );
@@ -68,7 +68,7 @@
 		}
 	}
 
-	/* ── Accordion ── */
+	
 	document.querySelectorAll( '[data-acc]' ).forEach( function ( acc ) {
 		var trigger = acc.querySelector( '[data-acc-trigger]' );
 		var body    = acc.querySelector( '[data-acc-body]' );
@@ -87,14 +87,14 @@
 		} );
 	} );
 
-	/* ── Wishlist toggle (UI only) ── */
+	
 	document.querySelectorAll( '.lumea-pdp-wish-btn' ).forEach( function ( btn ) {
 		btn.addEventListener( 'click', function () {
 			btn.classList.toggle( 'is-active' );
 		} );
 	} );
 
-	/* ── Sticky panel (desktop only) ── */
+	
 	var infoPanel = document.getElementById( 'lumeaPdpInfo' );
 	if ( infoPanel && window.innerWidth >= 1024 ) {
 		infoPanel.style.position  = 'sticky';

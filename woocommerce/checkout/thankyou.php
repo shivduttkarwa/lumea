@@ -36,6 +36,7 @@ defined( 'ABSPATH' ) || exit;
 			<p class="lumea-ty-subtitle">
 				<?php
 				echo wp_kses_post( sprintf(
+					/* translators: %s: customer billing email address */
 					__( 'We&rsquo;ve sent a confirmation to <strong>%s</strong>. Your ritual is on its way.', 'lumea' ),
 					esc_html( $order->get_billing_email() )
 				) );
@@ -140,9 +141,9 @@ defined( 'ABSPATH' ) || exit;
 				</div>
 
 				<?php
-				// Keep gateway/plugin thank-you callbacks, but remove default duplicate
-				// order/customer details output because this template already renders
-				// a fully custom confirmation layout.
+				
+				
+				
 				remove_action( 'woocommerce_thankyou', 'woocommerce_order_details_table', 10 );
 
 				do_action( 'woocommerce_thankyou_' . $order->get_payment_method(), $order->get_id() );

@@ -1,10 +1,4 @@
-/* ==========================================================
-   LUMEA — Animation System
-   All scroll-reveal, clip-path, and transition utility
-   classes. JS hooks live in assets/js/animations.js.
-   ========================================================== */
 
-/* ── Clip-path reveal ──────────────────────────────────────── */
 
 .lumea-reveal--clip-js {
   --lumea-clip: 100%;
@@ -19,15 +13,11 @@
   will-change: auto;
 }
 
-/* ── Transition utilities ───────────────────────────────────── */
-
 .lumea-transition-def    { transition: var(--lumea-anim-default); }
 .lumea-transition-fast   { transition: var(--lumea-anim-fast); }
 .lumea-transition-smooth { transition: var(--lumea-anim-smooth); }
 .lumea-transition-slow   { transition: var(--lumea-anim-slow); }
 .lumea-transition-none   { transition: none !important; }
-
-/* ── Parallax image sizing ──────────────────────────────────── */
 
 .lumea-parallax--img-js {
   position: absolute;
@@ -36,8 +26,6 @@
   height: 100%;
   object-fit: cover;
 }
-
-/* ── Editorial slider — blind strips reveal ─────────────────── */
 
 .lumea-blind-strips {
   position: absolute;
@@ -52,8 +40,6 @@
   background: var(--lumea-bg);
   will-change: transform;
 }
-
-/* ── Mosaic tile reveal ──────────────────────────────────────── */
 
 .lumea-mosaic-grid {
   position: absolute;
@@ -72,23 +58,15 @@
   will-change: transform, opacity;
 }
 
-/* ── Intro animation — hero title chars ─────────────────────── */
-
 .lumea-intro-char {
   display: inline-block;
   will-change: transform, opacity;
 }
 
-/* ── Section intro — eyebrow / title / desc reveal ──────────────
-   Add .lumea-section-intro-js to any section wrapper that contains
-   .lumea-eyebrow, .lumea-section-title, and .lumea-section-desc.
-   JS wraps each title line in a .lumea-si-mask and animates upward.
-   ─────────────────────────────────────────────────────────────── */
-
 .lumea-si-mask {
   overflow: hidden;
   display: block;
-  /* Extra breathing room so descenders aren't clipped at rest */
+  
   padding-bottom: 0.12em;
   margin-bottom:  -0.12em;
 }

@@ -9,14 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Register Customizer settings.
- *
- * @param WP_Customize_Manager $wp_customize
- */
 function lumea_customize_register( $wp_customize ) {
 
-	/* ── Master panel ─────────────────────────────────────── */
+	
 	$wp_customize->add_panel(
 		'lumea_theme',
 		array(
@@ -25,9 +20,7 @@ function lumea_customize_register( $wp_customize ) {
 		)
 	);
 
-	/* ════════════════════════════════════════════════════════
-	   1. HERO SECTION
-	   ════════════════════════════════════════════════════════ */
+	
 	$wp_customize->add_section(
 		'lumea_hero',
 		array(
@@ -36,7 +29,7 @@ function lumea_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Background images — slide 1 (required) + slides 2–5 (optional)
+	
 	$hero_image_defaults = array(
 		1 => LUMEA_THEME_URI . '/assets/images/hero1.jpg',
 		2 => '',
@@ -63,7 +56,7 @@ function lumea_customize_register( $wp_customize ) {
 		) ) );
 	}
 
-	// Label ("Glow")
+	
 	$wp_customize->add_setting( 'lumea_hero_label', array(
 		'default'           => 'Glow',
 		'sanitize_callback' => 'sanitize_text_field',
@@ -75,7 +68,7 @@ function lumea_customize_register( $wp_customize ) {
 		'type'    => 'text',
 	) );
 
-	// Per-slide labels for slides 2-5.
+	
 	$hero_label_defaults = array(
 		2 => 'Hydrate',
 		3 => 'Nourish',
@@ -100,7 +93,7 @@ function lumea_customize_register( $wp_customize ) {
 		) );
 	}
 
-	// Subtitle pills
+	
 	foreach ( array(
 		'lumea_hero_subtitle_1' => array( 'Skincare', 'Subtitle 1' ),
 		'lumea_hero_subtitle_2' => array( 'Cosmetics', 'Subtitle 2' ),
@@ -118,7 +111,7 @@ function lumea_customize_register( $wp_customize ) {
 		) );
 	}
 
-	// CTA button text
+	
 	$wp_customize->add_setting( 'lumea_hero_cta_text', array(
 		'default'           => 'Shop Collection',
 		'sanitize_callback' => 'sanitize_text_field',
@@ -130,9 +123,7 @@ function lumea_customize_register( $wp_customize ) {
 		'type'    => 'text',
 	) );
 
-	/* ════════════════════════════════════════════════════════
-	   2. EDITORIAL SLIDER
-	   ════════════════════════════════════════════════════════ */
+	
 	$wp_customize->add_section(
 		'lumea_slider',
 		array(
@@ -141,7 +132,7 @@ function lumea_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Section intro
+	
 	foreach ( array(
 		'lumea_slider_eyebrow' => array( 'Editorial Collection', 'Eyebrow Label' ),
 		'lumea_slider_title'   => array( 'The Edit', 'Section Title' ),
@@ -169,7 +160,7 @@ function lumea_customize_register( $wp_customize ) {
 		'type'    => 'textarea',
 	) );
 
-	// "Shop All" button text
+	
 	$wp_customize->add_setting( 'lumea_slider_cta_text', array(
 		'default'           => 'Shop All',
 		'sanitize_callback' => 'sanitize_text_field',
@@ -181,7 +172,7 @@ function lumea_customize_register( $wp_customize ) {
 		'type'    => 'text',
 	) );
 
-	// Slides 1–6
+	
 	$slide_defaults = array(
 		1 => array(
 			'text'  => 'Botanical skincare rituals designed for luminous skin, soft texture, and everyday radiance.',
@@ -250,9 +241,7 @@ function lumea_customize_register( $wp_customize ) {
 		) );
 	}
 
-	/* ════════════════════════════════════════════════════════
-	   3. CURATED GLOW
-	   ════════════════════════════════════════════════════════ */
+	
 	$wp_customize->add_section(
 		'lumea_curated',
 		array(
@@ -261,7 +250,7 @@ function lumea_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Section intro
+	
 	$wp_customize->add_setting( 'lumea_curated_eyebrow', array(
 		'default'           => 'Bestsellers',
 		'sanitize_callback' => 'sanitize_text_field',
@@ -295,7 +284,7 @@ function lumea_customize_register( $wp_customize ) {
 		'type'    => 'textarea',
 	) );
 
-	// Products 1 & 2
+	
 	$product_defaults = array(
 		1 => array(
 			'image' => LUMEA_THEME_URI . '/assets/images/hero1.jpg',
@@ -376,9 +365,7 @@ function lumea_customize_register( $wp_customize ) {
 		) );
 	}
 
-	/* ════════════════════════════════════════════════════════
-	   4. SHOP BESTSELLERS
-	   ════════════════════════════════════════════════════════ */
+	
 	$wp_customize->add_section(
 		'lumea_bestsellers',
 		array(
@@ -387,7 +374,7 @@ function lumea_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Section intro
+	
 	foreach ( array(
 		'lumea_best_eyebrow' => array( 'Customer Favourites', 'Eyebrow Label' ),
 		'lumea_best_title'   => array( 'Shop Bestsellers',    'Section Title' ),
@@ -415,7 +402,7 @@ function lumea_customize_register( $wp_customize ) {
 		'type'    => 'textarea',
 	) );
 
-	// Products 1–5
+	
 	$best_defaults = array(
 		1 => array( 'Radiance Serum',          '$48.00', 'No. 1' ),
 		2 => array( 'Velvet Face Cream',        '$42.00', 'No. 2' ),
@@ -498,9 +485,7 @@ function lumea_customize_register( $wp_customize ) {
 		) );
 	}
 
-	/* ════════════════════════════════════════════════════════
-	   5. THE RITUAL SECTION
-	   ════════════════════════════════════════════════════════ */
+	
 	$wp_customize->add_section(
 		'lumea_ritual',
 		array(
@@ -509,7 +494,7 @@ function lumea_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Heading lines
+	
 	$wp_customize->add_setting( 'lumea_ritual_heading_1', array(
 		'default'           => 'your daily',
 		'sanitize_callback' => 'sanitize_text_field',
@@ -532,7 +517,7 @@ function lumea_customize_register( $wp_customize ) {
 		'type'    => 'text',
 	) );
 
-	// Intro paragraph
+	
 	$wp_customize->add_setting( 'lumea_ritual_intro', array(
 		'default'           => 'Four intentional steps, one luminous result. A complete routine designed around the skin you have.',
 		'sanitize_callback' => 'sanitize_textarea_field',
@@ -544,7 +529,7 @@ function lumea_customize_register( $wp_customize ) {
 		'type'    => 'textarea',
 	) );
 
-	// Steps 1–4
+	
 	$ritual_step_defaults = array(
 		1 => array(
 			'title'  => 'Cleanse',
@@ -622,9 +607,7 @@ function lumea_customize_register( $wp_customize ) {
 		) ) );
 	}
 
-	/* ════════════════════════════════════════════════════════
-	   5. MANIFEST SECTION
-	   ════════════════════════════════════════════════════════ */
+	
 	$wp_customize->add_section(
 		'lumea_manifest',
 		array(
@@ -633,7 +616,7 @@ function lumea_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Background image
+	
 	$wp_customize->add_setting( 'lumea_manifest_image', array(
 		'default'           => LUMEA_THEME_URI . '/assets/images/he.jpg',
 		'sanitize_callback' => 'esc_url_raw',
@@ -644,7 +627,7 @@ function lumea_customize_register( $wp_customize ) {
 		'section' => 'lumea_manifest',
 	) ) );
 
-	// Kicker lines
+	
 	$kicker_defaults = array(
 		1 => '.make your skin comfortable',
 		2 => 'trust your glow and feel calm',
@@ -664,7 +647,7 @@ function lumea_customize_register( $wp_customize ) {
 		) );
 	}
 
-	// Title lines
+	
 	$title_defaults = array(
 		1 => 'modern ritual',
 		2 => 'for timeless',
@@ -683,9 +666,7 @@ function lumea_customize_register( $wp_customize ) {
 			'type'    => 'text',
 		) );
 	}
-	/* ════════════════════════════════════════════════════════
-	   6. FOOTER
-	   ════════════════════════════════════════════════════════ */
+	
 	$wp_customize->add_section(
 		'lumea_footer',
 		array(
@@ -694,7 +675,7 @@ function lumea_customize_register( $wp_customize ) {
 		)
 	);
 
-	// CTA Headline
+	
 	$wp_customize->add_setting( 'lumea_footer_headline', array(
 		'default'           => "Discover your skin\xe2\x80\x99s new ritual. Start today.",
 		'sanitize_callback' => 'wp_kses_post',
@@ -706,7 +687,7 @@ function lumea_customize_register( $wp_customize ) {
 		'type'    => 'textarea',
 	) );
 
-	// CTA Button Text
+	
 	$wp_customize->add_setting( 'lumea_footer_cta_text', array(
 		'default'           => 'Shop Collection',
 		'sanitize_callback' => 'sanitize_text_field',
@@ -718,7 +699,7 @@ function lumea_customize_register( $wp_customize ) {
 		'type'    => 'text',
 	) );
 
-	// Connect Heading
+	
 	$wp_customize->add_setting( 'lumea_footer_connect_heading', array(
 		'default'           => 'Connect',
 		'sanitize_callback' => 'sanitize_text_field',
@@ -730,7 +711,7 @@ function lumea_customize_register( $wp_customize ) {
 		'type'    => 'text',
 	) );
 
-	// Address
+	
 	$wp_customize->add_setting( 'lumea_footer_address', array(
 		'default'           => '',
 		'sanitize_callback' => 'sanitize_textarea_field',
@@ -742,7 +723,7 @@ function lumea_customize_register( $wp_customize ) {
 		'type'        => 'textarea',
 	) );
 
-	// Email
+	
 	$wp_customize->add_setting( 'lumea_footer_email', array(
 		'default'           => '',
 		'sanitize_callback' => 'sanitize_email',
@@ -754,7 +735,20 @@ function lumea_customize_register( $wp_customize ) {
 		'type'    => 'email',
 	) );
 
-	// Brand video URL
+	
+	$wp_customize->add_setting( 'lumea_support_email', array(
+		'default'           => 'hello@lumeaskincare.com',
+		'sanitize_callback' => 'sanitize_email',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_support_email', array(
+		'label'       => esc_html__( 'Support Email (Contact & FAQ pages)', 'lumea' ),
+		'description' => esc_html__( 'Displayed as a clickable mailto link on the Contact page and in FAQ answers.', 'lumea' ),
+		'section'     => 'lumea_footer',
+		'type'        => 'email',
+	) );
+
+	
 	$wp_customize->add_setting( 'lumea_footer_video', array(
 		'default'           => LUMEA_THEME_URI . '/assets/images/hero/footer-vd.mp4',
 		'sanitize_callback' => 'esc_url_raw',
@@ -767,7 +761,7 @@ function lumea_customize_register( $wp_customize ) {
 		'type'        => 'url',
 	) );
 
-	// Brand video poster / fallback image
+	
 	$wp_customize->add_setting( 'lumea_footer_video_poster', array(
 		'default'           => LUMEA_THEME_URI . '/assets/images/hero/latest-hero.jpg',
 		'sanitize_callback' => 'esc_url_raw',
@@ -778,7 +772,7 @@ function lumea_customize_register( $wp_customize ) {
 		'section' => 'lumea_footer',
 	) ) );
 
-	// Copyright text
+	
 	$wp_customize->add_setting( 'lumea_footer_copy', array(
 		'default'           => "Lum\xc3\xa9a \xc2\xb7 Botanical Skincare",
 		'sanitize_callback' => 'sanitize_text_field',
@@ -790,7 +784,7 @@ function lumea_customize_register( $wp_customize ) {
 		'type'    => 'text',
 	) );
 
-	// Copyright text
+	
 	$wp_customize->add_setting( 'lumea_footer_copy', array(
 		'default'           => 'Luméa. All rights reserved.',
 		'sanitize_callback' => 'sanitize_text_field',
@@ -802,7 +796,7 @@ function lumea_customize_register( $wp_customize ) {
 		'type'        => 'text',
 	) );
 
-	// Nav links
+	
 	$footer_link_defaults = array(
 		1 => array( 'Shop',    '#' ),
 		2 => array( 'Journal', '#' ),
@@ -834,7 +828,7 @@ function lumea_customize_register( $wp_customize ) {
 		) );
 	}
 
-	// Social links
+	
 	foreach ( array(
 		'lumea_footer_instagram'  => 'Instagram URL',
 		'lumea_footer_tiktok'     => 'TikTok URL',
@@ -851,7 +845,7 @@ function lumea_customize_register( $wp_customize ) {
 			'type'    => 'url',
 		) );
 	}
-	/* ── Shop & Category Hero Images ──────────────────────────────── */
+	
 	$wp_customize->add_section( 'lumea_shop_heroes', array(
 		'title'    => esc_html__( 'Shop & Category Heroes', 'lumea' ),
 		'priority' => 60,
@@ -884,7 +878,7 @@ function lumea_customize_register( $wp_customize ) {
 		) ) );
 	}
 
-	/* ── Journal (Blog) hero controls ───────────────────────────── */
+	
 	$wp_customize->add_setting( 'lumea_blog_hero_bg', array(
 		'default'           => LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg',
 		'sanitize_callback' => 'esc_url_raw',
@@ -939,19 +933,17 @@ function lumea_customize_register( $wp_customize ) {
 		'section' => 'lumea_shop_heroes',
 		'type'    => 'textarea',
 	) );
-	/* ════════════════════════════════════════════════════════
-	   ABOUT PAGE — fully editable
-	   ════════════════════════════════════════════════════════ */
+	
 	$wp_customize->add_section( 'lumea_about', array(
 		'title'    => esc_html__( 'About Page', 'lumea' ),
 		'panel'    => 'lumea_theme',
 		'priority' => 70,
 	) );
 
-	/* Helper: add a simple text/textarea/image control in one call */
+	
 	$about_controls = array(
 
-		/* ── Hero ── */
+		
 		'lma_about_hero_bg'       => array( 'image',    'Hero — Background Image',       LUMEA_THEME_URI . '/assets/images/hero.jpg' ),
 		'lma_about_hero_label'    => array( 'text',     'Hero — Eyebrow Label',           'Est. 2018 &middot; Paris' ),
 		'lma_about_hero_h1_1'     => array( 'text',     'Hero — Heading Line 1',          'Skincare' ),
@@ -967,14 +959,14 @@ function lumea_customize_register( $wp_customize ) {
 		'lma_about_stat4_n'       => array( 'text',     'Stat 4 — Number',                '2018' ),
 		'lma_about_stat4_l'       => array( 'text',     'Stat 4 — Label',                 'Founded in Paris' ),
 
-		/* ── Ticker ── */
+		
 		'lma_about_ticker'        => array( 'textarea', 'Ticker — Items (one per line)',   "BOTANICAL PURITY\nSCIENTIFIC PRECISION\nMINDFUL LUXURY\nCLEAN BEAUTY\nCRUELTY FREE\nSINCE 2018" ),
 
-		/* ── Manifesto ── */
+		
 		'lma_about_manifesto_q'   => array( 'textarea', 'Manifesto — Quote',              'The most transformative skincare is the kind you actually look forward to. Not a routine — a ritual.' ),
 		'lma_about_manifesto_cite'=> array( 'text',     'Manifesto — Attribution',        'Sophie Laurent, Founder & Cosmetic Chemist' ),
 
-		/* ── Story ── */
+		
 		'lumea_about_story_image' => array( 'image',    'Story — Image',                  LUMEA_THEME_URI . '/assets/images/her02.jpg' ),
 		'lma_about_story1_label'  => array( 'text',     'Story Panel 1 — Eyebrow',        'The Beginning' ),
 		'lma_about_story1_h2'     => array( 'text',     'Story Panel 1 — Heading',        'A skincare line rooted in botanical science' ),
@@ -985,7 +977,7 @@ function lumea_customize_register( $wp_customize ) {
 		'lma_about_story2_body1'  => array( 'textarea', 'Story Panel 2 — Body Paragraph 1', 'We partner directly with farmers and distilleries across twelve countries — from Bulgarian rose valleys to Japanese forest bathing reserves.' ),
 		'lma_about_story2_body2'  => array( 'textarea', 'Story Panel 2 — Body Paragraph 2', 'Every formula is stress-tested at the cellular level before it reaches you, with clinically measurable results visible within 28 days.' ),
 
-		/* ── Values ── */
+		
 		'lma_about_values_bg'     => array( 'image',    'Values — Background Image',      LUMEA_THEME_URI . '/assets/images/2.jpg' ),
 		'lma_about_values_label'  => array( 'text',     'Values — Eyebrow',               'What We Stand For' ),
 		'lma_about_values_h2'     => array( 'text',     'Values — Heading',               'Three principles. Every decision.' ),
@@ -996,7 +988,7 @@ function lumea_customize_register( $wp_customize ) {
 		'lma_about_val3_h3'       => array( 'text',     'Value 3 — Title',                'Mindful Luxury' ),
 		'lma_about_val3_p'        => array( 'textarea', 'Value 3 — Description',          "Premium shouldn't cost the planet. We use ocean-bound glass packaging, carbon-neutral shipping, and donate 1% of every sale to reforestation." ),
 
-		/* ── Ingredients ── */
+		
 		'lma_about_ing_label'     => array( 'text',     'Ingredients — Eyebrow',          'Ingredient Philosophy' ),
 		'lma_about_ing_h2'        => array( 'text',     'Ingredients — Heading',          'We believe in ingredients you can pronounce' ),
 		'lma_about_ing_body'      => array( 'textarea', 'Ingredients — Body',             'Our ingredient selection starts in the field, not the lab. We work backwards from the plant — understanding its native habitat, harvest season, and traditional therapeutic uses before evaluating its bioactive potential.' ),
@@ -1008,10 +1000,10 @@ function lumea_customize_register( $wp_customize ) {
 		'lma_about_ing3_name'     => array( 'text',     'Ingredient 3 — Name',            'Snow Mushroom' ),
 		'lma_about_ing3_desc'     => array( 'textarea', 'Ingredient 3 — Description',     'Japanese forest extract. Holds 500× its weight in water — superior to hyaluronic acid.' ),
 
-		/* ── Press ── */
+		
 		'lma_about_press_pubs'    => array( 'textarea', 'Press — Publications (one per line)', "Vogue\nHarper's Bazaar\nByrdie\nInto The Gloss\nRefinery29\nElle\nAllure" ),
 
-		/* ── CTA ── */
+		
 		'lma_about_cta_bg'        => array( 'image',    'CTA — Background Image',         LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg' ),
 		'lma_about_cta_label'     => array( 'text',     'CTA — Eyebrow',                  'Begin Your Ritual' ),
 		'lma_about_cta_h2'        => array( 'textarea', 'CTA — Heading (use newline for line break)', "Ready to meet\nyour skin's new favourites?" ),
@@ -1047,5 +1039,51 @@ function lumea_customize_register( $wp_customize ) {
 			) );
 		}
 	}
+
+	
+	$wp_customize->add_section(
+		'lumea_shop_sections',
+		array(
+			'title'       => esc_html__( 'Shop Sections', 'lumea' ),
+			'description' => esc_html__( 'Configure the product category names used for homepage sections.', 'lumea' ),
+			'panel'       => 'lumea_theme',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'lumea_bestseller_cat_name',
+		array(
+			'default'           => 'Bestseller',
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		)
+	);
+	$wp_customize->add_control(
+		'lumea_bestseller_cat_name',
+		array(
+			'label'       => esc_html__( 'Bestsellers Category Name', 'lumea' ),
+			'description' => esc_html__( 'Exact name of the WooCommerce product category used for the Bestsellers section.', 'lumea' ),
+			'section'     => 'lumea_shop_sections',
+			'type'        => 'text',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'lumea_latest_cat_name',
+		array(
+			'default'           => 'Latest',
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		)
+	);
+	$wp_customize->add_control(
+		'lumea_latest_cat_name',
+		array(
+			'label'       => esc_html__( 'Latest Products Category Name', 'lumea' ),
+			'description' => esc_html__( 'Exact name of the WooCommerce product category used for the Latest Products section.', 'lumea' ),
+			'section'     => 'lumea_shop_sections',
+			'type'        => 'text',
+		)
+	);
 }
 add_action( 'customize_register', 'lumea_customize_register' );

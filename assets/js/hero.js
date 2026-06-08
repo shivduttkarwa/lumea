@@ -1,8 +1,5 @@
-/**
- * Luméa Hero — Canvas cursor deformation + fluid background slider.
- * Transition: wavy clip-path sweep alternating left/right for a liquid reveal.
- * Image URLs passed from PHP via lumea_hero.images[].
- */
+
+
 ( function () {
   'use strict';
 
@@ -13,15 +10,15 @@
   const baseLayer = document.createElement( 'canvas' );
   const baseCtx   = baseLayer.getContext( '2d', { alpha: false } );
 
-  /* ── GSAP label animation setup ─────────────────────────────── */
+  
   const gsapOk = typeof gsap !== 'undefined';
-  let   labelChars         = [];    /* current array of char <span> elements */
+  let   labelChars         = [];    
   let   labelAnimTriggered = false;
   let   pendingLabelIndex  = -1;
   let   pendingLabelDir    = 0;
 
-  /* Wraps each character in an inline-block <span> so GSAP can
-     animate per-char. No premium plugin required.                */
+  
+
   function splitIntoChars( el ) {
     const text = el.textContent.trim();
     el.innerHTML = '';
@@ -34,7 +31,7 @@
     } );
   }
 
-  /* Stage next label — animation fires later when wave crosses the label */
+  
   function setHeroLabel( index, dir ) {
     if ( ! heroLabel ) return;
     pendingLabelIndex  = index;
@@ -46,7 +43,7 @@
     }
   }
 
-  /* Triggered the exact frame the wave edge passes the label element */
+  
   function fireWaveLabelAnim() {
     if ( labelAnimTriggered || pendingLabelIndex < 0 ) return;
     labelAnimTriggered = true;
@@ -56,20 +53,19 @@
     var dir   = pendingLabelDir;
     var value = getHeroLabelValue( pendingLabelIndex );
 
-    /* Kill any running tweens */
+    
     gsap.killTweensOf( labelChars );
     gsap.killTweensOf( heroLabel );
 
-    /* Swap text and build fresh char spans */
+    
     heroLabel.textContent = value;
     labelChars = splitIntoChars( heroLabel );
     if ( ! labelChars.length ) return;
 
     var fromX = dir === 1 ? -22 : 22;
 
-    /* fromTo sets the "from" state on first GSAP render; the inline
-       opacity:0 in splitIntoChars guarantees chars are invisible before
-       GSAP's first tick, eliminating any one-frame flicker.           */
+    
+
     gsap.fromTo( labelChars, {
       opacity:    0,
       y:          20,
@@ -92,7 +88,7 @@
     } );
   }
 
-  /* ── Resolve image list ──────────────────────────────────────── */
+  
 
   const rawUrls = ( function () {
     if ( typeof lumea_hero === 'undefined' ) return [];
@@ -120,7 +116,7 @@
     return String( rawLabels[ index ] || fallback ).trim() || fallback;
   }
 
-  /* ── Preload ─────────────────────────────────────────────────── */
+  
 
   const imgs = new Array( rawUrls.length ).fill( null );
   let readyCount = 0;
@@ -132,25 +128,25 @@
     image.src     = url;
   } );
 
-  /* ── Slide state ─────────────────────────────────────────────── */
+  
 
   let currentIndex    = 0;
   let nextIndex       = 1;
-  let crossfade       = 0;     // 0 = fully current, 1 = fully next
+  let crossfade       = 0;     
   let isTransitioning = false;
-  let lastSlideTime   = -1;    // -1 triggers init on first frame
+  let lastSlideTime   = -1;    
   let fadeStartTime   = 0;
-  let transitionCount = 0;     // alternates entry side every transition
-  let transitionDir   = 1;     // 1 = from left, -1 = from right
+  let transitionCount = 0;     
+  let transitionDir   = 1;     
 
-  const SLIDE_DURATION = 6000;   // ms each image is displayed
-  const FADE_DURATION  = 2400;   // ms for the fluid transition
+  const SLIDE_DURATION = 6000;   
+  const FADE_DURATION  = 2400;   
 
   function easeInOut( t ) {
     return t < 0.5 ? 2 * t * t : -1 + ( 4 - 2 * t ) * t;
   }
 
-  /* ── Canvas state ────────────────────────────────────────────── */
+  
 
   let width  = 0;
   let height = 0;
@@ -164,7 +160,7 @@
     lastMoveTime: -Infinity,
   };
 
-  /* ── Resize ──────────────────────────────────────────────────── */
+  
 
   function resizeCanvas() {
     const rect  = canvas.getBoundingClientRect();
@@ -183,7 +179,7 @@
     pointer.radius = Math.min( width, height ) * pointer.radiusRatio;
   }
 
-  /* ── Cover-fit helper ────────────────────────────────────────── */
+  
 
   function getCoverRect( image, cw, ch ) {
     const ir = image.width / image.height;
@@ -194,7 +190,7 @@
     return { dx, dy, dw, dh };
   }
 
-  /* ── Tone overlay ────────────────────────────────────────────── */
+  
 
   function applyOverlay( tCtx ) {
     const g = tCtx.createLinearGradient( 0, 0, width, height );
@@ -205,7 +201,7 @@
     tCtx.fillRect( 0, 0, width, height );
   }
 
-  /* ── Base image with fluid transition ────────────────────────── */
+  
 
   function drawBaseImage( tCtx ) {
     const curr = imgs[ currentIndex ];
@@ -217,23 +213,20 @@
     tCtx.clearRect( 0, 0, width, height );
 
     if ( ! isTransitioning ) {
-      /* ── Static display ─────────────────────────────────────── */
+      
       tCtx.drawImage( curr, c.dx, c.dy, c.dw, c.dh );
 
     } else {
-      /* ── Fluid transition ───────────────────────────────────── */
+      
       const next = imgs[ nextIndex ];
       const t    = performance.now() * 0.001;
 
-      /*  Wave amplitude peaks at the midpoint of the transition,
-          zero at start and end — so the edge is straight when still,
-          most wavy when the images are evenly blended.             */
+      
+
       const amp = height * 0.092 * Math.sin( Math.PI * crossfade );
 
-      /*  Sweep position alternates each transition:
-          dir=1:  left  → right
-          dir=-1: right → left
-          We over-travel by ±amp so the wave never gets clamped. */
+      
+
       const sweepX = transitionDir === 1
         ? crossfade * ( width + amp * 2 ) - amp
         : ( 1 - crossfade ) * ( width + amp * 2 ) - amp;
@@ -245,15 +238,14 @@
         );
       };
 
-      /* ── Wave-position label trigger ──────────────────────────
-         Fire the GSAP animation the exact frame the wave edge
-         passes the label element's leading edge.                */
+      
+
       if ( ! labelAnimTriggered && heroLabel ) {
         const heroRect  = hero.getBoundingClientRect();
         const lRect     = heroLabel.getBoundingClientRect();
         const lLeading  = transitionDir === 1
-          ? lRect.left  - heroRect.left   /* LTR: wave approaches from left */
-          : lRect.right - heroRect.left;  /* RTL: wave approaches from right */
+          ? lRect.left  - heroRect.left   
+          : lRect.right - heroRect.left;  
         const waveAtLabel = getWaveX( lRect.top - heroRect.top + lRect.height / 2 );
         const crossed = transitionDir === 1
           ? waveAtLabel >= lLeading
@@ -261,17 +253,17 @@
         if ( crossed ) fireWaveLabelAnim();
       }
 
-      /* Draw old image as the base layer */
+      
       tCtx.drawImage( curr, c.dx, c.dy, c.dw, c.dh );
 
       if ( next && next.naturalWidth ) {
         const n = getCoverRect( next, width, height );
 
-        /*  Build a wavy clip path for the new image side. */
+        
         tCtx.save();
         tCtx.beginPath();
         if ( transitionDir === 1 ) {
-          /* New image is LEFT of the wave. */
+          
           tCtx.moveTo( -2, -2 );
           tCtx.lineTo( getWaveX( 0 ), -2 );
           for ( let y = 0; y <= height + 2; y += 2 ) {
@@ -279,7 +271,7 @@
           }
           tCtx.lineTo( -2, height + 2 );
         } else {
-          /* New image is RIGHT of the wave. */
+          
           tCtx.moveTo( width + 2, -2 );
           tCtx.lineTo( getWaveX( 0 ), -2 );
           for ( let y = 0; y <= height + 2; y += 2 ) {
@@ -293,9 +285,8 @@
         tCtx.drawImage( next, n.dx, n.dy, n.dw, n.dh );
         tCtx.restore();
 
-        /*  Soft luminance glow along the seam.
-            A narrow semi-transparent white strip gives the impression
-            of light refracting through moving water.                */
+        
+
         const glowW = Math.max( 12, height * 0.04 * Math.sin( Math.PI * crossfade ) );
         for ( let y = 0; y < height; y += 2 ) {
           const wx = getWaveX( y );
@@ -313,7 +304,7 @@
     tCtx.restore();
   }
 
-  /* ── Cursor deformation (unchanged from original) ────────────── */
+  
 
   function drawCursorDeformation() {
     if ( ! pointer.moved ) return;
@@ -385,7 +376,7 @@
     ctx.restore();
   }
 
-  /* ── Noise grain ─────────────────────────────────────────────── */
+  
 
   function drawNoise() {
     ctx.save();
@@ -397,16 +388,16 @@
     ctx.restore();
   }
 
-  /* ── Render loop ─────────────────────────────────────────────── */
+  
 
   function render( timestamp ) {
 
-    /* Initialise slide timer on very first frame */
+    
     if ( lastSlideTime < 0 ) lastSlideTime = timestamp;
 
     if ( imgs[0] && imgs[0].naturalWidth ) {
 
-      /* ── Slide timing ──────────────────────────────────────── */
+      
       const activeCount = imgs.filter( Boolean ).length;
       if ( activeCount > 1 ) {
 
@@ -433,7 +424,7 @@
         }
       }
 
-      /* ── Composite ─────────────────────────────────────────── */
+      
       drawBaseImage( baseCtx );
 
       ctx.clearRect( 0, 0, width, height );
@@ -450,7 +441,7 @@
     requestAnimationFrame( render );
   }
 
-  /* ── Pointer events ──────────────────────────────────────────── */
+  
 
   function setPointer( e ) {
     const rect        = canvas.getBoundingClientRect();
@@ -472,7 +463,7 @@
 
   resizeCanvas();
 
-  /* Set initial label text — no entry animation on first load */
+  
   if ( heroLabel ) {
     heroLabel.textContent = getHeroLabelValue( 0 );
   }

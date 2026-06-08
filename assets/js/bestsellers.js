@@ -1,6 +1,5 @@
-/**
- * Luméa — Shop Bestsellers Swiper
- */
+
+
 ( function () {
   'use strict';
 

@@ -95,7 +95,8 @@ $blog_hero_subtitle = get_theme_mod( 'lumea_blog_hero_subtitle', 'Rituals, ingre
 						<span aria-hidden="true">&middot;</span>
 						<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
 						<span aria-hidden="true">&middot;</span>
-						<span><?php printf( esc_html__( '%d min', 'lumea' ), $feat_read ); ?></span>
+						<span><?php /* translators: %d: estimated reading time in minutes */
+					printf( esc_html__( '%d min', 'lumea' ), $feat_read ); ?></span>
 					</div>
 					<a href="<?php the_permalink(); ?>" class="lumea-blog-featured-btn">
 						<?php esc_html_e( 'Read Article', 'lumea' ); ?>
@@ -132,7 +133,8 @@ $blog_hero_subtitle = get_theme_mod( 'lumea_blog_hero_subtitle', 'Rituals, ingre
 							<div class="lumea-blog-card-meta">
 								<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>" class="lumea-blog-card-date"><?php echo esc_html( get_the_date( 'M j, Y' ) ); ?></time>
 								<span aria-hidden="true">&middot;</span>
-								<span class="lumea-blog-card-read"><?php printf( esc_html__( '%d min', 'lumea' ), (int) $read_time ); ?></span>
+								<span class="lumea-blog-card-read"><?php /* translators: %d: estimated reading time in minutes */
+								printf( esc_html__( '%d min', 'lumea' ), (int) $read_time ); ?></span>
 							</div>
 							<a href="<?php the_permalink(); ?>" class="lumea-blog-card-link">
 								<?php esc_html_e( 'Read', 'lumea' ); ?>

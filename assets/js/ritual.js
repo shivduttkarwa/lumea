@@ -1,8 +1,5 @@
-/**
- * Luméa — The Ritual Section
- * Sticky left accordion driven by right-column scroll position.
- * Uses GSAP height:'auto' for smooth panel animation (no max-height hack).
- */
+
+
 ( function () {
   'use strict';
 
@@ -18,7 +15,7 @@
 
   if ( ! accordions.length || ! imageGroups.length ) return;
 
-  /* ── Initialise panel states ──────────────────────────── */
+  
 
   accordions.forEach( function ( item ) {
     var panel = item.querySelector( '.lumea-ritual-panel' );
@@ -30,7 +27,7 @@
     }
   } );
 
-  /* ── Active state setter ──────────────────────────────── */
+  
 
   function setActive( id ) {
     accordions.forEach( function ( item ) {
@@ -43,7 +40,7 @@
       if ( ! panel ) return;
 
       if ( isActive && ! wasActive ) {
-        /* Open */
+        
         gsap.to( panel, {
           height: 'auto',
           opacity: 1,
@@ -52,7 +49,7 @@
           overwrite: true,
         } );
       } else if ( ! isActive && wasActive ) {
-        /* Close */
+        
         gsap.to( panel, {
           height: 0,
           opacity: 0,
@@ -63,7 +60,7 @@
       }
     } );
 
-    /* Animate the newly active item's title + body text */
+    
     var active = section.querySelector( '.lumea-ritual-acc[data-target="' + id + '"]' );
     if ( ! active ) return;
 
@@ -84,7 +81,7 @@
     }
   }
 
-  /* ── Scroll-driven activation ─────────────────────────── */
+  
 
   imageGroups.forEach( function ( group ) {
     ScrollTrigger.create( {
@@ -96,7 +93,7 @@
     } );
   } );
 
-  /* ── Click to scroll ──────────────────────────────────── */
+  
 
   accordions.forEach( function ( item ) {
     var btn = item.querySelector( '.lumea-ritual-acc-head' );
@@ -112,7 +109,7 @@
     } );
   } );
 
-  /* ── Image reveal on scroll ───────────────────────────── */
+  
 
   gsap.utils.toArray( '.lumea-ritual-image-wrap' ).forEach( function ( wrap ) {
     var img = wrap.querySelector( 'img' );

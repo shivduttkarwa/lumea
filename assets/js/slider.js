@@ -1,7 +1,5 @@
-/**
- * Luméa Editorial Slider.
- * Slide data (image URLs, text, numbers) passed from PHP via wp_localize_script as lumea_slider.slides.
- */
+
+
 ( function () {
   'use strict';
 

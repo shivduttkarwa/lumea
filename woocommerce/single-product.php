@@ -27,25 +27,68 @@ while ( have_posts() ) :
 	$max_qty      = $product->get_max_purchase_quantity();
 	$max_qty      = ( $max_qty === -1 ) ? 999 : $max_qty;
 
-	/* Gallery */
+	
 	$main_img_id   = $product->get_image_id();
 	$gallery_ids   = $product->get_gallery_image_ids();
 	$all_image_ids = array_values( array_filter( array_merge( array( $main_img_id ), $gallery_ids ) ) );
 
-	/* Category */
+	
 	$cats      = get_the_terms( $product_id, 'product_cat' );
 	$cat_obj   = ( $cats && ! is_wp_error( $cats ) ) ? $cats[0] : null;
 	$cat_label = $cat_obj ? $cat_obj->name : '';
 	$cat_link  = $cat_obj ? get_term_link( $cat_obj ) : '';
 
-	/* Breadcrumb: shop page */
+	
 	$shop_page_id  = function_exists( 'wc_get_page_id' ) ? wc_get_page_id( 'shop' ) : 0;
 	$shop_url      = ( $shop_page_id > 0 ) ? get_permalink( $shop_page_id ) : home_url( '/' );
 	$shop_title    = ( $shop_page_id > 0 ) ? get_the_title( $shop_page_id ) : __( 'Shop', 'lumea' );
 	if ( ! $shop_title ) $shop_title = __( 'Shop', 'lumea' );
 
-	/* Form action */
+	
 	$cart_action = apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() );
+
+	
+	$schema_images = array();
+	foreach ( $all_image_ids as $img_id ) {
+		$img_url = wp_get_attachment_image_url( $img_id, 'full' );
+		if ( $img_url ) {
+			$schema_images[] = esc_url( $img_url );
+		}
+	}
+
+	$schema = array(
+		'@context'    => 'https://schema.org/',
+		'@type'       => 'Product',
+		'name'        => $name,
+		'image'       => $schema_images,
+		'description' => wp_strip_all_tags( $short_desc ? $short_desc : $description ),
+		'sku'         => $sku,
+		'brand'       => array(
+			'@type' => 'Brand',
+			'name'  => esc_html( get_bloginfo( 'name' ) ),
+		),
+		'offers'      => array(
+			'@type'           => 'Offer',
+			'url'             => get_permalink( $product_id ),
+			'priceCurrency'   => get_woocommerce_currency(),
+			'price'           => $product->get_price(),
+			'availability'    => $is_instock
+				? 'https://schema.org/InStock'
+				: 'https://schema.org/OutOfStock',
+			'itemCondition'   => 'https://schema.org/NewCondition',
+		),
+	);
+
+	if ( $rating_count > 0 ) {
+		$schema['aggregateRating'] = array(
+			'@type'       => 'AggregateRating',
+			'ratingValue' => $average,
+			'reviewCount' => $rating_count,
+		);
+	}
+	?>
+	<script type="application/ld+json"><?php echo wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ); ?></script>
+	<?php
 ?>
 
 <main class="lumea-pdp">
@@ -82,7 +125,7 @@ while ( have_posts() ) :
 					?>
 					<button class="lumea-pdp-thumb<?php echo $i === 0 ? ' is-active' : ''; ?>"
 					        data-full="<?php echo esc_url( $l_url ); ?>"
-					        aria-label="<?php echo esc_attr( sprintf( __( 'View image %d', 'lumea' ), $i + 1 ) ); ?>">
+					        aria-label="<?php /* translators: %d: image number */ echo esc_attr( sprintf( __( 'View image %d', 'lumea' ), $i + 1 ) ); ?>">
 						<img src="<?php echo esc_url( $t_url ); ?>" alt="<?php echo esc_attr( $alt ); ?>" loading="lazy">
 					</button>
 					<?php endforeach; ?>
@@ -124,7 +167,7 @@ while ( have_posts() ) :
 					<?php if ( ! $is_instock ) : ?>
 					<span class="lumea-pdp-stock lumea-pdp-stock--out"><?php esc_html_e( 'Out of stock', 'lumea' ); ?></span>
 					<?php elseif ( $stock_qty !== null && $stock_qty > 0 && $stock_qty <= 5 ) : ?>
-					<span class="lumea-pdp-stock lumea-pdp-stock--low"><?php echo esc_html( sprintf( __( 'Only %d left', 'lumea' ), $stock_qty ) ); ?></span>
+					<span class="lumea-pdp-stock lumea-pdp-stock--low"><?php /* translators: %d: remaining stock quantity */ echo esc_html( sprintf( __( 'Only %d left', 'lumea' ), $stock_qty ) ); ?></span>
 					<?php else : ?>
 					<span class="lumea-pdp-stock lumea-pdp-stock--in"><?php esc_html_e( 'In stock', 'lumea' ); ?></span>
 					<?php endif; ?>
@@ -134,7 +177,7 @@ while ( have_posts() ) :
 
 				<?php if ( $rating_count > 0 ) : ?>
 				<div class="lumea-pdp-rating">
-					<div class="lumea-pdp-stars" aria-label="<?php echo esc_attr( sprintf( __( 'Rated %.1f out of 5', 'lumea' ), $average ) ); ?>">
+					<div class="lumea-pdp-stars" aria-label="<?php /* translators: %.1f: product rating (e.g. 4.5) */ echo esc_attr( sprintf( __( 'Rated %.1f out of 5', 'lumea' ), $average ) ); ?>">
 						<?php for ( $s = 1; $s <= 5; $s++ ) :
 							$fill_pct = max( 0, min( 100, ( (float)$average - ($s-1) ) * 100 ) );
 							$gid = 'sg-' . $product_id . '-' . $s;
@@ -148,7 +191,8 @@ while ( have_posts() ) :
 						</svg>
 						<?php endfor; ?>
 					</div>
-					<a href="#lumea-reviews" class="lumea-pdp-rating-link"><?php echo esc_html( sprintf( _n( '%s review', '%s reviews', $rating_count, 'lumea' ), number_format_i18n( $rating_count ) ) ); ?></a>
+					<a href="#lumea-reviews" class="lumea-pdp-rating-link"><?php /* translators: %s: formatted number of reviews */
+				echo esc_html( sprintf( _n( '%s review', '%s reviews', $rating_count, 'lumea' ), number_format_i18n( $rating_count ) ) ); ?></a>
 				</div>
 				<?php endif; ?>
 
@@ -163,11 +207,7 @@ while ( have_posts() ) :
 				<!-- ── WooCommerce add-to-cart (native form = fully working) ── -->
 				<div class="lumea-pdp-atc">
 					<?php
-					/**
-					 * Using woocommerce_template_single_add_to_cart() outputs the
-					 * fully WC-compatible form including proper nonce, AJAX binding,
-					 * variation selects, etc. We style the elements via CSS.
-					 */
+					
 					do_action( 'woocommerce_before_add_to_cart_form' );
 
 					if ( $product->is_type( 'simple' ) ) :
@@ -338,10 +378,11 @@ while ( have_posts() ) :
 					<div class="lumea-pdp-rev-meta">
 						<div class="lumea-pdp-stars">
 							<?php for ( $s = 1; $s <= 5; $s++ ) : ?>
-							<svg width="16" height="16" viewBox="0 0 24 24" fill="<?php echo $s <= round( $average ) ? '#c98578' : '#e5dbd8'; ?>" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="<?php echo esc_attr( $s <= round( $average ) ? '#c98578' : '#e5dbd8' ); ?>" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
 							<?php endfor; ?>
 						</div>
-						<p><?php echo esc_html( sprintf( _n( 'Based on %s review', 'Based on %s reviews', $rating_count, 'lumea' ), number_format_i18n( $rating_count ) ) ); ?></p>
+						<p><?php /* translators: %s: formatted number of reviews */
+					echo esc_html( sprintf( _n( 'Based on %s review', 'Based on %s reviews', $rating_count, 'lumea' ), number_format_i18n( $rating_count ) ) ); ?></p>
 					</div>
 				</div>
 				<h2 class="lumea-pdp-reviews-title"><?php esc_html_e( 'Customer Reviews', 'lumea' ); ?></h2>

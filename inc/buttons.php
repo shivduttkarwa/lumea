@@ -20,12 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Render or return a Lumea button.
- *
- * @param array $args Button arguments.
- * @return string|void HTML string when echo is false.
- */
+
 function lumea_btn( $args = array() ) {
 	$defaults = array(
 		'label' => '',
@@ -44,7 +39,7 @@ function lumea_btn( $args = array() ) {
 	$label        = esc_html( $args['label'] );
 	$extra_cls    = $args['class'] ? ' ' . sanitize_text_field( $args['class'] ) : '';
 
-	// Build modifier classes (with aliases for backwards compatibility).
+	
 	$style_class_map = array(
 		'dark'        => 'btn-dark btn-black',
 		'black'       => 'btn-black btn-dark',
@@ -57,7 +52,7 @@ function lumea_btn( $args = array() ) {
 	);
 	$modifier = isset( $style_class_map[ $style ] ) ? $style_class_map[ $style ] : 'btn-dark btn-black';
 
-	// Build attributes
+	
 	$attr_str = '';
 	if ( 'a' === $tag ) {
 		$attr_str .= ' href="' . esc_url( $args['href'] ) . '"';
@@ -70,7 +65,7 @@ function lumea_btn( $args = array() ) {
 		}
 	}
 
-	// Arrow SVG icons
+	
 	$arrow_right_svg = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">'
 		. '<path d="M5 12H19"/>'
 		. '<path d="M13 6L19 12L13 18"/>'
@@ -81,7 +76,7 @@ function lumea_btn( $args = array() ) {
 		. '<path d="M11 6L5 12L11 18"/>'
 		. '</svg>';
 
-	// Build inner content
+	
 	$inner = '';
 	if ( 'arrow-left' === $style ) {
 		$inner = $arrow_left_svg . $label;
@@ -101,7 +96,15 @@ function lumea_btn( $args = array() ) {
 	);
 
 	if ( $args['echo'] ) {
-		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses(
+			$html,
+			array(
+				'a'      => array( 'class' => true, 'href'  => true, 'type' => true, 'data-*' => true ),
+				'button' => array( 'class' => true, 'type'  => true, 'data-*' => true ),
+				'svg'    => array( 'viewbox' => true, 'fill' => true, 'aria-hidden' => true, 'class' => true ),
+				'path'   => array( 'd' => true ),
+			)
+		);
 		return;
 	}
 

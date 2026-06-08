@@ -10,6 +10,10 @@ defined( 'ABSPATH' ) || exit;
 
 $sent    = false;
 $errors  = array();
+$name    = '';
+$email   = '';
+$subject = '';
+$message = '';
 
 if ( isset( $_POST['lumea_contact_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['lumea_contact_nonce'] ) ), 'lumea_contact' ) ) {
 	$name    = sanitize_text_field( wp_unslash( $_POST['contact_name'] ?? '' ) );
@@ -23,9 +27,11 @@ if ( isset( $_POST['lumea_contact_nonce'] ) && wp_verify_nonce( sanitize_text_fi
 
 	if ( empty( $errors ) ) {
 		$to      = get_option( 'admin_email' );
+		
+		
 		$headers = array(
 			'Content-Type: text/plain; charset=UTF-8',
-			'Reply-To: ' . $name . ' <' . $email . '>',
+			'Reply-To: ' . $email,
 		);
 		$body    = sprintf(
 			"Name: %s\nEmail: %s\nSubject: %s\n\n%s",
@@ -105,11 +111,11 @@ get_header();
 							<label for="contact_subject"><?php esc_html_e( 'Subject', 'lumea' ); ?></label>
 							<select id="contact_subject" name="contact_subject" class="lumea-contact-input lumea-contact-select">
 								<option value=""><?php esc_html_e( 'Select a topic…', 'lumea' ); ?></option>
-								<option value="Order enquiry" <?php selected( $_POST['contact_subject'] ?? '', 'Order enquiry' ); ?>><?php esc_html_e( 'Order Enquiry', 'lumea' ); ?></option>
-								<option value="Product recommendation" <?php selected( $_POST['contact_subject'] ?? '', 'Product recommendation' ); ?>><?php esc_html_e( 'Product Recommendation', 'lumea' ); ?></option>
-								<option value="Returns & exchanges" <?php selected( $_POST['contact_subject'] ?? '', 'Returns & exchanges' ); ?>><?php esc_html_e( 'Returns & Exchanges', 'lumea' ); ?></option>
-								<option value="Partnership" <?php selected( $_POST['contact_subject'] ?? '', 'Partnership' ); ?>><?php esc_html_e( 'Partnership Enquiry', 'lumea' ); ?></option>
-								<option value="Other" <?php selected( $_POST['contact_subject'] ?? '', 'Other' ); ?>><?php esc_html_e( 'Other', 'lumea' ); ?></option>
+								<option value="Order enquiry" <?php selected( $subject, 'Order enquiry' ); ?>><?php esc_html_e( 'Order Enquiry', 'lumea' ); ?></option>
+								<option value="Product recommendation" <?php selected( $subject, 'Product recommendation' ); ?>><?php esc_html_e( 'Product Recommendation', 'lumea' ); ?></option>
+								<option value="Returns & exchanges" <?php selected( $subject, 'Returns & exchanges' ); ?>><?php esc_html_e( 'Returns & Exchanges', 'lumea' ); ?></option>
+								<option value="Partnership" <?php selected( $subject, 'Partnership' ); ?>><?php esc_html_e( 'Partnership Enquiry', 'lumea' ); ?></option>
+								<option value="Other" <?php selected( $subject, 'Other' ); ?>><?php esc_html_e( 'Other', 'lumea' ); ?></option>
 							</select>
 						</div>
 
@@ -137,7 +143,8 @@ get_header();
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
 						<div>
 							<p class="lumea-contact-info-label"><?php esc_html_e( 'Email', 'lumea' ); ?></p>
-							<a href="mailto:hello@lumeaskincare.com" class="lumea-contact-info-value">hello@lumeaskincare.com</a>
+							<?php $support_email = sanitize_email( get_theme_mod( 'lumea_support_email', 'hello@lumeaskincare.com' ) ); ?>
+							<a href="mailto:<?php echo esc_attr( $support_email ); ?>" class="lumea-contact-info-value"><?php echo esc_html( $support_email ); ?></a>
 						</div>
 					</div>
 					<div class="lumea-contact-info-item">

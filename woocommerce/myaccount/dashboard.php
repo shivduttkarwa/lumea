@@ -29,7 +29,6 @@ if ( ! $shop_url ) {
 	$shop_url = home_url( '/shop/' );
 }
 
-/* Recent orders (last 3) */
 $orders = wc_get_orders( array(
 	'customer' => get_current_user_id(),
 	'limit'    => 3,
@@ -96,7 +95,8 @@ $orders = wc_get_orders( array(
 					<?php endif; ?>
 				</div>
 				<div class="lumea-dashboard-order-info">
-					<p class="lumea-dashboard-order-num"><?php printf( esc_html__( 'Order #%s', 'lumea' ), esc_html( $order->get_order_number() ) ); ?></p>
+					<p class="lumea-dashboard-order-num"><?php /* translators: %s: order number */
+					printf( esc_html__( 'Order #%s', 'lumea' ), esc_html( $order->get_order_number() ) ); ?></p>
 					<p class="lumea-dashboard-order-date"><?php echo esc_html( wc_format_datetime( $order->get_date_created() ) ); ?></p>
 				</div>
 				<div class="lumea-dashboard-order-status">
@@ -107,7 +107,7 @@ $orders = wc_get_orders( array(
 				<div class="lumea-dashboard-order-total">
 					<?php echo wp_kses_post( $order->get_formatted_order_total() ); ?>
 				</div>
-				<a href="<?php echo esc_url( $order->get_view_order_url() ); ?>" class="lumea-dashboard-order-link" aria-label="<?php printf( esc_attr__( 'View order %s', 'lumea' ), $order->get_order_number() ); ?>">
+				<a href="<?php echo esc_url( $order->get_view_order_url() ); ?>" class="lumea-dashboard-order-link" aria-label="<?php /* translators: %s: order number */ printf( esc_attr__( 'View order %s', 'lumea' ), $order->get_order_number() ); ?>">
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
 				</a>
 			</div>
@@ -145,18 +145,10 @@ $orders = wc_get_orders( array(
 	</div>
 
 	<?php
-	/**
-	 * My Account dashboard.
-	 *
-	 * @since 2.6.0
-	 */
+	
 	do_action( 'woocommerce_account_dashboard' );
 
-	/**
-	 * Deprecated WooCommerce actions for backward compatibility.
-	 *
-	 * @deprecated 2.6.0
-	 */
+	
 	do_action( 'woocommerce_before_my_account' );
 	do_action( 'woocommerce_after_my_account' );
 	?>

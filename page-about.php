@@ -9,12 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'lumea_about_body_class' ) ) {
-	/**
-	 * Add a dedicated body class for the About template.
-	 *
-	 * @param array $classes Existing body classes.
-	 * @return array
-	 */
+	
 	function lumea_about_body_class( $classes ) {
 		$classes[] = 'lumea-about-template';
 		return $classes;
@@ -24,9 +19,8 @@ add_filter( 'body_class', 'lumea_about_body_class' );
 
 get_header();
 
-/* ── About page theme mods with defaults ── */
 $a = array(
-	// Hero
+	
 	'hero_bg'          => get_theme_mod( 'lma_about_hero_bg',        LUMEA_THEME_URI . '/assets/images/hero/about-hero.jpg' ),
 	'hero_label'       => get_theme_mod( 'lma_about_hero_label',     'About Lum&eacute;a' ),
 	'hero_h1_1'        => get_theme_mod( 'lma_about_hero_h1_1',      'Skincare, with intention.' ),
@@ -41,12 +35,12 @@ $a = array(
 	'stat3_l'          => get_theme_mod( 'lma_about_stat3_l',        'Clean formulas' ),
 	'stat4_n'          => get_theme_mod( 'lma_about_stat4_n',        '2018' ),
 	'stat4_l'          => get_theme_mod( 'lma_about_stat4_l',        'Founded in Paris' ),
-	// Ticker
+	
 	'ticker'           => get_theme_mod( 'lma_about_ticker',         "BOTANICAL PURITY\nSCIENTIFIC PRECISION\nMINDFUL LUXURY\nCLEAN BEAUTY\nCRUELTY FREE\nSINCE 2018" ),
-	// Manifesto
+	
 	'manifesto_q'      => get_theme_mod( 'lma_about_manifesto_q',    'The most transformative skincare is the kind you actually look forward to. Not a routine — a ritual.' ),
 	'manifesto_cite'   => get_theme_mod( 'lma_about_manifesto_cite', 'Sophie Laurent, Founder & Cosmetic Chemist' ),
-	// Story
+	
 	'story_img'        => get_theme_mod( 'lumea_about_story_image',  LUMEA_THEME_URI . '/assets/images/her02.jpg' ),
 	'story1_label'     => get_theme_mod( 'lma_about_story1_label',   'The Beginning' ),
 	'story1_h2'        => get_theme_mod( 'lma_about_story1_h2',      'A skincare line rooted in botanical science' ),
@@ -56,7 +50,7 @@ $a = array(
 	'story2_h2'        => get_theme_mod( 'lma_about_story2_h2',      'From field to formula' ),
 	'story2_body1'     => get_theme_mod( 'lma_about_story2_body1',   'We partner directly with farmers and distilleries across twelve countries — from Bulgarian rose valleys to Japanese forest bathing reserves — to source actives that are as potent as they are pure.' ),
 	'story2_body2'     => get_theme_mod( 'lma_about_story2_body2',   'Every formula is stress-tested at the cellular level before it reaches you, with clinically measurable results visible within 28 days.' ),
-	// Values
+	
 	'values_bg'        => get_theme_mod( 'lma_about_values_bg',      LUMEA_THEME_URI . '/assets/images/2.jpg' ),
 	'values_label'     => get_theme_mod( 'lma_about_values_label',   'What We Stand For' ),
 	'values_h2'        => get_theme_mod( 'lma_about_values_h2',      'Three principles. Every decision.' ),
@@ -66,7 +60,7 @@ $a = array(
 	'val2_p'           => get_theme_mod( 'lma_about_val2_p',         'Botanicals alone aren\'t enough. Each formula is stress-tested at the cellular level to deliver clinically measurable results — visible within 28 days.' ),
 	'val3_h3'          => get_theme_mod( 'lma_about_val3_h3',        'Mindful Luxury' ),
 	'val3_p'           => get_theme_mod( 'lma_about_val3_p',         'Premium shouldn\'t cost the planet. We use ocean-bound glass packaging, carbon-neutral shipping, and donate 1% of every sale to reforestation.' ),
-	// Ingredients
+	
 	'ing_label'        => get_theme_mod( 'lma_about_ing_label',      'Ingredient Philosophy' ),
 	'ing_h2'           => get_theme_mod( 'lma_about_ing_h2',         'We believe in ingredients you can pronounce' ),
 	'ing_body'         => get_theme_mod( 'lma_about_ing_body',       'Our ingredient selection starts in the field, not the lab. We work backwards from the plant — understanding its native habitat, harvest season, and traditional therapeutic uses before evaluating its bioactive potential.' ),
@@ -77,9 +71,9 @@ $a = array(
 	'ing2_desc'        => get_theme_mod( 'lma_about_ing2_desc',      "Nature's retinol alternative. Clinically proven to reduce fine lines without sensitivity." ),
 	'ing3_name'        => get_theme_mod( 'lma_about_ing3_name',      'Snow Mushroom' ),
 	'ing3_desc'        => get_theme_mod( 'lma_about_ing3_desc',      'Japanese forest extract. Holds 500× its weight in water — superior to hyaluronic acid.' ),
-	// Press
+	
 	'press_pubs'       => get_theme_mod( 'lma_about_press_pubs',     "Vogue\nHarper's Bazaar\nByrdie\nInto The Gloss\nRefinery29\nElle\nAllure" ),
-	// CTA
+	
 	'cta_bg'           => get_theme_mod( 'lma_about_cta_bg',         LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg' ),
 	'cta_label'        => get_theme_mod( 'lma_about_cta_label',      'Begin Your Ritual' ),
 	'cta_h2'           => get_theme_mod( 'lma_about_cta_h2',         "Ready to meet\nyour skin's new favourites?" ),
@@ -87,7 +81,6 @@ $a = array(
 	'cta_btn2'         => get_theme_mod( 'lma_about_cta_btn2',       'Get In Touch' ),
 );
 
-// Helper: split textarea value into array of non-empty lines
 function lma_lines( $str ) {
 	return array_filter( array_map( 'trim', explode( "\n", $str ) ) );
 }
