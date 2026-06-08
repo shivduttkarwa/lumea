@@ -2,7 +2,7 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Luméa 1.1.1\n"
+"Project-Id-Version: Luméa 1.1.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/lumea\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -421,7 +421,7 @@ msgstr ""
 
 #: header.php:203
 #: search.php:53
-msgid "Search products, articles\\xe2\\x80\\xa6"
+msgid "Search products, articles..."
 msgstr ""
 
 #: header.php:224
@@ -2038,4 +2038,467 @@ msgstr ""
 
 #: woocommerce/single-product.php:450
 msgid "Close"
+msgstr ""
+
+#. Missing strings added during rejection audit.
+msgid "$118"
+msgstr ""
+
+msgid "$138"
+msgstr ""
+
+msgid "$14.95"
+msgstr ""
+
+msgid "$142"
+msgstr ""
+
+msgid "$158"
+msgstr ""
+
+msgid "$168"
+msgstr ""
+
+msgid "$195"
+msgstr ""
+
+msgid "$8.95"
+msgstr ""
+
+msgid "1–2 business days"
+msgstr ""
+
+msgid "1,400+"
+msgstr ""
+
+msgid "1,400+ questionable chemicals"
+msgstr ""
+
+msgid "1% for the Planet"
+msgstr ""
+
+msgid "1% of every sale donated to reforestation and ocean conservation."
+msgstr ""
+
+msgid "12"
+msgstr ""
+
+msgid "3 curated products"
+msgstr ""
+
+msgid "3–5 business days"
+msgstr ""
+
+msgid "30"
+msgstr ""
+
+msgid "48+"
+msgstr ""
+
+msgid "7–14 business days"
+msgstr ""
+
+msgid "A complete AM routine — cleanse, treat and protect. Three products chosen for synergy and results you will feel by day seven."
+msgstr ""
+
+msgid "A tracking number is emailed to you as soon as your order is dispatched. You can also view your order status at any time in your account under Order History."
+msgstr ""
+
+msgid "Always free on bundles"
+msgstr ""
+
+msgid "Anti-Ageing"
+msgstr ""
+
+msgid "Australia wide, tracked delivery"
+msgstr ""
+
+msgid "Available in any amount"
+msgstr ""
+
+msgid "Bakuchiol"
+msgstr ""
+
+msgid "Best Seller"
+msgstr ""
+
+msgid "Blue Tansy"
+msgstr ""
+
+msgid "Botanical actives"
+msgstr ""
+
+msgid "Brightening"
+msgstr ""
+
+msgid "Bulgaria"
+msgstr ""
+
+msgid "Bulgarian Rose Otto"
+msgstr ""
+
+msgid "Bundles & Gift Sets"
+msgstr ""
+
+msgid "Bundles & Gifts"
+msgstr ""
+
+msgid "Buy a Gift Card"
+msgstr ""
+
+msgid "Calm & Soothe"
+msgstr ""
+
+msgid "Can I change or cancel my order?"
+msgstr ""
+
+msgid "Carbon Neutral"
+msgstr ""
+
+msgid "Carefully curated rituals that work together. Each set is designed by our formulation team for maximum synergy — and comes with a saving on the individual prices."
+msgstr ""
+
+msgid "Certifications"
+msgstr ""
+
+msgid "Certified cruelty-free across all products and supply chain."
+msgstr ""
+
+msgid "Chemicals excluded"
+msgstr ""
+
+msgid "Common Questions"
+msgstr ""
+
+msgid "Complimentary Gift Wrapping"
+msgstr ""
+
+msgid "Contact our team with your order number and reason for return."
+msgstr ""
+
+msgid "Contact us"
+msgstr ""
+
+msgid "Countries sourced"
+msgstr ""
+
+msgid "Curated with intention"
+msgstr ""
+
+msgid "Day Returns"
+msgstr ""
+
+msgid "Deep Moisture"
+msgstr ""
+
+msgid "Deeply hydrating, brightening and anti-inflammatory. 3.5 tonnes of petals yield one kilogram of oil — the most precious botanical in our range."
+msgstr ""
+
+msgid "Do you offer free samples?"
+msgstr ""
+
+msgid "E-Gift Cards"
+msgstr ""
+
+msgid "Every bundle ships in our signature kraft-and-ribbon gift box with tissue paper and a personalised message card — at no extra cost. Add your message at checkout."
+msgstr ""
+
+msgid "Every formula is stress-tested at the cellular level before it reaches you, with clinically measurable results visible within 28 days of consistent use."
+msgstr ""
+
+msgid "Every ingredient earns its place in our formulas. We source from farmers we know by name, exclude over 1,400 questionable chemicals, and publish every active with its origin and purpose."
+msgstr ""
+
+msgid "Every product is built around these actives. Find your ritual today."
+msgstr ""
+
+msgid "Everything they need for luminous, healthy skin — packaged in our signature gift box with a handwritten card on request."
+msgstr ""
+
+msgid "Exceptionally rich in omega-7, vitamins C and E. Speeds cellular repair, reduces redness, and gives the skin a warm luminous glow."
+msgstr ""
+
+msgid "Experience the difference"
+msgstr ""
+
+msgid "Express Shipping"
+msgstr ""
+
+msgid "Fan Favourite"
+msgstr ""
+
+msgid "Formaldehyde"
+msgstr ""
+
+msgid "Formulated with intention"
+msgstr ""
+
+msgid "Free return shipping within Australia. International customers are responsible for return shipping costs."
+msgstr ""
+
+msgid "Free Standard Shipping"
+msgstr ""
+
+msgid "From $19.95"
+msgstr ""
+
+msgid "Get Personalised Advice"
+msgstr ""
+
+msgid "Handwritten message card"
+msgstr ""
+
+msgid "Himalayas"
+msgstr ""
+
+msgid "Holds 500× its weight in water — outperforming hyaluronic acid in clinical hydration studies. Creates a weightless moisture film on the skin surface."
+msgstr ""
+
+msgid "How do I track my order?"
+msgstr ""
+
+msgid "How to return"
+msgstr ""
+
+msgid "Hydration"
+msgstr ""
+
+msgid "If you are not completely satisfied with your purchase, return it within 30 days for a full refund or exchange. Items must be unused, in their original packaging, and in re-saleable condition."
+msgstr ""
+
+msgid "India"
+msgstr ""
+
+msgid "Ingredient Transparency"
+msgstr ""
+
+msgid "Ingredients never used"
+msgstr ""
+
+msgid "Install and activate the Lumea Core plugin to enable the contact form."
+msgstr ""
+
+msgid "International"
+msgstr ""
+
+msgid "Japan"
+msgstr ""
+
+msgid "Lab-derived, Vegan"
+msgstr ""
+
+msgid "Leaping Bunny"
+msgstr ""
+
+msgid "Let your skin recover overnight. Bakuchiol serum, barrier repair oil and a deeply hydrating sleep mask — wake up to visibly plumper skin."
+msgstr ""
+
+msgid "Luméa ingredient sourcing"
+msgstr ""
+
+msgid "Mineral oil"
+msgstr ""
+
+msgid "Morocco"
+msgstr ""
+
+msgid "Most Popular"
+msgstr ""
+
+msgid "Named for its vivid azure oil. Potent anti-inflammatory and calming agent — ideal for reactive, sensitised and post-treatment skin."
+msgstr ""
+
+msgid "Need help choosing?"
+msgstr ""
+
+msgid "Never expires"
+msgstr ""
+
+msgid "Niacinamide"
+msgstr ""
+
+msgid "No animal-derived ingredients. Certified by The Vegan Society."
+msgstr ""
+
+msgid "Not sure which set to choose? Give the gift of choice with a Luméa e-gift card — delivered instantly to their inbox in our signature design."
+msgstr ""
+
+msgid "Offset 100% of emissions across production and shipping."
+msgstr ""
+
+msgid "On all orders over %s"
+msgstr ""
+
+msgid "Orders can be modified or cancelled within 1 hour of placement. After that our warehouse begins processing and changes may not be possible. Please contact us immediately if you need to make a change."
+msgstr ""
+
+msgid "Orders placed before 1pm AEST on business days are dispatched same day. All orders ship in our signature eco packaging made from 100% recycled materials."
+msgstr ""
+
+msgid "Our customer care team replies within 24 hours, Monday to Friday."
+msgstr ""
+
+msgid "Our ingredient selection starts in the field, not the lab. We work backwards from the plant — understanding its native habitat, harvest season, and traditional therapeutic uses before evaluating its bioactive potential."
+msgstr ""
+
+msgid "Our Ingredients"
+msgstr ""
+
+msgid "Our Key Actives"
+msgstr ""
+
+msgid "Our Philosophy"
+msgstr ""
+
+msgid "Pack securely in the original box if possible and drop off at any Australia Post location."
+msgstr ""
+
+msgid "Parabens"
+msgstr ""
+
+msgid "Perfect Gift"
+msgstr ""
+
+msgid "Petrolatum"
+msgstr ""
+
+msgid "Phthalates"
+msgstr ""
+
+msgid "Priority overnight delivery"
+msgstr ""
+
+msgid "Products included"
+msgstr ""
+
+msgid "Receive your label"
+msgstr ""
+
+msgid "Recycled kraft gift box"
+msgstr ""
+
+msgid "Redeemable on anything"
+msgstr ""
+
+msgid "Refund processed"
+msgstr ""
+
+msgid "Repair & Glow"
+msgstr ""
+
+msgid "Ritual guide card"
+msgstr ""
+
+msgid "Save $24"
+msgstr ""
+
+msgid "Save $30"
+msgstr ""
+
+msgid "Save $37"
+msgstr ""
+
+msgid "Sea Buckthorn"
+msgstr ""
+
+msgid "Sent instantly by email"
+msgstr ""
+
+msgid "Ship your item"
+msgstr ""
+
+msgid "Shipping & Returns"
+msgstr ""
+
+msgid "Shipping Options"
+msgstr ""
+
+msgid "Shop This Set"
+msgstr ""
+
+msgid "Signature gift box"
+msgstr ""
+
+msgid "Snow Mushroom"
+msgstr ""
+
+msgid "Standard Shipping"
+msgstr ""
+
+msgid "Sulfates (SLS/SLES)"
+msgstr ""
+
+msgid "Synthetic fragrance"
+msgstr ""
+
+msgid "Tell us who it's for and we'll recommend the ideal ritual — for any skin type, budget or occasion."
+msgstr ""
+
+msgid "The Glow Edit"
+msgstr ""
+
+msgid "The Morning Ritual"
+msgstr ""
+
+msgid "The Night Repair"
+msgstr ""
+
+msgid "These are the hero ingredients you will find across our core range — each selected for clinical efficacy, sustainable sourcing, and compatibility with sensitive skin."
+msgstr ""
+
+msgid "Tissue paper & ribbon"
+msgstr ""
+
+msgid "Transparent & Simple"
+msgstr ""
+
+msgid "Vegan Certified"
+msgstr ""
+
+msgid "Vitamin B3 in its most bioavailable form. Minimises pores, strengthens the moisture barrier, evens skin tone and reduces hyperpigmentation."
+msgstr ""
+
+msgid "We are here to help"
+msgstr ""
+
+msgid "We are so sorry if this happens. Please photograph the packaging and product and email us within 48 hours of delivery. We will arrange a replacement or full refund immediately at no cost to you."
+msgstr ""
+
+msgid "We believe in ingredients you can pronounce"
+msgstr ""
+
+msgid "We benchmark against the EU Cosmetics Regulation (the world's strictest) and go further — excluding every ingredient on the Dirty Dozen list and any chemical with inconclusive safety data."
+msgstr ""
+
+msgid "We ship worldwide with the same care we put into our formulas — sustainable packaging, carbon-neutral delivery, and a returns process that is genuinely hassle-free."
+msgstr ""
+
+msgid "We will respond within 24 hours with a prepaid return label (Australia only) and packing instructions."
+msgstr ""
+
+msgid "We'll build the perfect set for you"
+msgstr ""
+
+msgid "What Goes Into Your Skin"
+msgstr ""
+
+msgid "What if my item arrives damaged?"
+msgstr ""
+
+msgid "What We Never Use"
+msgstr ""
+
+msgid "with your order number and reason for return."
+msgstr ""
+
+msgid "Worldwide tracked delivery"
+msgstr ""
+
+msgid "Yes — we include a complimentary sample with every order. You can also request specific samples at checkout in the order notes field."
+msgstr ""
+
+msgid "Nature's retinol alternative. Clinically proven to reduce fine lines and improve skin tone without sensitivity, redness or sun-avoidance requirements."
+msgstr ""
+
+msgid "Your refund will be processed within 3–5 business days of us receiving your return. You will receive an email confirmation."
 msgstr ""

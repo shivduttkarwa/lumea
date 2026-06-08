@@ -204,7 +204,7 @@ if ( $lumea_has_wc ) {
 				type="search"
 				class="lumea-search-overlay-input"
 				name="s"
-				placeholder="<?php esc_attr_e( 'Search products, articles\xe2\x80\xa6', 'lumea' ); ?>"
+				placeholder="<?php esc_attr_e( 'Search products, articles...', 'lumea' ); ?>"
 				autocomplete="off"
 				aria-label="<?php esc_attr_e( 'Search', 'lumea' ); ?>"
 			>

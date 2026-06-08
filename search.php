@@ -50,7 +50,7 @@ foreach ( $wp_query->posts as $p ) {
 					class="lumea-search-input"
 					name="s"
 					value="<?php echo esc_attr( $query_term ); ?>"
-					placeholder="<?php esc_attr_e( 'Search products, articles\xe2\x80\xa6', 'lumea' ); ?>"
+					placeholder="<?php esc_attr_e( 'Search products, articles...', 'lumea' ); ?>"
 					autocomplete="off"
 					aria-label="<?php esc_attr_e( 'Search', 'lumea' ); ?>"
 				>

@@ -23,7 +23,7 @@ across 9 sections — giving shop owners full control without touching code.
 
 - WordPress 6.8 or higher
 - PHP 8.0 or higher
-- Lumea Core 1.0.0 or higher (bundled companion plugin)
+- Lumea Core 1.0.2 or higher (bundled companion plugin)
 - WooCommerce 10.0 or higher (required for e-commerce features)
 - Modern browser (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+)
 
@@ -59,6 +59,9 @@ After activating the theme, follow these steps to replicate the demo:
    - "Contact"  → Page Template: Contact
    - "FAQ"      → Page Template: FAQ
    - "Wishlist" → Page Template: Wishlist
+   - "Bundles"  → Page Template: Bundles & Gifts
+   - "Ingredients" → Page Template: Our Ingredients
+   - "Shipping & Returns" → Page Template: Shipping & Returns
    - "Blog"     → Set as Posts Page under Settings > Reading
 
 4. SET THE FRONT PAGE
@@ -154,6 +157,21 @@ The following custom page templates are included:
 - FAQ        (page-faq.php)     — Accordion FAQ page organised by category.
 - Wishlist   (page-wishlist.php)— Customer wishlist stored in browser localStorage
                                    with AJAX cart integration via Lumea Core.
+- Bundles & Gifts
+             (page-bundle.php)  — Promotional bundles page for curated kits,
+                                   gifting, and product combinations.
+- Our Ingredients
+             (page-ingredients.php)
+                                 — Ingredient education page with highlighted
+                                   active ingredients and skincare notes.
+- Shipping & Returns
+             (page-shipping.php) — Shipping, delivery, return, and exchange
+                                   information page.
+- Coming Soon
+             (page-coming-soon.php)
+                                 — Holding page template for pre-launch pages.
+- Blank      (page-blank.php)    — Minimal blank template without the global
+                                   header and footer.
 
 
 == WIDGET AREAS ==
@@ -232,6 +250,15 @@ the buyer ZIP before packaging.
 
 == CHANGELOG ==
 
+= 1.1.4 =
+* Fix: Prevented the cart drawer from opening automatically after the first add-to-cart event.
+* Fix: Improved AJAX cart quantity updates for fast repeated product-card stepper clicks.
+* Fix: Corrected wishlist price output so currency symbols render normally instead of HTML entities.
+* Fix: Removed the default WooCommerce checkout coupon form when the custom checkout coupon UI is active.
+* Compatibility: Updated WooCommerce override headers and tested against WooCommerce 10.7.0.
+* Translation: Updated the theme POT file and added a POT file for the bundled Lumea Core plugin.
+* Documentation: Documented all bundled custom page templates and current plugin requirements.
+
 = 1.1.1 =
 * Security: Escaped all unescaped echo output points (esc_url, esc_attr, wp_kses).
 * Security: Fixed email header injection risk on Contact page (removed name from Reply-To).
@@ -249,7 +276,7 @@ the buyer ZIP before packaging.
 * Asset: Set explicit version strings on GSAP (3.12.5) and Swiper (11.0.0) enqueues.
 * Asset: Removed unavailable premium GSAP plugin CDN handles.
 * Asset: Removed developer-only Python utility scripts from the theme package.
-* Compatibility: Tested up to WordPress 6.8.
+* Compatibility: Tested up to WordPress 7.0.
 
 = 1.1.0 =
 * Initial ThemeForest release.
