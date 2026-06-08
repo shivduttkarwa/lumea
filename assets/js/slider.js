@@ -198,7 +198,24 @@
   preloadImages().then( function () {
     requestAnimationFrame( function () {
       slider.classList.remove( 'is-loading' );
+      lumeaSliderEntrance();
     } );
   } );
+
+  function lumeaSliderEntrance() {
+    if ( typeof gsap === 'undefined' ) return;
+    const visible = slidesRoot.querySelectorAll( '.lumea-slide.is-prev, .lumea-slide.is-active, .lumea-slide.is-next' );
+    if ( ! visible.length ) return;
+
+    gsap.set( visible, { autoAlpha: 0 } );
+
+    const io = new IntersectionObserver( function ( entries ) {
+      if ( ! entries[ 0 ].isIntersecting ) return;
+      gsap.to( visible, { autoAlpha: 1, duration: 1.0, ease: 'power2.out', stagger: 0.15 } );
+      io.disconnect();
+    }, { threshold: 0.5 } );
+
+    io.observe( slider );
+  }
 
 } )();

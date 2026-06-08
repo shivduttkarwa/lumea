@@ -360,70 +360,6 @@
 
   
 
-  ( function initEditorialBlindReveal() {
-
-    var sliderEl = document.getElementById( 'lumeaSlider' );
-    if ( ! sliderEl ) return;
-
-    function setup( firstSlide ) {
-      
-      var stripsWrap = document.createElement( 'div' );
-      stripsWrap.className = 'lumea-blind-strips';
-      for ( var i = 0; i < 5; i++ ) {
-        var s = document.createElement( 'div' );
-        s.className = 'lumea-blind-strip';
-        stripsWrap.appendChild( s );
-      }
-      firstSlide.appendChild( stripsWrap );
-
-      var strips = stripsWrap.querySelectorAll( '.lumea-blind-strip' );
-      var img    = firstSlide.querySelector( 'img' );
-
-      if ( img ) gsap.set( img, { scale: 1.18 } );
-
-      ScrollTrigger.create( {
-        trigger: sliderEl,
-        start:   'top 75%',
-        once:    true,
-        onEnter: function () {
-          var tl = gsap.timeline( {
-            onComplete: function () { stripsWrap.remove(); },
-          } );
-
-          
-          tl.to( strips, {
-            yPercent: function ( i ) { return i % 2 === 0 ? -105 : 105; },
-            duration: 1.1,
-            stagger:  0.08,
-            ease:     'power4.inOut',
-          } );
-
-          
-          if ( img ) {
-            tl.to( img, { scale: 1, duration: 1.45, ease: 'power4.out' }, 0 );
-          }
-        },
-      } );
-    }
-
-    
-    var existing = sliderEl.querySelector( '.lumea-slide[data-index="0"]' );
-    if ( existing ) {
-      setup( existing );
-    } else {
-      var observer = new MutationObserver( function () {
-        var slide = sliderEl.querySelector( '.lumea-slide[data-index="0"]' );
-        if ( slide ) {
-          observer.disconnect();
-          setup( slide );
-        }
-      } );
-      observer.observe( sliderEl, { childList: true, subtree: true } );
-    }
-
-  } )();
-
-  
 
   ( function initSectionIntroReveal() {
 
@@ -440,35 +376,38 @@
       var titleTargets;
 
       if ( hasSplit ) {
+        // Split into lines and wrap each in its own mask
         var split = new SplitText( title, { type: 'lines', linesClass: 'lumea-si-line' } );
-
         split.lines.forEach( function ( line ) {
           var mask = document.createElement( 'div' );
           mask.className = 'lumea-si-mask';
           line.parentNode.insertBefore( mask, line );
           mask.appendChild( line );
         } );
-
         titleTargets = split.lines;
-        
-        gsap.set( titleTargets, { yPercent: 112, skewY: 7 } );
-
       } else {
+        // No SplitText — wrap the whole title in one mask and reveal as a single unit
+        var mask = document.createElement( 'div' );
+        mask.className = 'lumea-si-mask';
+        title.parentNode.insertBefore( mask, title );
+        mask.appendChild( title );
         titleTargets = [ title ];
-        gsap.set( title, { autoAlpha: 0, y: 40, skewY: 4 } );
       }
 
-      
+      // Start below the mask edge — pure positional reveal, no opacity or skew
+      gsap.set( titleTargets, { yPercent: 110 } );
+
+
       if ( eyebrow ) {
         gsap.set( eyebrow, { autoAlpha: 0, y: 8, filter: 'blur(5px)' } );
       }
 
-      
+
       if ( desc ) {
         gsap.set( desc, { autoAlpha: 0, y: 16, filter: 'blur(8px)' } );
       }
 
-      
+
       var tl = gsap.timeline( {
         scrollTrigger: {
           trigger: intro,
@@ -478,7 +417,7 @@
         defaults: { ease: 'power4.out' },
       } );
 
-      
+
       if ( eyebrow ) {
         tl.to( eyebrow, {
           autoAlpha: 1,
@@ -491,22 +430,11 @@
 
       var titlePos = eyebrow ? 0.18 : 0;
 
-      
-      if ( hasSplit ) {
-        tl.to( titleTargets, {
-          yPercent: 0,
-          skewY:    0,
-          duration: 1.05,
-          stagger:  0.1,
-        }, titlePos );
-      } else {
-        tl.to( titleTargets, {
-          autoAlpha: 1,
-          y:         0,
-          skewY:     0,
-          duration:  1.05,
-        }, titlePos );
-      }
+      tl.to( titleTargets, {
+        yPercent: 0,
+        duration: 1.05,
+        stagger:  hasSplit ? 0.12 : 0,
+      }, titlePos );
 
       
       if ( desc ) {

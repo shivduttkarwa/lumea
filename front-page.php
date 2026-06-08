@@ -73,14 +73,14 @@ $shop_url = esc_url( lumea_get_shop_url() );
 
 		<article class="lumea-content-card" id="lumeaCard">
 			<div class="lumea-card-body">
-				<span class="lumea-slide-number" id="lumeaNumber">01</span>
-				<p class="lumea-card-text" id="lumeaText">
+				<span class="lumea-slide-number lumea-reveal-js lumea-reveal--static-js" id="lumeaNumber">01</span>
+				<p class="lumea-card-text lumea-reveal-js lumea-reveal--static-js" id="lumeaText">
 					<?php echo esc_html( get_theme_mod( 'lumea_slide_1_text', 'Botanical skincare rituals designed for luminous skin, soft texture, and everyday radiance.' ) ); ?>
 				</p>
 			</div>
 			<a href="<?php echo esc_url( $shop_url ); ?>"
 			   id="lumeaCardButton"
-			   class="lumea-card-button"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></a>
+			   class="lumea-card-button lumea-reveal-js lumea-reveal--static-js"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></a>
 		</article>
 
 		<div class="lumea-mobile-arrows" aria-label="<?php esc_attr_e( 'Slider controls', 'lumea' ); ?>">
@@ -292,8 +292,8 @@ if ( class_exists( 'WooCommerce' ) ) {
 						$bp_hover = esc_url( isset( $bp['hover_image'] ) ? $bp['hover_image'] : '' );
 					?>
 					<div class="swiper-slide">
-						<article class="lumea-best-card">
-							<div class="lumea-card-media-wrap lumea-reveal-js lumea-reveal--clip-js">
+						<article class="lumea-best-card lumea-reveal-js lumea-reveal--static-js">
+							<div class="lumea-card-media-wrap">
 							<a href="<?php echo esc_url( $bp_url ); ?>" class="lumea-best-media-link">
 								<?php if ( $bp_badge ) : ?>
 								<span class="lumea-best-badge<?php echo ! empty( $bp['is_sale'] ) ? ' lumea-best-badge--sale' : ''; ?>" aria-hidden="true"><?php echo esc_html( $bp_badge ); ?></span>
@@ -306,7 +306,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 								</div>
 							</a>
 							</div>
-							<div class="lumea-best-info lumea-reveal-js lumea-reveal--fade-js">
+							<div class="lumea-best-info">
 								<div class="lumea-best-title-row">
 									<h3 class="lumea-best-name"><a href="<?php echo esc_url( $bp_url ); ?>"><?php echo esc_html( $bp_name ); ?></a></h3>
 									<button class="lumea-wish-btn" type="button" aria-label="<?php esc_attr_e( 'Add to wishlist', 'lumea' ); ?>" data-lumea-wish data-product_id="<?php echo esc_attr( $bp_id ); ?>">

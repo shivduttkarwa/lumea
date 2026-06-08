@@ -27,20 +27,6 @@
   object-fit: cover;
 }
 
-.lumea-blind-strips {
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  pointer-events: none;
-}
-
-.lumea-blind-strip {
-  background: var(--lumea-bg);
-  will-change: transform;
-}
-
 .lumea-mosaic-grid {
   position: absolute;
   inset: 0;
