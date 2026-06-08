@@ -1,5 +1,16 @@
 
 
+.lumea-header-logo,
+.lumea-nav-list li,
+.lumea-header-actions > *,
+.hero-title,
+.hero-label,
+.subtitles span,
+.cta-wrap,
+.lumea-reveal-js {
+  visibility: hidden;
+}
+
 .lumea-reveal--clip-js {
   --lumea-clip: 100%;
   -webkit-clip-path: inset(var(--lumea-clip) 0 0 0);
@@ -64,8 +75,10 @@
 
 .lumea-section-intro-js .lumea-eyebrow {
   will-change: transform, opacity, filter;
+  visibility: hidden;
 }
 
 .lumea-section-intro-js .lumea-section-desc {
   will-change: transform, opacity, filter;
+  visibility: hidden;
 }
