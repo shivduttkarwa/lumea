@@ -3574,6 +3574,53 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   display: none;
 }
 
+@media (min-width: 992px) and (max-height: 860px) {
+  .lumea-ritual-left {
+    top: 76px;
+    min-height: auto;
+    padding-bottom: 0;
+  }
+
+  .lumea-ritual-heading {
+    font-size: clamp(48px, 3.4vw, 62px);
+    line-height: 0.94;
+  }
+
+  .lumea-ritual-intro {
+    max-width: 560px;
+    margin-top: 18px;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  .lumea-ritual-accordion {
+    margin-top: 30px;
+    gap: 20px;
+  }
+
+  .lumea-ritual-acc-head {
+    padding-bottom: 10px;
+  }
+
+  .lumea-ritual-acc-title {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .lumea-ritual-acc.is-active .lumea-ritual-acc-title {
+    padding-left: 28px;
+    font-size: 16px;
+  }
+
+  .lumea-ritual-panel p {
+    max-width: 610px;
+    padding-top: 12px;
+    padding-left: 28px;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+}
+
 @media (max-width: 991px) {
   .lumea-ritual-desktop {
     display: none;
