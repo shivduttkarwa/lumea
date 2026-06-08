@@ -22,8 +22,13 @@
 		var data = new URLSearchParams();
 		data.append( 'security', params.apply_coupon_nonce );
 		data.append( 'coupon_code', code );
+		data.append( 'billing_email', document.getElementById( 'billing_email' ) ? document.getElementById( 'billing_email' ).value : '' );
 
-		fetch( params.ajax_url + '?action=apply_coupon', {
+		var couponUrl = params.wc_ajax_url
+			? params.wc_ajax_url.toString().replace( '%%endpoint%%', 'apply_coupon' )
+			: params.ajax_url + '?action=apply_coupon';
+
+		fetch( couponUrl, {
 			method: 'POST',
 			body: data,
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
