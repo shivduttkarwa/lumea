@@ -2500,5 +2500,11 @@ msgstr ""
 msgid "Nature's retinol alternative. Clinically proven to reduce fine lines and improve skin tone without sensitivity, redness or sun-avoidance requirements."
 msgstr ""
 
+msgid "Latest Products"
+msgstr ""
+
+msgid "Freshly launched formulas and seasonal essentials selected for your next skin ritual."
+msgstr ""
+
 msgid "Your refund will be processed within 3–5 business days of us receiving your return. You will receive an email confirmation."
 msgstr ""

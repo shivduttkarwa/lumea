@@ -485,6 +485,41 @@ function lumea_customize_register( $wp_customize ) {
 		) );
 	}
 
+	$wp_customize->add_section(
+		'lumea_latest',
+		array(
+			'title' => esc_html__( 'Latest Products', 'lumea' ),
+			'panel' => 'lumea_theme',
+		)
+	);
+
+	foreach ( array(
+		'lumea_latest_eyebrow' => array( 'Just Arrived',    'Eyebrow Label' ),
+		'lumea_latest_title'   => array( 'Latest Products', 'Section Title' ),
+	) as $key => $info ) {
+		$wp_customize->add_setting( $key, array(
+			'default'           => $info[0],
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $key, array(
+			'label'   => esc_html__( $info[1], 'lumea' ),
+			'section' => 'lumea_latest',
+			'type'    => 'text',
+		) );
+	}
+
+	$wp_customize->add_setting( 'lumea_latest_desc', array(
+		'default'           => 'Freshly launched formulas and seasonal essentials selected for your next skin ritual.',
+		'sanitize_callback' => 'sanitize_textarea_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_latest_desc', array(
+		'label'   => esc_html__( 'Section Description', 'lumea' ),
+		'section' => 'lumea_latest',
+		'type'    => 'textarea',
+	) );
+
 	
 	$wp_customize->add_section(
 		'lumea_ritual',

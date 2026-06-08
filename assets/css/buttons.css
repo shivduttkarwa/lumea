@@ -1,11 +1,11 @@
-
+﻿
 
 .lumea-btn {
-  min-width: 150px;
-  height: 46px;
-  padding: 0 24px;
-  border-radius: 7px;
-  border: 1px solid var(--lumea-border);
+  min-width: 9.375rem;
+  height: 2.875rem;
+  padding: 0 1.5rem;
+  border-radius: 0.4375rem;
+  border: 0.0625rem solid var(--lumea-border);
   background: transparent;
   color: var(--lumea-text);
   cursor: pointer;
@@ -13,9 +13,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 0.625rem;
 
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.13em;
   text-transform: uppercase;
@@ -32,7 +32,7 @@
 }
 
 .lumea-btn:hover {
-  transform: translateY(-1px);
+  transform: translateY(-0.0625rem);
 }
 
 .btn-dark,
@@ -46,7 +46,7 @@
 .btn-black:hover {
   background: #8f4d43;
   border-color: #8f4d43;
-  box-shadow: 0 8px 20px rgba(143, 77, 67, 0.14);
+  box-shadow: 0 0.5rem 1.25rem rgba(143, 77, 67, 0.14);
 }
 
 .btn-outline,
@@ -61,7 +61,7 @@
   border-color: var(--lumea-green);
   background: var(--lumea-green);
   color: var(--lumea-text);
-  box-shadow: 0 8px 20px rgba(120, 154, 75, 0.18);
+  box-shadow: 0 0.5rem 1.25rem rgba(120, 154, 75, 0.18);
 }
 
 .btn-soft {
@@ -84,7 +84,7 @@
 .btn-accent:hover {
   background: var(--lumea-accent-dark);
   border-color: var(--lumea-accent-dark);
-  box-shadow: 0 8px 20px rgba(143, 77, 67, 0.14);
+  box-shadow: 0 0.5rem 1.25rem rgba(143, 77, 67, 0.14);
 }
 
 .btn-arrow {
@@ -101,8 +101,8 @@
 }
 
 .btn-arrow svg {
-  width: 15px;
-  height: 15px;
+  width: 0.9375rem;
+  height: 0.9375rem;
   display: block;
   stroke: currentColor;
   stroke-width: 1.8;
@@ -111,11 +111,11 @@
 }
 
 .btn-arrow-right:hover svg {
-  transform: translateX(3px);
+  transform: translateX(0.1875rem);
 }
 
 .btn-arrow-left:hover svg {
-  transform: translateX(-3px);
+  transform: translateX(-0.1875rem);
 }
 
 @media (max-width: 640px) {

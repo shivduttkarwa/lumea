@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --lumea-bg: #fffaf7;
   --lumea-surface: #ffffff;
   --lumea-text: #241816;
@@ -8,7 +8,7 @@
   --lumea-green: #c7f099;
   --lumea-border: rgba(36, 24, 22, 0.12);
 
-  --lumea-radius: 24px;
+  --lumea-radius: 1.5rem;
   --lumea-container-narrow: 48rem;
   --lumea-container: 75rem;
   --lumea-container-wide: 90rem;

@@ -1,4 +1,4 @@
-
+﻿
 
 .lumea-header-logo,
 .lumea-nav-list li,
@@ -50,7 +50,7 @@
 
 .lumea-mosaic-tile {
   background: #ffffff;
-  border: 1px solid rgba(36, 24, 22, 0.04);
+  border: 0.0625rem solid rgba(36, 24, 22, 0.04);
   transform-origin: center;
   will-change: transform, opacity;
 }
@@ -64,7 +64,9 @@
   overflow: hidden;
   display: block;
   
+  padding-right: 0.08em;
   padding-bottom: 0.12em;
+  margin-right: -0.08em;
   margin-bottom:  -0.12em;
 }
 

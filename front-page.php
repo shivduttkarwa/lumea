@@ -454,19 +454,20 @@ $lumea_latest = array(
 	),
 );
 ?>
+<div class="lumea-section-intro lumea-section-intro-js lumea-latest-intro">
+	<div class="lumea-container">
+		<span class="lumea-eyebrow"><?php echo esc_html( get_theme_mod( 'lumea_latest_eyebrow', __( 'Just Arrived', 'lumea' ) ) ); ?></span>
+		<h2 class="lumea-section-title"><?php echo esc_html( get_theme_mod( 'lumea_latest_title', __( 'Latest Products', 'lumea' ) ) ); ?></h2>
+		<p class="lumea-section-desc"><?php echo esc_html( get_theme_mod( 'lumea_latest_desc', __( 'Freshly launched formulas and seasonal essentials selected for your next skin ritual.', 'lumea' ) ) ); ?></p>
+		<a href="<?php echo esc_url( $shop_url ); ?>" class="lumea-latest-all">
+			<?php esc_html_e( 'View all', 'lumea' ); ?>
+			<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+		</a>
+	</div>
+</div>
+
 <section class="lumea-latest" aria-label="<?php esc_attr_e( 'Latest products', 'lumea' ); ?>">
 	<div class="lumea-container">
-
-		<div class="lumea-latest-head lumea-section-intro-js">
-			<div>
-				<p class="lumea-latest-eyebrow lumea-eyebrow"><?php esc_html_e( 'Just Arrived', 'lumea' ); ?></p>
-				<h2 class="lumea-latest-title lumea-section-title"><?php echo esc_html( get_theme_mod( 'lumea_latest_title', 'Latest Products' ) ); ?></h2>
-			</div>
-			<a href="<?php echo esc_url( $shop_url ); ?>" class="lumea-latest-all">
-				<?php esc_html_e( 'View all', 'lumea' ); ?>
-				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-			</a>
-		</div>
 
 		<?php
 		$lumea_lp_source = array();
