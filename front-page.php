@@ -363,19 +363,15 @@ if ( class_exists( 'WooCommerce' ) ) {
 <?php
 $lumea_cta_bg = get_theme_mod( 'lumea_cta_bg_image', LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg' );
 ?>
-<section class="lumea-fullcta" aria-label="Shop all products" style="--cta-bg: url('<?php echo esc_url( $lumea_cta_bg ); ?>')">
+<section class="lumea-fullcta" aria-label="<?php esc_attr_e( 'Shop all products', 'lumea' ); ?>" style="--cta-bg: url('<?php echo esc_url( $lumea_cta_bg ); ?>')">
 	<div class="lumea-fullcta-overlay"></div>
-	<div class="lumea-fullcta-inner lumea-section-intro-js">
-		<p class="lumea-fullcta-eyebrow lumea-eyebrow"><?php esc_html_e( 'The Collection', 'lumea' ); ?></p>
-		<h2 class="lumea-fullcta-heading lumea-section-title">
-			<?php echo esc_html( get_theme_mod( 'lumea_cta_heading_1', 'For' ) ); ?><br>
-			<em><?php echo esc_html( get_theme_mod( 'lumea_cta_heading_2', 'every' ) ); ?></em><br>
-			<?php echo esc_html( get_theme_mod( 'lumea_cta_heading_3', 'skin.' ) ); ?>
+	<div class="lumea-fullcta-inner">
+		<h2 class="lumea-fullcta-heading lumea-reveal-js lumea-reveal--static-js">
+			<?php echo esc_html( get_theme_mod( 'lumea_cta_heading_1', 'For' ) ); ?> <em><?php echo esc_html( get_theme_mod( 'lumea_cta_heading_2', 'every' ) ); ?></em> <?php echo esc_html( get_theme_mod( 'lumea_cta_heading_3', 'skin.' ) ); ?>
 		</h2>
-		<p class="lumea-fullcta-sub lumea-section-desc"><?php echo esc_html( get_theme_mod( 'lumea_cta_sub', 'Every formula crafted for one result — skin that looks and feels undeniably radiant.' ) ); ?></p>
-		<a href="<?php echo esc_url( $shop_url ); ?>" class="lumea-fullcta-btn">
+		<a href="<?php echo esc_url( $shop_url ); ?>" class="lumea-fullcta-btn lumea-reveal-js lumea-reveal--static-js">
 			<span><?php echo esc_html( get_theme_mod( 'lumea_cta_btn', 'Shop All Products' ) ); ?></span>
-			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+			<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 		</a>
 	</div>
 </section>

@@ -124,7 +124,7 @@
   
 
   ScrollTrigger.batch( '.lumea-reveal-js:not(.lumea-reveal--hero-js)', {
-    start:   'top bottom-=100',
+    start:   'top bottom-=50',
     once:    true,
     onEnter: animateBatch,
   } );

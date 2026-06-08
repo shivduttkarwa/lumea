@@ -213,7 +213,7 @@
       if ( ! entries[ 0 ].isIntersecting ) return;
       gsap.to( visible, { autoAlpha: 1, duration: 1.0, ease: 'power2.out', stagger: 0.15 } );
       io.disconnect();
-    }, { threshold: 0.5 } );
+    }, { threshold: 0.35 } );
 
     io.observe( slider );
   }

@@ -3358,39 +3358,26 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 .lumea-fullcta-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(10, 10, 8, 0.78) 0%,
-    rgba(10, 10, 8, 0.28) 50%,
-    rgba(10, 10, 8, 0.05) 100%
-  );
+  background: rgba(10, 10, 8, 0.42);
 }
 
 .lumea-fullcta-inner {
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 0 32px 100px;
   text-align: center;
-  padding: 0 32px 72px;
-  max-width: 760px;
-  width: 100%;
-}
-
-.lumea-fullcta-eyebrow {
-  margin: 0 0 20px;
-  font-family: Inter, sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
 }
 
 .lumea-fullcta-heading {
-  margin: 0 0 20px;
+  margin: 0;
   font-family: "Clash Display", Inter, sans-serif;
-  font-size: clamp(52px, 8vw, 116px);
+  font-size: clamp(52px, 8vw, 120px);
   font-weight: 400;
-  line-height: 0.92;
+  line-height: 1;
   letter-spacing: -0.03em;
   color: #ffffff;
 }
@@ -3401,27 +3388,18 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   color: #c7f099;
 }
 
-.lumea-fullcta-sub {
-  margin: 0 auto 40px;
-  font-family: Inter, sans-serif;
-  font-size: 15px;
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.55);
-  max-width: 400px;
-}
-
 .lumea-fullcta-btn {
   display: inline-flex;
   align-items: center;
   gap: 12px;
   height: 48px;
-  padding: 0 28px;
+  padding: 0 32px;
   background: #ffffff;
   color: #13241d;
   font-family: Inter, sans-serif;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
   transition: background 0.25s ease, color 0.25s ease, gap 0.25s ease;
@@ -3434,17 +3412,8 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 }
 
 @media (max-width: 767px) {
-  .lumea-fullcta-inner {
-    padding: 0 24px 52px;
-  }
-
   .lumea-fullcta-heading {
-    font-size: clamp(44px, 13vw, 72px);
-  }
-
-  .lumea-fullcta-sub {
-    font-size: 14px;
-    margin-bottom: 32px;
+    font-size: clamp(40px, 12vw, 64px);
   }
 }
 
