@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Lumea Core
  * Description: Companion functionality for the Lumea theme.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Shivdutt Karwa
  * Text Domain: lumea-core
  * Domain Path: /languages
@@ -221,6 +221,11 @@ function lumea_core_get_wishlist_items() {
 			continue;
 		}
 
+		$price_text = html_entity_decode(
+			wp_strip_all_tags( $product->get_price_html() ),
+			ENT_QUOTES,
+			get_bloginfo( 'charset' )
+		);
 		$can_add_to_cart = $product->is_purchasable() && $product->is_in_stock();
 		$cart_text       = $can_add_to_cart ? $product->add_to_cart_text() : __( 'View product', 'lumea-core' );
 		$cart_aria       = $can_add_to_cart
@@ -233,7 +238,7 @@ function lumea_core_get_wishlist_items() {
 			'id'              => $id,
 			'name'            => $product->get_name(),
 			'url'             => get_permalink( $id ),
-			'price'           => wp_strip_all_tags( $product->get_price_html() ),
+			'price'           => $price_text,
 			'image'           => wp_get_attachment_image_url( $product->get_image_id(), 'woocommerce_thumbnail' ) ?: '',
 			'type'            => $product->get_type(),
 			'can_add_to_cart' => $can_add_to_cart,

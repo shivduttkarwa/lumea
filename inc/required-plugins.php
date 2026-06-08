@@ -19,7 +19,7 @@ function lumea_register_required_plugins() {
 			'slug'     => 'lumea-core',
 			'source'   => LUMEA_THEME_DIR . '/plugins/lumea-core.zip',
 			'required' => true,
-			'version'  => '1.0.1',
+			'version'  => '1.0.2',
 		),
 		array(
 			'name'     => 'WooCommerce',

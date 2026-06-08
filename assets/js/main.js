@@ -739,8 +739,6 @@
     if (productId) {
       syncPageCards(productId, quantity || 1);
     }
-
-    openCartDrawer();
   }
 
   /* POST qty change; calls done(true|false) when the request settles. */
