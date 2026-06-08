@@ -25,7 +25,7 @@ get_header();
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="lumea-404-btn lumea-404-btn--primary">
 				<?php esc_html_e( 'Back to Home', 'lumea' ); ?>
 			</a>
-			<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="lumea-404-btn lumea-404-btn--outline">
+			<a href="<?php echo esc_url( lumea_get_shop_url() ); ?>" class="lumea-404-btn lumea-404-btn--outline">
 				<?php esc_html_e( 'Shop the Collection', 'lumea' ); ?>
 			</a>
 		</div>

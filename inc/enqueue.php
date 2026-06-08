@@ -118,27 +118,9 @@ function lumea_enqueue_assets() {
 
 	
 	wp_enqueue_script(
-		'gsap-drawsvg',
-		'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/DrawSVGPlugin.min.js',
-		array( 'gsap' ),
-		'3.12.5',
-		true
-	);
-
-	
-	wp_enqueue_script(
-		'gsap-splittext',
-		'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/SplitText.min.js',
-		array( 'gsap' ),
-		'3.12.5',
-		true
-	);
-
-	
-	wp_enqueue_script(
 		'lumea-main',
 		LUMEA_THEME_URI . '/assets/js/main.js',
-		array( 'gsap', 'gsap-scrolltrigger', 'gsap-drawsvg', 'gsap-splittext' ),
+		array( 'gsap', 'gsap-scrolltrigger' ),
 		LUMEA_VERSION,
 		true
 	);
@@ -147,7 +129,7 @@ function lumea_enqueue_assets() {
 	wp_enqueue_script(
 		'lumea-animations',
 		LUMEA_THEME_URI . '/assets/js/animations.js',
-		array( 'gsap', 'gsap-scrolltrigger', 'gsap-splittext' ),
+		array( 'gsap', 'gsap-scrolltrigger' ),
 		LUMEA_VERSION,
 		true
 	);
@@ -158,8 +140,8 @@ function lumea_enqueue_assets() {
 		array(
 			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 			'nonce'   => wp_create_nonce( 'lumea_wishlist' ),
-			'shopUrl' => function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' ),
-			'cartUrl' => function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url( '/cart/' ),
+			'shopUrl' => lumea_get_shop_url(),
+			'cartUrl' => lumea_get_cart_url(),
 			'i18n'    => array(
 				'addToWishlist'        => __( 'Add to wishlist', 'lumea' ),
 				'removeFromWishlist'   => __( 'Remove from wishlist', 'lumea' ),
@@ -262,7 +244,7 @@ function lumea_enqueue_assets() {
 		);
 
 		$lumea_slides = array();
-		$lumea_shop_fallback = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' );
+		$lumea_shop_fallback = lumea_get_shop_url();
 		foreach ( $lumea_slide_defaults as $n => $d ) {
 			$lumea_slides[] = array(
 				'number' => str_pad( $n, 2, '0', STR_PAD_LEFT ),

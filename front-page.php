@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-$shop_url = esc_url( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : '#' );
+$shop_url = esc_url( lumea_get_shop_url() );
 ?>
 <?php get_header(); ?>
 
@@ -373,7 +373,7 @@ $lumea_cta_bg = get_theme_mod( 'lumea_cta_bg_image', LUMEA_THEME_URI . '/assets/
 			<?php echo esc_html( get_theme_mod( 'lumea_cta_heading_3', 'skin.' ) ); ?>
 		</h2>
 		<p class="lumea-fullcta-sub lumea-section-desc"><?php echo esc_html( get_theme_mod( 'lumea_cta_sub', 'Every formula crafted for one result — skin that looks and feels undeniably radiant.' ) ); ?></p>
-		<a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="lumea-fullcta-btn">
+		<a href="<?php echo esc_url( $shop_url ); ?>" class="lumea-fullcta-btn">
 			<span><?php echo esc_html( get_theme_mod( 'lumea_cta_btn', 'Shop All Products' ) ); ?></span>
 			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 		</a>
@@ -466,7 +466,7 @@ $lumea_latest = array(
 				<p class="lumea-latest-eyebrow lumea-eyebrow"><?php esc_html_e( 'Just Arrived', 'lumea' ); ?></p>
 				<h2 class="lumea-latest-title lumea-section-title"><?php echo esc_html( get_theme_mod( 'lumea_latest_title', 'Latest Products' ) ); ?></h2>
 			</div>
-			<a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="lumea-latest-all">
+			<a href="<?php echo esc_url( $shop_url ); ?>" class="lumea-latest-all">
 				<?php esc_html_e( 'View all', 'lumea' ); ?>
 				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 			</a>

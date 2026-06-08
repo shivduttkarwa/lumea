@@ -1,4 +1,6 @@
 ( function () {
+	'use strict';
+
 	var couponBtn   = document.getElementById( 'lumeaApplyCoupon' );
 	var couponInput = document.getElementById( 'lumeaCouponCode' );
 

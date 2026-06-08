@@ -3,7 +3,7 @@
  * Checkout page — Luméa premium edition.
  *
  * @package Lumea
- * @version 8.0.0
+ * @version 9.4.0
  */
 
 defined( 'ABSPATH' ) || exit;

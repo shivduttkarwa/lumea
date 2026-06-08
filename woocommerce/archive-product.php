@@ -3,7 +3,7 @@
  * Shop / archive-product template — world-class edition.
  *
  * @package Lumea
- * @version 8.0.0
+ * @version 8.6.0
  */
 
 defined( 'ABSPATH' ) || exit;

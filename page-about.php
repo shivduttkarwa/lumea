@@ -85,7 +85,7 @@ $a = array(
 				<span class="lma-hero-line lma-hero-line--soft"><?php echo esc_html( $a['hero_h1_2'] ); ?></span>
 			</h1>
 			<p class="lma-hero-sub"><?php echo esc_html( $a['hero_sub'] ); ?></p>
-			<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="lma-hero-cta">
+			<a href="<?php echo esc_url( lumea_get_shop_url() ); ?>" class="lma-hero-cta">
 				<?php echo esc_html( $a['hero_cta'] ); ?>
 				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
 			</a>
@@ -158,7 +158,7 @@ $a = array(
 				<p class="lma-label lma-label--warm"><?php echo esc_html( $a['story1_label'] ); ?></p>
 				<h2 class="lma-story-h2"><?php echo esc_html( $a['story1_h2'] ); ?></h2>
 				<p class="lma-body"><?php echo esc_html( $a['story1_body'] ); ?></p>
-				<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="lma-link">
+				<a href="<?php echo esc_url( lumea_get_shop_url() ); ?>" class="lma-link">
 					<?php echo esc_html( $a['story1_link'] ); ?>
 					<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
 				</a>
@@ -251,7 +251,7 @@ $a = array(
 			<p class="lma-label" style="color:rgba(255,255,255,0.4)"><?php echo esc_html( $a['cta_label'] ); ?></p>
 			<h2 class="lma-cta-h2"><?php echo nl2br( esc_html( $a['cta_h2'] ) ); ?></h2>
 			<div class="lma-cta-btns">
-				<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="lma-btn lma-btn--accent">
+				<a href="<?php echo esc_url( lumea_get_shop_url() ); ?>" class="lma-btn lma-btn--accent">
 					<?php echo esc_html( $a['cta_btn1'] ); ?>
 				</a>
 				<a href="<?php echo esc_url( get_permalink( get_page_by_path( 'contact' ) ) ?: home_url( '/contact/' ) ); ?>" class="lma-btn lma-btn--ghost">

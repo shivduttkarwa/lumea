@@ -4,7 +4,7 @@ Theme Name:  Luméa
 Theme URI:   https://themeforest.net/user/shivdutt/portfolio
 Author:      Shivdutt Karwa
 Author URI:  https://themeforest.net/user/shivdutt
-Version:     1.1.1
+Version:     1.1.2
 License:     GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,15 +15,16 @@ Luméa is a premium beauty and skincare WooCommerce WordPress theme built for
 modern cosmetic, wellness, and personal care brands. It features a canvas-based
 animated hero, an editorial product slider, scroll-reveal animations powered by
 GSAP, a full WooCommerce storefront with custom product cards, slide-out cart,
-wishlist functionality, and an extensive Customizer panel with 56+ settings
+wishlist UI, and an extensive Customizer panel with 56+ settings
 across 9 sections — giving shop owners full control without touching code.
 
 
 == REQUIREMENTS ==
 
-- WordPress 6.5 or higher
+- WordPress 6.8 or higher
 - PHP 8.0 or higher
-- WooCommerce 8.0 or higher (required for e-commerce features)
+- Lumea Core 1.0.0 or higher (bundled companion plugin)
+- WooCommerce 10.0 or higher (required for e-commerce features)
 - Modern browser (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+)
 
 
@@ -33,7 +34,7 @@ across 9 sections — giving shop owners full control without touching code.
 2. Go to Appearance > Themes > Add New > Upload Theme.
 3. Click "Choose File", select the lumea.zip file, and click "Install Now".
 4. After installation, click "Activate".
-5. Install and activate the WooCommerce plugin when prompted.
+5. Install and activate the Lumea Core and WooCommerce plugins when prompted.
 6. Go to Appearance > Customize to configure the theme.
 
 
@@ -41,12 +42,16 @@ across 9 sections — giving shop owners full control without touching code.
 
 After activating the theme, follow these steps to replicate the demo:
 
-1. INSTALL WOOCOMMERCE
+1. INSTALL REQUIRED PLUGINS
+   Go to Appearance > Install Plugins and install the bundled Lumea Core plugin
+   and WooCommerce.
+
+2. CONFIGURE WOOCOMMERCE
    Go to Plugins > Add New, search for "WooCommerce", install and activate it.
    Run the WooCommerce setup wizard to configure your store currency, payments,
    and shipping.
 
-2. CREATE REQUIRED PAGES
+3. CREATE REQUIRED PAGES
    WooCommerce creates its own pages (Shop, Cart, Checkout, My Account).
    Additionally create the following pages and assign the correct template:
 
@@ -56,17 +61,17 @@ After activating the theme, follow these steps to replicate the demo:
    - "Wishlist" → Page Template: Wishlist
    - "Blog"     → Set as Posts Page under Settings > Reading
 
-3. SET THE FRONT PAGE
+4. SET THE FRONT PAGE
    Go to Settings > Reading and set:
    - "Your homepage displays" → A static page
    - "Homepage" → Front Page (or whichever page you set as home)
    - "Posts page" → Blog
 
-4. SET UP NAVIGATION
+5. SET UP NAVIGATION
    Go to Appearance > Menus, create a menu, add your pages, and assign it to
    the "Primary Menu" location.
 
-5. CONFIGURE THE CUSTOMIZER
+6. CONFIGURE THE CUSTOMIZER
    Go to Appearance > Customize > Luméa Theme to set up:
    - Hero section images and labels (slide 1 image is required)
    - Editorial slider images and product links
@@ -77,12 +82,12 @@ After activating the theme, follow these steps to replicate the demo:
    - About page: hero, stats, manifesto, story sections
    - Shop hero images per category
 
-6. ADD PRODUCTS
+7. ADD PRODUCTS
    Go to Products > Add New to create your first WooCommerce products.
-   Set a product image, price, and category. The Bestsellers section can be
-   filtered by assigning a "Bestseller" product category.
+   Set a product image, price, and category. Use the Lumea product data tab to
+   mark products for the Bestsellers and Latest Products homepage sections.
 
-7. ADD BLOG POSTS
+8. ADD BLOG POSTS
    Go to Posts > Add New to publish journal articles. Use a featured image for
    each post — it appears in the blog archive grid and related posts section.
 
@@ -144,11 +149,11 @@ The following custom page templates are included:
 
 - About Us   (page-about.php)   — Full about page with hero, stats, story,
                                    values, press quotes, and testimonials.
-- Contact    (page-contact.php) — Contact form with nonce-protected submission
-                                   and email delivery via wp_mail().
+- Contact    (page-contact.php) — Contact page layout. Form handling is provided
+                                   by the bundled Lumea Core plugin.
 - FAQ        (page-faq.php)     — Accordion FAQ page organised by category.
 - Wishlist   (page-wishlist.php)— Customer wishlist stored in browser localStorage
-                                   with AJAX cart integration.
+                                   with AJAX cart integration via Lumea Core.
 
 
 == WIDGET AREAS ==
@@ -219,9 +224,10 @@ under free, open-source licenses compatible with the GPL.
    License: SIL Open Font License 1.1
    https://scripts.sil.org/OFL
 
-All theme images used in the demo are for demonstration purposes only and are
-NOT included in the final download. Replace them with your own licensed images
-before launching your store.
+Demo and preview media included in this development package are placeholder
+assets. For marketplace release, replace them with fully licensed production
+media, document every included media license, or move preview-only media out of
+the buyer ZIP before packaging.
 
 
 == CHANGELOG ==
@@ -236,9 +242,12 @@ before launching your store.
 * Feature: Support/contact email is now configurable via Customizer > Footer.
 * Feature: Bestseller and Latest product category names are now configurable via Customizer.
 * Feature: Added Schema.org JSON-LD Product markup on single product pages.
-* Feature: Added TGM Plugin Activation for required plugin (WooCommerce) notification.
+* Feature: Added TGM Plugin Activation for required plugins notification.
+* Feature: Added bundled Lumea Core companion plugin for wishlist AJAX, cart quantity AJAX, contact form handling, and product placement flags.
+* Compatibility: Removed theme-owned demo gateway, automatic WooCommerce page rewriting, and product category mutation logic.
 * Asset: Added blocks.css with styling for all core Gutenberg blocks.
 * Asset: Set explicit version strings on GSAP (3.12.5) and Swiper (11.0.0) enqueues.
+* Asset: Removed unavailable premium GSAP plugin CDN handles.
 * Asset: Removed developer-only Python utility scripts from the theme package.
 * Compatibility: Tested up to WordPress 6.8.
 

@@ -648,9 +648,16 @@
 
     overlay.addEventListener('click', closeCartDrawer);
 
-    document.body.addEventListener('added_to_cart', function () {
-      openCartDrawer();
+    document.body.addEventListener('added_to_cart', function (event) {
+      var detail = event.detail || {};
+      handleAddedToCart(detail.fragments || {}, detail.button || null);
     });
+
+    if (window.jQuery) {
+      window.jQuery(document.body).on('added_to_cart', function (event, fragments, cartHash, button) {
+        handleAddedToCart(fragments || {}, button || null);
+      });
+    }
   }
 
   /* Swap each fragment selector in the DOM with the server-rendered HTML. */
@@ -710,6 +717,32 @@
     });
   }
 
+  function getAddToCartButtonNode(button) {
+    if (!button) {
+      return null;
+    }
+
+    if (button.jquery && button.length) {
+      return button.get(0);
+    }
+
+    return button.nodeType ? button : null;
+  }
+
+  function handleAddedToCart(fragments, button) {
+    applyFragments(fragments || {});
+
+    var buttonNode = getAddToCartButtonNode(button);
+    var productId = buttonNode ? toPositiveInt(buttonNode.getAttribute('data-product_id')) : 0;
+    var quantity = buttonNode ? toPositiveInt(buttonNode.getAttribute('data-quantity')) : 1;
+
+    if (productId) {
+      syncPageCards(productId, quantity || 1);
+    }
+
+    openCartDrawer();
+  }
+
   /* POST qty change; calls done(true|false) when the request settles. */
   function updateCartQty(productId, quantity, done) {
     if (typeof window.lumeaData === 'undefined') {
@@ -730,8 +763,8 @@
       })
       .then(function (data) {
         if (data && data.success) {
-          applyFragments(data.data.fragments);
-          done(true);
+          applyFragments(data.data && data.data.fragments ? data.data.fragments : {});
+          done(true, data.data || {});
           return;
         }
         done(false);
@@ -739,6 +772,71 @@
       .catch(function () {
         done(false);
       });
+  }
+
+  function setStepperVisual(quantityNode, atcWrap, cartLink, quantity) {
+    if (quantity <= 0) {
+      quantityNode.textContent = '1';
+      if (atcWrap) {
+        atcWrap.classList.remove('is-added');
+      }
+      if (cartLink) {
+        cartLink.classList.remove('is-active');
+      }
+      return;
+    }
+
+    quantityNode.textContent = String(quantity);
+    if (atcWrap) {
+      atcWrap.classList.add('is-added');
+    }
+    if (cartLink) {
+      cartLink.classList.add('is-active');
+    }
+  }
+
+  function sendStepperQuantity(stepper, productId, quantityNode, atcWrap, cartLink, quantity, fallbackQuantity) {
+    stepper.dataset.busy = '1';
+    stepper.dataset.sentQty = String(quantity);
+
+    updateCartQty(productId, quantity, function (ok, data) {
+      var pendingQuantity = stepper.dataset.pendingQty;
+      delete stepper.dataset.busy;
+      delete stepper.dataset.sentQty;
+
+      if (ok) {
+        var serverQuantity = data && typeof data.quantity !== 'undefined'
+          ? parseInt(data.quantity, 10)
+          : quantity;
+
+        if (!Number.isFinite(serverQuantity)) {
+          serverQuantity = quantity;
+        }
+
+        setStepperVisual(quantityNode, atcWrap, cartLink, serverQuantity);
+        syncPageCards(productId, serverQuantity);
+      }
+
+      if (typeof pendingQuantity !== 'undefined' && pendingQuantity !== String(quantity)) {
+        delete stepper.dataset.pendingQty;
+        sendStepperQuantity(
+          stepper,
+          productId,
+          quantityNode,
+          atcWrap,
+          cartLink,
+          parseInt(pendingQuantity, 10) || 0,
+          ok ? quantity : fallbackQuantity
+        );
+        return;
+      }
+
+      delete stepper.dataset.pendingQty;
+
+      if (!ok) {
+        setStepperVisual(quantityNode, atcWrap, cartLink, fallbackQuantity);
+      }
+    });
   }
 
   document.addEventListener('click', function (event) {
@@ -809,7 +907,7 @@
     }
 
     var stepper = stepperButton.closest('[data-lumea-qty]');
-    if (!stepper || stepper.dataset.busy) {
+    if (!stepper) {
       return;
     }
 
@@ -827,38 +925,14 @@
     var atcWrap = stepper.closest('.lumea-card-atc-wrap');
     var cartLink = atcWrap && atcWrap.closest('.lumea-card-actions') && atcWrap.closest('.lumea-card-actions').querySelector('[data-lumea-view-cart]');
 
-    if (newQuantity === 0) {
-      quantityNode.textContent = '1';
-      if (atcWrap) {
-        atcWrap.classList.remove('is-added');
-      }
-      if (cartLink) {
-        cartLink.classList.remove('is-active');
-      }
-    } else {
-      quantityNode.textContent = String(newQuantity);
+    setStepperVisual(quantityNode, atcWrap, cartLink, newQuantity);
+
+    if (stepper.dataset.busy === '1') {
+      stepper.dataset.pendingQty = String(newQuantity);
+      return;
     }
 
-    stepper.dataset.busy = '1';
-
-    updateCartQty(productId, newQuantity, function (ok) {
-      delete stepper.dataset.busy;
-
-      if (ok) {
-        syncPageCards(productId, newQuantity);
-        return;
-      }
-
-      quantityNode.textContent = String(currentQuantity);
-      if (newQuantity === 0) {
-        if (atcWrap) {
-          atcWrap.classList.add('is-added');
-        }
-        if (cartLink) {
-          cartLink.classList.add('is-active');
-        }
-      }
-    });
+    sendStepperQuantity(stepper, productId, quantityNode, atcWrap, cartLink, newQuantity, currentQuantity);
   });
 
   document.addEventListener('keydown', function (event) {

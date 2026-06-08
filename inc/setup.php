@@ -9,6 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( ! isset( $content_width ) ) {
+	$content_width = 1200;
+}
+
 
 function lumea_theme_setup() {
 

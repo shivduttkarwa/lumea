@@ -9,12 +9,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$shop_url        = function_exists( 'wc_get_page_id' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : home_url( '/shop/' );
+$shop_url        = lumea_get_shop_url();
 $blog_url        = get_option( 'page_for_posts' ) ? get_permalink( get_option( 'page_for_posts' ) ) : home_url( '/blog/' );
 $about_url       = ( $ap = get_page_by_path( 'about' ) )   ? get_permalink( $ap ) : home_url( '/about/' );
 $contact_url     = ( $cp = get_page_by_path( 'contact' ) ) ? get_permalink( $cp ) : home_url( '/contact/' );
-$bestseller_term = get_term_by( 'name', 'Bestseller', 'product_cat' );
-$bestseller_url  = $bestseller_term ? get_term_link( $bestseller_term ) : $shop_url;
+$bestseller_url  = $shop_url;
+if ( taxonomy_exists( 'product_cat' ) ) {
+	$bestseller_term = get_term_by( 'name', 'Bestseller', 'product_cat' );
+	$term_link       = $bestseller_term ? get_term_link( $bestseller_term ) : '';
+	$bestseller_url  = ( $term_link && ! is_wp_error( $term_link ) ) ? $term_link : $shop_url;
+}
 
 $footer_headline         = get_theme_mod( 'lumea_footer_headline',        'Discover your skin&rsquo;s new ritual. Start today.' );
 $footer_cta_text         = get_theme_mod( 'lumea_footer_cta_text',        'Shop Collection' );

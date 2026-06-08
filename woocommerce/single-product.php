@@ -3,7 +3,7 @@
  * Single product — Luméa world-class edition.
  *
  * @package Lumea
- * @version 8.0.0
+ * @version 1.6.4
  */
 
 defined( 'ABSPATH' ) || exit;

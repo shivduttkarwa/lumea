@@ -93,7 +93,7 @@ foreach ( $wp_query->posts as $p ) {
 					$post_type  = get_post_type();
 					$is_product = ( $post_type === 'product' );
 					$is_post    = ( $post_type === 'post' );
-					$cats       = $is_product
+					$cats       = ( $is_product && taxonomy_exists( 'product_cat' ) )
 						? get_the_terms( get_the_ID(), 'product_cat' )
 						: get_the_category();
 					$cat_name   = ( $cats && ! is_wp_error( $cats ) ) ? esc_html( $cats[0]->name ) : '';
@@ -175,7 +175,7 @@ foreach ( $wp_query->posts as $p ) {
 					<?php esc_html_e( 'Try a different keyword, or explore what we have to offer.', 'lumea' ); ?>
 				</p>
 				<div class="lumea-search-empty-actions">
-					<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="lumea-search-empty-btn lumea-search-empty-btn--primary">
+					<a href="<?php echo esc_url( lumea_get_shop_url() ); ?>" class="lumea-search-empty-btn lumea-search-empty-btn--primary">
 						<?php esc_html_e( 'Shop All', 'lumea' ); ?>
 					</a>
 					<a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="lumea-search-empty-btn">

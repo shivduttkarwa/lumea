@@ -3,7 +3,7 @@
  * Product loop open.
  *
  * @package Lumea
- * @version 8.0.0
+ * @version 3.3.0
  */
 
 defined( 'ABSPATH' ) || exit;

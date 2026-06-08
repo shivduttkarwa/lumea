@@ -1,4 +1,6 @@
 ( function () {
+	'use strict';
+
 	var cartData = window.lumeaCartData || {};
 	var i18n     = cartData.i18n || {};
 

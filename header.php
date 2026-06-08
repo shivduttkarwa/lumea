@@ -9,23 +9,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$lumea_wishlist_page = get_page_by_path( 'wishlist' );
-$lumea_wishlist_url  = $lumea_wishlist_page ? get_permalink( $lumea_wishlist_page ) : home_url( '/wishlist/' );
+$lumea_wishlist_url  = lumea_get_wishlist_url();
 $lumea_contact_page  = get_page_by_path( 'contact' );
 $lumea_contact_url   = $lumea_contact_page ? get_permalink( $lumea_contact_page ) : home_url( '/contact/' );
 $lumea_has_wc        = class_exists( 'WooCommerce' );
 $lumea_is_logged_in  = is_user_logged_in();
 
-$lumea_account_url = $lumea_has_wc ? wc_get_page_permalink( 'myaccount' ) : wp_login_url();
+$lumea_account_url = lumea_get_myaccount_url();
 
 if ( ! $lumea_account_url ) {
 	$lumea_account_url = home_url( '/my-account/' );
 }
 
-$lumea_orders_url = $lumea_has_wc ? wc_get_account_endpoint_url( 'orders' ) : $lumea_account_url;
-$lumea_details_url = $lumea_has_wc ? wc_get_account_endpoint_url( 'edit-account' ) : $lumea_account_url;
-$lumea_addresses_url = $lumea_has_wc ? wc_get_account_endpoint_url( 'edit-address' ) : $lumea_account_url;
-$lumea_bag_url = $lumea_has_wc ? wc_get_cart_url() : home_url( '/cart/' );
+$lumea_orders_url    = ( $lumea_has_wc && function_exists( 'wc_get_account_endpoint_url' ) ) ? wc_get_account_endpoint_url( 'orders' ) : $lumea_account_url;
+$lumea_details_url   = ( $lumea_has_wc && function_exists( 'wc_get_account_endpoint_url' ) ) ? wc_get_account_endpoint_url( 'edit-account' ) : $lumea_account_url;
+$lumea_addresses_url = ( $lumea_has_wc && function_exists( 'wc_get_account_endpoint_url' ) ) ? wc_get_account_endpoint_url( 'edit-address' ) : $lumea_account_url;
+$lumea_bag_url       = lumea_get_cart_url();
 
 $lumea_register_url = $lumea_account_url;
 if ( $lumea_has_wc ) {
@@ -68,14 +67,18 @@ if ( $lumea_has_wc ) {
 				'container'      => false,
 				'menu_class'     => 'lumea-nav-list',
 				'fallback_cb'    => function() {
-					$shop_url         = function_exists( 'wc_get_page_id' ) && wc_get_page_id( 'shop' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : home_url( '/shop/' );
+					$shop_url         = lumea_get_shop_url();
 					$blog_url         = get_option( 'page_for_posts' ) ? get_permalink( get_option( 'page_for_posts' ) ) : home_url( '/blog/' );
 					$about_page       = get_page_by_path( 'about' );
 					$about_url        = $about_page ? get_permalink( $about_page ) : home_url( '/about/' );
 					$contact_page     = get_page_by_path( 'contact' );
 					$contact_url      = $contact_page ? get_permalink( $contact_page ) : home_url( '/contact/' );
-					$bestseller_term  = get_term_by( 'name', 'Bestseller', 'product_cat' );
-					$bestseller_url   = $bestseller_term ? get_term_link( $bestseller_term ) : $shop_url;
+					$bestseller_url   = $shop_url;
+					if ( taxonomy_exists( 'product_cat' ) ) {
+						$bestseller_term = get_term_by( 'name', 'Bestseller', 'product_cat' );
+						$term_link       = $bestseller_term ? get_term_link( $bestseller_term ) : '';
+						$bestseller_url  = ( $term_link && ! is_wp_error( $term_link ) ) ? $term_link : $shop_url;
+					}
 					echo '<ul class="lumea-nav-list">';
 					$links = array(
 						array( esc_html__( 'Home',       'lumea' ), home_url( '/' ) ),
@@ -160,6 +163,7 @@ if ( $lumea_has_wc ) {
 
 			<!-- Cart -->
 			<?php if ( class_exists( 'WooCommerce' ) ) : ?>
+			<?php $lumea_cart_count = ( function_exists( 'WC' ) && WC()->cart ) ? WC()->cart->get_cart_contents_count() : 0; ?>
 			<button class="lumea-cart-trigger" aria-label="<?php esc_attr_e( 'Open cart', 'lumea' ); ?>" data-lumea-cart-trigger>
 				<svg class="lumea-cart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.95" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 					<path d="M2 5.25h2.4a1.2 1.2 0 0 1 1.14.86l2.3 7.73"></path>
@@ -168,7 +172,7 @@ if ( $lumea_has_wc ) {
 					<circle cx="9.4" cy="19.1" r="1.9"></circle>
 					<circle cx="17.9" cy="19.1" r="1.9"></circle>
 				</svg>
-				<span class="lumea-cart-count<?php echo WC()->cart->get_cart_contents_count() ? ' lumea-cart-count--visible' : ''; ?>"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+				<span class="lumea-cart-count<?php echo $lumea_cart_count ? ' lumea-cart-count--visible' : ''; ?>"><?php echo esc_html( $lumea_cart_count ); ?></span>
 			</button>
 			<?php endif; ?>
 
@@ -210,14 +214,16 @@ if ( $lumea_has_wc ) {
 		</form>
 
 		<?php
-		$overlay_cats = get_terms( array(
-			'taxonomy'   => 'product_cat',
-			'number'     => 6,
-			'hide_empty' => true,
-			'orderby'    => 'count',
-			'order'      => 'DESC',
-			'exclude'    => array( get_option( 'default_product_cat' ) ),
-		) );
+		$overlay_cats = taxonomy_exists( 'product_cat' ) ? get_terms(
+			array(
+				'taxonomy'   => 'product_cat',
+				'number'     => 6,
+				'hide_empty' => true,
+				'orderby'    => 'count',
+				'order'      => 'DESC',
+				'exclude'    => array( get_option( 'default_product_cat' ) ),
+			)
+		) : array();
 		if ( ! empty( $overlay_cats ) && ! is_wp_error( $overlay_cats ) ) :
 		?>
 		<div class="lumea-search-overlay-quick">
@@ -249,9 +255,7 @@ if ( $lumea_has_wc ) {
 			<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
 			<p class="lumea-wishlist-empty-title"><?php esc_html_e( 'No saved items yet', 'lumea' ); ?></p>
 			<p class="lumea-wishlist-empty-text"><?php esc_html_e( 'Save products you love and find them here.', 'lumea' ); ?></p>
-			<?php if ( class_exists( 'WooCommerce' ) ) : ?>
-			<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="lumea-404-btn lumea-404-btn--primary"><?php esc_html_e( 'Shop All', 'lumea' ); ?></a>
-			<?php endif; ?>
+			<a href="<?php echo esc_url( lumea_get_shop_url() ); ?>" class="lumea-404-btn lumea-404-btn--primary"><?php esc_html_e( 'Shop All', 'lumea' ); ?></a>
 		</div>
 	</div>
 </div>
@@ -267,14 +271,18 @@ if ( $lumea_has_wc ) {
 				'container'      => false,
 				'menu_class'     => 'lumea-mobile-nav-list',
 				'fallback_cb'    => function() {
-					$shop_url         = function_exists( 'wc_get_page_id' ) && wc_get_page_id( 'shop' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : home_url( '/shop/' );
+					$shop_url         = lumea_get_shop_url();
 					$blog_url         = get_option( 'page_for_posts' ) ? get_permalink( get_option( 'page_for_posts' ) ) : home_url( '/blog/' );
 					$about_page       = get_page_by_path( 'about' );
 					$about_url        = $about_page ? get_permalink( $about_page ) : home_url( '/about/' );
 					$contact_page     = get_page_by_path( 'contact' );
 					$contact_url      = $contact_page ? get_permalink( $contact_page ) : home_url( '/contact/' );
-					$bestseller_term  = get_term_by( 'name', 'Bestseller', 'product_cat' );
-					$bestseller_url   = $bestseller_term ? get_term_link( $bestseller_term ) : $shop_url;
+					$bestseller_url   = $shop_url;
+					if ( taxonomy_exists( 'product_cat' ) ) {
+						$bestseller_term = get_term_by( 'name', 'Bestseller', 'product_cat' );
+						$term_link       = $bestseller_term ? get_term_link( $bestseller_term ) : '';
+						$bestseller_url  = ( $term_link && ! is_wp_error( $term_link ) ) ? $term_link : $shop_url;
+					}
 					echo '<ul class="lumea-mobile-nav-list">';
 					$links = array(
 						array( esc_html__( 'Home',       'lumea' ), home_url( '/' ) ),

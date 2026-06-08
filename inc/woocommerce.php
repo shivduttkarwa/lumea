@@ -1,6 +1,6 @@
 <?php
 /**
- * WooCommerce integration — cart fragments, AJAX, mini-cart.
+ * WooCommerce presentation integration.
  *
  * @package Lumea
  */
@@ -10,15 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-add_filter( 'pre_option_woocommerce_registration_generate_username', '__return_false' );
-add_filter( 'pre_option_woocommerce_registration_generate_password', '__return_false' );
-
-
-add_filter( 'woocommerce_prevent_admin_access', '__return_false' );
-
-
 function lumea_get_product_card_data( $product ) {
-	if ( ! class_exists( 'WooCommerce' ) ) {
+	if ( ! class_exists( 'WooCommerce' ) || ! function_exists( 'wc_get_product' ) ) {
 		return array();
 	}
 
@@ -33,32 +26,34 @@ function lumea_get_product_card_data( $product ) {
 		return array();
 	}
 
-	$product_id       = $wc_product->get_id();
-	$gallery_ids      = $wc_product->get_gallery_image_ids();
-	$product_terms    = get_the_terms( $product_id, 'product_cat' );
-	$is_sale          = $wc_product->is_on_sale();
-	$can_add_to_cart  = $wc_product->is_purchasable() && $wc_product->is_in_stock();
-	$product_name     = $wc_product->get_name();
-	$product_category = ( ! is_wp_error( $product_terms ) && ! empty( $product_terms ) ) ? $product_terms[0]->name : '';
+	$product_id            = $wc_product->get_id();
+	$gallery_ids           = $wc_product->get_gallery_image_ids();
+	$product_terms         = get_the_terms( $product_id, 'product_cat' );
+	$is_sale               = $wc_product->is_on_sale();
+	$can_add_to_cart       = $wc_product->is_purchasable() && $wc_product->is_in_stock();
+	$product_name          = $wc_product->get_name();
+	$product_category      = ( ! is_wp_error( $product_terms ) && ! empty( $product_terms ) ) ? $product_terms[0]->name : '';
+	$regular_price         = $wc_product->get_regular_price();
+	$regular_price_display = ( $is_sale && '' !== $regular_price ) ? wc_price( $regular_price ) : '';
 
 	return array(
-		'product_id'       => $product_id,
-		'name'             => $product_name,
-		'url'              => get_permalink( $product_id ),
-		'price_html'       => $wc_product->get_price_html(),
-		'old_price_html'   => $is_sale ? wc_price( $wc_product->get_regular_price() ) : '',
-		'is_sale'          => $is_sale,
-		'badge'            => $is_sale ? __( 'Sale', 'lumea' ) : __( 'New', 'lumea' ),
-		'main_image'       => get_the_post_thumbnail_url( $product_id, 'woocommerce_single' ),
-		'hover_image'      => ! empty( $gallery_ids ) ? wp_get_attachment_image_url( $gallery_ids[0], 'woocommerce_single' ) : '',
-		'category'         => $product_category,
-		'product_type'     => $wc_product->get_type(),
-		'can_add_to_cart'  => $can_add_to_cart,
-		'supports_ajax'    => $can_add_to_cart && $wc_product->supports( 'ajax_add_to_cart' ),
-		'button_label'     => __( 'Add to Cart', 'lumea' ),
-		'fallback_label'   => __( 'Shop Now', 'lumea' ),
-		'button_class'     => 'lumea-btn btn-black',
-		'card_class'       => 'lumea-lp-card',
+		'product_id'      => $product_id,
+		'name'            => $product_name,
+		'url'             => get_permalink( $product_id ),
+		'price_html'      => $wc_product->get_price_html(),
+		'old_price_html'  => $regular_price_display,
+		'is_sale'         => $is_sale,
+		'badge'           => $is_sale ? __( 'Sale', 'lumea' ) : __( 'New', 'lumea' ),
+		'main_image'      => get_the_post_thumbnail_url( $product_id, 'woocommerce_single' ),
+		'hover_image'     => ! empty( $gallery_ids ) ? wp_get_attachment_image_url( $gallery_ids[0], 'woocommerce_single' ) : '',
+		'category'        => $product_category,
+		'product_type'    => $wc_product->get_type(),
+		'can_add_to_cart' => $can_add_to_cart,
+		'supports_ajax'   => $can_add_to_cart && $wc_product->supports( 'ajax_add_to_cart' ),
+		'button_label'    => __( 'Add to Cart', 'lumea' ),
+		'fallback_label'  => __( 'Shop Now', 'lumea' ),
+		'button_class'    => 'lumea-btn btn-black',
+		'card_class'      => 'lumea-lp-card',
 	);
 }
 
@@ -67,8 +62,7 @@ function lumea_render_product_card( $product, $overrides = array() ) {
 	$data = array();
 
 	if ( is_array( $product ) ) {
-		$data = $product;
-
+		$data       = $product;
 		$legacy_map = array(
 			'price'     => 'price_html',
 			'old_price' => 'old_price_html',
@@ -76,6 +70,7 @@ function lumea_render_product_card( $product, $overrides = array() ) {
 			'hover'     => 'hover_image',
 			'type'      => 'product_type',
 		);
+
 		foreach ( $legacy_map as $legacy_key => $new_key ) {
 			if ( ! isset( $data[ $new_key ] ) && isset( $data[ $legacy_key ] ) ) {
 				$data[ $new_key ] = $data[ $legacy_key ];
@@ -125,7 +120,7 @@ function lumea_render_product_card_actions( $args = array() ) {
 		'can_add_to_cart' => true,
 		'supports_ajax'   => true,
 	);
-	$args = wp_parse_args( $args, $defaults );
+	$args     = wp_parse_args( $args, $defaults );
 
 	$product_id    = absint( $args['product_id'] );
 	$product_url   = $args['product_url'] ? esc_url_raw( $args['product_url'] ) : ( $product_id ? get_permalink( $product_id ) : '' );
@@ -146,13 +141,17 @@ function lumea_render_product_card_actions( $args = array() ) {
 			'add_to_cart_button',
 			'product_type_' . $product_type,
 		);
+
 		if ( $supports_ajax ) {
 			$atc_classes[] = 'ajax_add_to_cart';
 		}
 
-		$atc_url  = add_query_arg( 'add-to-cart', $product_id, $product_url );
-		/* translators: %s: product name */
-		$atc_aria = sprintf( __( 'Add %s to cart', 'lumea' ), $product_name );
+		$atc_url = add_query_arg( 'add-to-cart', $product_id, $product_url );
+		$atc_aria = sprintf(
+			/* translators: %s: product name */
+			__( 'Add %s to cart', 'lumea' ),
+			$product_name
+		);
 		?>
 		<div class="lumea-card-atc-wrap">
 			<a href="<?php echo esc_url( $atc_url ); ?>"
@@ -168,7 +167,7 @@ function lumea_render_product_card_actions( $args = array() ) {
 				<button class="lumea-qty-btn lumea-qty-plus" type="button" aria-label="<?php esc_attr_e( 'Increase', 'lumea' ); ?>" data-product_id="<?php echo esc_attr( $product_id ); ?>">&#43;</button>
 			</div>
 		</div>
-		<a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="lumea-view-cart-btn" data-lumea-view-cart>
+		<a href="<?php echo esc_url( lumea_get_cart_url() ); ?>" class="lumea-view-cart-btn" data-lumea-view-cart>
 			<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
 			<span><?php esc_html_e( 'View Cart', 'lumea' ); ?></span>
 		</a>
@@ -182,17 +181,17 @@ function lumea_render_product_card_actions( $args = array() ) {
 
 
 function lumea_cart_fragments( $fragments ) {
+	if ( ! function_exists( 'WC' ) || ! WC()->cart ) {
+		return $fragments;
+	}
 
-	
 	$count = WC()->cart->get_cart_contents_count();
-	$fragments['span.lumea-cart-count'] = '<span class="lumea-cart-count' . ( $count ? ' lumea-cart-count--visible' : '' ) . '">' . $count . '</span>';
+	$fragments['span.lumea-cart-count'] = '<span class="lumea-cart-count' . ( $count ? ' lumea-cart-count--visible' : '' ) . '">' . esc_html( $count ) . '</span>';
 
-	
 	ob_start();
 	lumea_mini_cart_items();
 	$fragments['div.lumea-drawer-items'] = ob_get_clean();
 
-	
 	ob_start();
 	lumea_drawer_footer();
 	$fragments['div.lumea-drawer-footer'] = ob_get_clean();
@@ -203,14 +202,14 @@ add_filter( 'woocommerce_add_to_cart_fragments', 'lumea_cart_fragments' );
 
 
 function lumea_mini_cart_items() {
-	$cart = WC()->cart;
+	$cart = ( function_exists( 'WC' ) && WC()->cart ) ? WC()->cart : null;
+
 	echo '<div class="lumea-drawer-items">';
 
-	if ( $cart->is_empty() ) {
-		$shop_url = wc_get_page_permalink( 'shop' );
+	if ( ! $cart || $cart->is_empty() ) {
 		echo '<div class="lumea-drawer-empty-state">';
 		echo '<p class="lumea-drawer-empty">' . esc_html__( 'Your cart is empty.', 'lumea' ) . '</p>';
-		echo '<a href="' . esc_url( $shop_url ) . '" class="lumea-drawer-empty-btn">' . esc_html__( 'Shop Products', 'lumea' ) . '</a>';
+		echo '<a href="' . esc_url( lumea_get_shop_url() ) . '" class="lumea-drawer-empty-btn">' . esc_html__( 'Shop Products', 'lumea' ) . '</a>';
 		echo '</div>';
 	} else {
 		foreach ( $cart->get_cart() as $key => $item ) {
@@ -248,16 +247,17 @@ function lumea_mini_cart_items() {
 
 
 function lumea_drawer_footer() {
-	$cart = WC()->cart;
+	$cart = ( function_exists( 'WC' ) && WC()->cart ) ? WC()->cart : null;
+
 	echo '<div class="lumea-drawer-footer">';
-	if ( ! $cart->is_empty() ) :
+	if ( $cart && ! $cart->is_empty() ) :
 		?>
 		<div class="lumea-drawer-subtotal">
 			<span><?php esc_html_e( 'Subtotal', 'lumea' ); ?></span>
 			<span><?php echo wp_kses_post( $cart->get_cart_subtotal() ); ?></span>
 		</div>
-		<a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="lumea-drawer-cart-btn"><?php esc_html_e( 'View Cart', 'lumea' ); ?></a>
-		<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="lumea-drawer-checkout-btn"><?php esc_html_e( 'Checkout', 'lumea' ); ?></a>
+		<a href="<?php echo esc_url( lumea_get_cart_url() ); ?>" class="lumea-drawer-cart-btn"><?php esc_html_e( 'View Cart', 'lumea' ); ?></a>
+		<a href="<?php echo esc_url( lumea_get_checkout_url() ); ?>" class="lumea-drawer-checkout-btn"><?php esc_html_e( 'Checkout', 'lumea' ); ?></a>
 		<?php
 	endif;
 	echo '</div>';
@@ -268,6 +268,7 @@ function lumea_wc_body_class( $classes ) {
 	if ( function_exists( 'is_woocommerce' ) ) {
 		$classes[] = 'woocommerce-js';
 	}
+
 	return $classes;
 }
 add_filter( 'body_class', 'lumea_wc_body_class' );
@@ -276,452 +277,9 @@ add_filter( 'body_class', 'lumea_wc_body_class' );
 add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 
 
-add_action( 'init', function () {
-	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
-	remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
-	remove_action( 'woocommerce_after_main_content',  'woocommerce_output_content_wrapper_end', 10 );
-	
-	remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
-} );
-
-
-add_filter( 'loop_shop_columns', function () {
-	return 4;
-} );
-
-
-function lumea_ensure_classic_wc_pages() {
-	if ( get_option( 'lumea_classic_wc_v1' ) || ! function_exists( 'wc_get_page_id' ) ) {
-		return;
+add_filter(
+	'loop_shop_columns',
+	function () {
+		return 4;
 	}
-
-	$pages = array(
-		wc_get_page_id( 'checkout' ) => '<!-- wp:shortcode -->[woocommerce_checkout]<!-- /wp:shortcode -->',
-		wc_get_page_id( 'cart' )     => '<!-- wp:shortcode -->[woocommerce_cart]<!-- /wp:shortcode -->',
-	);
-
-	foreach ( $pages as $page_id => $content ) {
-		if ( $page_id <= 0 ) {
-			continue;
-		}
-		$post = get_post( $page_id );
-		if ( $post && has_blocks( $post->post_content ) ) {
-			wp_update_post( array(
-				'ID'           => $page_id,
-				'post_content' => $content,
-			) );
-		}
-	}
-
-	update_option( 'lumea_classic_wc_v1', 1 );
-}
-add_action( 'after_switch_theme', 'lumea_ensure_classic_wc_pages' );
-add_action( 'admin_init',         'lumea_ensure_classic_wc_pages' );
-
-
-function lumea_ensure_wishlist_page() {
-	$page    = get_page_by_path( 'wishlist', OBJECT, 'page' );
-	$page_id = $page ? (int) $page->ID : 0;
-
-	if ( ! $page_id ) {
-		$page_id = wp_insert_post(
-			array(
-				'post_type'    => 'page',
-				'post_status'  => 'publish',
-				'post_title'   => __( 'Wishlist', 'lumea' ),
-				'post_name'    => 'wishlist',
-				'post_content' => '',
-			),
-			true
-		);
-
-		if ( is_wp_error( $page_id ) ) {
-			return;
-		}
-	}
-
-	if ( $page_id > 0 ) {
-		update_post_meta( $page_id, '_wp_page_template', 'page-wishlist.php' );
-		update_option( 'lumea_wishlist_page_id', absint( $page_id ) );
-	}
-}
-add_action( 'after_switch_theme', 'lumea_ensure_wishlist_page' );
-add_action( 'admin_init',         'lumea_ensure_wishlist_page' );
-
-
-function lumea_update_cart_qty() {
-	check_ajax_referer( 'lumea_wishlist', 'nonce' );
-
-	$product_id = absint( $_POST['product_id'] ?? 0 );
-	$quantity   = intval( $_POST['quantity'] ?? 0 );
-
-	if ( ! $product_id ) {
-		wp_send_json_error( 'missing_product_id' );
-	}
-
-	$cart_item_key = null;
-	foreach ( WC()->cart->get_cart() as $key => $item ) {
-		if ( (int) $item['product_id'] === $product_id ) {
-			$cart_item_key = $key;
-			break;
-		}
-	}
-
-	if ( ! $cart_item_key ) {
-		wp_send_json_error( 'not_in_cart' );
-	}
-
-	if ( $quantity <= 0 ) {
-		WC()->cart->remove_cart_item( $cart_item_key );
-	} else {
-		WC()->cart->set_quantity( $cart_item_key, $quantity, true );
-	}
-
-	WC()->cart->calculate_totals();
-
-	$count     = WC()->cart->get_cart_contents_count();
-	$fragments = apply_filters( 'woocommerce_add_to_cart_fragments', array() );
-
-	wp_send_json_success( array(
-		'count'     => $count,
-		'fragments' => $fragments,
-	) );
-}
-add_action( 'wp_ajax_lumea_update_cart_qty',        'lumea_update_cart_qty' );
-add_action( 'wp_ajax_nopriv_lumea_update_cart_qty', 'lumea_update_cart_qty' );
-
-
-function lumea_update_cart_line_qty() {
-	$cart_nonce = isset( $_POST['cart_nonce'] ) ? wp_unslash( $_POST['cart_nonce'] ) : '';
-	if ( ! $cart_nonce || ! wp_verify_nonce( $cart_nonce, 'woocommerce-cart' ) ) {
-		wp_send_json_error( 'invalid_nonce' );
-	}
-
-	if ( ! class_exists( 'WooCommerce' ) || ! WC()->cart ) {
-		wp_send_json_error( 'missing_cart' );
-	}
-
-	$cart_item_key = isset( $_POST['cart_item_key'] ) ? wc_clean( wp_unslash( $_POST['cart_item_key'] ) ) : '';
-	$quantity      = isset( $_POST['quantity'] ) ? intval( $_POST['quantity'] ) : 0;
-
-	if ( '' === $cart_item_key ) {
-		wp_send_json_error( 'missing_cart_item_key' );
-	}
-
-	$cart_contents = WC()->cart->get_cart();
-	if ( ! isset( $cart_contents[ $cart_item_key ] ) ) {
-		wp_send_json_error( 'not_in_cart' );
-	}
-
-	$cart_item = $cart_contents[ $cart_item_key ];
-	$product   = isset( $cart_item['data'] ) ? $cart_item['data'] : null;
-
-	if ( ! $product ) {
-		wp_send_json_error( 'invalid_product' );
-	}
-
-	$min_qty = max( 0, (int) $product->get_min_purchase_quantity() );
-	$max_qty = (int) $product->get_max_purchase_quantity();
-
-	$new_qty = max( 0, $quantity );
-	if ( $new_qty > 0 && $new_qty < $min_qty ) {
-		$new_qty = $min_qty;
-	}
-	if ( $max_qty > 0 && $new_qty > $max_qty ) {
-		$new_qty = $max_qty;
-	}
-
-	if ( $new_qty <= 0 ) {
-		WC()->cart->remove_cart_item( $cart_item_key );
-	} else {
-		WC()->cart->set_quantity( $cart_item_key, $new_qty, true );
-	}
-
-	WC()->cart->calculate_totals();
-
-	$updated_cart = WC()->cart->get_cart();
-	$item_exists  = isset( $updated_cart[ $cart_item_key ] );
-
-	$row_subtotal_html = '';
-	$normalized_qty    = 0;
-
-	if ( $item_exists ) {
-		$updated_item      = $updated_cart[ $cart_item_key ];
-		$normalized_qty    = (int) $updated_item['quantity'];
-		$row_subtotal_html = apply_filters(
-			'woocommerce_cart_item_subtotal',
-			WC()->cart->get_product_subtotal( $updated_item['data'], $updated_item['quantity'] ),
-			$updated_item,
-			$cart_item_key
-		);
-	}
-
-	ob_start();
-	woocommerce_cart_totals();
-	$cart_totals_html = ob_get_clean();
-
-	$item_count  = WC()->cart->get_cart_contents_count();
-	$hero_title  = sprintf(
-		/* translators: %d: number of items in the cart */
-		_n( 'Your Bag (%d item)', 'Your Bag (%d items)', $item_count, 'lumea' ),
-		$item_count
-	);
-	$fragments = apply_filters( 'woocommerce_add_to_cart_fragments', array() );
-
-	wp_send_json_success(
-		array(
-			'cart_item_key'    => $cart_item_key,
-			'removed'          => ! $item_exists,
-			'quantity'         => $normalized_qty,
-			'row_subtotal_html'=> $row_subtotal_html,
-			'cart_totals_html' => $cart_totals_html,
-			'item_count'       => $item_count,
-			'hero_title'       => $hero_title,
-			'cart_empty'       => WC()->cart->is_empty(),
-			'fragments'        => $fragments,
-		)
-	);
-}
-add_action( 'wp_ajax_lumea_update_cart_line_qty',        'lumea_update_cart_line_qty' );
-add_action( 'wp_ajax_nopriv_lumea_update_cart_line_qty', 'lumea_update_cart_line_qty' );
-
-
-function lumea_get_wishlist_items() {
-	check_ajax_referer( 'lumea_wishlist', 'nonce' );
-
-	$ids   = isset( $_POST['ids'] ) ? array_map( 'absint', (array) $_POST['ids'] ) : array();
-	$items = array();
-
-	foreach ( $ids as $id ) {
-		$product = wc_get_product( $id );
-		if ( ! $product || ! $product->is_visible() ) {
-			continue;
-		}
-		$can_add_to_cart = $product->is_purchasable() && $product->is_in_stock();
-		$product_type    = $product->get_type();
-		$cart_text       = $can_add_to_cart ? $product->add_to_cart_text() : __( 'View product', 'lumea' );
-		$cart_aria       = $can_add_to_cart
-			/* translators: %s: product name */
-			? sprintf( __( 'Add %s to cart', 'lumea' ), $product->get_name() )
-			/* translators: %s: product name */
-			: sprintf( __( 'View %s', 'lumea' ), $product->get_name() );
-
-		$items[] = array(
-			'id'              => $id,
-			'name'            => $product->get_name(),
-			'url'             => get_permalink( $id ),
-			'price'           => wp_strip_all_tags( $product->get_price_html() ),
-			'image'           => wp_get_attachment_image_url( $product->get_image_id(), 'woocommerce_thumbnail' ) ?: '',
-			'type'            => $product_type,
-			'can_add_to_cart' => $can_add_to_cart,
-			'supports_ajax'   => $can_add_to_cart && $product->supports( 'ajax_add_to_cart' ),
-			'cart_url'        => $can_add_to_cart ? $product->add_to_cart_url() : get_permalink( $id ),
-			'cart_text'       => $cart_text,
-			'cart_aria'       => $cart_aria,
-		);
-	}
-
-	wp_send_json_success( $items );
-}
-add_action( 'wp_ajax_lumea_wishlist_items',        'lumea_get_wishlist_items' );
-add_action( 'wp_ajax_nopriv_lumea_wishlist_items', 'lumea_get_wishlist_items' );
-
-
-add_filter( 'woocommerce_product_data_tabs', function ( $tabs ) {
-	$tabs['lumea'] = array(
-		'label'  => 'Luméa',
-		'target' => 'lumea_product_data',
-		'class'  => array(),
-	);
-	return $tabs;
-} );
-
-add_action( 'woocommerce_product_data_panels', function () {
-	if ( ! current_user_can( 'edit_products' ) ) {
-		return;
-	}
-	echo '<div id="lumea_product_data" class="panel woocommerce_options_panel">';
-	wp_nonce_field( 'lumea_save_product_meta', 'lumea_product_nonce' );
-	woocommerce_wp_checkbox( array(
-		'id'          => '_lumea_is_bestseller',
-		'label'       => __( 'Show in Bestsellers', 'lumea' ),
-		'description' => __( 'Display on the homepage Bestsellers section.', 'lumea' ),
-	) );
-	woocommerce_wp_checkbox( array(
-		'id'          => '_lumea_is_latest',
-		'label'       => __( 'Show in Latest Products', 'lumea' ),
-		'description' => __( 'Display on the homepage Latest Products section.', 'lumea' ),
-	) );
-	echo '</div>';
-} );
-
-add_action( 'woocommerce_process_product_meta', function ( $post_id ) {
-	if ( ! isset( $_POST['lumea_product_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['lumea_product_nonce'] ), 'lumea_save_product_meta' ) ) {
-		return;
-	}
-	if ( ! current_user_can( 'edit_post', $post_id ) ) {
-		return;
-	}
-	$is_bestseller = isset( $_POST['_lumea_is_bestseller'] ) ? 'yes' : 'no';
-	$is_latest     = isset( $_POST['_lumea_is_latest'] )     ? 'yes' : 'no';
-
-	update_post_meta( $post_id, '_lumea_is_bestseller', sanitize_key( $is_bestseller ) );
-	update_post_meta( $post_id, '_lumea_is_latest',     sanitize_key( $is_latest ) );
-
-	lumea_sync_product_placement_cats( $post_id, $is_bestseller, $is_latest );
-} );
-
-
-function lumea_sync_product_placement_cats( $post_id, $is_bestseller, $is_latest ) {
-	$bestseller_name = sanitize_text_field( get_theme_mod( 'lumea_bestseller_cat_name', 'Bestseller' ) );
-	$latest_name     = sanitize_text_field( get_theme_mod( 'lumea_latest_cat_name', 'Latest' ) );
-
-	$map = array(
-		$bestseller_name => $is_bestseller,
-		$latest_name     => $is_latest,
-	);
-
-	$current_terms = wp_get_post_terms( $post_id, 'product_cat', array( 'fields' => 'ids' ) );
-	if ( is_wp_error( $current_terms ) ) {
-		$current_terms = array();
-	}
-
-	foreach ( $map as $cat_name => $enabled ) {
-		$term = get_term_by( 'name', $cat_name, 'product_cat' );
-
-		
-		if ( ! $term ) {
-			$result = wp_insert_term( $cat_name, 'product_cat' );
-			if ( is_wp_error( $result ) ) {
-				continue;
-			}
-			$term_id = $result['term_id'];
-		} else {
-			$term_id = $term->term_id;
-		}
-
-		if ( $enabled === 'yes' ) {
-			
-			if ( ! in_array( $term_id, $current_terms, true ) ) {
-				$current_terms[] = $term_id;
-			}
-		} else {
-			
-			$current_terms = array_diff( $current_terms, array( $term_id ) );
-		}
-	}
-
-	wp_set_post_terms( $post_id, array_values( $current_terms ), 'product_cat' );
-}
-
-
-
-function lumea_register_demo_payment_gateway( $gateways ) {
-	$gateways[] = 'Lumea_WC_Gateway_Demo';
-	return $gateways;
-}
-add_filter( 'woocommerce_payment_gateways', 'lumea_register_demo_payment_gateway' );
-
-
-function lumea_init_demo_payment_gateway() {
-	if ( ! class_exists( 'WC_Payment_Gateway' ) || class_exists( 'Lumea_WC_Gateway_Demo' ) ) {
-		return;
-	}
-
-	class Lumea_WC_Gateway_Demo extends WC_Payment_Gateway {
-
-		
-		public function __construct() {
-			$this->id                 = 'lumea_demo_gateway';
-			$this->method_title       = __( 'Lumea Demo Gateway', 'lumea' );
-			$this->method_description = __( 'Dummy payment method for local checkout testing. No money is charged.', 'lumea' );
-			$this->has_fields         = false;
-			$this->supports           = array( 'products' );
-
-			$this->init_form_fields();
-			$this->init_settings();
-
-			$this->enabled     = $this->get_option( 'enabled', 'yes' );
-			$this->title       = $this->get_option( 'title', __( 'Test Payment (No Charge)', 'lumea' ) );
-			$this->description = $this->get_option( 'description', __( 'Use this local test method to place a demo order and reach the confirmation page.', 'lumea' ) );
-
-			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-		}
-
-		
-		public function init_form_fields() {
-			$this->form_fields = array(
-				'enabled'     => array(
-					'title'   => __( 'Enable/Disable', 'lumea' ),
-					'type'    => 'checkbox',
-					'label'   => __( 'Enable Lumea Demo Gateway', 'lumea' ),
-					'default' => 'yes',
-				),
-				'title'       => array(
-					'title'       => __( 'Title', 'lumea' ),
-					'type'        => 'text',
-					'description' => __( 'Shown at checkout.', 'lumea' ),
-					'default'     => __( 'Test Payment (No Charge)', 'lumea' ),
-					'desc_tip'    => true,
-				),
-				'description' => array(
-					'title'       => __( 'Description', 'lumea' ),
-					'type'        => 'textarea',
-					'description' => __( 'Shown under the payment method on checkout.', 'lumea' ),
-					'default'     => __( 'Use this local test method to place a demo order and reach the confirmation page.', 'lumea' ),
-					'desc_tip'    => true,
-				),
-			);
-		}
-
-		
-		public function is_available() {
-			return 'yes' === $this->enabled;
-		}
-
-		
-		public function process_payment( $order_id ) {
-			$order = wc_get_order( $order_id );
-			if ( ! $order ) {
-				wc_add_notice( esc_html__( 'Unable to process demo payment. Please try again.', 'lumea' ), 'error' );
-				return array(
-					'result' => 'fail',
-				);
-			}
-
-			$order->payment_complete();
-			$order->add_order_note( esc_html__( 'Order placed using Lumea Demo Gateway (no real payment).', 'lumea' ) );
-
-			if ( WC()->cart ) {
-				WC()->cart->empty_cart();
-			}
-
-			return array(
-				'result'   => 'success',
-				'redirect' => $this->get_return_url( $order ),
-			);
-		}
-	}
-}
-lumea_init_demo_payment_gateway();
-add_action( 'init', 'lumea_init_demo_payment_gateway', 1 );
-
-
-
-
-
-add_action( 'template_redirect', function () {
-	if ( get_option( 'lumea_classic_wc_v1' ) ) {
-		return;
-	}
-	if ( ! is_cart() && ! is_checkout() ) {
-		return;
-	}
-	lumea_ensure_classic_wc_pages();
-	if ( is_cart() ) {
-		wp_safe_redirect( wc_get_cart_url() );
-	} else {
-		wp_safe_redirect( wc_get_checkout_url() );
-	}
-	exit;
-} );
+);

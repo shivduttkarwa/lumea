@@ -4,7 +4,7 @@
  *
  * @see https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
- * @version 9.2.0
+ * @version 10.5.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -103,4 +103,3 @@ do_action( 'woocommerce_before_edit_account_form' );
 </form>
 
 <?php do_action( 'woocommerce_after_edit_account_form' ); ?>
-

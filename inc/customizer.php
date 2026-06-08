@@ -774,7 +774,7 @@ function lumea_customize_register( $wp_customize ) {
 
 	
 	$wp_customize->add_setting( 'lumea_footer_copy', array(
-		'default'           => "Lum\xc3\xa9a \xc2\xb7 Botanical Skincare",
+		'default'           => 'Lumea Botanical Skincare',
 		'sanitize_callback' => 'sanitize_text_field',
 		'transport'         => 'refresh',
 	) );
@@ -782,18 +782,6 @@ function lumea_customize_register( $wp_customize ) {
 		'label'   => esc_html__( 'Copyright Text (after the year)', 'lumea' ),
 		'section' => 'lumea_footer',
 		'type'    => 'text',
-	) );
-
-	
-	$wp_customize->add_setting( 'lumea_footer_copy', array(
-		'default'           => 'Luméa. All rights reserved.',
-		'sanitize_callback' => 'sanitize_text_field',
-		'transport'         => 'refresh',
-	) );
-	$wp_customize->add_control( 'lumea_footer_copy', array(
-		'label'       => esc_html__( 'Copyright Text (year prepended automatically)', 'lumea' ),
-		'section'     => 'lumea_footer',
-		'type'        => 'text',
 	) );
 
 	

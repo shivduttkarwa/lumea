@@ -1,4 +1,6 @@
 ( function () {
+	'use strict';
+
 	var i18n = ( window.lumeaData && window.lumeaData.i18n ) ? window.lumeaData.i18n : {};
 
 	
