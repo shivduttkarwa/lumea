@@ -467,7 +467,6 @@ $lumea_latest = array(
 </div>
 
 <section class="lumea-latest" aria-label="<?php esc_attr_e( 'Latest products', 'lumea' ); ?>">
-	<div class="lumea-container">
 
 		<?php
 		$lumea_lp_source = array();
@@ -543,7 +542,6 @@ $lumea_latest = array(
 			<?php endforeach; ?>
 		</div>
 
-	</div>
 </section>
 
 <!-- The Ritual Section -->
