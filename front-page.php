@@ -258,7 +258,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 }
 ?>
 <section class="lumea-best-section" aria-label="<?php esc_attr_e( 'Shop Bestsellers', 'lumea' ); ?>">
-	<div class="lumea-best-inner container-fluid px-3 px-sm-4 px-lg-5">
+	<div class="lumea-best-inner">
 		<div class="lumea-best-slider-area row gx-0">
 			<div class="col-12">
 
