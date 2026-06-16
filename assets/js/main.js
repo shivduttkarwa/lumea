@@ -372,7 +372,7 @@
   var scrollDownBtn = document.querySelector('.lma-scroll-down');
   if (scrollDownBtn) {
     scrollDownBtn.addEventListener('click', function () {
-      var hero = document.querySelector('.lma-hero');
+      var hero = document.querySelector('.lma-hero') || document.querySelector('.hero');
       if (hero) {
         window.scrollTo({ top: hero.offsetTop + hero.offsetHeight, behavior: 'smooth' });
       }
