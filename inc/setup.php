@@ -119,7 +119,7 @@ add_action( 'widgets_init', 'lumea_widgets_init' );
 
 
 function lumea_about_body_class( $classes ) {
-	if ( is_page_template( 'page-about.php' ) ) {
+	if ( is_page_template( 'page-about.php' ) || is_page( 'about' ) ) {
 		$classes[] = 'lumea-about-template';
 	}
 	return $classes;

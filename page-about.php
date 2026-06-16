@@ -85,9 +85,9 @@ $a = array(
 				<span class="lma-hero-line lma-hero-line--soft"><?php echo esc_html( $a['hero_h1_2'] ); ?></span>
 			</h1>
 			<p class="lma-hero-sub"><?php echo esc_html( $a['hero_sub'] ); ?></p>
-			<a href="<?php echo esc_url( lumea_get_shop_url() ); ?>" class="lma-hero-cta">
+			<a href="<?php echo esc_url( lumea_get_shop_url() ); ?>" class="lumea-btn btn-white btn-arrow btn-arrow-right">
 				<?php echo esc_html( $a['hero_cta'] ); ?>
-				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+				<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
 			</a>
 			<div class="lma-hero-items" aria-label="<?php esc_attr_e( 'Lumea highlights', 'lumea' ); ?>">
 				<?php foreach ( array(

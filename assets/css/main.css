@@ -241,6 +241,7 @@ body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lu
   background: var(--lumea-text);
 }
 
+
 body.woocommerce-shop .lumea-header:not(.is-scrolled),
 body.post-type-archive-product .lumea-header:not(.is-scrolled),
 body.tax-product_cat .lumea-header:not(.is-scrolled) {
@@ -10030,7 +10031,8 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 
 .lma-hero {
   position: relative;
-  min-height: calc(100vh - 4.5rem);
+  height: 100vh;
+  max-height: 100vh;
   background-color: #0e0b0a;
   background-image: var(--lma-bg, none);
   background-size: cover;
@@ -10040,7 +10042,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   align-items: center;
   overflow: hidden;
 }
-.admin-bar .lma-hero { min-height: calc(100vh - 6.5rem); }
+.admin-bar .lma-hero { height: calc(100vh - 2rem); max-height: calc(100vh - 2rem); }
 .lma-hero::before {
   content: '';
   position: absolute;
@@ -10054,7 +10056,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   z-index: 1;
   width: min(calc(100% - clamp(3rem, 8vw, 8rem)), 55rem);
   margin-inline: clamp(1.5rem, 6vw, 6rem);
-  padding: clamp(5.75rem, 12vw, 9.25rem) 0 clamp(4.25rem, 8vw, 6.25rem);
+  padding: clamp(4rem, 8vw, 6rem) 0 clamp(3rem, 5vw, 4rem);
 }
 .lma-label--hero {
   color: rgba(255,255,255,0.74);
@@ -10068,7 +10070,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 .lma-hero-line {
   display: block;
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(2.75rem, 7.6vw, 6.25rem);
+  font-size: clamp(2rem, 3.8vw, 3.75rem);
   font-weight: 400;
   color: #fff;
 }
@@ -10467,7 +10469,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
     margin-inline: 1.5rem;
     padding: 6rem 0 2.75rem;
   }
-  .lma-hero-line { font-size: clamp(2.375rem, 10.5vw, 4.125rem); }
+  .lma-hero-line { font-size: clamp(1.75rem, 7vw, 2.75rem); }
   .lma-hero-sub { font-size: 0.9375rem; margin-bottom: 1.625rem; }
   .lma-hero-items { margin-top: 1.125rem; padding-top: 0.9375rem; gap: 0.5rem; }
   .lma-story { grid-template-columns: 1fr; }
