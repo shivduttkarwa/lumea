@@ -85,36 +85,14 @@ $a = array(
 				<span class="lma-hero-line lma-hero-line--soft"><?php echo esc_html( $a['hero_h1_2'] ); ?></span>
 			</h1>
 			<p class="lma-hero-sub"><?php echo esc_html( $a['hero_sub'] ); ?></p>
-			<a href="<?php echo esc_url( lumea_get_shop_url() ); ?>" class="lumea-btn btn-white btn-arrow btn-arrow-right">
-				<?php echo esc_html( $a['hero_cta'] ); ?>
-				<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-			</a>
-			<div class="lma-hero-items" aria-label="<?php esc_attr_e( 'Lumea highlights', 'lumea' ); ?>">
-				<?php foreach ( array(
-					$a['stat1_l'],
-					$a['stat2_l'],
-					$a['stat3_l'],
-				) as $hero_item ) : ?>
-				<span class="lma-hero-item"><?php echo esc_html( $hero_item ); ?></span>
-				<?php endforeach; ?>
-			</div>
 		</div>
+		<button class="lma-scroll-down" aria-label="<?php esc_attr_e( 'Scroll down', 'lumea' ); ?>">
+			<span class="lma-scroll-down-line"></span>
+		</button>
 	</section>
 
-	<!-- ② TICKER ────────────────────────────────────────────── -->
-	<div class="lma-ticker" aria-hidden="true">
-		<div class="lma-ticker-track">
-			<?php
-			$ticker_items = lma_lines( $a['ticker'] );
-			for ( $i = 0; $i < 2; $i++ ) :
-				foreach ( $ticker_items as $item ) :
-			?>
-			<span><?php echo esc_html( $item ); ?></span><span class="lma-ticker-sep">&middot;</span>
-			<?php endforeach; endfor; ?>
-		</div>
-	</div>
 
-	<!-- ③ MANIFESTO ─────────────────────────────────────────── -->
+<!-- ③ MANIFESTO ─────────────────────────────────────────── -->
 	<section class="lma-manifesto">
 		<div class="lma-manifesto-inner">
 			<blockquote class="lma-manifesto-q">

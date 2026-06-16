@@ -368,6 +368,17 @@
     refreshWishlistUI();
   }
 
+  /* Scroll-down button */
+  var scrollDownBtn = document.querySelector('.lma-scroll-down');
+  if (scrollDownBtn) {
+    scrollDownBtn.addEventListener('click', function () {
+      var hero = document.querySelector('.lma-hero');
+      if (hero) {
+        window.scrollTo({ top: hero.offsetTop + hero.offsetHeight, behavior: 'smooth' });
+      }
+    });
+  }
+
   /* Sticky Header */
   var header = document.getElementById('lumeaHeader');
 
