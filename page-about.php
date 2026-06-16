@@ -81,8 +81,8 @@ $a = array(
 		<div class="lma-hero-body">
 			<p class="lma-label lma-label--hero"><?php echo wp_kses_post( $a['hero_label'] ); ?></p>
 			<h1 class="lma-hero-h1">
-				<span class="lma-hero-line"><?php echo esc_html( $a['hero_h1_1'] ); ?></span>
-				<span class="lma-hero-line lma-hero-line--soft"><?php echo esc_html( $a['hero_h1_2'] ); ?></span>
+				<span class="lma-hero-line">Pure ritual.</span>
+				<span class="lma-hero-line lma-hero-line--soft">Real results.</span>
 			</h1>
 			<p class="lma-hero-sub"><?php echo esc_html( $a['hero_sub'] ); ?></p>
 		</div>

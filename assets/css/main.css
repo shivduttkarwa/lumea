@@ -10070,8 +10070,8 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 .lma-hero-line {
   display: block;
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(2rem, 3.8vw, 3.75rem);
-  font-weight: 400;
+  font-size: clamp(2.91rem, 5.57vw, 5.44rem);
+  font-weight: 300;
   color: #fff;
 }
 .lma-hero-line--soft { color: rgba(255,255,255,0.66); }
@@ -10197,7 +10197,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 }
 .lma-stat-n {
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(4rem, 10vw, 8rem);
+  font-size: clamp(3.6rem, 9vw, 7.2rem);
   font-weight: 300;
   letter-spacing: -0.05em;
   line-height: 1;
@@ -10472,7 +10472,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
     margin-inline: 1.5rem;
     padding: 6rem 0 2.75rem;
   }
-  .lma-hero-line { font-size: clamp(1.75rem, 7vw, 2.75rem); }
+  .lma-hero-line { font-size: clamp(2rem, 8vw, 3.2rem); }
   .lma-hero-sub { font-size: 0.9375rem; margin-bottom: 1.625rem; }
   .lma-story { grid-template-columns: 1fr; }
   .lma-story-img-pin { position: relative; top: auto; height: 60vw; min-height: 17.5rem; }
