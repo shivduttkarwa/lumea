@@ -10122,27 +10122,23 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   transition: opacity 0.3s ease;
 }
 .lma-scroll-down:hover { opacity: 1; }
-.lma-scroll-down-line {
+.lma-scroll-dot {
   display: block;
-  width: 0.0625rem;
-  height: 3.5rem;
-  background: rgba(255,255,255,0.2);
-  position: relative;
-  overflow: hidden;
-}
-.lma-scroll-down-line::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: 0;
-  width: 100%;
-  height: 50%;
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 50%;
   background: #ffffff;
-  animation: lma-scroll-line 1.8s ease-in-out infinite;
+  animation: lma-dot-fall 1.6s ease-in-out infinite;
+  opacity: 0;
 }
-@keyframes lma-scroll-line {
-  0%   { top: -50%; }
-  100% { top: 150%; }
+.lma-scroll-dot:nth-child(1) { animation-delay: 0s; }
+.lma-scroll-dot:nth-child(2) { animation-delay: 0.3s; }
+.lma-scroll-dot:nth-child(3) { animation-delay: 0.6s; }
+@keyframes lma-dot-fall {
+  0%   { opacity: 0;    transform: translateY(-0.5rem); }
+  30%  { opacity: 1;    transform: translateY(0); }
+  70%  { opacity: 0.4;  transform: translateY(0.5rem); }
+  100% { opacity: 0;    transform: translateY(1rem); }
 }
 
 .lma-manifesto {

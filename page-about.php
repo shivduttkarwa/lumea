@@ -87,7 +87,9 @@ $a = array(
 			<p class="lma-hero-sub"><?php echo esc_html( $a['hero_sub'] ); ?></p>
 		</div>
 		<button class="lma-scroll-down" aria-label="<?php esc_attr_e( 'Scroll down', 'lumea' ); ?>">
-			<span class="lma-scroll-down-line"></span>
+			<span class="lma-scroll-dot"></span>
+			<span class="lma-scroll-dot"></span>
+			<span class="lma-scroll-dot"></span>
 		</button>
 	</section>
 
