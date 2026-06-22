@@ -1134,6 +1134,11 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   color: var(--lumea-white);
 }
 
+.lumea-slider-stage.is-cursor-default,
+.lumea-slider-stage.is-cursor-default .lumea-hit-area button {
+  cursor: default;
+}
+
 .lumea-cursor-arrow {
   position: absolute;
   left: 0;

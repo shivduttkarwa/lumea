@@ -137,6 +137,15 @@
       animateSlideZoom( activeIndex );
       updateCard();
       updateButtons();
+      if ( lastMouseX >= 0 ) {
+        var rect = slider.getBoundingClientRect();
+        if (
+          lastMouseX >= rect.left && lastMouseX <= rect.right &&
+          lastMouseY >= rect.top  && lastMouseY <= rect.bottom
+        ) {
+          moveCursor( { clientX: lastMouseX, clientY: lastMouseY, target: slider } );
+        }
+      }
     } );
     window.setTimeout( function () { isAnimating = false; }, 1320 );
   }
@@ -154,8 +163,11 @@
 
     if ( ( isLeft && atStart ) || ( ! isLeft && atEnd ) ) {
       cursorArrow.classList.remove( 'is-visible', 'is-left', 'is-right' );
+      slider.classList.add( 'is-cursor-default' );
       return;
     }
+
+    slider.classList.remove( 'is-cursor-default' );
 
     cursorSide   = isLeft ? 'left' : 'right';
     cursorArrow.style.left = ( event.clientX - rect.left ) + 'px';
@@ -187,6 +199,7 @@
 
   slider.addEventListener( 'mouseleave', function () {
     cursorArrow.classList.remove( 'is-visible', 'is-left', 'is-right' );
+    slider.classList.remove( 'is-cursor-default' );
   } );
 
   if ( cardButton ) {
