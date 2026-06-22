@@ -29,7 +29,7 @@ $footer_email            = get_theme_mod( 'lumea_footer_email',           '' );
 $footer_ig               = get_theme_mod( 'lumea_footer_instagram',       '' );
 $footer_tk               = get_theme_mod( 'lumea_footer_tiktok',          '' );
 $footer_pin              = get_theme_mod( 'lumea_footer_pinterest',       '' );
-$footer_video            = get_theme_mod( 'lumea_footer_video',           LUMEA_THEME_URI . '/assets/images/hero/footer-vd.mp4' );
+$footer_video            = get_theme_mod( 'lumea_footer_video',           LUMEA_THEME_URI . '/assets/images/hero/footer-video.mp4' );
 $footer_video_poster     = get_theme_mod( 'lumea_footer_video_poster',    LUMEA_THEME_URI . '/assets/images/hero/latest-hero.jpg' );
 
 $nav_links = array(

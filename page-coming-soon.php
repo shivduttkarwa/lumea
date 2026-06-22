@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<div class="lumea-cs-backdrop">
 		<?php
-		$cs_bg = get_theme_mod( 'lumea_hero_image', LUMEA_THEME_URI . '/assets/images/hero1.jpg' );
+		$cs_bg = get_theme_mod( 'lumea_hero_image', LUMEA_THEME_URI . '/assets/images/hero-slide-1.jpg' );
 		if ( $cs_bg ) :
 		?>
 		<img src="<?php echo esc_url( $cs_bg ); ?>" alt="" class="lumea-cs-bg-img" aria-hidden="true" loading="eager">

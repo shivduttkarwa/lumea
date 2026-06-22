@@ -31,7 +31,7 @@ function lumea_customize_register( $wp_customize ) {
 
 	
 	$hero_image_defaults = array(
-		1 => LUMEA_THEME_URI . '/assets/images/hero1.jpg',
+		1 => LUMEA_THEME_URI . '/assets/images/hero-slide-1.jpg',
 		2 => '',
 		3 => '',
 		4 => '',
@@ -176,27 +176,27 @@ function lumea_customize_register( $wp_customize ) {
 	$slide_defaults = array(
 		1 => array(
 			'text'  => 'Botanical skincare rituals designed for luminous skin, soft texture, and everyday radiance.',
-			'image' => LUMEA_THEME_URI . '/assets/images/1.jpg',
+			'image' => LUMEA_THEME_URI . '/assets/images/editorial-slide-1.jpg',
 		),
 		2 => array(
 			'text'  => 'Clean formulas, soft botanicals, and refined essentials for a calm beauty routine.',
-			'image' => LUMEA_THEME_URI . '/assets/images/2.jpg',
+			'image' => LUMEA_THEME_URI . '/assets/images/editorial-slide-2.jpg',
 		),
 		3 => array(
 			'text'  => 'A curated edit of everyday glow products made for modern skincare rituals.',
-			'image' => LUMEA_THEME_URI . '/assets/images/hero.jpg',
+			'image' => LUMEA_THEME_URI . '/assets/images/editorial-slide-3.jpg',
 		),
 		4 => array(
 			'text'  => 'Soft hydration, botanical balance, and skin-first essentials for natural radiance.',
-			'image' => LUMEA_THEME_URI . '/assets/images/4.jpg',
+			'image' => LUMEA_THEME_URI . '/assets/images/editorial-slide-4.jpg',
 		),
 		5 => array(
 			'text'  => 'A fresh beauty wardrobe made for skin that feels balanced, bright, and alive.',
-			'image' => LUMEA_THEME_URI . '/assets/images/he.jpg',
+			'image' => LUMEA_THEME_URI . '/assets/images/editorial-slide-5.jpg',
 		),
 		6 => array(
 			'text'  => 'Glow-focused skincare where timeless botanicals meet a modern beauty edge.',
-			'image' => LUMEA_THEME_URI . '/assets/images/6.jpg',
+			'image' => LUMEA_THEME_URI . '/assets/images/editorial-slide-6.jpg',
 		),
 	);
 
@@ -287,14 +287,14 @@ function lumea_customize_register( $wp_customize ) {
 	
 	$product_defaults = array(
 		1 => array(
-			'image' => LUMEA_THEME_URI . '/assets/images/hero1.jpg',
+			'image' => LUMEA_THEME_URI . '/assets/images/hero-slide-1.jpg',
 			'name'  => 'Radiance Serum',
 			'price' => '$48.00',
 			'desc'  => 'A lightweight botanical serum for dewy, luminous, everyday skin.',
 			'url'   => '',
 		),
 		2 => array(
-			'image' => LUMEA_THEME_URI . '/assets/images/her02.jpg',
+			'image' => LUMEA_THEME_URI . '/assets/images/model-portrait.jpg',
 			'name'  => 'Velvet Cream',
 			'price' => '$42.00',
 			'desc'  => 'Rich daily moisture with a soft-touch finish and botanical comfort.',
@@ -569,26 +569,26 @@ function lumea_customize_register( $wp_customize ) {
 		1 => array(
 			'title'  => 'Cleanse',
 			'text'   => 'Begin with pure intention. Our gentle botanical cleansers dissolve impurities without stripping the skin\'s natural balance, leaving a fresh, receptive canvas.',
-			'image1' => LUMEA_THEME_URI . '/assets/images/ritual/a1.jpg',
-			'image2' => LUMEA_THEME_URI . '/assets/images/ritual/a2.jpg',
+			'image1' => LUMEA_THEME_URI . '/assets/images/ritual/ritual-cleanse-1.jpg',
+			'image2' => LUMEA_THEME_URI . '/assets/images/ritual/ritual-cleanse-2.jpg',
 		),
 		2 => array(
 			'title'  => 'Tone & Prep',
 			'text'   => 'Restore skin\'s equilibrium. Botanical tonics and essence waters refine pores, balance pH, and prime skin to absorb every active that follows.',
-			'image1' => LUMEA_THEME_URI . '/assets/images/hero.jpg',
-			'image2' => LUMEA_THEME_URI . '/assets/images/4.jpg',
+			'image1' => LUMEA_THEME_URI . '/assets/images/editorial-slide-3.jpg',
+			'image2' => LUMEA_THEME_URI . '/assets/images/editorial-slide-4.jpg',
 		),
 		3 => array(
 			'title'  => 'Treat & Correct',
 			'text'   => 'Targeted actives where they matter most. Concentrated serums address luminosity, firmness, and even tone at the cellular level.',
-			'image1' => LUMEA_THEME_URI . '/assets/images/6.jpg',
-			'image2' => LUMEA_THEME_URI . '/assets/images/her02.jpg',
+			'image1' => LUMEA_THEME_URI . '/assets/images/editorial-slide-6.jpg',
+			'image2' => LUMEA_THEME_URI . '/assets/images/model-portrait.jpg',
 		),
 		4 => array(
 			'title'  => 'Restore & Protect',
 			'text'   => 'Seal the ritual with nourishment. Rich creams and facial oils lock in actives, rebuild the moisture barrier, and leave skin visibly calm, plump, and glowing.',
-			'image1' => LUMEA_THEME_URI . '/assets/images/he.jpg',
-			'image2' => LUMEA_THEME_URI . '/assets/images/hero1.jpg',
+			'image1' => LUMEA_THEME_URI . '/assets/images/editorial-slide-5.jpg',
+			'image2' => LUMEA_THEME_URI . '/assets/images/hero-slide-1.jpg',
 		),
 	);
 
@@ -653,7 +653,7 @@ function lumea_customize_register( $wp_customize ) {
 
 	
 	$wp_customize->add_setting( 'lumea_manifest_image', array(
-		'default'           => LUMEA_THEME_URI . '/assets/images/he.jpg',
+		'default'           => LUMEA_THEME_URI . '/assets/images/editorial-slide-5.jpg',
 		'sanitize_callback' => 'esc_url_raw',
 		'transport'         => 'refresh',
 	) );
@@ -785,7 +785,7 @@ function lumea_customize_register( $wp_customize ) {
 
 	
 	$wp_customize->add_setting( 'lumea_footer_video', array(
-		'default'           => LUMEA_THEME_URI . '/assets/images/hero/footer-vd.mp4',
+		'default'           => LUMEA_THEME_URI . '/assets/images/hero/footer-video.mp4',
 		'sanitize_callback' => 'esc_url_raw',
 		'transport'         => 'refresh',
 	) );
@@ -967,7 +967,7 @@ function lumea_customize_register( $wp_customize ) {
 	$about_controls = array(
 
 		
-		'lma_about_hero_bg'       => array( 'image',    'Hero — Background Image',       LUMEA_THEME_URI . '/assets/images/hero.jpg' ),
+		'lma_about_hero_bg'       => array( 'image',    'Hero — Background Image',       LUMEA_THEME_URI . '/assets/images/editorial-slide-3.jpg' ),
 		'lma_about_hero_label'    => array( 'text',     'Hero — Eyebrow Label',           'Est. 2018 &middot; Paris' ),
 		'lma_about_hero_h1_1'     => array( 'text',     'Hero — Heading Line 1',          'Skincare' ),
 		'lma_about_hero_h1_2'     => array( 'text',     'Hero — Heading Line 2 (outline)', 'as ritual.' ),
@@ -990,7 +990,7 @@ function lumea_customize_register( $wp_customize ) {
 		'lma_about_manifesto_cite'=> array( 'text',     'Manifesto — Attribution',        'Sophie Laurent, Founder & Cosmetic Chemist' ),
 
 		
-		'lumea_about_story_image' => array( 'image',    'Story — Image',                  LUMEA_THEME_URI . '/assets/images/her02.jpg' ),
+		'lumea_about_story_image' => array( 'image',    'Story — Image',                  LUMEA_THEME_URI . '/assets/images/model-portrait.jpg' ),
 		'lma_about_story1_label'  => array( 'text',     'Story Panel 1 — Eyebrow',        'The Beginning' ),
 		'lma_about_story1_h2'     => array( 'text',     'Story Panel 1 — Heading',        'A skincare line rooted in botanical science' ),
 		'lma_about_story1_body'   => array( 'textarea', 'Story Panel 1 — Body',           'Luméa was born in a small Paris apartment, from years of frustration with formulas full of synthetic fillers and empty promises.' ),
@@ -1001,7 +1001,7 @@ function lumea_customize_register( $wp_customize ) {
 		'lma_about_story2_body2'  => array( 'textarea', 'Story Panel 2 — Body Paragraph 2', 'Every formula is stress-tested at the cellular level before it reaches you, with clinically measurable results visible within 28 days.' ),
 
 		
-		'lma_about_values_bg'     => array( 'image',    'Values — Background Image',      LUMEA_THEME_URI . '/assets/images/2.jpg' ),
+		'lma_about_values_bg'     => array( 'image',    'Values — Background Image',      LUMEA_THEME_URI . '/assets/images/editorial-slide-2.jpg' ),
 		'lma_about_values_label'  => array( 'text',     'Values — Eyebrow',               'What We Stand For' ),
 		'lma_about_values_h2'     => array( 'text',     'Values — Heading',               'Three principles. Every decision.' ),
 		'lma_about_val1_h3'       => array( 'text',     'Value 1 — Title',                'Botanical Purity' ),

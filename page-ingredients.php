@@ -9,7 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 get_header();
 
-$story_image = esc_url( get_theme_mod( 'lumea_ingredients_image', LUMEA_THEME_URI . '/assets/images/her02.jpg' ) );
+$story_image = esc_url( get_theme_mod( 'lumea_ingredients_image', LUMEA_THEME_URI . '/assets/images/model-portrait.jpg' ) );
 
 $never_list = array(
 	array( 'label' => __( 'Synthetic fragrance', 'lumea' ),        'icon' => 'M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636' ),

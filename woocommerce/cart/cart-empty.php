@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 $lumea_shop_url     = wc_get_page_permalink( 'shop' );
 $lumea_best_term    = get_term_by( 'name', 'Bestseller', 'product_cat' );
 $lumea_best_url     = $lumea_best_term ? get_term_link( $lumea_best_term ) : $lumea_shop_url;
-$lumea_empty_img    = get_theme_mod( 'lumea_hero_image', LUMEA_THEME_URI . '/assets/images/hero1.jpg' );
+$lumea_empty_img    = get_theme_mod( 'lumea_hero_image', LUMEA_THEME_URI . '/assets/images/hero-slide-1.jpg' );
 ?>
 
 <div class="lumea-cart-page">

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Front page template.
  * Uses shared header/footer templates for consistent global UI.
@@ -114,7 +114,7 @@ $shop_url = esc_url( lumea_get_shop_url() );
 
 		<?php
 		
-		$p1_image = get_theme_mod( 'lumea_product1_image', LUMEA_THEME_URI . '/assets/images/hero1.jpg' );
+		$p1_image = get_theme_mod( 'lumea_product1_image', LUMEA_THEME_URI . '/assets/images/hero-slide-1.jpg' );
 		$p1_name  = get_theme_mod( 'lumea_product1_name',  'Radiance Serum' );
 		$p1_price = get_theme_mod( 'lumea_product1_price', '$48.00' );
 		$p1_desc  = get_theme_mod( 'lumea_product1_desc',  'A lightweight botanical serum for dewy, luminous, everyday skin.' );
@@ -143,7 +143,7 @@ $shop_url = esc_url( lumea_get_shop_url() );
 
 		<?php
 		
-		$p2_image = get_theme_mod( 'lumea_product2_image', LUMEA_THEME_URI . '/assets/images/her02.jpg' );
+		$p2_image = get_theme_mod( 'lumea_product2_image', LUMEA_THEME_URI . '/assets/images/model-portrait.jpg' );
 		$p2_name  = get_theme_mod( 'lumea_product2_name',  'Velvet Cream' );
 		$p2_price = get_theme_mod( 'lumea_product2_price', '$42.00' );
 		$p2_desc  = get_theme_mod( 'lumea_product2_desc',  'Rich daily moisture with a soft-touch finish and botanical comfort.' );
@@ -574,10 +574,10 @@ $ritual_steps = array(
 	),
 );
 $ritual_img_defaults = array(
-	1 => array( 'lumea-cleanse', LUMEA_THEME_URI . '/assets/images/ritual/a1.jpg', LUMEA_THEME_URI . '/assets/images/ritual/a2.jpg' ),
-	2 => array( 'lumea-tone',    LUMEA_THEME_URI . '/assets/images/ritual/b1.jpg', LUMEA_THEME_URI . '/assets/images/ritual/b2.jpg' ),
-	3 => array( 'lumea-treat',   LUMEA_THEME_URI . '/assets/images/ritual/c1.jpg',    LUMEA_THEME_URI . '/assets/images/ritual/c2.jpg' ),
-	4 => array( 'lumea-restore', LUMEA_THEME_URI . '/assets/images/ritual/d1.jpg',   LUMEA_THEME_URI . '/assets/images/ritual/d2.jpg' ),
+	1 => array( 'lumea-cleanse', LUMEA_THEME_URI . '/assets/images/ritual/ritual-cleanse-1.jpg', LUMEA_THEME_URI . '/assets/images/ritual/ritual-cleanse-2.jpg' ),
+	2 => array( 'lumea-tone',    LUMEA_THEME_URI . '/assets/images/ritual/ritual-tone-1.jpg', LUMEA_THEME_URI . '/assets/images/ritual/ritual-tone-2.jpg' ),
+	3 => array( 'lumea-treat',   LUMEA_THEME_URI . '/assets/images/ritual/ritual-treat-1.jpg',    LUMEA_THEME_URI . '/assets/images/ritual/ritual-treat-2.jpg' ),
+	4 => array( 'lumea-restore', LUMEA_THEME_URI . '/assets/images/ritual/ritual-restore-1.jpg',   LUMEA_THEME_URI . '/assets/images/ritual/ritual-restore-2.jpg' ),
 );
 ?>
 <section class="lumea-ritual" id="lumeaRitual" aria-label="<?php esc_attr_e( 'Luméa skincare ritual', 'lumea' ); ?>">
@@ -663,7 +663,7 @@ $ritual_img_defaults = array(
 
 <!-- Manifest Section -->
 <?php
-$manifest_bg = get_theme_mod( 'lumea_manifest_image', LUMEA_THEME_URI . '/assets/images/he.jpg' );
+$manifest_bg = get_theme_mod( 'lumea_manifest_image', LUMEA_THEME_URI . '/assets/images/editorial-slide-5.jpg' );
 $kicker_1    = get_theme_mod( 'lumea_manifest_kicker_1', '.make your skin comfortable' );
 $kicker_2    = get_theme_mod( 'lumea_manifest_kicker_2', 'trust your glow and feel calm' );
 $kicker_3    = get_theme_mod( 'lumea_manifest_kicker_3', 'in every skincare ritual+' );

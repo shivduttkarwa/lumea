@@ -32,7 +32,7 @@ $a = array(
 	'manifesto_q'      => get_theme_mod( 'lma_about_manifesto_q',    'The most transformative skincare is the kind you actually look forward to. Not a routine — a ritual.' ),
 	'manifesto_cite'   => get_theme_mod( 'lma_about_manifesto_cite', 'Sophie Laurent, Founder & Cosmetic Chemist' ),
 	
-	'story_img'        => get_theme_mod( 'lumea_about_story_image',  LUMEA_THEME_URI . '/assets/images/her02.jpg' ),
+	'story_img'        => get_theme_mod( 'lumea_about_story_image',  LUMEA_THEME_URI . '/assets/images/model-portrait.jpg' ),
 	'story1_label'     => get_theme_mod( 'lma_about_story1_label',   'The Beginning' ),
 	'story1_h2'        => get_theme_mod( 'lma_about_story1_h2',      'A skincare line rooted in botanical science' ),
 	'story1_body'      => get_theme_mod( 'lma_about_story1_body',    'Luméa was born in a small Paris apartment, from years of frustration with formulas full of synthetic fillers and empty promises. Our founder, a trained cosmetic chemist, set out to create a line where every single ingredient earns its place.' ),
@@ -42,7 +42,7 @@ $a = array(
 	'story2_body1'     => get_theme_mod( 'lma_about_story2_body1',   'We partner directly with farmers and distilleries across twelve countries — from Bulgarian rose valleys to Japanese forest bathing reserves — to source actives that are as potent as they are pure.' ),
 	'story2_body2'     => get_theme_mod( 'lma_about_story2_body2',   'Every formula is stress-tested at the cellular level before it reaches you, with clinically measurable results visible within 28 days.' ),
 	
-	'values_bg'        => get_theme_mod( 'lma_about_values_bg',      LUMEA_THEME_URI . '/assets/images/2.jpg' ),
+	'values_bg'        => get_theme_mod( 'lma_about_values_bg',      LUMEA_THEME_URI . '/assets/images/editorial-slide-2.jpg' ),
 	'values_label'     => get_theme_mod( 'lma_about_values_label',   'What We Stand For' ),
 	'values_h2'        => get_theme_mod( 'lma_about_values_h2',      'Three principles. Every decision.' ),
 	'val1_h3'          => get_theme_mod( 'lma_about_val1_h3',        'Botanical Purity' ),

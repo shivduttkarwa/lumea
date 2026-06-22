@@ -182,7 +182,7 @@ function lumea_enqueue_assets() {
 		$lumea_hero_labels = array();
 
 		$lumea_hero_image_keys = array(
-			1 => array( 'lumea_hero_image',   LUMEA_THEME_URI . '/assets/images/hero1.jpg' ),
+			1 => array( 'lumea_hero_image',   LUMEA_THEME_URI . '/assets/images/hero-slide-1.jpg' ),
 			2 => array( 'lumea_hero_image_2', '' ),
 			3 => array( 'lumea_hero_image_3', '' ),
 			4 => array( 'lumea_hero_image_4', '' ),
@@ -235,12 +235,12 @@ function lumea_enqueue_assets() {
 		);
 
 		$lumea_slide_defaults = array(
-			1 => array( LUMEA_THEME_URI . '/assets/images/1.jpg',    'Botanical skincare rituals designed for luminous skin, soft texture, and everyday radiance.' ),
-			2 => array( LUMEA_THEME_URI . '/assets/images/2.jpg',    'Clean formulas, soft botanicals, and refined essentials for a calm beauty routine.' ),
-			3 => array( LUMEA_THEME_URI . '/assets/images/hero.jpg', 'A curated edit of everyday glow products made for modern skincare rituals.' ),
-			4 => array( LUMEA_THEME_URI . '/assets/images/4.jpg',    'Soft hydration, botanical balance, and skin-first essentials for natural radiance.' ),
-			5 => array( LUMEA_THEME_URI . '/assets/images/he.jpg',   'A fresh beauty wardrobe made for skin that feels balanced, bright, and alive.' ),
-			6 => array( LUMEA_THEME_URI . '/assets/images/6.jpg',    'Glow-focused skincare where timeless botanicals meet a modern beauty edge.' ),
+			1 => array( LUMEA_THEME_URI . '/assets/images/editorial-slide-1.jpg',    'Botanical skincare rituals designed for luminous skin, soft texture, and everyday radiance.' ),
+			2 => array( LUMEA_THEME_URI . '/assets/images/editorial-slide-2.jpg',    'Clean formulas, soft botanicals, and refined essentials for a calm beauty routine.' ),
+			3 => array( LUMEA_THEME_URI . '/assets/images/editorial-slide-3.jpg', 'A curated edit of everyday glow products made for modern skincare rituals.' ),
+			4 => array( LUMEA_THEME_URI . '/assets/images/editorial-slide-4.jpg',    'Soft hydration, botanical balance, and skin-first essentials for natural radiance.' ),
+			5 => array( LUMEA_THEME_URI . '/assets/images/editorial-slide-5.jpg',   'A fresh beauty wardrobe made for skin that feels balanced, bright, and alive.' ),
+			6 => array( LUMEA_THEME_URI . '/assets/images/editorial-slide-6.jpg',    'Glow-focused skincare where timeless botanicals meet a modern beauty edge.' ),
 		);
 
 		$lumea_slides = array();
@@ -323,7 +323,7 @@ function lumea_enqueue_assets() {
 			'lumea-cart-page',
 			'lumeaCartData',
 			array(
-				'heroImage' => esc_url( get_theme_mod( 'lumea_hero_image', LUMEA_THEME_URI . '/assets/images/hero1.jpg' ) ),
+				'heroImage' => esc_url( get_theme_mod( 'lumea_hero_image', LUMEA_THEME_URI . '/assets/images/hero-slide-1.jpg' ) ),
 				'i18n'      => array(
 					'qtyError'    => __( 'Could not update quantity. Please try again.', 'lumea' ),
 					'yourBag'     => __( 'Your Bag', 'lumea' ),

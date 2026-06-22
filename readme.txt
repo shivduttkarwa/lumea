@@ -248,7 +248,7 @@ under free, open-source licenses compatible with the GPL.
    License: Fontshare Free License — free for personal and commercial use
    https://www.fontshare.com/licenses/itf-ffl
 
-5. Inter (font)
+5. Inter v20 (font)
    Source:  https://fonts.google.com/specimen/Inter
    License: SIL Open Font License 1.1
    https://scripts.sil.org/OFL
