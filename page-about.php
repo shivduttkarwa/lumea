@@ -100,26 +100,26 @@ $a = array(
 			<blockquote class="lumea-about-manifesto-q">
 				&ldquo;<?php echo esc_html( $a['manifesto_q'] ); ?>&rdquo;
 			</blockquote>
-			<cite class="lumea-about-manifesto-cite">&mdash;&nbsp;<?php echo esc_html( $a['manifesto_cite'] ); ?></cite>
+			<cite class="lumea-about-manifesto-cite lumea-reveal-js lumea-reveal--static-js">&mdash;&nbsp;<?php echo esc_html( $a['manifesto_cite'] ); ?></cite>
 		</div>
 	</section>
 
 	<!-- ④ STATS ─────────────────────────────────────────────── -->
 	<section class="lumea-about-stats">
 		<div class="lumea-about-stats-row">
-			<div class="lumea-about-stat-cell">
+			<div class="lumea-about-stat-cell lumea-reveal-js lumea-reveal--static-js">
 				<span class="lumea-about-stat-tag"><?php echo esc_html( $a['stat1_l'] ); ?></span>
 				<span class="lumea-about-stat-n"><?php echo esc_html( $a['stat1_n'] ); ?></span>
 			</div>
-			<div class="lumea-about-stat-cell">
+			<div class="lumea-about-stat-cell lumea-reveal-js lumea-reveal--static-js">
 				<span class="lumea-about-stat-tag"><?php echo esc_html( $a['stat4_l'] ); ?></span>
 				<span class="lumea-about-stat-n lumea-about-stat-n--stroke"><?php echo esc_html( $a['stat4_n'] ); ?></span>
 			</div>
-			<div class="lumea-about-stat-cell">
+			<div class="lumea-about-stat-cell lumea-reveal-js lumea-reveal--static-js">
 				<span class="lumea-about-stat-tag"><?php echo esc_html( $a['stat2_l'] ); ?></span>
 				<span class="lumea-about-stat-n"><?php echo esc_html( $a['stat2_n'] ); ?></span>
 			</div>
-			<div class="lumea-about-stat-cell">
+			<div class="lumea-about-stat-cell lumea-reveal-js lumea-reveal--static-js">
 				<span class="lumea-about-stat-tag"><?php echo esc_html( $a['stat3_l'] ); ?></span>
 				<span class="lumea-about-stat-n lumea-about-stat-n--stroke"><?php echo esc_html( $a['stat3_n'] ); ?></span>
 			</div>
@@ -128,13 +128,13 @@ $a = array(
 
 	<!-- ⑤ STORY ─────────────────────────────────────────────── -->
 	<section class="lumea-about-story">
-		<div class="lumea-about-story-img-col">
+		<div class="lumea-about-story-img-col lumea-reveal-js lumea-reveal--static-js">
 			<div class="lumea-about-story-img-pin">
 				<img src="<?php echo esc_url( $a['story_img'] ); ?>" alt="<?php esc_attr_e( 'Lumea story', 'lumea' ); ?>" loading="lazy">
 			</div>
 		</div>
 		<div class="lumea-about-story-text-col">
-			<div class="lumea-about-story-panel">
+			<div class="lumea-about-story-panel lumea-reveal-js lumea-reveal--static-js">
 				<p class="lumea-about-label lumea-about-label--warm"><?php echo esc_html( $a['story1_label'] ); ?></p>
 				<h2 class="lumea-about-story-h2"><?php echo esc_html( $a['story1_h2'] ); ?></h2>
 				<p class="lumea-about-body"><?php echo esc_html( $a['story1_body'] ); ?></p>
@@ -143,7 +143,7 @@ $a = array(
 					<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
 				</a>
 			</div>
-			<div class="lumea-about-story-panel">
+			<div class="lumea-about-story-panel lumea-reveal-js lumea-reveal--static-js">
 				<p class="lumea-about-label lumea-about-label--warm"><?php echo esc_html( $a['story2_label'] ); ?></p>
 				<h2 class="lumea-about-story-h2"><?php echo esc_html( $a['story2_h2'] ); ?></h2>
 				<p class="lumea-about-body"><?php echo esc_html( $a['story2_body1'] ); ?></p>
@@ -155,9 +155,9 @@ $a = array(
 	<!-- ⑥ VALUES ────────────────────────────────────────────── -->
 	<section class="lumea-about-values" style="--lumea-about-bg:url('<?php echo esc_url( $a['values_bg'] ); ?>')">
 		<div class="lumea-about-values-wrap">
-			<div class="lumea-about-values-head">
-				<p class="lumea-about-label" style="color:rgba(255,255,255,0.32)"><?php echo esc_html( $a['values_label'] ); ?></p>
-				<h2 class="lumea-about-values-h2"><?php echo nl2br( esc_html( $a['values_h2'] ) ); ?></h2>
+			<div class="lumea-about-values-head lumea-section-intro-js">
+				<p class="lumea-about-label lumea-eyebrow" style="color:rgba(255,255,255,0.32)"><?php echo esc_html( $a['values_label'] ); ?></p>
+				<h2 class="lumea-about-values-h2 lumea-section-title"><?php echo nl2br( esc_html( $a['values_h2'] ) ); ?></h2>
 			</div>
 			<div class="lumea-about-values-grid">
 				<?php foreach ( array(
@@ -165,7 +165,7 @@ $a = array(
 					array( 'II',  '02', $a['val2_h3'], $a['val2_p'] ),
 					array( 'III', '03', $a['val3_h3'], $a['val3_p'] ),
 				) as $v ) : ?>
-				<div class="lumea-about-val">
+				<div class="lumea-about-val lumea-reveal-js lumea-reveal--static-js">
 					<div class="lumea-about-val-wm"><?php echo esc_html( $v[0] ); ?></div>
 					<span class="lumea-about-val-idx"><?php echo esc_html( $v[1] ); ?></span>
 					<h3 class="lumea-about-val-h3"><?php echo esc_html( $v[2] ); ?></h3>
@@ -179,11 +179,11 @@ $a = array(
 	<!-- ⑦ INGREDIENTS ───────────────────────────────────────── -->
 	<section class="lumea-about-ingredients">
 		<div class="lumea-about-ingredients-wrap">
-			<div class="lumea-about-ing-left">
-				<p class="lumea-about-label lumea-about-label--warm"><?php echo esc_html( $a['ing_label'] ); ?></p>
-				<h2 class="lumea-about-ing-h2"><?php echo esc_html( $a['ing_h2'] ); ?></h2>
-				<p class="lumea-about-body"><?php echo esc_html( $a['ing_body'] ); ?></p>
-				<ul class="lumea-about-check-list">
+			<div class="lumea-about-ing-left lumea-section-intro-js">
+				<p class="lumea-about-label lumea-about-label--warm lumea-eyebrow"><?php echo esc_html( $a['ing_label'] ); ?></p>
+				<h2 class="lumea-about-ing-h2 lumea-section-title"><?php echo esc_html( $a['ing_h2'] ); ?></h2>
+				<p class="lumea-about-body lumea-section-desc"><?php echo esc_html( $a['ing_body'] ); ?></p>
+				<ul class="lumea-about-check-list lumea-reveal-js lumea-reveal--static-js">
 					<?php foreach ( lumea_lines( $a['ing_bullets'] ) as $bullet ) : ?>
 					<li><?php echo esc_html( $bullet ); ?></li>
 					<?php endforeach; ?>
@@ -197,7 +197,7 @@ $a = array(
 					array( 'III', $a['ing3_name'], $a['ing3_desc'] ),
 				);
 				foreach ( $ingredients as $ing ) : ?>
-				<div class="lumea-about-ing-entry">
+				<div class="lumea-about-ing-entry lumea-reveal-js lumea-reveal--static-js">
 					<span class="lumea-about-ing-tag"><?php echo esc_html( $ing[0] ); ?></span>
 					<div>
 						<h4 class="lumea-about-ing-name"><?php echo esc_html( $ing[1] ); ?></h4>
@@ -211,7 +211,7 @@ $a = array(
 
 	<!-- ⑧ PRESS ─────────────────────────────────────────────── -->
 	<section class="lumea-about-press">
-		<p class="lumea-about-press-label"><?php esc_html_e( 'As Featured In', 'lumea' ); ?></p>
+		<p class="lumea-about-press-label lumea-reveal-js lumea-reveal--static-js"><?php esc_html_e( 'As Featured In', 'lumea' ); ?></p>
 		<div class="lumea-about-press-scroll" aria-hidden="true">
 			<div class="lumea-about-press-track">
 				<?php
@@ -227,10 +227,10 @@ $a = array(
 
 	<!-- ⑨ CTA ───────────────────────────────────────────────── -->
 	<section class="lumea-about-cta" style="--lumea-about-bg:url('<?php echo esc_url( $a['cta_bg'] ); ?>')">
-		<div class="lumea-about-cta-inner">
-			<p class="lumea-about-label" style="color:rgba(255,255,255,0.4)"><?php echo esc_html( $a['cta_label'] ); ?></p>
-			<h2 class="lumea-about-cta-h2"><?php echo nl2br( esc_html( $a['cta_h2'] ) ); ?></h2>
-			<div class="lumea-about-cta-btns">
+		<div class="lumea-about-cta-inner lumea-section-intro-js">
+			<p class="lumea-about-label lumea-eyebrow" style="color:rgba(255,255,255,0.4)"><?php echo esc_html( $a['cta_label'] ); ?></p>
+			<h2 class="lumea-about-cta-h2 lumea-section-title"><?php echo nl2br( esc_html( $a['cta_h2'] ) ); ?></h2>
+			<div class="lumea-about-cta-btns lumea-reveal-js lumea-reveal--static-js">
 				<a href="<?php echo esc_url( lumea_get_shop_url() ); ?>" class="lumea-about-btn lumea-about-btn--accent">
 					<?php echo esc_html( $a['cta_btn1'] ); ?>
 				</a>
