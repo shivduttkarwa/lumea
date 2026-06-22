@@ -13,10 +13,18 @@ function lumea_customize_register( $wp_customize ) {
 
 	
 	$wp_customize->add_panel(
+		'lumea_homepage',
+		array(
+			'title'    => esc_html__( 'Home Page', 'lumea' ),
+			'priority' => 10,
+		)
+	);
+
+	$wp_customize->add_panel(
 		'lumea_theme',
 		array(
 			'title'    => esc_html__( 'Luméa Theme', 'lumea' ),
-			'priority' => 10,
+			'priority' => 11,
 		)
 	);
 
@@ -24,8 +32,9 @@ function lumea_customize_register( $wp_customize ) {
 	$wp_customize->add_section(
 		'lumea_hero',
 		array(
-			'title' => esc_html__( 'Hero', 'lumea' ),
-			'panel' => 'lumea_theme',
+			'title'    => esc_html__( 'Hero Slider', 'lumea' ),
+			'panel'    => 'lumea_homepage',
+			'priority' => 10,
 		)
 	);
 
@@ -127,8 +136,9 @@ function lumea_customize_register( $wp_customize ) {
 	$wp_customize->add_section(
 		'lumea_slider',
 		array(
-			'title' => esc_html__( 'Editorial Slider', 'lumea' ),
-			'panel' => 'lumea_theme',
+			'title'    => esc_html__( 'Editorial Slider', 'lumea' ),
+			'panel'    => 'lumea_homepage',
+			'priority' => 20,
 		)
 	);
 
@@ -245,8 +255,9 @@ function lumea_customize_register( $wp_customize ) {
 	$wp_customize->add_section(
 		'lumea_curated',
 		array(
-			'title' => esc_html__( 'Curated Glow', 'lumea' ),
-			'panel' => 'lumea_theme',
+			'title'    => esc_html__( 'Curated Glow', 'lumea' ),
+			'panel'    => 'lumea_homepage',
+			'priority' => 30,
 		)
 	);
 
@@ -369,8 +380,9 @@ function lumea_customize_register( $wp_customize ) {
 	$wp_customize->add_section(
 		'lumea_bestsellers',
 		array(
-			'title' => esc_html__( 'Shop Bestsellers', 'lumea' ),
-			'panel' => 'lumea_theme',
+			'title'    => esc_html__( 'Shop Bestsellers', 'lumea' ),
+			'panel'    => 'lumea_homepage',
+			'priority' => 40,
 		)
 	);
 
@@ -488,8 +500,9 @@ function lumea_customize_register( $wp_customize ) {
 	$wp_customize->add_section(
 		'lumea_latest',
 		array(
-			'title' => esc_html__( 'Latest Products', 'lumea' ),
-			'panel' => 'lumea_theme',
+			'title'    => esc_html__( 'Latest Products', 'lumea' ),
+			'panel'    => 'lumea_homepage',
+			'priority' => 50,
 		)
 	);
 
@@ -524,8 +537,9 @@ function lumea_customize_register( $wp_customize ) {
 	$wp_customize->add_section(
 		'lumea_ritual',
 		array(
-			'title' => esc_html__( 'The Ritual', 'lumea' ),
-			'panel' => 'lumea_theme',
+			'title'    => esc_html__( 'The Ritual', 'lumea' ),
+			'panel'    => 'lumea_homepage',
+			'priority' => 60,
 		)
 	);
 
@@ -646,8 +660,9 @@ function lumea_customize_register( $wp_customize ) {
 	$wp_customize->add_section(
 		'lumea_manifest',
 		array(
-			'title' => esc_html__( 'Manifest Section', 'lumea' ),
-			'panel' => 'lumea_theme',
+			'title'    => esc_html__( 'Manifest Section', 'lumea' ),
+			'panel'    => 'lumea_homepage',
+			'priority' => 70,
 		)
 	);
 
