@@ -7876,26 +7876,6 @@ body.single-post .lumea-header {
 .lumea-contact-input:focus { border-color: var(--lumea-accent); box-shadow: 0 0 0 0.1875rem rgba(201,133,120,0.12); background: #fff; }
 .lumea-contact-select { appearance: none; -webkit-appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.875rem center; padding-right: 2.5rem; }
 .lumea-contact-textarea { resize: vertical; min-height: 7.5rem; line-height: 1.6; }
-.lumea-contact-submit {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-  width: 100%;
-  justify-content: center;
-  padding: 1rem 1.5rem;
-  background: var(--lumea-text);
-  color: #fff;
-  border: none;
-  border-radius: 6.25rem;
-  font-family: Inter, sans-serif;
-  font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  margin-top: 0.5rem;
-  transition: background 0.2s, transform 0.15s;
-}
-.lumea-contact-submit:hover { background: var(--lumea-accent-dark); transform: translateY(-0.0625rem); }
 
 .lumea-contact-errors {
   background: #fff0f0;
