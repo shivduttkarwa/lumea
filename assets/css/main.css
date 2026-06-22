@@ -4065,6 +4065,20 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 .lumea-pdp-wish-btn:hover { border-color: var(--lumea-accent); color: var(--lumea-accent); background: rgba(201,133,120,0.06); }
 .lumea-pdp-wish-btn.is-active { background: var(--lumea-accent); border-color: var(--lumea-accent); color: #fff; }
 
+.lumea-pdp-atc .lumea-card-actions {
+  flex: 1;
+  margin-top: 0;
+}
+.lumea-pdp-atc .lumea-card-atc-wrap {
+  height: 3.25rem;
+}
+.lumea-pdp-atc .lumea-view-cart-btn {
+  height: 3.25rem;
+}
+.lumea-pdp-atc .lumea-view-cart-btn.is-active {
+  max-width: 8.5rem;
+}
+
 .lumea-pdp-atc .button.alt,
 .lumea-pdp-atc .single_add_to_cart_button {
   border-radius: 6.25rem; background: var(--lumea-text); color: #fff;

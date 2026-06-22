@@ -47,28 +47,8 @@
 		document.addEventListener( 'keydown', function ( e ) { if ( e.key === 'Escape' ) closeLb(); } );
 	}
 
-	
-	var qtyInput = document.querySelector( '.lumea-qty-input' );
-	if ( qtyInput ) {
-		var minusBtn = document.querySelector( '.lumea-qty-minus' );
-		var plusBtn  = document.querySelector( '.lumea-qty-plus' );
-		if ( minusBtn ) {
-			minusBtn.addEventListener( 'click', function () {
-				var v   = parseInt( qtyInput.value, 10 );
-				var min = parseInt( qtyInput.min, 10 ) || 1;
-				if ( v > min ) { qtyInput.value = v - 1; qtyInput.dispatchEvent( new Event( 'change' ) ); }
-			} );
-		}
-		if ( plusBtn ) {
-			plusBtn.addEventListener( 'click', function () {
-				var v   = parseInt( qtyInput.value, 10 );
-				var max = parseInt( qtyInput.max, 10 ) || 999;
-				if ( v < max ) { qtyInput.value = v + 1; qtyInput.dispatchEvent( new Event( 'change' ) ); }
-			} );
-		}
-	}
 
-	
+
 	document.querySelectorAll( '[data-acc]' ).forEach( function ( acc ) {
 		var trigger = acc.querySelector( '[data-acc-trigger]' );
 		var body    = acc.querySelector( '[data-acc-body]' );
@@ -88,11 +68,6 @@
 	} );
 
 	
-	document.querySelectorAll( '.lumea-pdp-wish-btn' ).forEach( function ( btn ) {
-		btn.addEventListener( 'click', function () {
-			btn.classList.toggle( 'is-active' );
-		} );
-	} );
 
 	
 	var infoPanel = document.getElementById( 'lumeaPdpInfo' );

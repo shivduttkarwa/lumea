@@ -214,58 +214,66 @@ while ( have_posts() ) :
 
 				<div class="lumea-pdp-divider"></div>
 
-				<!-- ── WooCommerce add-to-cart (native form = fully working) ── -->
+				<!-- ── Add to cart (AJAX card mechanism) ── -->
 				<div class="lumea-pdp-atc">
 					<?php
-					
 					do_action( 'woocommerce_before_add_to_cart_form' );
 
 					if ( $product->is_type( 'simple' ) ) :
+						$cart_qty = 0;
+						if ( WC()->cart ) {
+							foreach ( WC()->cart->get_cart() as $cart_item ) {
+								if ( (int) $cart_item['product_id'] === $product_id ) {
+									$cart_qty += (int) $cart_item['quantity'];
+								}
+							}
+						}
+						$in_cart  = $cart_qty > 0;
+						$cart_url = function_exists( 'lumea_get_cart_url' ) ? lumea_get_cart_url() : wc_get_cart_url();
+						$atc_url  = add_query_arg( 'add-to-cart', $product_id, get_permalink( $product_id ) );
 					?>
-					<form class="cart lumea-atc-form" action="<?php echo esc_url( $cart_action ); ?>" method="post" enctype="multipart/form-data">
+					<div class="lumea-atc-btn-row">
 
-						<div class="lumea-qty-row">
-							<label class="lumea-qty-label" for="lumea_qty"><?php esc_html_e( 'Qty', 'lumea' ); ?></label>
-							<div class="lumea-qty-stepper">
-								<button type="button" class="lumea-qty-btn lumea-qty-minus" aria-label="<?php esc_attr_e( 'Decrease', 'lumea' ); ?>">
-									<svg width="14" height="2" viewBox="0 0 14 2" fill="none" aria-hidden="true"><rect width="14" height="2" rx="1" fill="currentColor"/></svg>
-								</button>
-								<input type="number"
-								       id="lumea_qty"
-								       name="quantity"
-								       value="1"
-								       min="1"
-								       max="<?php echo esc_attr( $max_qty ); ?>"
-								       step="1"
-								       class="qty lumea-qty-input"
-								       aria-label="<?php esc_attr_e( 'Product quantity', 'lumea' ); ?>">
-								<button type="button" class="lumea-qty-btn lumea-qty-plus" aria-label="<?php esc_attr_e( 'Increase', 'lumea' ); ?>">
-									<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="6" y="0" width="2" height="14" rx="1" fill="currentColor"/><rect x="0" y="6" width="14" height="2" rx="1" fill="currentColor"/></svg>
-								</button>
+						<?php if ( $is_instock ) : ?>
+						<div class="lumea-card-actions">
+							<div class="lumea-card-atc-wrap<?php echo $in_cart ? ' is-added' : ''; ?>">
+								<a href="<?php echo esc_url( $atc_url ); ?>"
+								   class="lumea-btn btn-black button add_to_cart_button product_type_simple ajax_add_to_cart"
+								   data-product_id="<?php echo esc_attr( $product_id ); ?>"
+								   data-product_type="simple"
+								   data-quantity="1"
+								   rel="nofollow"
+								   aria-label="<?php echo esc_attr( sprintf( __( 'Add %s to bag', 'lumea' ), $name ) ); ?>">
+									<?php esc_html_e( 'Add to Bag', 'lumea' ); ?>
+								</a>
+								<div class="lumea-qty-stepper" data-lumea-qty aria-label="<?php esc_attr_e( 'Quantity', 'lumea' ); ?>">
+									<button class="lumea-qty-btn lumea-qty-minus" type="button" aria-label="<?php esc_attr_e( 'Decrease quantity', 'lumea' ); ?>">&#8722;</button>
+									<span class="lumea-qty-num"><?php echo $in_cart ? esc_html( (string) $cart_qty ) : '1'; ?></span>
+									<button class="lumea-qty-btn lumea-qty-plus" type="button" aria-label="<?php esc_attr_e( 'Increase quantity', 'lumea' ); ?>" data-product_id="<?php echo esc_attr( $product_id ); ?>">&#43;</button>
+								</div>
 							</div>
+							<a href="<?php echo esc_url( $cart_url ); ?>"
+							   class="lumea-view-cart-btn<?php echo $in_cart ? ' is-active' : ''; ?>"
+							   data-lumea-view-cart>
+								<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+								<span><?php esc_html_e( 'View Cart', 'lumea' ); ?></span>
+							</a>
 						</div>
+						<?php else : ?>
+						<button type="button" class="lumea-pdp-atc-btn lumea-pdp-atc-btn--disabled" disabled>
+							<?php esc_html_e( 'Out of Stock', 'lumea' ); ?>
+						</button>
+						<?php endif; ?>
 
-						<div class="lumea-atc-btn-row">
-							<?php if ( $is_instock ) : ?>
-							<button type="submit"
-							        name="add-to-cart"
-							        value="<?php echo esc_attr( $product_id ); ?>"
-							        class="single_add_to_cart_button button alt lumea-pdp-atc-btn">
-								<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-								<?php esc_html_e( 'Add to Bag', 'lumea' ); ?>
-							</button>
-							<?php else : ?>
-							<button type="button" class="lumea-pdp-atc-btn lumea-pdp-atc-btn--disabled" disabled>
-								<?php esc_html_e( 'Out of Stock', 'lumea' ); ?>
-							</button>
-							<?php endif; ?>
+						<button type="button"
+						        class="lumea-pdp-wish-btn"
+						        data-wishlist-toggle="<?php echo esc_attr( $product_id ); ?>"
+						        aria-label="<?php esc_attr_e( 'Save to wishlist', 'lumea' ); ?>"
+						        aria-pressed="false">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+						</button>
 
-							<button type="button" class="lumea-pdp-wish-btn" aria-label="<?php esc_attr_e( 'Save to wishlist', 'lumea' ); ?>">
-								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-							</button>
-						</div>
-
-					</form>
+					</div>
 
 					<?php elseif ( $product->is_type( 'variable' ) ) : ?>
 						<?php woocommerce_variable_add_to_cart(); ?>
