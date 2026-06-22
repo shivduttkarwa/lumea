@@ -195,17 +195,26 @@
     }).join('');
   }
 
+  function revealWishlistBelow() {
+    var below = document.querySelector('[data-lumea-wishlist-below]');
+    if (below) {
+      below.hidden = false;
+    }
+  }
+
   function renderWishlistPage(items) {
     var list = document.querySelector('[data-lumea-wishlist-page-items]');
     var empty = document.querySelector('[data-lumea-wishlist-page-empty]');
 
     if (!list || !empty) {
+      revealWishlistBelow();
       return;
     }
 
     if (!items.length) {
       list.innerHTML = '';
       empty.hidden = false;
+      revealWishlistBelow();
       return;
     }
 
@@ -271,18 +280,13 @@
       ].join('');
     }).join('');
 
+    revealWishlistBelow();
   }
 
   function renderWishlistLoadingState() {
     var drawerList = document.querySelector('[data-lumea-wishlist-items]');
-    var pageList = document.querySelector('[data-lumea-wishlist-page-items]');
-
     if (drawerList) {
       drawerList.innerHTML = '<p class="lumea-wishlist-loading">' + escapeHtml(i18n('loadingFavourites', 'Loading favourites...')) + '</p>';
-    }
-
-    if (pageList) {
-      pageList.innerHTML = '<p class="lumea-wishlist-loading">' + escapeHtml(i18n('loadingFavourites', 'Loading favourites...')) + '</p>';
     }
   }
 
@@ -849,7 +853,43 @@
     var removeButton = event.target.closest('[data-lumea-wishlist-remove]');
     if (removeButton) {
       event.preventDefault();
-      removeFromWishlist(toPositiveInt(removeButton.getAttribute('data-lumea-wishlist-remove')));
+      var removeId = toPositiveInt(removeButton.getAttribute('data-lumea-wishlist-remove'));
+
+      var pageItem = removeButton.closest('.lumea-wishlist-page-item');
+      if (pageItem) {
+        var itemH   = pageItem.offsetHeight;
+        var gapPx   = parseFloat(getComputedStyle(pageItem.parentElement).rowGap) || 0;
+        pageItem.style.overflow = 'hidden';
+        pageItem.animate(
+          [
+            { opacity: '1', transform: 'translateX(0)',        height: (itemH + gapPx) + 'px' },
+            { opacity: '0', transform: 'translateX(1.5rem)',   height: '0px' }
+          ],
+          { duration: 420, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' }
+        ).finished.then(function () {
+          pageItem.remove();
+          var newIds = getWishlistIds().filter(function (id) { return id !== removeId; });
+          setWishlistIds(newIds);
+          syncWishlistButtons();
+          updateWishlistCountBadge();
+          setWishlistCountText(newIds.length);
+          var pageList  = document.querySelector('[data-lumea-wishlist-page-items]');
+          var pageEmpty = document.querySelector('[data-lumea-wishlist-page-empty]');
+          if (pageList && !pageList.querySelector('.lumea-wishlist-page-item')) {
+            pageList.innerHTML = '';
+            if (pageEmpty) { pageEmpty.hidden = false; }
+            revealWishlistBelow();
+          }
+          if (!newIds.length) {
+            renderWishlistDrawer([]);
+          } else {
+            fetchWishlistItems(newIds).then(function (items) { renderWishlistDrawer(items); });
+          }
+        });
+        return;
+      }
+
+      removeFromWishlist(removeId);
       return;
     }
 

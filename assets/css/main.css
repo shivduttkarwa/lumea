@@ -2054,7 +2054,7 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   font-family: Inter, sans-serif;
   font-size: 1rem;
   line-height: 1.65;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.82);
   max-width: 27.5rem;
   margin-inline: auto;
 }
@@ -9321,6 +9321,10 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   margin: 0;
   font-family: var(--lumea-font-body);
   color: var(--lumea-muted);
+}
+
+.lumea-wishlist-page-empty .lumea-btn {
+  margin-top: 1.75rem;
 }
 
 .lumea-wishlist-similar {

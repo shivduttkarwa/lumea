@@ -54,7 +54,7 @@ get_header();
 		)
 	);
 	?>
-	<section class="lumea-wishlist-similar" aria-label="<?php esc_attr_e( 'Similar products', 'lumea' ); ?>">
+	<section class="lumea-wishlist-similar" aria-label="<?php esc_attr_e( 'Similar products', 'lumea' ); ?>" data-lumea-wishlist-below hidden>
 		<div class="lumea-container">
 			<div class="lumea-wishlist-similar-head">
 				<p class="lumea-latest-eyebrow"><?php esc_html_e( 'Discover More', 'lumea' ); ?></p>
