@@ -10,19 +10,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$shop_url = lumea_get_shop_url();
+$shop_url           = lumea_get_shop_url();
+$wishlist_hero      = get_theme_mod( 'lumea_wishlist_hero_bg', LUMEA_THEME_URI . '/assets/images/ritual/wishlist-hero.png' );
+$wishlist_eyebrow   = get_theme_mod( 'lumea_wishlist_hero_eyebrow', __( 'Saved Favourites', 'lumea' ) );
+$wishlist_title     = get_theme_mod( 'lumea_wishlist_hero_title', __( 'Your Wishlist', 'lumea' ) );
+$wishlist_desc      = get_theme_mod( 'lumea_wishlist_hero_desc', __( 'Products you saved for your next ritual.', 'lumea' ) );
 
 get_header();
 ?>
 
 <main class="lumea-wishlist-page" id="lumeaWishlistPage">
-	<div class="lumea-shop-hero" style="--shop-bg: url('<?php echo esc_url( LUMEA_THEME_URI . '/assets/images/ritual/wishlist-hero.png' ); ?>')">
+	<div class="lumea-shop-hero" style="--shop-bg: url('<?php echo esc_url( $wishlist_hero ); ?>')">
 		<div class="lumea-shop-hero-overlay"></div>
 		<div class="lumea-shop-hero-inner">
-			<p class="lumea-shop-hero-eyebrow lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php esc_html_e( 'Saved Favourites', 'lumea' ); ?></p>
-			<h1 class="lumea-shop-hero-title lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php esc_html_e( 'Your Wishlist', 'lumea' ); ?></h1>
+			<p class="lumea-shop-hero-eyebrow lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php echo esc_html( $wishlist_eyebrow ); ?></p>
+			<h1 class="lumea-shop-hero-title lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php echo esc_html( $wishlist_title ); ?></h1>
 			<div class="lumea-shop-hero-desc lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js">
-				<?php esc_html_e( 'Products you saved for your next ritual.', 'lumea' ); ?>
+				<?php echo esc_html( $wishlist_desc ); ?>
 				<span class="lumea-wishlist-page-count-pill"><span data-lumea-wishlist-count-text>0</span> <?php esc_html_e( 'item(s)', 'lumea' ); ?></span>
 			</div>
 			<a href="<?php echo esc_url( $shop_url ); ?>" class="lumea-btn btn-outline lumea-reveal-js lumea-reveal--static-js lumea-reveal--hero-js"><?php esc_html_e( 'Continue Shopping', 'lumea' ); ?></a>

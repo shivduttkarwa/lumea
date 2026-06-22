@@ -887,6 +887,10 @@ function lumea_customize_register( $wp_customize ) {
 			'label'   => esc_html__( 'Latest Category Hero Image', 'lumea' ),
 			'default' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover5.jpg',
 		),
+		'lumea_wishlist_hero_bg'        => array(
+			'label'   => esc_html__( 'Wishlist Page Hero Image', 'lumea' ),
+			'default' => LUMEA_THEME_URI . '/assets/images/ritual/wishlist-hero.png',
+		),
 	);
 
 	foreach ( $hero_image_settings as $key => $args ) {
@@ -901,7 +905,40 @@ function lumea_customize_register( $wp_customize ) {
 		) ) );
 	}
 
-	
+	$wp_customize->add_setting( 'lumea_wishlist_hero_eyebrow', array(
+		'default'           => 'Saved Favourites',
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_wishlist_hero_eyebrow', array(
+		'label'   => esc_html__( 'Wishlist Hero Eyebrow', 'lumea' ),
+		'section' => 'lumea_shop_heroes',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'lumea_wishlist_hero_title', array(
+		'default'           => 'Your Wishlist',
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_wishlist_hero_title', array(
+		'label'   => esc_html__( 'Wishlist Hero Title', 'lumea' ),
+		'section' => 'lumea_shop_heroes',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'lumea_wishlist_hero_desc', array(
+		'default'           => 'Products you saved for your next ritual.',
+		'sanitize_callback' => 'sanitize_textarea_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_wishlist_hero_desc', array(
+		'label'   => esc_html__( 'Wishlist Hero Description', 'lumea' ),
+		'section' => 'lumea_shop_heroes',
+		'type'    => 'textarea',
+	) );
+
+
 	$wp_customize->add_setting( 'lumea_blog_hero_bg', array(
 		'default'           => LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg',
 		'sanitize_callback' => 'esc_url_raw',
