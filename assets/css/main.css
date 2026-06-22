@@ -1229,8 +1229,13 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 }
 
 .lumea-mobile-arrow--prev {
-  opacity: 0.4;
   transform: rotate(180deg);
+}
+
+.lumea-mobile-arrow.is-disabled {
+  opacity: 0.2;
+  cursor: default;
+  pointer-events: none;
 }
 
 .lumea-slider-stage.is-loading .lumea-slide,

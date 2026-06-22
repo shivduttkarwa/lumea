@@ -57,11 +57,7 @@
   }
 
   function getShortestDelta( index, active ) {
-    const total = slidesData.length;
-    let delta   = index - active;
-    if ( delta >  total / 2 ) delta -= total;
-    if ( delta < -total / 2 ) delta += total;
-    return delta;
+    return index - active;
   }
 
   function updateSlides() {
@@ -117,14 +113,30 @@
     }
   }
 
+  function updateButtons() {
+    const atStart = activeIndex <= 0;
+    const atEnd   = activeIndex >= slidesData.length - 1;
+    document.querySelectorAll( '[data-direction="prev"]' ).forEach( function ( btn ) {
+      btn.disabled = atStart;
+      btn.classList.toggle( 'is-disabled', atStart );
+    } );
+    document.querySelectorAll( '[data-direction="next"]' ).forEach( function ( btn ) {
+      btn.disabled = atEnd;
+      btn.classList.toggle( 'is-disabled', atEnd );
+    } );
+  }
+
   function goToSlide( direction ) {
     if ( isAnimating ) return;
+    if ( direction === 'prev' && activeIndex <= 0 ) return;
+    if ( direction === 'next' && activeIndex >= slidesData.length - 1 ) return;
     isAnimating = true;
-    activeIndex = getWrappedIndex( direction === 'next' ? activeIndex + 1 : activeIndex - 1 );
+    activeIndex = direction === 'next' ? activeIndex + 1 : activeIndex - 1;
     updateSlides();
     requestAnimationFrame( function () {
       animateSlideZoom( activeIndex );
       updateCard();
+      updateButtons();
     } );
     window.setTimeout( function () { isAnimating = false; }, 1320 );
   }
@@ -135,8 +147,16 @@
       return;
     }
 
-    const rect   = slider.getBoundingClientRect();
-    const isLeft = ( event.clientX - rect.left ) < rect.width / 2;
+    const rect    = slider.getBoundingClientRect();
+    const isLeft  = ( event.clientX - rect.left ) < rect.width / 2;
+    const atStart = activeIndex <= 0;
+    const atEnd   = activeIndex >= slidesData.length - 1;
+
+    if ( ( isLeft && atStart ) || ( ! isLeft && atEnd ) ) {
+      cursorArrow.classList.remove( 'is-visible', 'is-left', 'is-right' );
+      return;
+    }
+
     cursorSide   = isLeft ? 'left' : 'right';
     cursorArrow.style.left = ( event.clientX - rect.left ) + 'px';
     cursorArrow.style.top  = ( event.clientY - rect.top )  + 'px';
@@ -194,6 +214,7 @@
   createSlides();
   updateSlides();
   updateCard();
+  updateButtons();
 
   preloadImages().then( function () {
     requestAnimationFrame( function () {
