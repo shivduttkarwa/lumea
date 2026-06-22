@@ -13,7 +13,7 @@ get_header();
 $a = array(
 	
 	'hero_bg'          => get_theme_mod( 'lumea_about_hero_bg',        LUMEA_THEME_URI . '/assets/images/hero/about-hero.jpg' ),
-	'hero_label'       => get_theme_mod( 'lumea_about_hero_label',     'About Lum&eacute;a' ),
+	'hero_label'       => get_theme_mod( 'lumea_about_hero_label',     'About Luméa' ),
 	'hero_h1_1'        => get_theme_mod( 'lumea_about_hero_h1_1',      'Skincare, with intention.' ),
 	'hero_h1_2'        => get_theme_mod( 'lumea_about_hero_h1_2',      'Clean formulas. Quiet luxury.' ),
 	'hero_sub'         => get_theme_mod( 'lumea_about_hero_sub',       'We create botanical skincare that feels sensorial, performs clinically, and fits real life.' ),
@@ -79,7 +79,7 @@ $a = array(
 	<!-- ① HERO ─────────────────────────────────────────────── -->
 	<section class="lumea-about-hero" style="--lumea-about-bg:url('<?php echo esc_url( $a['hero_bg'] ); ?>')">
 		<div class="lumea-about-hero-body">
-			<p class="lumea-about-label lumea-about-label--hero lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php echo wp_kses_post( $a['hero_label'] ); ?></p>
+			<p class="lumea-about-label lumea-about-label--hero lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php echo esc_html( $a['hero_label'] ); ?></p>
 			<h1 class="lumea-about-hero-h1 lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js">
 				<span class="lumea-about-hero-line">Pure ritual.</span>
 				<span class="lumea-about-hero-line lumea-about-hero-line--soft">Real results.</span>

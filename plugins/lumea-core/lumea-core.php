@@ -346,7 +346,7 @@ function lumea_core_render_contact_form() {
 				$to      = sanitize_email( get_theme_mod( 'lumea_support_email', get_option( 'admin_email' ) ) );
 				$headers = array(
 					'Content-Type: text/plain; charset=UTF-8',
-					'Reply-To: ' . $email,
+					sprintf( 'Reply-To: %s', $email ),
 				);
 				$body    = sprintf(
 					"Name: %s\nEmail: %s\nSubject: %s\n\n%s",

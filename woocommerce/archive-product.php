@@ -44,8 +44,8 @@ $shop_cats = get_terms( array(
 ) );
 
 $active_orderby   = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) : get_option( 'woocommerce_default_catalog_orderby', 'menu_order' );
-$active_min_price = isset( $_GET['min_price'] ) ? absint( $_GET['min_price'] ) : '';
-$active_max_price = isset( $_GET['max_price'] ) ? absint( $_GET['max_price'] ) : '';
+$active_min_price = isset( $_GET['min_price'] ) ? absint( wp_unslash( $_GET['min_price'] ) ) : '';
+$active_max_price = isset( $_GET['max_price'] ) ? absint( wp_unslash( $_GET['max_price'] ) ) : '';
 
 $orderby_options = array(
 	'menu_order' => __( 'Featured',        'lumea' ),
