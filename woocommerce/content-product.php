@@ -26,7 +26,7 @@ if ( ! $product || ! $product->is_visible() ) {
 $can_add_to_cart = $product->is_purchasable() && $product->is_in_stock();
 
 ?>
-<li class="<?php echo esc_attr( implode( ' ', wc_get_product_class( 'lumea-shop-card', $product ) ) ); ?>">
+<li class="<?php echo esc_attr( implode( ' ', wc_get_product_class( 'lumea-shop-card lumea-reveal-js lumea-reveal--static-js', $product ) ) ); ?>">
 	<?php if ( function_exists( 'lumea_render_product_card' ) ) : ?>
 		<?php
 		lumea_render_product_card(

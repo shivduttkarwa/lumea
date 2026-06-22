@@ -89,7 +89,7 @@ $base_url = $is_category ? get_term_link( $current_cat ) : get_permalink( wc_get
 	</div>
 
 	<!-- Sticky filter bar -->
-	<div class="lumea-filter-bar" id="lumeaFilterBar">
+	<div class="lumea-filter-bar lumea-reveal-js lumea-reveal--static-js" id="lumeaFilterBar">
 		<div class="lumea-filter-bar-inner">
 
 			<!-- Category pills -->
