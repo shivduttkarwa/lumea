@@ -126,3 +126,8 @@ function lumea_about_body_class( $classes ) {
 	return $classes;
 }
 add_filter( 'body_class', 'lumea_about_body_class' );
+
+add_filter( 'comment_form_defaults', function ( $defaults ) {
+	$defaults['submit_button'] = '<button name="%1$s" type="submit" id="%2$s" class="lumea-btn btn-black">%4$s</button>';
+	return $defaults;
+} );

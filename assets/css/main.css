@@ -4066,8 +4066,10 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 .lumea-pdp-wish-btn.is-active { background: var(--lumea-accent); border-color: var(--lumea-accent); color: #fff; }
 
 .lumea-pdp-atc .lumea-card-actions {
-  flex: 1;
+  flex: none;
   margin-top: 0;
+  max-width: 20rem;
+  width: 100%;
 }
 .lumea-pdp-atc .lumea-card-atc-wrap {
   height: 3.25rem;
@@ -4240,6 +4242,7 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   width: min(100% - 3rem, 51.25rem);
   margin-inline: auto;
 }
+
 
 .lumea-pdp-reviews-head {
   display: flex;
@@ -4428,26 +4431,8 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   line-height: 1.5;
 }
 
-.lumea-pdp-reviews-inner #submit {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+.lumea-pdp-reviews-inner .form-submit {
   margin-top: 1.25rem;
-  padding: 0.9375rem 2.375rem;
-  background: var(--lumea-text);
-  color: #fff;
-  border: none;
-  border-radius: 6.25rem;
-  font-family: var(--lumea-font-body);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
-}
-.lumea-pdp-reviews-inner #submit:hover {
-  background: var(--lumea-accent-dark);
-  transform: translateY(-0.0625rem);
 }
 
 .lumea-pdp-reviews-inner .woocommerce-error,
