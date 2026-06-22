@@ -2038,6 +2038,11 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 
 .lumea-shop-body {
   padding: 3.5rem 0 6rem;
+  transition: opacity 0.2s ease;
+}
+.lumea-shop-body.is-loading {
+  opacity: 0.35;
+  pointer-events: none;
 }
 
 .lumea-shop-toolbar {

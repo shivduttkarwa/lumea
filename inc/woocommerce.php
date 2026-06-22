@@ -277,9 +277,7 @@ add_filter( 'body_class', 'lumea_wc_body_class' );
 add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 
 
-add_filter(
-	'loop_shop_columns',
-	function () {
-		return 4;
-	}
-);
+add_filter( 'loop_shop_columns', 'lumea_loop_shop_columns' );
+function lumea_loop_shop_columns() {
+	return 4;
+}

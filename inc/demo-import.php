@@ -173,8 +173,9 @@ function lumea_ocdi_set_theme_mods() {
 add_filter( 'ocdi/plugin_intro_text', '__return_empty_string' );
 
 
-add_action( 'ocdi/before_content_import_execution', function () {
+add_action( 'ocdi/before_content_import_execution', 'lumea_ocdi_extend_time_limit' );
+function lumea_ocdi_extend_time_limit() {
 	if ( function_exists( 'set_time_limit' ) ) {
 		set_time_limit( 300 );
 	}
-} );
+}

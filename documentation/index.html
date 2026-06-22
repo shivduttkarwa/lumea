@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luméa — Theme Documentation</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --accent: #c98578;
+    --accent-dark: #8f4d43;
+    --text: #241816;
+    --muted: #6b5c58;
+    --border: rgba(36,24,22,0.12);
+    --bg: #fffaf7;
+    --sidebar-w: 15rem;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  /* ── Layout ── */
+  .doc-wrap { display: flex; min-height: 100vh; }
+
+  .doc-sidebar {
+    width: var(--sidebar-w);
+    flex-shrink: 0;
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    overflow-y: auto;
+    background: #fff;
+    border-right: 1px solid var(--border);
+    padding: 2rem 0 3rem;
+  }
+
+  .doc-sidebar-logo {
+    padding: 0 1.5rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.25rem;
+  }
+  .doc-sidebar-logo h1 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .doc-sidebar-logo span { color: var(--accent); }
+  .doc-sidebar-logo p { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
+
+  .doc-nav { list-style: none; }
+  .doc-nav li a {
+    display: block;
+    padding: 0.35rem 1.5rem;
+    font-size: 0.8125rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.15s, background 0.15s;
+  }
+  .doc-nav li a:hover { color: var(--text); background: rgba(201,133,120,0.07); }
+  .doc-nav li a.active { color: var(--accent); font-weight: 600; }
+  .doc-nav .nav-group {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 1.25rem 1.5rem 0.35rem;
+  }
+
+  .doc-main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    padding: 3rem 3.5rem 5rem;
+    max-width: 54rem;
+  }
+
+  /* ── Typography ── */
+  .doc-section { margin-bottom: 4rem; padding-top: 0.5rem; }
+  h2.section-title {
+    font-size: 1.625rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--accent);
+    display: inline-block;
+  }
+  h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin: 1.75rem 0 0.5rem; }
+  h4 { font-size: 0.875rem; font-weight: 700; color: var(--muted); margin: 1.25rem 0 0.375rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  p { margin-bottom: 0.875rem; color: var(--muted); }
+  p:last-child { margin-bottom: 0; }
+  a { color: var(--accent); }
+  a:hover { color: var(--accent-dark); }
+
+  /* ── Hero banner ── */
+  .doc-hero {
+    background: var(--text);
+    color: #fff;
+    border-radius: 0.75rem;
+    padding: 2.5rem 2.75rem;
+    margin-bottom: 3rem;
+  }
+  .doc-hero h1 { font-size: 2rem; font-weight: 300; letter-spacing: -0.04em; color: #fff; margin-bottom: 0.5rem; }
+  .doc-hero h1 em { font-style: normal; color: var(--accent); }
+  .doc-hero p { color: rgba(255,255,255,0.65); margin: 0; font-size: 0.9375rem; }
+  .doc-hero-meta { display: flex; gap: 1.5rem; margin-top: 1.5rem; flex-wrap: wrap; }
+  .doc-hero-meta span {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45); padding: 0.35rem 0.875rem; border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 2rem;
+  }
+  .doc-hero-meta span b { color: rgba(255,255,255,0.85); }
+
+  /* ── Steps ── */
+  .steps { counter-reset: step; list-style: none; }
+  .steps li {
+    counter-increment: step;
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 0.875rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .steps li:last-child { border-bottom: none; }
+  .steps li::before {
+    content: counter(step);
+    display: flex; align-items: center; justify-content: center;
+    min-width: 1.75rem; height: 1.75rem;
+    border-radius: 50%;
+    background: var(--accent); color: #fff;
+    font-size: 0.75rem; font-weight: 700;
+    flex-shrink: 0; margin-top: 0.125rem;
+  }
+  .steps li p { margin: 0; }
+
+  /* ── Code / Paths ── */
+  code {
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 0.8125rem;
+    background: rgba(36,24,22,0.06);
+    color: var(--accent-dark);
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+  }
+  pre {
+    background: var(--text);
+    color: rgba(255,255,255,0.8);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    margin: 1rem 0;
+  }
+  pre code { background: none; color: inherit; padding: 0; font-size: inherit; }
+
+  /* ── Tables ── */
+  .doc-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.875rem; }
+  .doc-table th { text-align: left; padding: 0.625rem 0.875rem; background: rgba(36,24,22,0.05); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .doc-table td { padding: 0.625rem 0.875rem; border-top: 1px solid var(--border); vertical-align: top; color: var(--muted); }
+  .doc-table td:first-child { color: var(--text); font-weight: 600; font-family: "SFMono-Regular", Consolas, monospace; font-size: 0.8125rem; }
+
+  /* ── Note boxes ── */
+  .note {
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    margin: 1rem 0;
+    border-left: 3px solid;
+  }
+  .note-info { background: rgba(201,133,120,0.08); border-color: var(--accent); color: var(--muted); }
+  .note-warn { background: rgba(201,170,30,0.08); border-color: #c9a51e; color: #7a6010; }
+
+  /* ── Library list ── */
+  .lib-list { list-style: none; }
+  .lib-list li {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+    font-size: 0.875rem;
+  }
+  .lib-list li:last-child { border-bottom: none; }
+  .lib-name { font-weight: 700; color: var(--text); }
+  .lib-lic { font-size: 0.75rem; color: var(--accent); font-weight: 600; }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .doc-sidebar { position: static; width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
+    .doc-main { margin-left: 0; padding: 2rem 1.5rem 4rem; max-width: 100%; }
+    .doc-wrap { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-wrap">
+
+  <!-- ─── Sidebar ───────────────────────────────────────── -->
+  <aside class="doc-sidebar">
+    <div class="doc-sidebar-logo">
+      <h1>Lum<span>é</span>a</h1>
+      <p>Theme Documentation v1.1.5</p>
+    </div>
+    <ul class="doc-nav">
+      <li class="nav-group">Getting Started</li>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#requirements">Requirements</a></li>
+      <li><a href="#installation">Installation</a></li>
+      <li><a href="#demo-import">Demo Import</a></li>
+
+      <li class="nav-group">Configuration</li>
+      <li><a href="#woocommerce">WooCommerce Setup</a></li>
+      <li><a href="#pages">Creating Pages</a></li>
+      <li><a href="#menus">Navigation Menus</a></li>
+      <li><a href="#customizer">Customizer Reference</a></li>
+
+      <li class="nav-group">Theme Features</li>
+      <li><a href="#templates">Page Templates</a></li>
+      <li><a href="#wc-overrides">WooCommerce Templates</a></li>
+      <li><a href="#widgets">Widget Areas</a></li>
+      <li><a href="#translation">Translation</a></li>
+
+      <li class="nav-group">Reference</li>
+      <li><a href="#libraries">Third-Party Libraries</a></li>
+      <li><a href="#credits">Credits</a></li>
+      <li><a href="#changelog">Changelog</a></li>
+      <li><a href="#support">Support</a></li>
+    </ul>
+  </aside>
+
+  <!-- ─── Main content ──────────────────────────────────── -->
+  <main class="doc-main">
+
+    <div class="doc-hero">
+      <h1>Lum<em>é</em>a — WordPress Theme</h1>
+      <p>A premium beauty &amp; skincare WooCommerce theme for modern cosmetic, wellness, and personal care brands.</p>
+      <div class="doc-hero-meta">
+        <span>Version <b>1.1.5</b></span>
+        <span>Author <b>Shivdutt Karwa</b></span>
+        <span>WordPress <b>6.8+</b></span>
+        <span>WooCommerce <b>10.0+</b></span>
+      </div>
+    </div>
+
+
+    <!-- ① OVERVIEW ───────────────────────────────────────── -->
+    <section class="doc-section" id="overview">
+      <h2 class="section-title">Overview</h2>
+      <p>Luméa is a full-featured beauty e-commerce theme built around a canvas-based animated hero, editorial product slider, scroll-reveal animations powered by GSAP, and a complete WooCommerce storefront. It ships with:</p>
+      <ul style="margin: 0.75rem 0 0.875rem 1.25rem; color: var(--muted);">
+        <li>Slide-out cart drawer with AJAX quantity updates</li>
+        <li>Wishlist stored in browser <code>localStorage</code> via Lumea Core plugin</li>
+        <li>9 custom page templates (About, Contact, FAQ, Wishlist, Bundles, Ingredients, Shipping, Coming Soon, Blank)</li>
+        <li>56+ Customizer settings across 9 sections</li>
+        <li>One-Click Demo Import with full content, menus, and WooCommerce page assignments</li>
+        <li>Translation-ready with a POT file included</li>
+        <li>Schema.org JSON-LD product markup on single product pages</li>
+      </ul>
+    </section>
+
+
+    <!-- ② REQUIREMENTS ───────────────────────────────────── -->
+    <section class="doc-section" id="requirements">
+      <h2 class="section-title">Requirements</h2>
+      <table class="doc-table">
+        <thead><tr><th>Software</th><th>Minimum version</th></tr></thead>
+        <tbody>
+          <tr><td>WordPress</td><td>6.8 or higher</td></tr>
+          <tr><td>PHP</td><td>8.0 or higher</td></tr>
+          <tr><td>WooCommerce</td><td>10.0 or higher</td></tr>
+          <tr><td>Lumea Core plugin</td><td>1.0.2 or higher (bundled)</td></tr>
+          <tr><td>Browser</td><td>Chrome 90+, Firefox 88+, Safari 14+, Edge 90+</td></tr>
+        </tbody>
+      </table>
+      <div class="note note-info">
+        Lumea Core is a companion plugin bundled inside the theme ZIP at <code>plugins/lumea-core.zip</code>. It provides wishlist AJAX, cart quantity AJAX, contact form handling, and product placement flags. The theme will prompt you to install it automatically via the plugin notification banner.
+      </div>
+    </section>
+
+
+    <!-- ③ INSTALLATION ────────────────────────────────────── -->
+    <section class="doc-section" id="installation">
+      <h2 class="section-title">Installation</h2>
+      <h3>Method A — WordPress Admin (Recommended)</h3>
+      <ol class="steps">
+        <li><p>Log in to your WordPress admin dashboard.</p></li>
+        <li><p>Go to <strong>Appearance &rarr; Themes &rarr; Add New &rarr; Upload Theme</strong>.</p></li>
+        <li><p>Click <strong>Choose File</strong>, select the <code>lumea.zip</code> file, and click <strong>Install Now</strong>.</p></li>
+        <li><p>After installation completes, click <strong>Activate</strong>.</p></li>
+        <li><p>A plugin notification banner will appear at the top of the admin. Install and activate <strong>Lumea Core</strong> and <strong>WooCommerce</strong> when prompted.</p></li>
+      </ol>
+
+      <h3>Method B — FTP</h3>
+      <ol class="steps">
+        <li><p>Unzip <code>lumea.zip</code> on your computer.</p></li>
+        <li><p>Upload the extracted <code>lumea/</code> folder to <code>/wp-content/themes/</code> via FTP.</p></li>
+        <li><p>In WordPress admin, go to <strong>Appearance &rarr; Themes</strong> and activate <strong>Luméa</strong>.</p></li>
+        <li><p>Install Lumea Core and WooCommerce via the plugin notification banner.</p></li>
+      </ol>
+    </section>
+
+
+    <!-- ④ DEMO IMPORT ─────────────────────────────────────── -->
+    <section class="doc-section" id="demo-import">
+      <h2 class="section-title">One-Click Demo Import</h2>
+      <p>The demo import replicates the live preview in one click — creating all pages, blog posts, menus, and WooCommerce page assignments automatically.</p>
+      <ol class="steps">
+        <li><p>Install and activate the free <strong>One Click Demo Import</strong> plugin (search for it under <strong>Plugins &rarr; Add New</strong>).</p></li>
+        <li><p>Go to <strong>Appearance &rarr; Import Demo Data</strong>.</p></li>
+        <li><p>Click <strong>Import</strong> next to <em>Luméa Main Demo</em>. The process takes 1–2 minutes — do not navigate away.</p></li>
+        <li><p>After import completes, go to <strong>Appearance &rarr; Customize</strong> and replace the placeholder hero and section images with your own licensed photography.</p></li>
+      </ol>
+      <div class="note note-warn">
+        Demo images are placeholder AI-generated images included for layout reference only. Replace all hero images, editorial slides, and product images with your own licensed photography before going live.
+      </div>
+      <p>The after-import hook automatically sets:</p>
+      <ul style="margin: 0.5rem 0 0.875rem 1.25rem; color: var(--muted);">
+        <li>Front page and Posts page under <strong>Settings &rarr; Reading</strong></li>
+        <li>Permalink structure to <code>/%postname%/</code></li>
+        <li>Primary and Footer navigation menus</li>
+        <li>WooCommerce page IDs (Shop, Cart, Checkout, My Account)</li>
+        <li>Core Customizer defaults (footer headline, CTA, copyright)</li>
+      </ul>
+    </section>
+
+
+    <!-- ⑤ WOOCOMMERCE ────────────────────────────────────── -->
+    <section class="doc-section" id="woocommerce">
+      <h2 class="section-title">WooCommerce Setup</h2>
+      <ol class="steps">
+        <li><p>Install WooCommerce via <strong>Plugins &rarr; Add New</strong> (or the plugin notification banner after activating the theme).</p></li>
+        <li><p>Run the WooCommerce setup wizard to configure currency, payments, and shipping.</p></li>
+        <li><p>WooCommerce creates its own pages automatically (Shop, Cart, Checkout, My Account). You do not need to create these manually.</p></li>
+        <li><p>Go to <strong>WooCommerce &rarr; Settings &rarr; General</strong> and confirm the Shop page is set correctly.</p></li>
+      </ol>
+
+      <h3>Product Placement Flags</h3>
+      <p>Luméa Core adds a <strong>Lumea</strong> metabox on the product edit screen with two checkboxes:</p>
+      <ul style="margin: 0.5rem 0 0.875rem 1.25rem; color: var(--muted);">
+        <li><strong>Show in Bestsellers section</strong> — displays the product in the Homepage Bestsellers carousel</li>
+        <li><strong>Show in Latest Products section</strong> — displays the product in the Homepage Latest Products grid</li>
+      </ul>
+    </section>
+
+
+    <!-- ⑥ PAGES ──────────────────────────────────────────── -->
+    <section class="doc-section" id="pages">
+      <h2 class="section-title">Creating Required Pages</h2>
+      <p>After WooCommerce is set up, create the following additional pages and assign the correct page template in the <strong>Page Attributes</strong> panel on the right side of the page editor:</p>
+      <table class="doc-table">
+        <thead><tr><th>Page title</th><th>Page template to assign</th></tr></thead>
+        <tbody>
+          <tr><td>About</td><td>About Us</td></tr>
+          <tr><td>Contact</td><td>Contact</td></tr>
+          <tr><td>FAQ</td><td>FAQ</td></tr>
+          <tr><td>Wishlist</td><td>Wishlist</td></tr>
+          <tr><td>Bundles</td><td>Bundles &amp; Gifts</td></tr>
+          <tr><td>Ingredients</td><td>Our Ingredients</td></tr>
+          <tr><td>Shipping &amp; Returns</td><td>Shipping &amp; Returns</td></tr>
+          <tr><td>Blog</td><td>(no template — set as Posts Page in Settings &rarr; Reading)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Set the Front Page</h3>
+      <ol class="steps">
+        <li><p>Create a page titled <strong>Home</strong> (content can be left blank — the front page template handles everything).</p></li>
+        <li><p>Go to <strong>Settings &rarr; Reading</strong> and set <em>Your homepage displays</em> to <strong>A static page</strong>.</p></li>
+        <li><p>Set <strong>Homepage</strong> to your <em>Home</em> page and <strong>Posts page</strong> to your <em>Blog</em> page.</p></li>
+      </ol>
+    </section>
+
+
+    <!-- ⑦ MENUS ──────────────────────────────────────────── -->
+    <section class="doc-section" id="menus">
+      <h2 class="section-title">Navigation Menus</h2>
+      <ol class="steps">
+        <li><p>Go to <strong>Appearance &rarr; Menus</strong> and click <strong>create a new menu</strong>.</p></li>
+        <li><p>Name it <em>Primary Menu</em> and add your desired pages (Shop, Ingredients, Bundles, About, Journal are the demo defaults).</p></li>
+        <li><p>Under <strong>Menu Settings</strong> at the bottom, check <strong>Primary Menu</strong> and save.</p></li>
+        <li><p>Create a second menu named <em>Footer Menu</em>, add footer pages, and assign it to <strong>Footer Menu</strong> location.</p></li>
+      </ol>
+      <div class="note note-info">If you used the One-Click Demo Import, both menus are created automatically.</div>
+    </section>
+
+
+    <!-- ⑧ CUSTOMIZER ─────────────────────────────────────── -->
+    <section class="doc-section" id="customizer">
+      <h2 class="section-title">Customizer Reference</h2>
+      <p>All theme settings live under <strong>Appearance &rarr; Customize &rarr; Luméa Theme</strong>.</p>
+
+      <h3>Hero Section</h3>
+      <ul style="margin: 0.5rem 0 0.875rem 1.25rem; color: var(--muted);">
+        <li>Slide images 1–5 (slide 1 is required; 2–5 are optional)</li>
+        <li>Per-slide label text (Glow, Hydrate, Nourish, Protect, Renew)</li>
+        <li>Subtitle pills — up to 3 short text lines below the headline</li>
+        <li>CTA button text</li>
+      </ul>
+
+      <h3>Editorial Slider</h3>
+      <ul style="margin: 0.5rem 0 0.875rem 1.25rem; color: var(--muted);">
+        <li>Section eyebrow, title, and description</li>
+        <li>6 slides: image, body text, and product URL each</li>
+        <li>Shop All button text</li>
+      </ul>
+
+      <h3>Curated Glow</h3>
+      <ul style="margin: 0.5rem 0 0.875rem 1.25rem; color: var(--muted);">
+        <li>3 product tiles: image, product name, price, short description, and URL</li>
+      </ul>
+
+      <h3>Latest Products</h3>
+      <ul style="margin: 0.5rem 0 0.875rem 1.25rem; color: var(--muted);">
+        <li>Section title and description</li>
+        <li>Product count and column count</li>
+      </ul>
+
+      <h3>Bestsellers</h3>
+      <ul style="margin: 0.5rem 0 0.875rem 1.25rem; color: var(--muted);">
+        <li>Section eyebrow, title, and description</li>
+        <li>Product category term slug to pull from</li>
+      </ul>
+
+      <h3>Blog / Journal</h3>
+      <ul style="margin: 0.5rem 0 0.875rem 1.25rem; color: var(--muted);">
+        <li>Archive hero: background image, title, and subtitle</li>
+        <li>Single post hero: background image and subtitle</li>
+      </ul>
+
+      <h3>About Page</h3>
+      <ul style="margin: 0.5rem 0 0.875rem 1.25rem; color: var(--muted);">
+        <li>Hero: background image, eyebrow label, heading lines, subtitle</li>
+        <li>Statistics: 4 stat blocks — value and label each</li>
+        <li>Manifesto: quote text and author citation</li>
+        <li>Story sections A and B: image, heading, body text, link label</li>
+        <li>Values: 3 principle cards — heading and body each</li>
+        <li>Ingredient philosophy: heading, body, 4 bullet points, 3 ingredient features</li>
+        <li>Press publication names (one per line)</li>
+        <li>CTA section: background image, label, heading, button texts</li>
+      </ul>
+
+      <h3>Footer</h3>
+      <ul style="margin: 0.5rem 0 0.875rem 1.25rem; color: var(--muted);">
+        <li>Headline and CTA text</li>
+        <li>Copyright line (use <code>{year}</code> for dynamic year)</li>
+        <li>Support email address</li>
+        <li>Social links: Instagram, TikTok, Pinterest</li>
+        <li>Address and contact email</li>
+        <li>Footer video (<code>.mp4</code>) and poster image</li>
+      </ul>
+
+      <h3>Shop / Category</h3>
+      <ul style="margin: 0.5rem 0 0.875rem 1.25rem; color: var(--muted);">
+        <li>Main shop archive hero image</li>
+        <li>Per-category hero images: Bestsellers, Latest</li>
+      </ul>
+    </section>
+
+
+    <!-- ⑨ PAGE TEMPLATES ─────────────────────────────────── -->
+    <section class="doc-section" id="templates">
+      <h2 class="section-title">Page Templates</h2>
+      <table class="doc-table">
+        <thead><tr><th>Template name</th><th>File</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>About Us</td><td><code>page-about.php</code></td><td>Full about page: hero, stats, manifesto, story, values, ingredients, press, CTA.</td></tr>
+          <tr><td>Contact</td><td><code>page-contact.php</code></td><td>Contact page. Form handling via Lumea Core plugin.</td></tr>
+          <tr><td>FAQ</td><td><code>page-faq.php</code></td><td>Accordion FAQ page organised by category.</td></tr>
+          <tr><td>Wishlist</td><td><code>page-wishlist.php</code></td><td>Customer wishlist stored in <code>localStorage</code> with AJAX cart integration.</td></tr>
+          <tr><td>Bundles &amp; Gifts</td><td><code>page-bundle.php</code></td><td>Promotional bundles page for curated kits and gifting.</td></tr>
+          <tr><td>Our Ingredients</td><td><code>page-ingredients.php</code></td><td>Ingredient education page with highlighted active ingredients.</td></tr>
+          <tr><td>Shipping &amp; Returns</td><td><code>page-shipping.php</code></td><td>Shipping, delivery, return, and exchange information.</td></tr>
+          <tr><td>Coming Soon</td><td><code>page-coming-soon.php</code></td><td>Holding page for pre-launch sections.</td></tr>
+          <tr><td>Blank</td><td><code>page-blank.php</code></td><td>Minimal template without global header and footer.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+
+    <!-- ⑩ WC OVERRIDES ──────────────────────────────────── -->
+    <section class="doc-section" id="wc-overrides">
+      <h2 class="section-title">WooCommerce Template Overrides</h2>
+      <p>The following WooCommerce core templates have been customised for Luméa's design. They live inside the <code>woocommerce/</code> folder in the theme:</p>
+      <table class="doc-table">
+        <thead><tr><th>Template file</th></tr></thead>
+        <tbody>
+          <tr><td>woocommerce/archive-product.php</td></tr>
+          <tr><td>woocommerce/content-product.php</td></tr>
+          <tr><td>woocommerce/single-product.php</td></tr>
+          <tr><td>woocommerce/cart/cart.php</td></tr>
+          <tr><td>woocommerce/checkout/form-checkout.php</td></tr>
+          <tr><td>woocommerce/checkout/thankyou.php</td></tr>
+          <tr><td>woocommerce/loop/loop-start.php</td></tr>
+          <tr><td>woocommerce/loop/loop-end.php</td></tr>
+          <tr><td>woocommerce/myaccount/dashboard.php</td></tr>
+          <tr><td>woocommerce/myaccount/form-login.php</td></tr>
+          <tr><td>woocommerce/myaccount/form-lost-password.php</td></tr>
+          <tr><td>woocommerce/myaccount/form-reset-password.php</td></tr>
+          <tr><td>woocommerce/myaccount/lost-password-confirmation.php</td></tr>
+          <tr><td>woocommerce/myaccount/my-account.php</td></tr>
+        </tbody>
+      </table>
+      <div class="note note-info">
+        If WooCommerce releases an update that modifies any of these core templates, the theme's override may need to be updated to stay compatible. The theme changelog tracks WooCommerce version compatibility.
+      </div>
+    </section>
+
+
+    <!-- ⑪ WIDGETS ────────────────────────────────────────── -->
+    <section class="doc-section" id="widgets">
+      <h2 class="section-title">Widget Areas</h2>
+      <table class="doc-table">
+        <thead><tr><th>Widget area</th><th>Location</th></tr></thead>
+        <tbody>
+          <tr><td>Sidebar</td><td>General-purpose sidebar for blog posts and pages</td></tr>
+          <tr><td>Footer Column</td><td>Widget area displayed in the footer column area</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+
+    <!-- ⑫ TRANSLATION ───────────────────────────────────── -->
+    <section class="doc-section" id="translation">
+      <h2 class="section-title">Translation</h2>
+      <p>Luméa is fully translation-ready. All user-facing strings use the text domain <code>lumea</code>. A POT file is included at <code>languages/lumea.pot</code>.</p>
+      <ol class="steps">
+        <li><p>Open <code>languages/lumea.pot</code> in <a href="https://poedit.net" target="_blank">Poedit</a> or the <strong>Loco Translate</strong> WordPress plugin.</p></li>
+        <li><p>Create a translation file (e.g. <code>lumea-fr_FR.po</code> / <code>lumea-fr_FR.mo</code>).</p></li>
+        <li><p>Place the <code>.mo</code> file in <code>wp-content/languages/themes/</code> or in the theme's <code>languages/</code> folder.</p></li>
+      </ol>
+    </section>
+
+
+    <!-- ⑬ LIBRARIES ─────────────────────────────────────── -->
+    <section class="doc-section" id="libraries">
+      <h2 class="section-title">Third-Party Libraries</h2>
+      <p>All third-party libraries are bundled locally inside the theme — no CDN requests are made.</p>
+      <ul class="lib-list">
+        <li>
+          <div>
+            <div class="lib-name">GSAP v3.12.5</div>
+            <div class="lib-lic">GSAP Standard License</div>
+          </div>
+          <div>
+            GreenSock Animation Platform — powers all scroll-reveal and hero canvas animations.<br>
+            <a href="https://gsap.com/community/standard-license/" target="_blank">gsap.com/community/standard-license/</a><br>
+            Bundled at: <code>assets/vendor/gsap/gsap.min.js</code>, <code>ScrollTrigger.min.js</code>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="lib-name">Bootstrap v5.3.3</div>
+            <div class="lib-lic">MIT License</div>
+          </div>
+          <div>
+            CSS utility grid and JavaScript components.<br>
+            <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE" target="_blank">github.com/twbs/bootstrap</a><br>
+            Bundled at: <code>assets/vendor/bootstrap/</code>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="lib-name">Swiper v11</div>
+            <div class="lib-lic">MIT License</div>
+          </div>
+          <div>
+            Touch-enabled slider — used for the editorial product slider.<br>
+            <a href="https://github.com/nolimits4web/swiper/blob/master/LICENSE" target="_blank">github.com/nolimits4web/swiper</a><br>
+            Bundled at: <code>assets/vendor/swiper/</code>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="lib-name">Clash Display</div>
+            <div class="lib-lic">Fontshare Free License</div>
+          </div>
+          <div>
+            Display typeface — used for all headings.<br>
+            <a href="https://www.fontshare.com/licenses/itf-ffl" target="_blank">fontshare.com/licenses/itf-ffl</a><br>
+            Bundled at: <code>assets/vendor/fonts/clash-display/</code> (weights 400, 500, 600)
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="lib-name">Inter v20</div>
+            <div class="lib-lic">SIL OFL 1.1</div>
+          </div>
+          <div>
+            Body typeface — used for all body text and UI elements.<br>
+            <a href="https://scripts.sil.org/OFL" target="_blank">scripts.sil.org/OFL</a><br>
+            Bundled at: <code>assets/vendor/fonts/inter/</code> (variable, weights 500–800, 7 Unicode subsets)
+          </div>
+        </li>
+      </ul>
+    </section>
+
+
+    <!-- ⑭ CREDITS ────────────────────────────────────────── -->
+    <section class="doc-section" id="credits">
+      <h2 class="section-title">Demo Image Credits</h2>
+      <p>All hero images, editorial slides, product images, blog images, ritual images, and the footer video included in this theme are AI-generated original works created exclusively for this theme by the theme author. Commercial use is permitted per the generator's terms of service.</p>
+      <div class="note note-warn">
+        These demo images are provided for layout reference only. Before making your site live, replace all placeholder images with your own licensed photography or artwork.
+      </div>
+    </section>
+
+
+    <!-- ⑮ CHANGELOG ─────────────────────────────────────── -->
+    <section class="doc-section" id="changelog">
+      <h2 class="section-title">Changelog</h2>
+
+      <h3>1.1.5</h3>
+      <ul style="margin: 0.5rem 0 1.25rem 1.25rem; color: var(--muted);">
+        <li>Added One Click Demo Import support (OCDI) with a complete demo content pack</li>
+        <li>Demo import sets front page, posts page, permalinks, nav menus, and WooCommerce page IDs automatically in the after-import hook</li>
+        <li>Added three professional blog post templates covering Bakuchiol, morning routines, and skin barrier science</li>
+        <li>Added "One Click Demo Import" as a recommended plugin via TGMPA</li>
+      </ul>
+
+      <h3>1.1.4</h3>
+      <ul style="margin: 0.5rem 0 1.25rem 1.25rem; color: var(--muted);">
+        <li>Fixed cart drawer opening automatically after first add-to-cart</li>
+        <li>Improved AJAX cart quantity updates for fast repeated stepper clicks</li>
+        <li>Fixed wishlist price output rendering HTML entities correctly</li>
+        <li>Removed default WooCommerce checkout coupon form when custom coupon UI is active</li>
+        <li>Updated WooCommerce override headers; tested against WooCommerce 10.7.0</li>
+      </ul>
+
+      <h3>1.1.1</h3>
+      <ul style="margin: 0.5rem 0 1.25rem 1.25rem; color: var(--muted);">
+        <li>Escaped all unescaped echo output (esc_url, esc_attr, wp_kses)</li>
+        <li>Fixed email header injection risk on Contact page</li>
+        <li>Added wp_unslash() before sanitize_*() on all $_GET/$_POST reads</li>
+        <li>Added nonce and capability checks to WooCommerce meta save callbacks</li>
+        <li>Added Schema.org JSON-LD Product markup on single product pages</li>
+        <li>Added TGM Plugin Activation for required plugin notification</li>
+        <li>Added bundled Lumea Core companion plugin</li>
+      </ul>
+
+      <h3>1.1.0</h3>
+      <ul style="margin: 0.5rem 0 1.25rem 1.25rem; color: var(--muted);">
+        <li>Initial ThemeForest release</li>
+      </ul>
+    </section>
+
+
+    <!-- ⑯ SUPPORT ────────────────────────────────────────── -->
+    <section class="doc-section" id="support">
+      <h2 class="section-title">Support</h2>
+      <p>Support is provided via the comments section on the ThemeForest item page. Before posting, please check this documentation and the FAQ section of the item page.</p>
+      <p>When reporting an issue, please include:</p>
+      <ul style="margin: 0.5rem 0 0.875rem 1.25rem; color: var(--muted);">
+        <li>WordPress version and PHP version</li>
+        <li>WooCommerce version</li>
+        <li>List of active plugins</li>
+        <li>A description of the issue and steps to reproduce it</li>
+        <li>A link to the affected page (if your site is live)</li>
+      </ul>
+      <div class="note note-info">
+        Response time is typically 1–2 business days. Support covers theme functionality as described in this documentation. It does not include general WordPress support, plugin customisation, or modifications beyond the original theme design.
+      </div>
+    </section>
+
+
+    <footer style="border-top: 1px solid var(--border); padding-top: 2rem; margin-top: 2rem; font-size: 0.8125rem; color: var(--muted);">
+      Luméa v1.1.5 &mdash; Documentation &mdash; &copy; 2026 Shivdutt Karwa. All rights reserved.
+    </footer>
+
+  </main>
+</div>
+
+</body>
+</html>

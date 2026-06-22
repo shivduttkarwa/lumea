@@ -948,34 +948,85 @@
     }
   });
 
-  /* Shop filter dropdowns */
-  var dropdowns = document.querySelectorAll('[data-lumea-dropdown]');
-
-  if (dropdowns.length) {
-    function closeAllDropdowns(except) {
-      dropdowns.forEach(function (dropdown) {
-        if (dropdown !== except) {
-          dropdown.classList.remove('is-open');
-        }
+  /* Shop filter dropdowns — event delegation survives AJAX DOM replacement */
+  document.addEventListener('click', function (e) {
+    var trigger = e.target.closest('[data-lumea-dropdown-trigger]');
+    if (trigger) {
+      e.stopPropagation();
+      var dd      = trigger.closest('[data-lumea-dropdown]');
+      var wasOpen = dd && dd.classList.contains('is-open');
+      document.querySelectorAll('[data-lumea-dropdown]').forEach(function (d) {
+        d.classList.remove('is-open');
+      });
+      if (dd) { dd.classList.toggle('is-open', !wasOpen); }
+      return;
+    }
+    if (!e.target.closest('[data-lumea-dropdown]')) {
+      document.querySelectorAll('[data-lumea-dropdown]').forEach(function (d) {
+        d.classList.remove('is-open');
       });
     }
+  });
 
-    dropdowns.forEach(function (dropdown) {
-      var trigger = dropdown.querySelector('[data-lumea-dropdown-trigger]');
-      if (!trigger) {
-        return;
-      }
+  /* Shop AJAX filtering */
+  var shopBody  = document.querySelector('.lumea-shop-body');
+  var filterBar = document.getElementById('lumeaFilterBar');
 
-      trigger.addEventListener('click', function (event) {
-        event.stopPropagation();
-        var wasOpen = dropdown.classList.contains('is-open');
-        closeAllDropdowns();
-        dropdown.classList.toggle('is-open', !wasOpen);
-      });
+  if (shopBody && filterBar) {
+    var fetchCtrl = null;
+
+    function lumeaShopFetch(url, isPop, scrollTop) {
+      if (fetchCtrl) { fetchCtrl.abort(); }
+      fetchCtrl = window.AbortController ? new AbortController() : null;
+
+      shopBody.classList.add('is-loading');
+
+      var opts = { headers: { 'X-Requested-With': 'XMLHttpRequest' } };
+      if (fetchCtrl) { opts.signal = fetchCtrl.signal; }
+
+      fetch(url, opts)
+        .then(function (r) { return r.text(); })
+        .then(function (html) {
+          var doc = new DOMParser().parseFromString(html, 'text/html');
+          var nb  = doc.querySelector('.lumea-shop-body');
+          var nf  = doc.querySelector('#lumeaFilterBar');
+
+          if (nb) { shopBody.innerHTML  = nb.innerHTML; }
+          if (nf) { filterBar.innerHTML = nf.innerHTML; }
+
+          if (!isPop) { history.pushState({ lumea: 1 }, '', url); }
+
+          if (scrollTop) {
+            shopBody.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+
+          fetchCtrl = null;
+          shopBody.classList.remove('is-loading');
+        })
+        .catch(function (err) {
+          if (err.name !== 'AbortError') {
+            shopBody.classList.remove('is-loading');
+          }
+          fetchCtrl = null;
+        });
+    }
+
+    filterBar.addEventListener('click', function (e) {
+      var link = e.target.closest('a.lumea-filter-option, a.lumea-filter-pill, a.lumea-active-tag, a.lumea-clear-filters');
+      if (!link) { return; }
+      e.preventDefault();
+      lumeaShopFetch(link.href, false, false);
     });
 
-    document.addEventListener('click', function () {
-      closeAllDropdowns();
+    shopBody.addEventListener('click', function (e) {
+      var link = e.target.closest('.lumea-shop-pagination a');
+      if (!link) { return; }
+      e.preventDefault();
+      lumeaShopFetch(link.href, false, true);
+    });
+
+    window.addEventListener('popstate', function () {
+      lumeaShopFetch(location.href, true, false);
     });
   }
 
