@@ -7,6 +7,11 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+$faq_hero_bg      = get_theme_mod( 'lumea_faq_hero_bg', LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg' );
+$faq_hero_eyebrow = get_theme_mod( 'lumea_faq_hero_eyebrow', __( 'Help Centre', 'lumea' ) );
+$faq_hero_title   = get_theme_mod( 'lumea_faq_hero_title', __( 'Frequently Asked Questions', 'lumea' ) );
+
 get_header();
 
 $support_email  = sanitize_email( get_theme_mod( 'lumea_support_email', get_option( 'admin_email' ) ) );
@@ -96,21 +101,12 @@ $faq_categories = array(
 
 <main class="lumea-faq-page" id="lumeaPage">
 
-	<!-- Breadcrumb -->
-	<nav class="lumea-pdp-breadcrumb" aria-label="<?php esc_attr_e( 'Breadcrumb', 'lumea' ); ?>">
-		<div class="lumea-pdp-bc-inner">
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'lumea' ); ?></a>
-			<svg class="lumea-pdp-bc-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-			<span aria-current="page"><?php esc_html_e( 'FAQ', 'lumea' ); ?></span>
-		</div>
-	</nav>
-
 	<!-- Hero -->
-	<div class="lumea-faq-hero">
-		<div class="lumea-faq-hero-inner">
-			<p class="lumea-cart-eyebrow"><?php esc_html_e( 'Help Centre', 'lumea' ); ?></p>
-			<h1 class="lumea-faq-title"><?php esc_html_e( 'Frequently Asked Questions', 'lumea' ); ?></h1>
-			<p class="lumea-faq-subtitle"><?php esc_html_e( 'Everything you need to know about our products, shipping, and returns.', 'lumea' ); ?></p>
+	<div class="lumea-shop-hero" style="--shop-bg: url('<?php echo esc_url( $faq_hero_bg ); ?>')">
+		<div class="lumea-shop-hero-overlay"></div>
+		<div class="lumea-shop-hero-inner">
+			<p class="lumea-shop-hero-eyebrow lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php echo esc_html( $faq_hero_eyebrow ); ?></p>
+			<h1 class="lumea-shop-hero-title lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php echo esc_html( $faq_hero_title ); ?></h1>
 		</div>
 	</div>
 

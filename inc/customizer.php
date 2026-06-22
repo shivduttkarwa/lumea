@@ -980,6 +980,42 @@ function lumea_customize_register( $wp_customize ) {
 		'type'    => 'textarea',
 	) );
 
+	// --- FAQ Page ---
+	$wp_customize->add_section( 'lumea_hero_faq', array(
+		'title'    => esc_html__( 'FAQ Page Hero', 'lumea' ),
+		'panel'    => 'lumea_theme',
+		'priority' => 64,
+	) );
+	$wp_customize->add_setting( 'lumea_faq_hero_bg', array(
+		'default'           => LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg',
+		'sanitize_callback' => 'esc_url_raw',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'lumea_faq_hero_bg', array(
+		'label'   => esc_html__( 'Hero Image', 'lumea' ),
+		'section' => 'lumea_hero_faq',
+	) ) );
+	$wp_customize->add_setting( 'lumea_faq_hero_eyebrow', array(
+		'default'           => 'Help Centre',
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_faq_hero_eyebrow', array(
+		'label'   => esc_html__( 'Eyebrow Text', 'lumea' ),
+		'section' => 'lumea_hero_faq',
+		'type'    => 'text',
+	) );
+	$wp_customize->add_setting( 'lumea_faq_hero_title', array(
+		'default'           => 'Frequently Asked Questions',
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_faq_hero_title', array(
+		'label'   => esc_html__( 'Title', 'lumea' ),
+		'section' => 'lumea_hero_faq',
+		'type'    => 'text',
+	) );
+
 	// --- Contact Page ---
 	$wp_customize->add_section( 'lumea_hero_contact', array(
 		'title'    => esc_html__( 'Contact Page Hero', 'lumea' ),

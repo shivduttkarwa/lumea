@@ -188,7 +188,7 @@ body.woocommerce-cart .lumea-header,
 body.woocommerce-checkout .lumea-header,
 body.woocommerce-account .lumea-header,
 body.error404 .lumea-header,
-body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template):not(.lumea-wishlist-template):not(.lumea-contact-template) .lumea-header {
+body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template):not(.lumea-wishlist-template):not(.lumea-contact-template):not(.lumea-faq-template) .lumea-header {
   background: rgba(255, 250, 247, 0.97);
   box-shadow: 0 0.0625rem 0 var(--lumea-border);
   backdrop-filter: blur(0.75rem);
@@ -200,7 +200,7 @@ body.woocommerce-cart .lumea-header-logo,
 body.woocommerce-checkout .lumea-header-logo,
 body.woocommerce-account .lumea-header-logo,
 body.error404 .lumea-header-logo,
-body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template):not(.lumea-wishlist-template):not(.lumea-contact-template) .lumea-header-logo {
+body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template):not(.lumea-wishlist-template):not(.lumea-contact-template):not(.lumea-faq-template) .lumea-header-logo {
   color: var(--lumea-text);
 }
 
@@ -209,7 +209,7 @@ body.woocommerce-cart .lumea-nav-list li a,
 body.woocommerce-checkout .lumea-nav-list li a,
 body.woocommerce-account .lumea-nav-list li a,
 body.error404 .lumea-nav-list li a,
-body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template):not(.lumea-wishlist-template):not(.lumea-contact-template) .lumea-nav-list li a {
+body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template):not(.lumea-wishlist-template):not(.lumea-contact-template):not(.lumea-faq-template) .lumea-nav-list li a {
   color: var(--lumea-muted);
 }
 
@@ -218,7 +218,7 @@ body.woocommerce-cart .lumea-nav-list li a:hover,
 body.woocommerce-checkout .lumea-nav-list li a:hover,
 body.woocommerce-account .lumea-nav-list li a:hover,
 body.error404 .lumea-nav-list li a:hover,
-body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template):not(.lumea-wishlist-template):not(.lumea-contact-template) .lumea-nav-list li a:hover {
+body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template):not(.lumea-wishlist-template):not(.lumea-contact-template):not(.lumea-faq-template) .lumea-nav-list li a:hover {
   color: var(--lumea-text);
 }
 
@@ -227,7 +227,7 @@ body.woocommerce-cart .lumea-header .lumea-cart-trigger,
 body.woocommerce-checkout .lumea-header .lumea-cart-trigger,
 body.woocommerce-account .lumea-header .lumea-cart-trigger,
 body.error404 .lumea-header .lumea-cart-trigger,
-body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template):not(.lumea-wishlist-template):not(.lumea-contact-template) .lumea-header .lumea-cart-trigger {
+body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template):not(.lumea-wishlist-template):not(.lumea-contact-template):not(.lumea-faq-template) .lumea-header .lumea-cart-trigger {
   border-color: var(--lumea-border);
   color: var(--lumea-text);
 }
@@ -237,7 +237,7 @@ body.woocommerce-cart .lumea-nav-toggle-bar,
 body.woocommerce-checkout .lumea-nav-toggle-bar,
 body.woocommerce-account .lumea-nav-toggle-bar,
 body.error404 .lumea-nav-toggle-bar,
-body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template):not(.lumea-wishlist-template):not(.lumea-contact-template) .lumea-nav-toggle-bar {
+body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template):not(.lumea-wishlist-template):not(.lumea-contact-template):not(.lumea-faq-template) .lumea-nav-toggle-bar {
   background: var(--lumea-text);
 }
 
@@ -246,6 +246,7 @@ body.woocommerce-shop .lumea-header:not(.is-scrolled),
 body.post-type-archive-product .lumea-header:not(.is-scrolled),
 body.tax-product_cat .lumea-header:not(.is-scrolled),
 body.lumea-wishlist-template .lumea-header:not(.is-scrolled),
+body.lumea-faq-template .lumea-header:not(.is-scrolled),
 body.lumea-contact-template .lumea-header:not(.is-scrolled) {
   background: transparent;
   box-shadow: none;
@@ -254,6 +255,7 @@ body.woocommerce-shop .lumea-header:not(.is-scrolled) .lumea-header-logo,
 body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-header-logo,
 body.tax-product_cat .lumea-header:not(.is-scrolled) .lumea-header-logo,
 body.lumea-wishlist-template .lumea-header:not(.is-scrolled) .lumea-header-logo,
+body.lumea-faq-template .lumea-header:not(.is-scrolled) .lumea-header-logo,
 body.lumea-contact-template .lumea-header:not(.is-scrolled) .lumea-header-logo {
   color: #ffffff;
 }
@@ -261,6 +263,7 @@ body.woocommerce-shop .lumea-header:not(.is-scrolled) .lumea-nav-list li a,
 body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-nav-list li a,
 body.tax-product_cat .lumea-header:not(.is-scrolled) .lumea-nav-list li a,
 body.lumea-wishlist-template .lumea-header:not(.is-scrolled) .lumea-nav-list li a,
+body.lumea-faq-template .lumea-header:not(.is-scrolled) .lumea-nav-list li a,
 body.lumea-contact-template .lumea-header:not(.is-scrolled) .lumea-nav-list li a {
   color: rgba(255, 255, 255, 0.85);
 }
@@ -268,6 +271,7 @@ body.woocommerce-shop .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover
 body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover,
 body.tax-product_cat .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover,
 body.lumea-wishlist-template .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover,
+body.lumea-faq-template .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover,
 body.lumea-contact-template .lumea-header:not(.is-scrolled) .lumea-nav-list li a:hover {
   color: #ffffff;
 }
@@ -275,6 +279,7 @@ body.woocommerce-shop .lumea-header:not(.is-scrolled) .lumea-cart-trigger,
 body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-cart-trigger,
 body.tax-product_cat .lumea-header:not(.is-scrolled) .lumea-cart-trigger,
 body.lumea-wishlist-template .lumea-header:not(.is-scrolled) .lumea-cart-trigger,
+body.lumea-faq-template .lumea-header:not(.is-scrolled) .lumea-cart-trigger,
 body.lumea-contact-template .lumea-header:not(.is-scrolled) .lumea-cart-trigger {
   border-color: rgba(255, 255, 255, 0.35);
   color: #ffffff;
@@ -283,6 +288,7 @@ body.woocommerce-shop .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar,
 body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar,
 body.tax-product_cat .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar,
 body.lumea-wishlist-template .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar,
+body.lumea-faq-template .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar,
 body.lumea-contact-template .lumea-header:not(.is-scrolled) .lumea-nav-toggle-bar {
   background: #ffffff;
 }
@@ -291,6 +297,7 @@ body.woocommerce-shop .lumea-header.is-scrolled,
 body.post-type-archive-product .lumea-header.is-scrolled,
 body.tax-product_cat .lumea-header.is-scrolled,
 body.lumea-wishlist-template .lumea-header.is-scrolled,
+body.lumea-faq-template .lumea-header.is-scrolled,
 body.lumea-contact-template .lumea-header.is-scrolled {
   background: rgba(255, 250, 247, 0.97);
   box-shadow: 0 0.0625rem 0 var(--lumea-border);
@@ -301,6 +308,7 @@ body.woocommerce-shop .lumea-header.is-scrolled .lumea-header-logo,
 body.post-type-archive-product .lumea-header.is-scrolled .lumea-header-logo,
 body.tax-product_cat .lumea-header.is-scrolled .lumea-header-logo,
 body.lumea-wishlist-template .lumea-header.is-scrolled .lumea-header-logo,
+body.lumea-faq-template .lumea-header.is-scrolled .lumea-header-logo,
 body.lumea-contact-template .lumea-header.is-scrolled .lumea-header-logo {
   color: var(--lumea-text);
 }
@@ -308,6 +316,7 @@ body.woocommerce-shop .lumea-header.is-scrolled .lumea-nav-list li a,
 body.post-type-archive-product .lumea-header.is-scrolled .lumea-nav-list li a,
 body.tax-product_cat .lumea-header.is-scrolled .lumea-nav-list li a,
 body.lumea-wishlist-template .lumea-header.is-scrolled .lumea-nav-list li a,
+body.lumea-faq-template .lumea-header.is-scrolled .lumea-nav-list li a,
 body.lumea-contact-template .lumea-header.is-scrolled .lumea-nav-list li a {
   color: var(--lumea-muted);
 }
@@ -315,6 +324,7 @@ body.woocommerce-shop .lumea-header.is-scrolled .lumea-nav-list li a:hover,
 body.post-type-archive-product .lumea-header.is-scrolled .lumea-nav-list li a:hover,
 body.tax-product_cat .lumea-header.is-scrolled .lumea-nav-list li a:hover,
 body.lumea-wishlist-template .lumea-header.is-scrolled .lumea-nav-list li a:hover,
+body.lumea-faq-template .lumea-header.is-scrolled .lumea-nav-list li a:hover,
 body.lumea-contact-template .lumea-header.is-scrolled .lumea-nav-list li a:hover {
   color: var(--lumea-text);
 }
@@ -322,6 +332,7 @@ body.woocommerce-shop .lumea-header.is-scrolled .lumea-cart-trigger,
 body.post-type-archive-product .lumea-header.is-scrolled .lumea-cart-trigger,
 body.tax-product_cat .lumea-header.is-scrolled .lumea-cart-trigger,
 body.lumea-wishlist-template .lumea-header.is-scrolled .lumea-cart-trigger,
+body.lumea-faq-template .lumea-header.is-scrolled .lumea-cart-trigger,
 body.lumea-contact-template .lumea-header.is-scrolled .lumea-cart-trigger {
   border-color: var(--lumea-border);
   color: var(--lumea-text);
@@ -330,6 +341,7 @@ body.woocommerce-shop .lumea-header.is-scrolled .lumea-nav-toggle-bar,
 body.post-type-archive-product .lumea-header.is-scrolled .lumea-nav-toggle-bar,
 body.tax-product_cat .lumea-header.is-scrolled .lumea-nav-toggle-bar,
 body.lumea-wishlist-template .lumea-header.is-scrolled .lumea-nav-toggle-bar,
+body.lumea-faq-template .lumea-header.is-scrolled .lumea-nav-toggle-bar,
 body.lumea-contact-template .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   background: var(--lumea-text);
 }
@@ -7949,8 +7961,7 @@ a.lumea-contact-info-value:hover { color: var(--lumea-accent-dark); }
   .lumea-contact-row--2col { grid-template-columns: 1fr; }
 }
 
-.lumea-faq-page { background: var(--lumea-bg); padding-top: 4.5rem; min-height: 80vh; }
-.admin-bar .lumea-faq-page { padding-top: calc(4.5rem + 2rem); }
+.lumea-faq-page { background: var(--lumea-bg); min-height: 80vh; }
 
 .lumea-faq-hero {
   background: #ffffff;
@@ -8600,7 +8611,7 @@ body.woocommerce-cart .lumea-header .lumea-header-icon-btn,
 body.woocommerce-checkout .lumea-header .lumea-header-icon-btn,
 body.woocommerce-account .lumea-header .lumea-header-icon-btn,
 body.error404 .lumea-header .lumea-header-icon-btn,
-body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template):not(.lumea-wishlist-template):not(.lumea-contact-template) .lumea-header .lumea-header-icon-btn {
+body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template):not(.lumea-wishlist-template):not(.lumea-contact-template):not(.lumea-faq-template) .lumea-header .lumea-header-icon-btn {
   color: var(--lumea-text);
 }
 
@@ -8609,7 +8620,7 @@ body.woocommerce-cart .lumea-header .lumea-header-icon-btn:hover,
 body.woocommerce-checkout .lumea-header .lumea-header-icon-btn:hover,
 body.woocommerce-account .lumea-header .lumea-header-icon-btn:hover,
 body.error404 .lumea-header .lumea-header-icon-btn:hover,
-body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template):not(.lumea-wishlist-template):not(.lumea-contact-template) .lumea-header .lumea-header-icon-btn:hover {
+body.page:not(.home):not(.page-template-page-about-php):not(.page-about):not(.lumea-about-template):not(.lumea-wishlist-template):not(.lumea-contact-template):not(.lumea-faq-template) .lumea-header .lumea-header-icon-btn:hover {
   background: rgba(0, 0, 0, 0.05);
 }
 
