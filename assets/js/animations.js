@@ -227,16 +227,16 @@
     }
 
     
-    var tl = gsap.timeline( { delay: 0.15, defaults: { ease: 'power3.out' } } );
+    var tl = gsap.timeline( { delay: 0.05, defaults: { ease: 'power3.out' } } );
 
     if ( logo ) {
-      tl.to( logo, { autoAlpha: 1, duration: 0.7, ease: 'power2.out' }, 0.42 );
+      tl.to( logo, { autoAlpha: 1, duration: 0.4, ease: 'power2.out' }, 0.1 );
     }
     if ( navItems.length ) {
-      tl.to( navItems, { autoAlpha: 1, duration: 0.55, ease: 'power2.out', stagger: 0.07 }, 0.5 );
+      tl.to( navItems, { autoAlpha: 1, duration: 0.35, ease: 'power2.out', stagger: 0.04 }, 0.15 );
     }
     if ( actions.length ) {
-      tl.to( actions, { autoAlpha: 1, duration: 0.5, ease: 'power2.out', stagger: 0.055 }, 0.58 );
+      tl.to( actions, { autoAlpha: 1, duration: 0.3, ease: 'power2.out', stagger: 0.03 }, 0.18 );
     }
 
     if ( ! hero ) return;
