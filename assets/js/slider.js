@@ -213,7 +213,7 @@
   }
 
   slider.addEventListener( 'click', function ( event ) {
-    if ( event.target.closest( '.lumea-content-card, .lumea-mobile-arrows' ) ) return;
+    if ( event.target.closest( '.lumea-card-button, .lumea-mobile-arrows' ) ) return;
     goToSlide( cursorSide === 'left' ? 'prev' : 'next' );
   } );
 
