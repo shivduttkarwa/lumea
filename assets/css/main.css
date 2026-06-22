@@ -1447,19 +1447,19 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   bottom: 0;
   z-index: 3;
   width: 100%;
-  height: 42%;
+  height: 58%;
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.68) 0%,
-    rgba(0, 0, 0, 0.46) 34%,
-    rgba(0, 0, 0, 0.18) 70%,
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.72) 28%,
+    rgba(0, 0, 0, 0.42) 58%,
     rgba(0, 0, 0, 0) 100%
   );
   opacity: 0;
-  transform: translateY(18%);
+  transform: translateY(12%);
   transition:
-    opacity 520ms ease,
-    transform 750ms var(--lumea-ease);
+    opacity 480ms ease,
+    transform 700ms var(--lumea-ease);
   pointer-events: none;
 }
 
