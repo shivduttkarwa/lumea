@@ -46,10 +46,10 @@ $shop_url = esc_url( lumea_get_shop_url() );
 			</div>
 		</div>
 	</div>
-	<button class="lma-scroll-down" aria-label="<?php esc_attr_e( 'Scroll down', 'lumea' ); ?>">
-		<span class="lma-scroll-dot"></span>
-		<span class="lma-scroll-dot"></span>
-		<span class="lma-scroll-dot"></span>
+	<button class="lumea-scroll-down" aria-label="<?php esc_attr_e( 'Scroll down', 'lumea' ); ?>">
+		<span class="lumea-scroll-dot"></span>
+		<span class="lumea-scroll-dot"></span>
+		<span class="lumea-scroll-dot"></span>
 	</button>
 </section>
 

@@ -42,8 +42,8 @@ function lumea_ocdi_after_import() {
 
 
 function lumea_ocdi_set_reading_options() {
-	$front_page = get_page_by_title( 'Home' );
-	$blog_page  = get_page_by_title( 'Blog' );
+	$front_page = lumea_get_page_by_title( 'Home' );
+	$blog_page  = lumea_get_page_by_title( 'Blog' );
 
 	if ( $front_page ) {
 		update_option( 'show_on_front', 'page' );
@@ -101,7 +101,7 @@ function lumea_ocdi_create_menus() {
 		foreach ( $def['pages'] as $page_def ) {
 			$page = get_page_by_path( $page_def['slug'] );
 			if ( ! $page ) {
-				$page = get_page_by_title( $page_def['label'] );
+				$page = lumea_get_page_by_title( $page_def['label'] );
 			}
 			if ( ! $page ) {
 				continue;
@@ -141,7 +141,7 @@ function lumea_ocdi_set_wc_pages() {
 	);
 
 	foreach ( $wc_page_map as $option => $slugs ) {
-		$page = get_page_by_path( $slugs[0] ) ?: get_page_by_title( $slugs[1] );
+		$page = get_page_by_path( $slugs[0] ) ?: lumea_get_page_by_title( $slugs[1] );
 		if ( $page ) {
 			update_option( $option, $page->ID );
 		}

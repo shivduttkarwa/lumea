@@ -253,10 +253,13 @@ under free, open-source licenses compatible with the GPL.
    License: SIL Open Font License 1.1
    https://scripts.sil.org/OFL
 
-Demo and preview media included in this development package are placeholder
-assets. For marketplace release, replace them with fully licensed production
-media, document every included media license, or move preview-only media out of
-the buyer ZIP before packaging.
+6. Theme Demo Images & Video
+   Generated with: [Your AI Tool — e.g. Midjourney / DALL-E / Adobe Firefly]
+   License: AI-generated original works created exclusively for this theme.
+            Commercial use permitted per the generator's terms of service.
+   All hero images, editorial slides, product images, blog images, ritual
+   images, and the footer video included in this theme are AI-generated
+   and are the original creative work of the theme author.
 
 
 == CHANGELOG ==

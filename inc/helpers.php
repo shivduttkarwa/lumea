@@ -77,8 +77,20 @@ function lumea_product_url( $setting_key ) {
 }
 
 
-function lma_lines( $str ) {
+function lumea_lines( $str ) {
 	return array_filter( array_map( 'trim', explode( "\n", $str ) ) );
+}
+
+function lumea_get_page_by_title( $title ) {
+	$pages = get_posts( array(
+		'post_type'      => 'page',
+		'title'          => $title,
+		'posts_per_page' => 1,
+		'no_found_rows'  => true,
+		'orderby'        => 'post_date',
+		'order'          => 'ASC',
+	) );
+	return ! empty( $pages ) ? $pages[0] : null;
 }
 
 

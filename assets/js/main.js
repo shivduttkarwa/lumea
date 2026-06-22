@@ -369,10 +369,10 @@
   }
 
   /* Scroll-down button */
-  var scrollDownBtn = document.querySelector('.lma-scroll-down');
+  var scrollDownBtn = document.querySelector('.lumea-scroll-down, .lumea-about-scroll-down');
   if (scrollDownBtn) {
     scrollDownBtn.addEventListener('click', function () {
-      var hero = document.querySelector('.lma-hero') || document.querySelector('.hero');
+      var hero = document.querySelector('.lumea-about-hero') || document.querySelector('.hero');
       if (hero) {
         window.scrollTo({ top: hero.offsetTop + hero.offsetHeight, behavior: 'smooth' });
       }
