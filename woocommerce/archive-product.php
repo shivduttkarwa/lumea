@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Shop / archive-product template — world-class edition.
  *
