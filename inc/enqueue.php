@@ -15,30 +15,30 @@ function lumea_enqueue_assets() {
 	
 	wp_enqueue_style(
 		'lumea-clash-display',
-		'https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600&display=swap',
+		LUMEA_THEME_URI . '/assets/vendor/fonts/clash-display/clash-display.css',
 		array(),
-		false
+		'1.0.0'
 	);
 
 
 	wp_enqueue_style(
 		'lumea-inter',
-		'https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap',
+		LUMEA_THEME_URI . '/assets/vendor/fonts/inter/inter.css',
 		array(),
-		false
+		'20.0.0'
 	);
 
 	
 	wp_enqueue_style(
 		'lumea-bootstrap',
-		'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
+		LUMEA_THEME_URI . '/assets/vendor/bootstrap/bootstrap.min.css',
 		array(),
 		'5.3.3'
 	);
 
 	wp_enqueue_script(
 		'lumea-bootstrap',
-		'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js',
+		LUMEA_THEME_URI . '/assets/vendor/bootstrap/bootstrap.bundle.min.js',
 		array(),
 		'5.3.3',
 		true
@@ -101,16 +101,16 @@ function lumea_enqueue_assets() {
 	
 	wp_enqueue_script(
 		'gsap',
-		'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js',
+		LUMEA_THEME_URI . '/assets/vendor/gsap/gsap.min.js',
 		array(),
 		'3.12.5',
 		true
 	);
 
-	
+
 	wp_enqueue_script(
 		'gsap-scrolltrigger',
-		'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js',
+		LUMEA_THEME_URI . '/assets/vendor/gsap/ScrollTrigger.min.js',
 		array( 'gsap' ),
 		'3.12.5',
 		true
@@ -259,13 +259,13 @@ function lumea_enqueue_assets() {
 		
 		wp_enqueue_style(
 			'swiper',
-			'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css',
+			LUMEA_THEME_URI . '/assets/vendor/swiper/swiper-bundle.min.css',
 			array(),
 			'11.0.0'
 		);
 		wp_enqueue_script(
 			'swiper',
-			'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js',
+			LUMEA_THEME_URI . '/assets/vendor/swiper/swiper-bundle.min.js',
 			array(),
 			'11.0.0',
 			true
@@ -353,7 +353,7 @@ add_action( 'wp_enqueue_scripts', 'lumea_enqueue_assets' );
 function lumea_enqueue_editor_assets() {
 	wp_enqueue_style(
 		'lumea-editor-bootstrap',
-		'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
+		LUMEA_THEME_URI . '/assets/vendor/bootstrap/bootstrap.min.css',
 		array(),
 		'5.3.3'
 	);
