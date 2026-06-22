@@ -451,4 +451,41 @@
 
   } )();
 
+  /* ── Manifesto quote — fast typewriter character reveal ── */
+  ( function initManifestoTypewriter() {
+
+    var mq = document.querySelector( '.lumea-about-manifesto-q' );
+    if ( ! mq ) return;
+
+    var text = mq.textContent.trim();
+
+    mq.setAttribute( 'aria-label', text );
+    mq.textContent = '';
+
+    var spans = text.split( '' ).map( function ( ch ) {
+      var s = document.createElement( 'span' );
+      s.setAttribute( 'aria-hidden', 'true' );
+      s.textContent = ch;
+      mq.appendChild( s );
+      return s;
+    } );
+
+    gsap.set( spans, { opacity: 0 } );
+
+    ScrollTrigger.create( {
+      trigger: mq,
+      start:   'top 78%',
+      once:    true,
+      onEnter: function () {
+        gsap.to( spans, {
+          opacity:  1,
+          duration: 0.001,
+          stagger:  0.022,
+          ease:     'none',
+        } );
+      },
+    } );
+
+  } )();
+
 } )();
