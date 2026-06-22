@@ -869,128 +869,198 @@ function lumea_customize_register( $wp_customize ) {
 		) );
 	}
 	
-	$wp_customize->add_section( 'lumea_shop_heroes', array(
-		'title'    => esc_html__( 'Shop & Category Heroes', 'lumea' ),
+	/* ── Per-page hero sections (all inside lumea_theme panel) ── */
+
+	// --- Shop Page ---
+	$wp_customize->add_section( 'lumea_hero_shop', array(
+		'title'    => esc_html__( 'Shop Page Hero', 'lumea' ),
+		'panel'    => 'lumea_theme',
 		'priority' => 60,
 	) );
+	$wp_customize->add_setting( 'lumea_shop_hero_bg', array(
+		'default'           => LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg',
+		'sanitize_callback' => 'esc_url_raw',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'lumea_shop_hero_bg', array(
+		'label'   => esc_html__( 'Hero Image', 'lumea' ),
+		'section' => 'lumea_hero_shop',
+	) ) );
 
-	$hero_image_settings = array(
-		'lumea_shop_hero_bg'            => array(
-			'label'   => esc_html__( 'Shop Page Hero Image', 'lumea' ),
-			'default' => LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg',
-		),
-		'lumea_cat_bestseller_hero_bg'  => array(
-			'label'   => esc_html__( 'Bestseller Category Hero Image', 'lumea' ),
-			'default' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover3.jpg',
-		),
-		'lumea_cat_latest_hero_bg'      => array(
-			'label'   => esc_html__( 'Latest Category Hero Image', 'lumea' ),
-			'default' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover5.jpg',
-		),
-		'lumea_wishlist_hero_bg'        => array(
-			'label'   => esc_html__( 'Wishlist Page Hero Image', 'lumea' ),
-			'default' => LUMEA_THEME_URI . '/assets/images/ritual/wishlist-hero.png',
-		),
-	);
+	// --- Bestseller Category ---
+	$wp_customize->add_section( 'lumea_hero_bestseller', array(
+		'title'    => esc_html__( 'Bestseller Category Hero', 'lumea' ),
+		'panel'    => 'lumea_theme',
+		'priority' => 61,
+	) );
+	$wp_customize->add_setting( 'lumea_cat_bestseller_hero_bg', array(
+		'default'           => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover3.jpg',
+		'sanitize_callback' => 'esc_url_raw',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'lumea_cat_bestseller_hero_bg', array(
+		'label'   => esc_html__( 'Hero Image', 'lumea' ),
+		'section' => 'lumea_hero_bestseller',
+	) ) );
 
-	foreach ( $hero_image_settings as $key => $args ) {
-		$wp_customize->add_setting( $key, array(
-			'default'           => $args['default'],
-			'sanitize_callback' => 'esc_url_raw',
-			'transport'         => 'refresh',
-		) );
-		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $key, array(
-			'label'   => $args['label'],
-			'section' => 'lumea_shop_heroes',
-		) ) );
-	}
+	// --- Latest Category ---
+	$wp_customize->add_section( 'lumea_hero_latest', array(
+		'title'    => esc_html__( 'Latest Category Hero', 'lumea' ),
+		'panel'    => 'lumea_theme',
+		'priority' => 62,
+	) );
+	$wp_customize->add_setting( 'lumea_cat_latest_hero_bg', array(
+		'default'           => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover5.jpg',
+		'sanitize_callback' => 'esc_url_raw',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'lumea_cat_latest_hero_bg', array(
+		'label'   => esc_html__( 'Hero Image', 'lumea' ),
+		'section' => 'lumea_hero_latest',
+	) ) );
 
+	// --- Wishlist Page ---
+	$wp_customize->add_section( 'lumea_hero_wishlist', array(
+		'title'    => esc_html__( 'Wishlist Page Hero', 'lumea' ),
+		'panel'    => 'lumea_theme',
+		'priority' => 63,
+	) );
+	$wp_customize->add_setting( 'lumea_wishlist_hero_bg', array(
+		'default'           => LUMEA_THEME_URI . '/assets/images/ritual/wishlist-hero.png',
+		'sanitize_callback' => 'esc_url_raw',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'lumea_wishlist_hero_bg', array(
+		'label'   => esc_html__( 'Hero Image', 'lumea' ),
+		'section' => 'lumea_hero_wishlist',
+	) ) );
 	$wp_customize->add_setting( 'lumea_wishlist_hero_eyebrow', array(
 		'default'           => 'Saved Favourites',
 		'sanitize_callback' => 'sanitize_text_field',
 		'transport'         => 'refresh',
 	) );
 	$wp_customize->add_control( 'lumea_wishlist_hero_eyebrow', array(
-		'label'   => esc_html__( 'Wishlist Hero Eyebrow', 'lumea' ),
-		'section' => 'lumea_shop_heroes',
+		'label'   => esc_html__( 'Eyebrow Text', 'lumea' ),
+		'section' => 'lumea_hero_wishlist',
 		'type'    => 'text',
 	) );
-
 	$wp_customize->add_setting( 'lumea_wishlist_hero_title', array(
 		'default'           => 'Your Wishlist',
 		'sanitize_callback' => 'sanitize_text_field',
 		'transport'         => 'refresh',
 	) );
 	$wp_customize->add_control( 'lumea_wishlist_hero_title', array(
-		'label'   => esc_html__( 'Wishlist Hero Title', 'lumea' ),
-		'section' => 'lumea_shop_heroes',
+		'label'   => esc_html__( 'Title', 'lumea' ),
+		'section' => 'lumea_hero_wishlist',
 		'type'    => 'text',
 	) );
-
 	$wp_customize->add_setting( 'lumea_wishlist_hero_desc', array(
 		'default'           => 'Products you saved for your next ritual.',
 		'sanitize_callback' => 'sanitize_textarea_field',
 		'transport'         => 'refresh',
 	) );
 	$wp_customize->add_control( 'lumea_wishlist_hero_desc', array(
-		'label'   => esc_html__( 'Wishlist Hero Description', 'lumea' ),
-		'section' => 'lumea_shop_heroes',
+		'label'   => esc_html__( 'Description', 'lumea' ),
+		'section' => 'lumea_hero_wishlist',
 		'type'    => 'textarea',
 	) );
 
+	// --- Contact Page ---
+	$wp_customize->add_section( 'lumea_hero_contact', array(
+		'title'    => esc_html__( 'Contact Page Hero', 'lumea' ),
+		'panel'    => 'lumea_theme',
+		'priority' => 64,
+	) );
+	$wp_customize->add_setting( 'lumea_contact_hero_bg', array(
+		'default'           => LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg',
+		'sanitize_callback' => 'esc_url_raw',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'lumea_contact_hero_bg', array(
+		'label'   => esc_html__( 'Hero Image', 'lumea' ),
+		'section' => 'lumea_hero_contact',
+	) ) );
+	$wp_customize->add_setting( 'lumea_contact_hero_eyebrow', array(
+		'default'           => "We'd Love to Hear From You",
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_contact_hero_eyebrow', array(
+		'label'   => esc_html__( 'Eyebrow Text', 'lumea' ),
+		'section' => 'lumea_hero_contact',
+		'type'    => 'text',
+	) );
+	$wp_customize->add_setting( 'lumea_contact_hero_title', array(
+		'default'           => 'Get in Touch',
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'lumea_contact_hero_title', array(
+		'label'   => esc_html__( 'Title', 'lumea' ),
+		'section' => 'lumea_hero_contact',
+		'type'    => 'text',
+	) );
 
+	// --- Journal (Blog) Page ---
+	$wp_customize->add_section( 'lumea_hero_journal', array(
+		'title'    => esc_html__( 'Journal Page Hero', 'lumea' ),
+		'panel'    => 'lumea_theme',
+		'priority' => 65,
+	) );
 	$wp_customize->add_setting( 'lumea_blog_hero_bg', array(
 		'default'           => LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg',
 		'sanitize_callback' => 'esc_url_raw',
 		'transport'         => 'refresh',
 	) );
 	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'lumea_blog_hero_bg', array(
-		'label'       => esc_html__( 'Journal Page Hero Image', 'lumea' ),
-		'description' => esc_html__( 'Used on the main blog page hero.', 'lumea' ),
-		'section'     => 'lumea_shop_heroes',
+		'label'   => esc_html__( 'Hero Image', 'lumea' ),
+		'section' => 'lumea_hero_journal',
 	) ) );
-
 	$wp_customize->add_setting( 'lumea_blog_hero_title', array(
 		'default'           => 'The Journal',
 		'sanitize_callback' => 'sanitize_text_field',
 		'transport'         => 'refresh',
 	) );
 	$wp_customize->add_control( 'lumea_blog_hero_title', array(
-		'label'   => esc_html__( 'Journal Hero Title', 'lumea' ),
-		'section' => 'lumea_shop_heroes',
+		'label'   => esc_html__( 'Title', 'lumea' ),
+		'section' => 'lumea_hero_journal',
 		'type'    => 'text',
 	) );
-
 	$wp_customize->add_setting( 'lumea_blog_hero_subtitle', array(
 		'default'           => 'Rituals, ingredients, and the science of radiant skin.',
 		'sanitize_callback' => 'sanitize_textarea_field',
 		'transport'         => 'refresh',
 	) );
 	$wp_customize->add_control( 'lumea_blog_hero_subtitle', array(
-		'label'   => esc_html__( 'Journal Hero Subtitle', 'lumea' ),
-		'section' => 'lumea_shop_heroes',
+		'label'   => esc_html__( 'Subtitle', 'lumea' ),
+		'section' => 'lumea_hero_journal',
 		'type'    => 'textarea',
 	) );
 
+	// --- Journal Post (single blog post) ---
+	$wp_customize->add_section( 'lumea_hero_journal_post', array(
+		'title'    => esc_html__( 'Journal Post Hero', 'lumea' ),
+		'panel'    => 'lumea_theme',
+		'priority' => 66,
+	) );
 	$wp_customize->add_setting( 'lumea_blog_single_hero_bg', array(
 		'default'           => LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg',
 		'sanitize_callback' => 'esc_url_raw',
 		'transport'         => 'refresh',
 	) );
 	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'lumea_blog_single_hero_bg', array(
-		'label'       => esc_html__( 'Journal Detail Hero Image', 'lumea' ),
-		'description' => esc_html__( 'Used on single blog post pages.', 'lumea' ),
-		'section'     => 'lumea_shop_heroes',
+		'label'       => esc_html__( 'Hero Image', 'lumea' ),
+		'description' => esc_html__( 'Used on individual blog post pages.', 'lumea' ),
+		'section'     => 'lumea_hero_journal_post',
 	) ) );
-
 	$wp_customize->add_setting( 'lumea_blog_single_hero_subtitle', array(
 		'default'           => 'Rituals, ingredients, and the science of radiant skin.',
 		'sanitize_callback' => 'sanitize_textarea_field',
 		'transport'         => 'refresh',
 	) );
 	$wp_customize->add_control( 'lumea_blog_single_hero_subtitle', array(
-		'label'   => esc_html__( 'Journal Detail Hero Subtitle', 'lumea' ),
-		'section' => 'lumea_shop_heroes',
+		'label'   => esc_html__( 'Subtitle', 'lumea' ),
+		'section' => 'lumea_hero_journal_post',
 		'type'    => 'textarea',
 	) );
 	

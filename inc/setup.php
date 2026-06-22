@@ -127,6 +127,14 @@ function lumea_about_body_class( $classes ) {
 }
 add_filter( 'body_class', 'lumea_about_body_class' );
 
+function lumea_contact_body_class( $classes ) {
+	if ( is_page_template( 'page-contact.php' ) || is_page( 'contact' ) ) {
+		$classes[] = 'lumea-contact-template';
+	}
+	return $classes;
+}
+add_filter( 'body_class', 'lumea_contact_body_class' );
+
 function lumea_wishlist_body_class( $classes ) {
 	if ( is_page_template( 'page-wishlist.php' ) || is_page( 'wishlist' ) ) {
 		$classes[] = 'lumea-wishlist-template';

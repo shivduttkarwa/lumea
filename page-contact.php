@@ -8,26 +8,21 @@
 
 defined( 'ABSPATH' ) || exit;
 
+$contact_hero_bg      = get_theme_mod( 'lumea_contact_hero_bg', LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg' );
+$contact_hero_eyebrow = get_theme_mod( 'lumea_contact_hero_eyebrow', __( "We'd Love to Hear From You", 'lumea' ) );
+$contact_hero_title   = get_theme_mod( 'lumea_contact_hero_title', __( 'Get in Touch', 'lumea' ) );
+
 get_header();
 ?>
 
 <main class="lumea-contact-page" id="lumeaPage">
 
-	<!-- Breadcrumb -->
-	<nav class="lumea-pdp-breadcrumb" aria-label="<?php esc_attr_e( 'Breadcrumb', 'lumea' ); ?>">
-		<div class="lumea-pdp-bc-inner">
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'lumea' ); ?></a>
-			<svg class="lumea-pdp-bc-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-			<span aria-current="page"><?php esc_html_e( 'Contact', 'lumea' ); ?></span>
-		</div>
-	</nav>
-
 	<!-- Hero -->
-	<div class="lumea-contact-hero">
-		<div class="lumea-contact-hero-inner">
-			<p class="lumea-cart-eyebrow"><?php esc_html_e( 'We\'d Love to Hear From You', 'lumea' ); ?></p>
-			<h1 class="lumea-contact-title"><?php esc_html_e( 'Get in Touch', 'lumea' ); ?></h1>
-			<p class="lumea-contact-subtitle"><?php esc_html_e( 'Questions about your order, a product recommendation, or just want to say hello — we reply within 24 hours.', 'lumea' ); ?></p>
+	<div class="lumea-shop-hero" style="--shop-bg: url('<?php echo esc_url( $contact_hero_bg ); ?>')">
+		<div class="lumea-shop-hero-overlay"></div>
+		<div class="lumea-shop-hero-inner">
+			<p class="lumea-shop-hero-eyebrow lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php echo esc_html( $contact_hero_eyebrow ); ?></p>
+			<h1 class="lumea-shop-hero-title lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php echo esc_html( $contact_hero_title ); ?></h1>
 		</div>
 	</div>
 
