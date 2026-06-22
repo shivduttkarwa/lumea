@@ -139,12 +139,11 @@ Panel: Luméa Theme
 ├── About Page
 |   ├── Hero: image, eyebrow, heading, subtitle
 |   ├── Statistics: 4 stat blocks (value + label)
-|   ├── Ticker text
-|   ├── Manifesto quote
+|   ├── Manifesto quote and author citation
 |   ├── Story sections A and B (image + text)
-|   ├── Values: 4 principle cards
+|   ├── Values: 3 principle cards
 |   ├── Ingredient philosophy
-|   └── Press quotes and testimonials
+|   └── Press publication names (marquee)
 |
 ├── Footer
 |   ├── Headline, CTA text, copyright
@@ -199,11 +198,13 @@ The following WooCommerce core templates are customised for Luméa:
   woocommerce/content-product.php
   woocommerce/single-product.php
   woocommerce/cart/cart.php
+  woocommerce/cart/cart-empty.php
   woocommerce/checkout/form-checkout.php
   woocommerce/checkout/thankyou.php
   woocommerce/loop/loop-start.php
   woocommerce/loop/loop-end.php
   woocommerce/myaccount/dashboard.php
+  woocommerce/myaccount/form-edit-account.php
   woocommerce/myaccount/form-login.php
   woocommerce/myaccount/form-lost-password.php
   woocommerce/myaccount/form-reset-password.php
@@ -254,9 +255,10 @@ under free, open-source licenses compatible with the GPL.
    https://scripts.sil.org/OFL
 
 6. Theme Demo Images & Video
-   Generated with: [Your AI Tool — e.g. Midjourney / DALL-E / Adobe Firefly]
+   Generated with: ChatGPT (OpenAI) — https://openai.com
    License: AI-generated original works created exclusively for this theme.
-            Commercial use permitted per the generator's terms of service.
+            Commercial use permitted under OpenAI's Terms of Use.
+            https://openai.com/policies/terms-of-use
    All hero images, editorial slides, product images, blog images, ritual
    images, and the footer video included in this theme are AI-generated
    and are the original creative work of the theme author.
