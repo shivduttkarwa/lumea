@@ -4458,18 +4458,7 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 .lumea-pdp-rel-head { margin-bottom: 3rem; }
 .lumea-pdp-rel-eyebrow { margin: 0 0 0.625rem; font-family: Inter, sans-serif; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lumea-accent-dark); }
 .lumea-pdp-rel-title { margin: 0; font-family: "ClashDisplay-Variable", "Clash Display", Inter, sans-serif; font-size: clamp(1.875rem, 4vw, 3.125rem); font-weight: 400; letter-spacing: -0.03em; line-height: 1.05; color: var(--lumea-text); }
-.lumea-pdp-rel-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem 1.25rem; }
-.lumea-pdp-rel-card { display: flex; flex-direction: column; text-decoration: none; color: inherit; }
-.lumea-pdp-rel-media { position: relative; aspect-ratio: 3 / 4; border-radius: 1.125rem; overflow: hidden; background: #fff; margin-bottom: 1rem; }
-.lumea-pdp-rel-img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94); }
-.lumea-pdp-rel-card:hover .lumea-pdp-rel-img { transform: scale(1.04); }
-.lumea-pdp-rel-badge { position: absolute; top: 0.75rem; left: 0.75rem; padding: 0.1875rem 0.625rem; border-radius: 6.25rem; background: var(--lumea-accent); color: #fff; font-family: Inter, sans-serif; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-.lumea-pdp-rel-info { flex: 1; }
-.lumea-pdp-rel-cat { display: block; font-family: Inter, sans-serif; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lumea-muted); margin-bottom: 0.3125rem; }
-.lumea-pdp-rel-name { margin: 0 0 0.375rem; font-family: Inter, sans-serif; font-size: 0.875rem; font-weight: 600; color: var(--lumea-text); line-height: 1.35; }
-.lumea-pdp-rel-price { margin: 0 0 0.625rem; font-family: Inter, sans-serif; font-size: 0.875rem; font-weight: 600; color: var(--lumea-text); }
-.lumea-pdp-rel-cta { font-family: Inter, sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--lumea-accent-dark); opacity: 0; transform: translateY(0.25rem); transition: opacity 0.2s, transform 0.2s; display: block; }
-.lumea-pdp-rel-card:hover .lumea-pdp-rel-cta { opacity: 1; transform: translateY(0); }
+.lumea-pdp-rel-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem 1.25rem; list-style: none; margin: 0; padding: 0; }
 
 .lumea-lightbox { position: fixed; inset: 0; z-index: 9999; background: rgba(10,8,6,0.92); display: flex; align-items: center; justify-content: center; padding: 2rem; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
 .lumea-lightbox.is-open { opacity: 1; pointer-events: auto; }

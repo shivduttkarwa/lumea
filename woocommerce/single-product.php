@@ -427,32 +427,23 @@ while ( have_posts() ) :
 				<p class="lumea-pdp-rel-eyebrow"><?php esc_html_e( 'You May Also Like', 'lumea' ); ?></p>
 				<h2 class="lumea-pdp-rel-title"><?php esc_html_e( 'Complete Your Ritual', 'lumea' ); ?></h2>
 			</div>
-			<div class="lumea-pdp-rel-grid">
+			<ul class="lumea-pdp-rel-grid">
 				<?php while ( $rel_query->have_posts() ) : $rel_query->the_post();
 					global $product;
-					$r_cats = get_the_terms( $product->get_id(), 'product_cat' );
-					$r_cat  = ( $r_cats && ! is_wp_error( $r_cats ) ) ? $r_cats[0]->name : '';
+					$can_atc = $product->is_purchasable() && $product->is_in_stock();
 				?>
-				<a href="<?php echo esc_url( get_permalink() ); ?>" class="lumea-pdp-rel-card">
-					<div class="lumea-pdp-rel-media">
-						<?php if ( $product->get_image_id() ) :
-							echo wp_get_attachment_image( $product->get_image_id(), 'woocommerce_thumbnail', false, array( 'class' => 'lumea-pdp-rel-img', 'loading' => 'lazy' ) );
-						else :
-							echo wc_placeholder_img( 'woocommerce_thumbnail' );
-						endif; ?>
-						<?php if ( $product->is_on_sale() ) : ?>
-						<span class="lumea-pdp-rel-badge"><?php esc_html_e( 'Sale', 'lumea' ); ?></span>
-						<?php endif; ?>
-					</div>
-					<div class="lumea-pdp-rel-info">
-						<?php if ( $r_cat ) : ?><span class="lumea-pdp-rel-cat"><?php echo esc_html( $r_cat ); ?></span><?php endif; ?>
-						<p class="lumea-pdp-rel-name"><?php echo esc_html( $product->get_name() ); ?></p>
-						<p class="lumea-pdp-rel-price"><?php echo wp_kses_post( $product->get_price_html() ); ?></p>
-					</div>
-					<span class="lumea-pdp-rel-cta"><?php esc_html_e( 'Shop Now', 'lumea' ); ?> →</span>
-				</a>
+				<li class="<?php echo esc_attr( implode( ' ', wc_get_product_class( 'lumea-shop-card', $product ) ) ); ?>">
+					<?php if ( function_exists( 'lumea_render_product_card' ) ) :
+						lumea_render_product_card( $product, array(
+							'button_class'   => 'lumea-btn btn-black',
+							'button_label'   => $can_atc ? __( 'Add to Cart', 'lumea' ) : __( 'View Product', 'lumea' ),
+							'fallback_label' => __( 'View Product', 'lumea' ),
+							'card_class'     => 'lumea-lp-card',
+						) );
+					endif; ?>
+				</li>
 				<?php endwhile; wp_reset_postdata(); ?>
-			</div>
+			</ul>
 		</div>
 	</section>
 	<?php endif; ?>
