@@ -7962,6 +7962,7 @@ a.lumea-contact-info-value:hover { color: var(--lumea-accent-dark); }
 }
 
 .lumea-faq-page { background: var(--lumea-bg); min-height: 80vh; }
+.lumea-faq-page .lumea-shop-hero-title { font-size: clamp(2rem, 5vw, 4rem); }
 
 .lumea-faq-hero {
   background: #ffffff;
