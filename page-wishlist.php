@@ -16,17 +16,18 @@ get_header();
 ?>
 
 <main class="lumea-wishlist-page" id="lumeaWishlistPage">
-	<section class="lumea-wishlist-page-hero" aria-label="<?php esc_attr_e( 'Wishlist overview', 'lumea' ); ?>">
-		<div class="lumea-wishlist-page-hero-inner">
-			<p class="lumea-wishlist-page-eyebrow"><?php esc_html_e( 'Saved Favourites', 'lumea' ); ?></p>
-			<h1 class="lumea-wishlist-page-title"><?php esc_html_e( 'Your Wishlist', 'lumea' ); ?></h1>
-			<p class="lumea-wishlist-page-subtitle">
+	<div class="lumea-shop-hero" style="--shop-bg: url('<?php echo esc_url( LUMEA_THEME_URI . '/assets/images/ritual/wishlist-hero.png' ); ?>')">
+		<div class="lumea-shop-hero-overlay"></div>
+		<div class="lumea-shop-hero-inner">
+			<p class="lumea-shop-hero-eyebrow lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php esc_html_e( 'Saved Favourites', 'lumea' ); ?></p>
+			<h1 class="lumea-shop-hero-title lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php esc_html_e( 'Your Wishlist', 'lumea' ); ?></h1>
+			<div class="lumea-shop-hero-desc lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js">
 				<?php esc_html_e( 'Products you saved for your next ritual.', 'lumea' ); ?>
 				<span class="lumea-wishlist-page-count-pill"><span data-lumea-wishlist-count-text>0</span> <?php esc_html_e( 'item(s)', 'lumea' ); ?></span>
-			</p>
-			<a href="<?php echo esc_url( $shop_url ); ?>" class="lumea-wishlist-page-continue"><?php esc_html_e( 'Continue Shopping', 'lumea' ); ?></a>
+			</div>
+			<a href="<?php echo esc_url( $shop_url ); ?>" class="lumea-btn btn-outline lumea-reveal-js lumea-reveal--static-js lumea-reveal--hero-js"><?php esc_html_e( 'Continue Shopping', 'lumea' ); ?></a>
 		</div>
-	</section>
+	</div>
 
 	<section class="lumea-wishlist-page-content" aria-live="polite">
 		<div class="lumea-wishlist-page-list" data-lumea-wishlist-page-items></div>
@@ -34,7 +35,7 @@ get_header();
 			<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
 			<h2><?php esc_html_e( 'Your wishlist is empty', 'lumea' ); ?></h2>
 			<p><?php esc_html_e( 'Tap the heart icon on products you love and they will appear here.', 'lumea' ); ?></p>
-			<a href="<?php echo esc_url( $shop_url ); ?>" class="lumea-wishlist-page-continue"><?php esc_html_e( 'Shop Products', 'lumea' ); ?></a>
+			<a href="<?php echo esc_url( $shop_url ); ?>" class="lumea-btn btn-outline"><?php esc_html_e( 'Shop Products', 'lumea' ); ?></a>
 		</div>
 	</section>
 

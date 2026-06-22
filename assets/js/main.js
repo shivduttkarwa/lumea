@@ -270,6 +270,7 @@
         '</article>'
       ].join('');
     }).join('');
+
   }
 
   function renderWishlistLoadingState() {
