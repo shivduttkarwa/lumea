@@ -79,11 +79,11 @@ $base_url = $is_category ? get_term_link( $current_cat ) : get_permalink( wc_get
 		<div class="lumea-shop-hero-overlay"></div>
 		<div class="lumea-shop-hero-inner">
 			<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
-			<p class="lumea-shop-hero-eyebrow"><?php esc_html_e( 'The Collection', 'lumea' ); ?></p>
-			<h1 class="lumea-shop-hero-title"><?php woocommerce_page_title(); ?></h1>
+			<p class="lumea-shop-hero-eyebrow lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php esc_html_e( 'The Collection', 'lumea' ); ?></p>
+			<h1 class="lumea-shop-hero-title lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php woocommerce_page_title(); ?></h1>
 			<?php endif; ?>
 			<?php $cat_desc = get_the_archive_description(); if ( $cat_desc ) : ?>
-			<p class="lumea-shop-hero-desc"><?php echo wp_kses_post( $cat_desc ); ?></p>
+			<div class="lumea-shop-hero-desc lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php echo wp_kses_post( $cat_desc ); ?></div>
 			<?php endif; ?>
 		</div>
 	</div>

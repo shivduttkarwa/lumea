@@ -81,6 +81,6 @@
 }
 
 .lumea-section-intro-js .lumea-section-desc {
-  will-change: transform, opacity, filter;
+  will-change: opacity;
   visibility: hidden;
 }

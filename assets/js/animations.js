@@ -404,7 +404,7 @@
 
 
       if ( desc ) {
-        gsap.set( desc, { autoAlpha: 0, y: 16, filter: 'blur(8px)' } );
+        gsap.set( desc, { autoAlpha: 0 } );
       }
 
 
@@ -440,10 +440,8 @@
       if ( desc ) {
         tl.to( desc, {
           autoAlpha: 1,
-          y:         0,
-          filter:    'blur(0px)',
-          duration:  0.9,
-          ease:      'power3.out',
+          duration:  0.7,
+          ease:      'power2.out',
         }, '-=0.55' );
       }
 

@@ -79,12 +79,12 @@ $a = array(
 	<!-- ① HERO ─────────────────────────────────────────────── -->
 	<section class="lumea-about-hero" style="--lumea-about-bg:url('<?php echo esc_url( $a['hero_bg'] ); ?>')">
 		<div class="lumea-about-hero-body">
-			<p class="lumea-about-label lumea-about-label--hero"><?php echo wp_kses_post( $a['hero_label'] ); ?></p>
-			<h1 class="lumea-about-hero-h1">
+			<p class="lumea-about-label lumea-about-label--hero lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php echo wp_kses_post( $a['hero_label'] ); ?></p>
+			<h1 class="lumea-about-hero-h1 lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js">
 				<span class="lumea-about-hero-line">Pure ritual.</span>
 				<span class="lumea-about-hero-line lumea-about-hero-line--soft">Real results.</span>
 			</h1>
-			<p class="lumea-about-hero-sub"><?php echo esc_html( $a['hero_sub'] ); ?></p>
+			<p class="lumea-about-hero-sub lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php echo esc_html( $a['hero_sub'] ); ?></p>
 		</div>
 		<button class="lumea-scroll-down" aria-label="<?php esc_attr_e( 'Scroll down', 'lumea' ); ?>">
 			<span class="lumea-scroll-dot"></span>

@@ -26,7 +26,7 @@ $blog_hero_subtitle = get_theme_mod( 'lumea_blog_hero_subtitle', 'Rituals, ingre
 	<div class="lumea-shop-hero" style="--shop-bg: url('<?php echo esc_url( $hero_bg_image ); ?>')">
 		<div class="lumea-shop-hero-overlay"></div>
 		<div class="lumea-shop-hero-inner">
-			<h1 class="lumea-shop-hero-title">
+			<h1 class="lumea-shop-hero-title lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js">
 				<?php
 				if ( is_category() ) {
 					echo esc_html( single_cat_title( '', false ) );
@@ -37,7 +37,7 @@ $blog_hero_subtitle = get_theme_mod( 'lumea_blog_hero_subtitle', 'Rituals, ingre
 				}
 				?>
 			</h1>
-			<p class="lumea-shop-hero-desc"><?php echo esc_html( $blog_hero_subtitle ); ?></p>
+			<p class="lumea-shop-hero-desc lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php echo esc_html( $blog_hero_subtitle ); ?></p>
 		</div>
 	</div>
 
