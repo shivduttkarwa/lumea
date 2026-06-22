@@ -31,7 +31,7 @@ get_header();
 		<div class="lumea-contact-body-inner">
 
 			<!-- Form -->
-			<div class="lumea-contact-form-col">
+			<div class="lumea-contact-form-col lumea-reveal-js lumea-reveal--static-js">
 				<div class="lumea-contact-card">
 					<?php
 					if ( function_exists( 'lumea_core_render_contact_form' ) ) {
@@ -49,7 +49,7 @@ get_header();
 			<!-- Info -->
 			<div class="lumea-contact-info-col">
 
-				<div class="lumea-contact-info-card">
+				<div class="lumea-contact-info-card lumea-reveal-js lumea-reveal--static-js">
 					<h3 class="lumea-contact-info-title"><?php esc_html_e( 'Customer Care', 'lumea' ); ?></h3>
 					<div class="lumea-contact-info-item">
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -75,7 +75,7 @@ get_header();
 					</div>
 				</div>
 
-				<div class="lumea-contact-info-card lumea-contact-info-card--dark">
+				<div class="lumea-contact-info-card lumea-contact-info-card--dark lumea-reveal-js lumea-reveal--static-js">
 					<h3 class="lumea-contact-info-title" style="color:#fff;"><?php esc_html_e( 'Quick Links', 'lumea' ); ?></h3>
 					<div class="lumea-contact-quick-links">
 						<a href="<?php echo esc_url( get_permalink( get_page_by_path( 'faq' ) ) ?: home_url( '/faq/' ) ); ?>" class="lumea-contact-quick-link">

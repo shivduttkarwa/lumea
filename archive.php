@@ -46,7 +46,7 @@ $blog_hero_subtitle = get_theme_mod( 'lumea_blog_hero_subtitle', 'Rituals, ingre
 	$blog_cats = get_categories( array( 'hide_empty' => true, 'number' => 8 ) );
 	if ( $blog_cats ) :
 	?>
-	<div class="lumea-blog-cats">
+	<div class="lumea-blog-cats lumea-reveal-js lumea-reveal--static-js">
 		<div class="lumea-blog-cats-inner">
 			<a href="<?php echo esc_url( $blog_index_url ); ?>"
 			   class="lumea-filter-pill <?php echo ! is_category() && ! is_tag() ? 'is-active' : ''; ?>">
@@ -74,7 +74,7 @@ $blog_hero_subtitle = get_theme_mod( 'lumea_blog_hero_subtitle', 'Rituals, ingre
 				$feat_cat  = $feat_cats ? $feat_cats[0]->name : '';
 				$feat_read = max( 1, round( str_word_count( strip_tags( get_the_content() ) ) / 200 ) );
 			?>
-			<article class="lumea-blog-featured" <?php post_class( '' ); ?>>
+			<article class="lumea-blog-featured lumea-reveal-js lumea-reveal--static-js" <?php post_class( '' ); ?>>
 				<a href="<?php the_permalink(); ?>" class="lumea-blog-featured-img-wrap" tabindex="-1" aria-hidden="true">
 					<?php if ( has_post_thumbnail() ) : ?>
 					<?php the_post_thumbnail( 'large', array( 'class' => 'lumea-blog-featured-img', 'loading' => 'eager', 'fetchpriority' => 'high' ) ); ?>
@@ -113,7 +113,7 @@ $blog_hero_subtitle = get_theme_mod( 'lumea_blog_hero_subtitle', 'Rituals, ingre
 					$cat_name  = $cats ? $cats[0]->name : '';
 					$read_time = max( 1, round( str_word_count( strip_tags( get_the_content() ) ) / 200 ) );
 				?>
-				<article class="lumea-blog-card" <?php post_class( '' ); ?>>
+				<article class="lumea-blog-card lumea-reveal-js lumea-reveal--static-js" <?php post_class( '' ); ?>>
 					<a href="<?php the_permalink(); ?>" class="lumea-blog-card-img-wrap" tabindex="-1" aria-hidden="true">
 						<?php if ( has_post_thumbnail() ) : ?>
 						<?php the_post_thumbnail( 'medium_large', array( 'class' => 'lumea-blog-card-img', 'loading' => 'lazy' ) ); ?>

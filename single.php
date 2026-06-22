@@ -29,9 +29,9 @@ get_header();
 	<div class="lumea-shop-hero" style="--shop-bg: url('<?php echo esc_url( $single_hero_bg ); ?>')">
 		<div class="lumea-shop-hero-overlay"></div>
 		<div class="lumea-shop-hero-inner">
-			<h1 class="lumea-shop-hero-title"><?php the_title(); ?></h1>
+			<h1 class="lumea-shop-hero-title lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php the_title(); ?></h1>
 			<?php if ( $single_hero_sub ) : ?>
-			<p class="lumea-shop-hero-desc"><?php echo esc_html( $single_hero_sub ); ?></p>
+			<p class="lumea-shop-hero-desc lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php echo esc_html( $single_hero_sub ); ?></p>
 			<?php endif; ?>
 		</div>
 	</div>
@@ -39,7 +39,7 @@ get_header();
 	<!-- Content -->
 	<div class="lumea-post-body">
 		<div class="lumea-post-body-inner">
-			<div class="lumea-post-meta-row">
+			<div class="lumea-post-meta-row lumea-reveal-js lumea-reveal--static-js">
 				<?php if ( $cat_name ) : ?>
 				<span class="lumea-post-meta-pill"><?php echo esc_html( $cat_name ); ?></span>
 				<?php endif; ?>
@@ -85,7 +85,7 @@ get_header();
 			</div>
 
 			<!-- Author box -->
-			<div class="lumea-post-author-box">
+			<div class="lumea-post-author-box lumea-reveal-js lumea-reveal--static-js">
 				<?php echo get_avatar( get_the_author_meta( 'user_email' ), 64, '', '', array( 'class' => 'lumea-post-author-avatar' ) ); ?>
 				<div>
 					<p class="lumea-post-author-name"><?php echo esc_html( get_the_author() ); ?></p>
@@ -132,13 +132,13 @@ get_header();
 	?>
 	<div class="lumea-post-related">
 		<div class="lumea-post-related-inner">
-			<h2 class="lumea-post-related-title"><?php esc_html_e( 'You Might Also Like', 'lumea' ); ?></h2>
+			<h2 class="lumea-post-related-title lumea-reveal-js lumea-reveal--static-js"><?php esc_html_e( 'You Might Also Like', 'lumea' ); ?></h2>
 			<div class="lumea-post-related-grid">
 				<?php foreach ( $related as $post ) : setup_postdata( $post );
 					$rcat = get_the_category( $post->ID );
 					$rcat_name = $rcat ? $rcat[0]->name : '';
 				?>
-				<article class="lumea-blog-card">
+				<article class="lumea-blog-card lumea-reveal-js lumea-reveal--static-js">
 					<a href="<?php the_permalink(); ?>" class="lumea-blog-card-img-wrap" tabindex="-1" aria-hidden="true">
 						<?php if ( has_post_thumbnail( $post->ID ) ) : ?>
 						<?php echo get_the_post_thumbnail( $post->ID, 'medium_large', array( 'class' => 'lumea-blog-card-img', 'loading' => 'lazy' ) ); ?>

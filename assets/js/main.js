@@ -1035,6 +1035,24 @@
           if (nb) { shopBody.innerHTML  = nb.innerHTML; }
           if (nf) { filterBar.innerHTML = nf.innerHTML; }
 
+          if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            var newFade   = Array.prototype.slice.call(shopBody.querySelectorAll('.lumea-reveal--fade-js'));
+            var newStatic = Array.prototype.slice.call(shopBody.querySelectorAll('.lumea-reveal--static-js:not(.lumea-reveal--fade-js)'));
+            if (newFade.length)   gsap.set(newFade,   { y: 30, autoAlpha: 0 });
+            if (newStatic.length) gsap.set(newStatic, { autoAlpha: 0 });
+            var newReveals = Array.prototype.slice.call(shopBody.querySelectorAll('.lumea-reveal-js'));
+            if (newReveals.length) {
+              ScrollTrigger.batch(newReveals, {
+                start:   'top bottom-=50',
+                once:    true,
+                onEnter: function (batch) {
+                  gsap.to(batch, { autoAlpha: 1, y: 0, x: 0, duration: 0.7, ease: 'power1.out', stagger: 0.1 });
+                },
+              });
+              ScrollTrigger.refresh();
+            }
+          }
+
           if (!isPop) { history.pushState({ lumea: 1 }, '', url); }
 
           if (scrollTop) {

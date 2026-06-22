@@ -115,7 +115,7 @@ $faq_categories = array(
 		<div class="lumea-faq-body-inner">
 
 			<!-- Category tabs -->
-			<div class="lumea-faq-tabs" role="tablist" aria-label="<?php esc_attr_e( 'FAQ Categories', 'lumea' ); ?>">
+			<div class="lumea-faq-tabs lumea-reveal-js lumea-reveal--static-js" role="tablist" aria-label="<?php esc_attr_e( 'FAQ Categories', 'lumea' ); ?>">
 				<?php $first = true; foreach ( $faq_categories as $key => $cat ) : ?>
 				<button class="lumea-faq-tab <?php echo $first ? 'is-active' : ''; ?>"
 						role="tab"
@@ -164,7 +164,7 @@ $faq_categories = array(
 
 	<!-- Still need help -->
 	<div class="lumea-faq-cta">
-		<div class="lumea-faq-cta-inner">
+		<div class="lumea-faq-cta-inner lumea-reveal-js lumea-reveal--static-js">
 			<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
 			<div>
 				<h2 class="lumea-faq-cta-title"><?php esc_html_e( 'Still have questions?', 'lumea' ); ?></h2>
