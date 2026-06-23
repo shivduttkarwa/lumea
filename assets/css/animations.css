@@ -60,6 +60,10 @@
   will-change: transform, opacity;
 }
 
+.lumea-about-hero-reveal-js {
+  visibility: hidden;
+}
+
 .lumea-si-mask {
   overflow: hidden;
   display: block;

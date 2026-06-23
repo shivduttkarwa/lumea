@@ -499,6 +499,7 @@
     } );
 
     gsap.set( lines, { yPercent: 110 } );
+    h1.style.visibility = 'visible';
 
     gsap.to( lines, {
       yPercent: 0,
