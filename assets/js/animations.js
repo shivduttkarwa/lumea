@@ -569,9 +569,7 @@
     var img = pin.querySelector( 'img' );
     if ( ! img ) return;
 
-    /* Position column so absolute mosaic grid sits inside it */
-    col.style.position = 'relative';
-
+    /* Grid lives inside pin (correct tile size), overflow opens during scatter */
     var grid = document.createElement( 'div' );
     grid.className = 'lumea-mosaic-grid';
     for ( var i = 0; i < 24; i++ ) {
@@ -579,7 +577,7 @@
       span.className = 'lumea-mosaic-tile';
       grid.appendChild( span );
     }
-    col.appendChild( grid );
+    pin.appendChild( grid );
 
     var tiles = grid.querySelectorAll( '.lumea-mosaic-tile' );
     gsap.set( img, { scale: 1.18, filter: 'blur(8px)' } );
@@ -590,6 +588,9 @@
       once:    true,
       onEnter: function () {
 
+        /* Open overflow so tiles scatter outside pin bounds */
+        pin.style.overflow = 'visible';
+
         gsap.to( tiles, {
           opacity:  0,
           scale:    0.4,
@@ -599,7 +600,10 @@
           duration: 0.9,
           ease:     'power4.inOut',
           stagger:  { amount: 0.65, from: 'random' },
-          onComplete: function () { gsap.set( grid, { display: 'none' } ); },
+          onComplete: function () {
+            gsap.set( grid, { display: 'none' } );
+            pin.style.overflow = 'hidden';
+          },
         } );
 
         gsap.to( img, {
