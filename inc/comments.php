@@ -32,6 +32,66 @@ function lumea_get_comments_heading( $count ) {
 
 
 /**
+ * Render one compact, social-style comment row.
+ *
+ * @param WP_Comment $comment Comment object.
+ * @param array      $args    Comment display arguments.
+ * @param int        $depth   Current reply depth.
+ */
+function lumea_comment_callback( $comment, $args, $depth ) {
+	$GLOBALS['comment'] = $comment; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+
+	$tag         = 'div' === $args['style'] ? 'div' : 'li';
+	$author_name = get_comment_author( $comment );
+	$time_ago    = human_time_diff( get_comment_time( 'U', false, true, $comment ), current_time( 'timestamp' ) );
+	?>
+	<<?php echo esc_html( $tag ); ?> id="li-comment-<?php comment_ID(); ?>" <?php comment_class( 'lumea-comment' ); ?>>
+		<article id="comment-<?php comment_ID(); ?>" class="lumea-comment-row">
+			<div class="lumea-comment-avatar">
+				<?php echo wp_kses_post( get_avatar( $comment, 36, '', $author_name ) ); ?>
+			</div>
+
+			<div class="lumea-comment-main">
+				<div class="lumea-comment-message">
+					<span class="lumea-comment-author-name"><?php echo wp_kses_post( get_comment_author_link( $comment ) ); ?></span>
+					<div class="lumea-comment-text"><?php comment_text( $comment ); ?></div>
+				</div>
+
+				<?php if ( '0' === (string) $comment->comment_approved ) : ?>
+					<p class="lumea-comment-moderation"><?php esc_html_e( 'Awaiting moderation', 'lumea' ); ?></p>
+				<?php endif; ?>
+
+				<div class="lumea-comment-actions">
+					<a href="<?php echo esc_url( get_comment_link( $comment ) ); ?>" class="lumea-comment-time">
+						<?php
+						printf(
+							/* translators: %s: relative comment time, such as "5 minutes". */
+							esc_html__( '%s ago', 'lumea' ),
+							esc_html( $time_ago )
+						);
+						?>
+					</a>
+					<?php
+					comment_reply_link(
+						array_merge(
+							$args,
+							array(
+								'depth'      => $depth,
+								'max_depth'  => $args['max_depth'],
+								'reply_text' => __( 'Reply', 'lumea' ),
+							)
+						),
+						$comment
+					);
+					?>
+				</div>
+			</div>
+		</article>
+	<?php
+}
+
+
+/**
  * Submit a post comment without a page refresh.
  */
 function lumea_ajax_submit_comment() {
@@ -68,8 +128,9 @@ function lumea_ajax_submit_comment() {
 		array(
 			'style'       => 'ol',
 			'short_ping'  => true,
-			'avatar_size' => 48,
+			'avatar_size' => 36,
 			'max_depth'   => (int) get_option( 'thread_comments_depth' ),
+			'callback'    => 'lumea_comment_callback',
 		),
 		array( $comment )
 	);
@@ -85,9 +146,6 @@ function lumea_ajax_submit_comment() {
 			'count'       => $comment_count,
 			'countLabel'  => lumea_get_comments_heading( $comment_count ),
 			'unapproved'  => '1' !== (string) $comment->comment_approved,
-			'successText' => '1' === (string) $comment->comment_approved
-				? __( 'Your comment has been posted.', 'lumea' )
-				: __( 'Your comment is awaiting moderation.', 'lumea' ),
 		)
 	);
 }

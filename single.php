@@ -83,7 +83,7 @@ get_header();
 			<?php do_action( 'lumea_post_share_actions' ); ?>
 
 			<div class="lumea-post-back-wrap">
-				<a href="<?php echo esc_url( $journal_url ); ?>" class="lumea-post-back-link">
+				<a href="<?php echo esc_url( $journal_url ); ?>" class="lumea-btn btn-black lumea-post-back-link">
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
 					<?php esc_html_e( 'Back to Journal', 'lumea' ); ?>
 				</a>

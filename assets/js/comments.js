@@ -31,28 +31,19 @@
 		feedback.classList.add( 'is-visible', 'success' === type ? 'is-success' : 'is-error' );
 	}
 
+	function clearFeedback( form ) {
+		var feedback = form.querySelector( '.lumea-comment-feedback' );
+		if ( ! feedback ) {
+			return;
+		}
+		feedback.textContent = '';
+		feedback.classList.remove( 'is-visible', 'is-success', 'is-error' );
+	}
+
 	function parseComment( markup ) {
 		var template = document.createElement( 'template' );
 		template.innerHTML = String( markup || '' ).trim();
 		return template.content.querySelector( 'li.comment, li.pingback, li.trackback' );
-	}
-
-	function bindReplyLink( commentNode ) {
-		var link = commentNode && commentNode.querySelector( '.comment-reply-link' );
-		if ( ! link || ! window.addComment || 'function' !== typeof window.addComment.moveForm ) {
-			return;
-		}
-
-		link.addEventListener( 'click', function ( event ) {
-			event.preventDefault();
-			window.addComment.moveForm(
-				link.getAttribute( 'data-belowelement' ),
-				link.getAttribute( 'data-commentid' ),
-				link.getAttribute( 'data-respondelement' ),
-				link.getAttribute( 'data-postid' ),
-				link.getAttribute( 'data-replyto' )
-			);
-		} );
 	}
 
 	function getCommentList( commentsRoot, countLabel ) {
@@ -92,19 +83,90 @@
 				}
 
 				children.appendChild( commentNode );
-				bindReplyLink( commentNode );
 				return;
 			}
 		}
 
 		list.appendChild( commentNode );
-		bindReplyLink( commentNode );
 	}
 
-	function resetReplyPosition() {
-		var cancel = document.querySelector( '#cancel-comment-reply-link' );
-		if ( cancel && 'none' !== window.getComputedStyle( cancel ).display ) {
-			cancel.click();
+	function resizeTextarea( textarea ) {
+		if ( ! textarea ) {
+			return;
+		}
+		textarea.style.height = 'auto';
+		textarea.style.height = Math.min( textarea.scrollHeight, 112 ) + 'px';
+	}
+
+	function clearReplyMode( form ) {
+		var parentInput = form.querySelector( '[name="comment_parent"]' );
+		var context = form.querySelector( '.lumea-comment-reply-context' );
+		var textarea = form.querySelector( '[name="comment"]' );
+
+		if ( parentInput ) {
+			parentInput.value = '0';
+		}
+		if ( context ) {
+			context.hidden = true;
+			var label = context.querySelector( 'span' );
+			if ( label ) {
+				label.textContent = '';
+			}
+		}
+		if ( textarea ) {
+			textarea.placeholder = config.placeholderText || 'Add a comment…';
+		}
+	}
+
+	function setReplyMode( form, link ) {
+		var parentInput = form.querySelector( '[name="comment_parent"]' );
+		var context = form.querySelector( '.lumea-comment-reply-context' );
+		var textarea = form.querySelector( '[name="comment"]' );
+		var comment = link.closest( 'li.comment' );
+		var author = comment && comment.querySelector( '.lumea-comment-author-name' );
+		var authorName = author ? author.textContent.trim() : '';
+
+		if ( parentInput ) {
+			parentInput.value = link.getAttribute( 'data-commentid' ) || '0';
+		}
+		if ( context ) {
+			context.hidden = false;
+			var label = context.querySelector( 'span' );
+			if ( label ) {
+				label.textContent = ( config.replyingText || 'Replying to %s' ).replace( '%s', authorName );
+			}
+		}
+		if ( textarea ) {
+			textarea.placeholder = authorName ? 'Reply to ' + authorName + '…' : ( config.placeholderText || 'Add a comment…' );
+			textarea.focus();
+			resizeTextarea( textarea );
+		}
+
+		var composer = form.querySelector( '.lumea-comment-composer' );
+		if ( composer ) {
+			composer.scrollIntoView( { behavior: 'smooth', block: 'center' } );
+		}
+	}
+
+	function prepareComposer( form ) {
+		var composer = form.querySelector( '.lumea-comment-composer' );
+		var submitWrap = form.querySelector( '.form-submit' );
+		var replyContext = form.querySelector( '.lumea-comment-reply-context' );
+		var lastIdentityField = form.querySelector( '.comment-form-url' ) || form.querySelector( '.comment-form-email' ) || form.querySelector( '.comment-form-author' );
+		var textarea = form.querySelector( '[name="comment"]' );
+
+		if ( lastIdentityField && replyContext && composer ) {
+			lastIdentityField.insertAdjacentElement( 'afterend', replyContext );
+			replyContext.insertAdjacentElement( 'afterend', composer );
+		}
+		if ( composer && submitWrap ) {
+			composer.appendChild( submitWrap );
+		}
+		if ( textarea ) {
+			textarea.addEventListener( 'input', function () {
+				resizeTextarea( textarea );
+			} );
+			resizeTextarea( textarea );
 		}
 	}
 
@@ -116,12 +178,33 @@
 		}
 
 		form.dataset.lumeaAjaxBound = '1';
+		prepareComposer( form );
+
+		commentsRoot.addEventListener( 'click', function ( event ) {
+			var replyLink = event.target.closest( '.comment-reply-link' );
+			var cancelButton = event.target.closest( '.lumea-comment-reply-cancel' );
+
+			if ( replyLink ) {
+				event.preventDefault();
+				event.stopPropagation();
+				event.stopImmediatePropagation();
+				setReplyMode( form, replyLink );
+				return;
+			}
+
+			if ( cancelButton ) {
+				event.preventDefault();
+				clearReplyMode( form );
+			}
+		}, true );
+
 		form.addEventListener( 'submit', function ( event ) {
 			if ( ! form.reportValidity() ) {
 				return;
 			}
 
 			event.preventDefault();
+			clearFeedback( form );
 
 			var submit = form.querySelector( '[type="submit"]' );
 			var originalLabel = submit ? submit.textContent : '';
@@ -157,7 +240,6 @@
 						throw new Error( config.errorText || 'Could not display your comment.' );
 					}
 
-					resetReplyPosition();
 					insertComment( commentsRoot, commentNode, Number( data.parentId ) || 0, data.countLabel );
 
 					var title = commentsRoot.querySelector( '.lumea-comments-title' );
@@ -168,9 +250,10 @@
 					var commentField = form.querySelector( '[name="comment"]' );
 					if ( commentField ) {
 						commentField.value = '';
+						resizeTextarea( commentField );
 					}
 
-					showFeedback( form, data.successText || config.successText || 'Your comment has been posted.', 'success' );
+					clearReplyMode( form );
 					commentNode.scrollIntoView( { behavior: 'smooth', block: 'center' } );
 				} )
 				.catch( function ( error ) {

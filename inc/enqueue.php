@@ -357,8 +357,9 @@ function lumea_enqueue_assets() {
 				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
 				'nonce'       => wp_create_nonce( 'lumea_submit_comment' ),
 				'postingText' => __( 'Posting...', 'lumea' ),
-				'successText' => __( 'Your comment has been posted.', 'lumea' ),
 				'errorText'   => __( 'Could not post your comment. Please try again.', 'lumea' ),
+				'placeholderText' => __( 'Add a comment…', 'lumea' ),
+				'replyingText'    => __( 'Replying to %s', 'lumea' ),
 			)
 		);
 	}

@@ -54,12 +54,12 @@ $blog_hero_subtitle = get_theme_mod( 'lumea_blog_hero_subtitle', __( 'Rituals, i
 	<div class="lumea-blog-cats lumea-reveal-js lumea-reveal--static-js">
 		<div class="lumea-blog-cats-inner">
 			<a href="<?php echo esc_url( $blog_index_url ); ?>"
-				class="lumea-filter-pill <?php echo esc_attr( ! is_category() && ! is_tag() ? 'is-active' : '' ); ?>">
+				class="lumea-btn <?php echo esc_attr( ! is_category() && ! is_tag() ? 'btn-black is-active' : 'btn-outline' ); ?> lumea-filter-pill">
 				<?php esc_html_e( 'All', 'lumea' ); ?>
 			</a>
 			<?php foreach ( $blog_cats as $blog_cat ) : ?>
 			<a href="<?php echo esc_url( get_category_link( $blog_cat->term_id ) ); ?>"
-				class="lumea-filter-pill <?php echo esc_attr( is_category( $blog_cat->term_id ) ? 'is-active' : '' ); ?>">
+				class="lumea-btn <?php echo esc_attr( is_category( $blog_cat->term_id ) ? 'btn-black is-active' : 'btn-outline' ); ?> lumea-filter-pill">
 				<?php echo esc_html( $blog_cat->name ); ?>
 			</a>
 			<?php endforeach; ?>
@@ -119,7 +119,7 @@ $blog_hero_subtitle = get_theme_mod( 'lumea_blog_hero_subtitle', __( 'Rituals, i
 						?>
 						</span>
 					</div>
-					<a href="<?php the_permalink(); ?>" class="lumea-blog-featured-btn">
+					<a href="<?php the_permalink(); ?>" class="lumea-btn btn-black lumea-blog-featured-btn">
 						<?php esc_html_e( 'Read Article', 'lumea' ); ?>
 						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
 					</a>
