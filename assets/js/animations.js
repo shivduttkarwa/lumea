@@ -482,4 +482,32 @@
 
   } )();
 
+  /* ── About hero title — line-by-line slide-up on load ── */
+  ( function initAboutHeroTitleReveal() {
+
+    var h1 = document.querySelector( '.lumea-about-hero-reveal-js' );
+    if ( ! h1 ) return;
+
+    var lines = h1.querySelectorAll( '.lumea-about-hero-line' );
+    if ( ! lines.length ) return;
+
+    lines.forEach( function ( line ) {
+      var mask = document.createElement( 'div' );
+      mask.className = 'lumea-si-mask';
+      line.parentNode.insertBefore( mask, line );
+      mask.appendChild( line );
+    } );
+
+    gsap.set( lines, { yPercent: 110 } );
+
+    gsap.to( lines, {
+      yPercent: 0,
+      duration: 1.0,
+      ease:     'power4.out',
+      stagger:  0.16,
+      delay:    0.2,
+    } );
+
+  } )();
+
 } )();

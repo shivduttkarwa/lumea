@@ -80,7 +80,7 @@ $a = array(
 	<section class="lumea-about-hero" style="--lumea-about-bg:url('<?php echo esc_url( $a['hero_bg'] ); ?>')">
 		<div class="lumea-about-hero-body">
 			<p class="lumea-about-label lumea-about-label--hero lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php echo esc_html( $a['hero_label'] ); ?></p>
-			<h1 class="lumea-about-hero-h1 lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js">
+			<h1 class="lumea-about-hero-h1 lumea-about-hero-reveal-js">
 				<span class="lumea-about-hero-line"><?php echo esc_html( $a['hero_h1_1'] ); ?></span>
 				<span class="lumea-about-hero-line lumea-about-hero-line--soft"><?php echo esc_html( $a['hero_h1_2'] ); ?></span>
 			</h1>
