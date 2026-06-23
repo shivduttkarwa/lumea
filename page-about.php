@@ -128,13 +128,13 @@ $a = array(
 
 	<!-- ⑤ STORY ─────────────────────────────────────────────── -->
 	<section class="lumea-about-story">
-		<div class="lumea-about-story-img-col lumea-reveal-js lumea-reveal--static-js">
+		<div class="lumea-about-story-img-col">
 			<div class="lumea-about-story-img-pin">
 				<img src="<?php echo esc_url( $a['story_img'] ); ?>" alt="<?php esc_attr_e( 'Lumea story', 'lumea' ); ?>" loading="lazy">
 			</div>
 		</div>
 		<div class="lumea-about-story-text-col">
-			<div class="lumea-about-story-panel lumea-reveal-js lumea-reveal--static-js">
+			<div class="lumea-about-story-panel lumea-about-story-panel-js">
 				<p class="lumea-about-label lumea-about-label--warm"><?php echo esc_html( $a['story1_label'] ); ?></p>
 				<h2 class="lumea-about-story-h2"><?php echo esc_html( $a['story1_h2'] ); ?></h2>
 				<p class="lumea-about-body"><?php echo esc_html( $a['story1_body'] ); ?></p>
@@ -143,7 +143,7 @@ $a = array(
 					<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
 				</a>
 			</div>
-			<div class="lumea-about-story-panel lumea-reveal-js lumea-reveal--static-js">
+			<div class="lumea-about-story-panel lumea-about-story-panel-js">
 				<p class="lumea-about-label lumea-about-label--warm"><?php echo esc_html( $a['story2_label'] ); ?></p>
 				<h2 class="lumea-about-story-h2"><?php echo esc_html( $a['story2_h2'] ); ?></h2>
 				<p class="lumea-about-body"><?php echo esc_html( $a['story2_body1'] ); ?></p>

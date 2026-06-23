@@ -411,7 +411,7 @@
       var tl = gsap.timeline( {
         scrollTrigger: {
           trigger: intro,
-          start:   'top 82%',
+          start:   'top 65%',
           once:    true,
         },
         defaults: { ease: 'power4.out' },
@@ -554,6 +554,90 @@
           stagger:  0.12,
         } );
       },
+    } );
+
+  } )();
+
+
+  /* ── About story image — mosaic scatter reveal (same as curated product tiles) ── */
+  ( function initAboutStoryMosaicReveal() {
+
+    var col = document.querySelector( '.lumea-about-story-img-col' );
+    var pin = document.querySelector( '.lumea-about-story-img-pin' );
+    if ( ! col || ! pin ) return;
+
+    var img = pin.querySelector( 'img' );
+    if ( ! img ) return;
+
+    /* Position column so absolute mosaic grid sits inside it */
+    col.style.position = 'relative';
+
+    var grid = document.createElement( 'div' );
+    grid.className = 'lumea-mosaic-grid';
+    for ( var i = 0; i < 24; i++ ) {
+      var span = document.createElement( 'span' );
+      span.className = 'lumea-mosaic-tile';
+      grid.appendChild( span );
+    }
+    col.appendChild( grid );
+
+    var tiles = grid.querySelectorAll( '.lumea-mosaic-tile' );
+    gsap.set( img, { scale: 1.18, filter: 'blur(8px)' } );
+
+    ScrollTrigger.create( {
+      trigger: pin,
+      start:   'top 80%',
+      once:    true,
+      onEnter: function () {
+
+        gsap.to( tiles, {
+          opacity:  0,
+          scale:    0.4,
+          rotate:   function () { return gsap.utils.random( -18, 18 ); },
+          yPercent: function () { return gsap.utils.random( -80, 80 ); },
+          xPercent: function () { return gsap.utils.random( -80, 80 ); },
+          duration: 0.9,
+          ease:     'power4.inOut',
+          stagger:  { amount: 0.65, from: 'random' },
+          onComplete: function () { gsap.set( grid, { display: 'none' } ); },
+        } );
+
+        gsap.to( img, {
+          scale:    1,
+          filter:   'blur(0px)',
+          duration: 1.35,
+          ease:     'power4.out',
+        } );
+
+      },
+    } );
+
+  } )();
+
+
+  /* ── About story panels — staggered children reveal per panel ── */
+  ( function initAboutStoryPanelReveal() {
+
+    document.querySelectorAll( '.lumea-about-story-panel-js' ).forEach( function ( panel ) {
+      var children = Array.prototype.slice.call( panel.children );
+      if ( ! children.length ) return;
+
+      gsap.set( children, { autoAlpha: 0, y: 24 } );
+
+      ScrollTrigger.create( {
+        trigger: panel,
+        start:   'top 65%',
+        once:    true,
+        onEnter: function () {
+          gsap.to( children, {
+            autoAlpha: 1,
+            y:         0,
+            duration:  0.7,
+            ease:      'power3.out',
+            stagger:   0.12,
+          } );
+        },
+      } );
     } );
 
   } )();
