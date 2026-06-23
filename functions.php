@@ -21,6 +21,7 @@ require LUMEA_THEME_DIR . '/inc/enqueue.php';
 require LUMEA_THEME_DIR . '/inc/block-styles.php';
 require LUMEA_THEME_DIR . '/inc/buttons.php';
 require LUMEA_THEME_DIR . '/inc/customizer.php';
+require LUMEA_THEME_DIR . '/inc/comments.php';
 require LUMEA_THEME_DIR . '/inc/class-tgm-plugin-activation.php';
 require LUMEA_THEME_DIR . '/inc/required-plugins.php';
 require LUMEA_THEME_DIR . '/inc/demo-import.php';

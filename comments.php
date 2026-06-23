@@ -18,18 +18,7 @@ if ( post_password_required() ) {
 
 	<?php if ( have_comments() ) : ?>
 		<h2 class="lumea-comments-title">
-			<?php
-			$lumea_comment_count = get_comments_number();
-			if ( '1' === $lumea_comment_count ) {
-				esc_html_e( 'One Comment', 'lumea' );
-			} else {
-				printf(
-					/* translators: %s: number of comments. */
-					esc_html__( '%s Comments', 'lumea' ),
-					esc_html( number_format_i18n( $lumea_comment_count ) )
-				);
-			}
-			?>
+			<?php echo esc_html( lumea_get_comments_heading( get_comments_number() ) ); ?>
 		</h2>
 
 		<ol class="lumea-comment-list">

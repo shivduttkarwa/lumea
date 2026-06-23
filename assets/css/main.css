@@ -8026,6 +8026,34 @@ body.error404 .lumea-header {
 .lumea-comment-form .form-submit {
   margin-top: 0.25rem;
 }
+.lumea-comment-form .lumea-comment-feedback {
+  display: none;
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border: 0.0625rem solid transparent;
+  border-radius: 0.75rem;
+  font-family: Inter, sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+.lumea-comment-form .lumea-comment-feedback.is-visible {
+  display: block;
+}
+.lumea-comment-form .lumea-comment-feedback.is-success {
+  color: #166534;
+  background: #f0fdf4;
+  border-color: #86efac;
+}
+.lumea-comment-form .lumea-comment-feedback.is-error {
+  color: #b91c1c;
+  background: #fff1f2;
+  border-color: #fda4af;
+}
+.lumea-comment-form .lumea-btn[aria-busy="true"] {
+  cursor: wait;
+  opacity: 0.72;
+}
 .lumea-no-comments {
   color: var(--lumea-muted);
   font-size: 0.875rem;

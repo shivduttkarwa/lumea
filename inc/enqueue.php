@@ -334,8 +334,33 @@ function lumea_enqueue_assets() {
 		);
 	}
 
-	if ( is_singular( 'post' ) && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
+	if ( is_singular( 'post' ) && comments_open() ) {
+		$comment_dependencies = array( 'lumea-main' );
+
+		if ( get_option( 'thread_comments' ) ) {
+			wp_enqueue_script( 'comment-reply' );
+			$comment_dependencies[] = 'comment-reply';
+		}
+
+		wp_enqueue_script(
+			'lumea-comments',
+			LUMEA_THEME_URI . '/assets/js/comments.js',
+			$comment_dependencies,
+			LUMEA_VERSION,
+			true
+		);
+
+		wp_localize_script(
+			'lumea-comments',
+			'lumeaComments',
+			array(
+				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
+				'nonce'       => wp_create_nonce( 'lumea_submit_comment' ),
+				'postingText' => __( 'Posting...', 'lumea' ),
+				'successText' => __( 'Your comment has been posted.', 'lumea' ),
+				'errorText'   => __( 'Could not post your comment. Please try again.', 'lumea' ),
+			)
+		);
 	}
 }
 add_action( 'wp_enqueue_scripts', 'lumea_enqueue_assets' );
