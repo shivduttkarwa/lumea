@@ -64,6 +64,12 @@
   visibility: hidden;
 }
 
+.lumea-stat-mask {
+  overflow-x: visible;
+  overflow-y: clip;
+  display: block;
+}
+
 .lumea-si-mask {
   overflow: hidden;
   display: block;

@@ -100,26 +100,26 @@ $a = array(
 			<blockquote class="lumea-about-manifesto-q">
 				&ldquo;<?php echo esc_html( $a['manifesto_q'] ); ?>&rdquo;
 			</blockquote>
-			<cite class="lumea-about-manifesto-cite lumea-reveal-js lumea-reveal--static-js">&mdash;&nbsp;<?php echo esc_html( $a['manifesto_cite'] ); ?></cite>
+			<cite class="lumea-about-manifesto-cite">&mdash;&nbsp;<?php echo esc_html( $a['manifesto_cite'] ); ?></cite>
 		</div>
 	</section>
 
 	<!-- ④ STATS ─────────────────────────────────────────────── -->
 	<section class="lumea-about-stats">
 		<div class="lumea-about-stats-row">
-			<div class="lumea-about-stat-cell lumea-reveal-js lumea-reveal--static-js">
+			<div class="lumea-about-stat-cell lumea-about-stat-reveal-js">
 				<span class="lumea-about-stat-tag"><?php echo esc_html( $a['stat1_l'] ); ?></span>
 				<span class="lumea-about-stat-n"><?php echo esc_html( $a['stat1_n'] ); ?></span>
 			</div>
-			<div class="lumea-about-stat-cell lumea-reveal-js lumea-reveal--static-js">
+			<div class="lumea-about-stat-cell lumea-about-stat-reveal-js">
 				<span class="lumea-about-stat-tag"><?php echo esc_html( $a['stat4_l'] ); ?></span>
 				<span class="lumea-about-stat-n lumea-about-stat-n--stroke"><?php echo esc_html( $a['stat4_n'] ); ?></span>
 			</div>
-			<div class="lumea-about-stat-cell lumea-reveal-js lumea-reveal--static-js">
+			<div class="lumea-about-stat-cell lumea-about-stat-reveal-js">
 				<span class="lumea-about-stat-tag"><?php echo esc_html( $a['stat2_l'] ); ?></span>
 				<span class="lumea-about-stat-n"><?php echo esc_html( $a['stat2_n'] ); ?></span>
 			</div>
-			<div class="lumea-about-stat-cell lumea-reveal-js lumea-reveal--static-js">
+			<div class="lumea-about-stat-cell lumea-about-stat-reveal-js">
 				<span class="lumea-about-stat-tag"><?php echo esc_html( $a['stat3_l'] ); ?></span>
 				<span class="lumea-about-stat-n lumea-about-stat-n--stroke"><?php echo esc_html( $a['stat3_n'] ); ?></span>
 			</div>

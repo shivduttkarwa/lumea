@@ -452,7 +452,8 @@
   /* ── Manifesto quote — line-by-line slide-up reveal ── */
   ( function initManifestoLineReveal() {
 
-    var mq = document.querySelector( '.lumea-about-manifesto-q' );
+    var mq   = document.querySelector( '.lumea-about-manifesto-q' );
+    var cite = document.querySelector( '.lumea-about-manifesto-cite' );
     if ( ! mq || typeof SplitText === 'undefined' ) return;
 
     var split = new SplitText( mq, { type: 'lines', linesClass: 'lumea-si-line' } );
@@ -465,18 +466,28 @@
     } );
 
     gsap.set( split.lines, { yPercent: 110 } );
+    if ( cite ) gsap.set( cite, { autoAlpha: 0, y: 8 } );
 
     ScrollTrigger.create( {
       trigger: mq,
       start:   'top 80%',
       once:    true,
       onEnter: function () {
-        gsap.to( split.lines, {
+        var tl = gsap.timeline();
+        tl.to( split.lines, {
           yPercent: 0,
           duration: 1.0,
           ease:     'power4.out',
           stagger:  0.16,
         } );
+        if ( cite ) {
+          tl.to( cite, {
+            autoAlpha: 1,
+            y:         0,
+            duration:  0.6,
+            ease:      'power2.out',
+          }, '-=0.2' );
+        }
       },
     } );
 
@@ -507,6 +518,42 @@
       ease:     'power4.out',
       stagger:  0.16,
       delay:    0.2,
+    } );
+
+  } )();
+
+
+  /* ── About stats — staggered slide-up reveal ── */
+  ( function initAboutStatsReveal() {
+
+    var cells = gsap.utils.toArray( '.lumea-about-stat-reveal-js' );
+    if ( ! cells.length ) return;
+
+    var inners = cells.map( function ( cell ) {
+      var children = Array.prototype.slice.call( cell.childNodes );
+      var mask  = document.createElement( 'div' );
+      var inner = document.createElement( 'div' );
+      mask.className = 'lumea-stat-mask';
+      children.forEach( function ( child ) { inner.appendChild( child ); } );
+      mask.appendChild( inner );
+      cell.appendChild( mask );
+      return inner;
+    } );
+
+    gsap.set( inners, { yPercent: 110 } );
+
+    ScrollTrigger.create( {
+      trigger: '.lumea-about-stats-row',
+      start:   'top 85%',
+      once:    true,
+      onEnter: function () {
+        gsap.to( inners, {
+          yPercent: 0,
+          duration: 1.0,
+          ease:     'power4.out',
+          stagger:  0.12,
+        } );
+      },
     } );
 
   } )();
