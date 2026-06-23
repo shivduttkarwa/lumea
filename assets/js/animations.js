@@ -1,4 +1,4 @@
-( function () {
+﻿( function () {
   'use strict';
 
   if ( typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' ) return;
@@ -449,37 +449,33 @@
 
   } )();
 
-  /* ── Manifesto quote — fast typewriter character reveal ── */
-  ( function initManifestoTypewriter() {
+  /* ── Manifesto quote — line-by-line slide-up reveal ── */
+  ( function initManifestoLineReveal() {
 
     var mq = document.querySelector( '.lumea-about-manifesto-q' );
-    if ( ! mq ) return;
+    if ( ! mq || typeof SplitText === 'undefined' ) return;
 
-    var text = mq.textContent.trim();
+    var split = new SplitText( mq, { type: 'lines', linesClass: 'lumea-si-line' } );
 
-    mq.setAttribute( 'aria-label', text );
-    mq.textContent = '';
-
-    var spans = text.split( '' ).map( function ( ch ) {
-      var s = document.createElement( 'span' );
-      s.setAttribute( 'aria-hidden', 'true' );
-      s.textContent = ch;
-      mq.appendChild( s );
-      return s;
+    split.lines.forEach( function ( line ) {
+      var mask = document.createElement( 'div' );
+      mask.className = 'lumea-si-mask';
+      line.parentNode.insertBefore( mask, line );
+      mask.appendChild( line );
     } );
 
-    gsap.set( spans, { opacity: 0 } );
+    gsap.set( split.lines, { yPercent: 110 } );
 
     ScrollTrigger.create( {
       trigger: mq,
-      start:   'top 78%',
+      start:   'top 80%',
       once:    true,
       onEnter: function () {
-        gsap.to( spans, {
-          opacity:  1,
-          duration: 0.001,
-          stagger:  0.022,
-          ease:     'none',
+        gsap.to( split.lines, {
+          yPercent: 0,
+          duration: 1.0,
+          ease:     'power4.out',
+          stagger:  0.16,
         } );
       },
     } );

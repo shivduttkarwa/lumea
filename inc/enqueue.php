@@ -115,6 +115,14 @@ function lumea_enqueue_assets() {
 	);
 
 	wp_enqueue_script(
+		'gsap-splittext',
+		LUMEA_THEME_URI . '/assets/vendor/gsap/SplitText.min.js',
+		array( 'gsap' ),
+		'3.15.0',
+		true
+	);
+
+	wp_enqueue_script(
 		'lumea-main',
 		LUMEA_THEME_URI . '/assets/js/main.js',
 		array( 'gsap', 'gsap-scrolltrigger' ),
@@ -125,7 +133,7 @@ function lumea_enqueue_assets() {
 	wp_enqueue_script(
 		'lumea-animations',
 		LUMEA_THEME_URI . '/assets/js/animations.js',
-		array( 'gsap', 'gsap-scrolltrigger' ),
+		array( 'gsap', 'gsap-scrolltrigger', 'gsap-splittext' ),
 		LUMEA_VERSION,
 		true
 	);
