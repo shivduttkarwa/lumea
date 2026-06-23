@@ -82,16 +82,18 @@ $blog_hero_subtitle = get_theme_mod( 'lumea_blog_hero_subtitle', __( 'Rituals, i
 				?>
 			<article <?php post_class( 'lumea-blog-featured lumea-reveal-js lumea-reveal--static-js' ); ?>>
 				<a href="<?php the_permalink(); ?>" class="lumea-blog-featured-img-wrap" tabindex="-1" aria-hidden="true">
-					<?php if ( has_post_thumbnail() ) : ?>
-						<?php
-						the_post_thumbnail(
-							'large',
-							array(
-								'class'         => 'lumea-blog-featured-img',
-								'loading'       => 'eager',
-								'fetchpriority' => 'high',
-							)
-						);
+					<?php
+					$featured_image = lumea_get_post_card_image(
+						get_the_ID(),
+						'large',
+						array(
+							'class'         => 'lumea-blog-featured-img',
+							'loading'       => 'eager',
+							'fetchpriority' => 'high',
+						)
+					);
+					if ( $featured_image ) :
+						echo wp_kses_post( $featured_image );
 						?>
 					<?php else : ?>
 					<div class="lumea-blog-featured-img-placeholder"></div>
@@ -136,15 +138,10 @@ $blog_hero_subtitle = get_theme_mod( 'lumea_blog_hero_subtitle', __( 'Rituals, i
 						?>
 				<article <?php post_class( 'lumea-blog-card lumea-reveal-js lumea-reveal--static-js' ); ?>>
 					<a href="<?php the_permalink(); ?>" class="lumea-blog-card-img-wrap" tabindex="-1" aria-hidden="true">
-						<?php if ( has_post_thumbnail() ) : ?>
-							<?php
-							the_post_thumbnail(
-								'medium_large',
-								array(
-									'class'   => 'lumea-blog-card-img',
-									'loading' => 'lazy',
-								)
-							);
+						<?php
+						$card_image = lumea_get_post_card_image( get_the_ID() );
+						if ( $card_image ) :
+							echo wp_kses_post( $card_image );
 							?>
 						<?php else : ?>
 						<div class="lumea-blog-card-img-placeholder"></div>

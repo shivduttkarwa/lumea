@@ -333,6 +333,10 @@ function lumea_enqueue_assets() {
 			true
 		);
 	}
+
+	if ( is_singular( 'post' ) && comments_open() && get_option( 'thread_comments' ) ) {
+		wp_enqueue_script( 'comment-reply' );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'lumea_enqueue_assets' );
 

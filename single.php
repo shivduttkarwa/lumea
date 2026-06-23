@@ -31,7 +31,7 @@ get_header();
 	<div class="lumea-shop-hero" style="--shop-bg: url('<?php echo esc_url( $single_hero_bg ); ?>')">
 		<div class="lumea-shop-hero-overlay"></div>
 		<div class="lumea-shop-hero-inner">
-			<h1 class="lumea-shop-hero-title lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php the_title(); ?></h1>
+			<h1 class="lumea-shop-hero-title lumea-post-hero-title lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php the_title(); ?></h1>
 			<?php if ( $single_hero_sub ) : ?>
 			<p class="lumea-shop-hero-desc lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php echo esc_html( $single_hero_sub ); ?></p>
 			<?php endif; ?>
@@ -152,18 +152,10 @@ get_header();
 					?>
 				<article <?php post_class( 'lumea-blog-card lumea-reveal-js lumea-reveal--static-js', $related_id ); ?>>
 					<a href="<?php echo esc_url( $related_url ); ?>" class="lumea-blog-card-img-wrap" tabindex="-1" aria-hidden="true">
-						<?php if ( has_post_thumbnail( $related_id ) ) : ?>
-							<?php
-							echo wp_kses_post(
-								get_the_post_thumbnail(
-									$related_id,
-									'medium_large',
-									array(
-										'class'   => 'lumea-blog-card-img',
-										'loading' => 'lazy',
-									)
-								)
-							);
+						<?php
+						$related_image = lumea_get_post_card_image( $related_id );
+						if ( $related_image ) :
+							echo wp_kses_post( $related_image );
 							?>
 						<?php else : ?>
 						<div class="lumea-blog-card-img-placeholder"></div>

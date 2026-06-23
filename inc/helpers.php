@@ -185,6 +185,128 @@ function lumea_get_default_navigation_links() {
 	);
 }
 
+
+/**
+ * Find the first usable image in post content.
+ *
+ * Featured images remain the preferred source for archive cards. This helper
+ * provides a graceful fallback for posts that only contain an Image or Cover
+ * block in their article content.
+ *
+ * @param int $post_id Post ID.
+ * @return array{attachment_id:int,url:string}
+ */
+function lumea_get_first_post_content_image( $post_id ) {
+	$content = (string) get_post_field( 'post_content', $post_id );
+	$result  = array(
+		'attachment_id' => 0,
+		'url'           => '',
+	);
+
+	if ( '' === trim( $content ) ) {
+		return $result;
+	}
+
+	$find_image = static function ( $blocks ) use ( &$find_image ) {
+		foreach ( $blocks as $block ) {
+			$block_name = isset( $block['blockName'] ) ? $block['blockName'] : '';
+			$attrs      = isset( $block['attrs'] ) && is_array( $block['attrs'] ) ? $block['attrs'] : array();
+
+			if ( in_array( $block_name, array( 'core/image', 'core/cover', 'core/media-text' ), true ) ) {
+				$attachment_id = isset( $attrs['id'] ) ? absint( $attrs['id'] ) : 0;
+				$image_url     = isset( $attrs['url'] ) ? esc_url_raw( $attrs['url'] ) : '';
+
+				if ( $attachment_id || $image_url ) {
+					return array(
+						'attachment_id' => $attachment_id,
+						'url'           => $image_url,
+					);
+				}
+			}
+
+			if ( ! empty( $block['innerHTML'] ) && preg_match( '/<img[^>]+src=["\']([^"\']+)["\']/i', $block['innerHTML'], $matches ) ) {
+				$attachment_id = 0;
+				if ( preg_match( '/wp-image-([0-9]+)/', $block['innerHTML'], $id_matches ) ) {
+					$attachment_id = absint( $id_matches[1] );
+				}
+
+				return array(
+					'attachment_id' => $attachment_id,
+					'url'           => esc_url_raw( html_entity_decode( $matches[1] ) ),
+				);
+			}
+
+			if ( ! empty( $block['innerBlocks'] ) ) {
+				$nested_result = $find_image( $block['innerBlocks'] );
+				if ( ! empty( $nested_result['attachment_id'] ) || ! empty( $nested_result['url'] ) ) {
+					return $nested_result;
+				}
+			}
+		}
+
+		return array(
+			'attachment_id' => 0,
+			'url'           => '',
+		);
+	};
+
+	$result = $find_image( parse_blocks( $content ) );
+
+	if ( ! $result['attachment_id'] && ! $result['url'] && preg_match( '/<img[^>]+src=["\']([^"\']+)["\']/i', $content, $matches ) ) {
+		$result['url'] = esc_url_raw( html_entity_decode( $matches[1] ) );
+	}
+
+	return $result;
+}
+
+
+/**
+ * Return an archive-card image, falling back to the first article image.
+ *
+ * @param int          $post_id Post ID.
+ * @param string|int[] $size    Registered image size or dimensions.
+ * @param array        $attr    Image attributes.
+ * @return string
+ */
+function lumea_get_post_card_image( $post_id, $size = 'medium_large', $attr = array() ) {
+	$post_id = absint( $post_id );
+	$attr    = wp_parse_args(
+		$attr,
+		array(
+			'class'   => 'lumea-blog-card-img',
+			'loading' => 'lazy',
+		)
+	);
+
+	if ( has_post_thumbnail( $post_id ) ) {
+		return get_the_post_thumbnail( $post_id, $size, $attr );
+	}
+
+	$content_image = lumea_get_first_post_content_image( $post_id );
+	if ( $content_image['attachment_id'] ) {
+		return wp_get_attachment_image( $content_image['attachment_id'], $size, false, $attr );
+	}
+
+	if ( $content_image['url'] ) {
+		$attributes = '';
+		$attr       = array_merge(
+			array(
+				'src' => $content_image['url'],
+				'alt' => get_the_title( $post_id ),
+			),
+			$attr
+		);
+
+		foreach ( $attr as $name => $value ) {
+			$attributes .= sprintf( ' %s="%s"', esc_attr( $name ), esc_attr( $value ) );
+		}
+
+		return '<img' . $attributes . '>';
+	}
+
+	return '';
+}
+
 /**
  * Render navigation links when no menu has been assigned to a location.
  *

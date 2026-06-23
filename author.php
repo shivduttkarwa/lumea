@@ -47,18 +47,13 @@ $lumea_bio        = get_the_author_meta( 'description', $lumea_author->ID );
 					?>
 				<article <?php post_class( 'lumea-blog-card' ); ?>>
 					<a href="<?php the_permalink(); ?>" class="lumea-blog-card-img-wrap" tabindex="-1" aria-hidden="true">
-						<?php if ( has_post_thumbnail() ) : ?>
-							<?php
-							the_post_thumbnail(
-								'medium_large',
-								array(
-									'class'   => 'lumea-blog-card-img',
-									'loading' => 'lazy',
-								)
-							);
+						<?php
+						$card_image = lumea_get_post_card_image( get_the_ID() );
+						if ( $card_image ) :
+							echo wp_kses_post( $card_image );
 							?>
 						<?php else : ?>
-						<div class="lumea-blog-card-img-placeholder"></div>
+							<div class="lumea-blog-card-img-placeholder"></div>
 						<?php endif; ?>
 					</a>
 					<div class="lumea-blog-card-body">
