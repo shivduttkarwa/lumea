@@ -334,6 +334,36 @@ add_filter( 'body_class', 'lumea_wc_body_class' );
 add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 
 
+/**
+ * Use the theme's canonical black button for the checkout submission action.
+ *
+ * The filter preserves any classes or attributes added by WooCommerce and
+ * payment extensions.
+ *
+ * @param string $button Checkout order button HTML.
+ * @return string
+ */
+function lumea_checkout_place_order_button_html( $button ) {
+	if ( str_contains( $button, 'lumea-btn' ) ) {
+		return $button;
+	}
+
+	return (string) preg_replace_callback(
+		'/class=(["\'])(.*?)\1/',
+		static function ( $matches ) {
+			$classes   = preg_split( '/\s+/', trim( $matches[2] ) );
+			$classes[] = 'lumea-btn';
+			$classes[] = 'btn-black';
+
+			return 'class="' . esc_attr( implode( ' ', array_unique( array_filter( $classes ) ) ) ) . '"';
+		},
+		$button,
+		1
+	);
+}
+add_filter( 'woocommerce_order_button_html', 'lumea_checkout_place_order_button_html', 20 );
+
+
 add_filter( 'loop_shop_columns', 'lumea_loop_shop_columns' );
 function lumea_loop_shop_columns() {
 	return 4;

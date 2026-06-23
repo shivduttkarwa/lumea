@@ -22,7 +22,6 @@ if ( ! is_checkout() ) {
 }
 
 $checkout = WC()->checkout();
-do_action( 'woocommerce_before_checkout_form', $checkout );
 ?>
 
 <div class="lumea-checkout-page">
@@ -63,6 +62,10 @@ do_action( 'woocommerce_before_checkout_form', $checkout );
 				</span>
 			</div>
 		</div>
+	</div>
+
+	<div class="lumea-checkout-preflight">
+		<?php do_action( 'woocommerce_before_checkout_form', $checkout ); ?>
 	</div>
 
 	<form name="checkout" method="post" class="lumea-checkout-form checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
@@ -144,7 +147,20 @@ do_action( 'woocommerce_before_checkout_form', $checkout );
 					<div class="lumea-checkout-summary">
 
 						<?php do_action( 'woocommerce_checkout_before_order_review_heading' ); ?>
-						<h2 class="lumea-checkout-summary-title"><?php esc_html_e( 'Order Summary', 'lumea' ); ?></h2>
+						<div class="lumea-checkout-summary-heading">
+							<h2 class="lumea-checkout-summary-title"><?php esc_html_e( 'Order Summary', 'lumea' ); ?></h2>
+							<span class="lumea-checkout-summary-count">
+								<?php
+								echo esc_html(
+									sprintf(
+										/* translators: %d: number of items in the cart. */
+										_n( '%d item', '%d items', WC()->cart->get_cart_contents_count(), 'lumea' ),
+										WC()->cart->get_cart_contents_count()
+									)
+								);
+								?>
+							</span>
+						</div>
 						<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
 						<div id="order_review" class="woocommerce-checkout-review-order">
 							<?php do_action( 'woocommerce_checkout_order_review' ); ?>
