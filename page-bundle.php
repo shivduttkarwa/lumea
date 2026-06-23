@@ -13,35 +13,35 @@ $bundles = array(
 	array(
 		'key'     => 'morning',
 		'eyebrow' => get_theme_mod( 'lumea_bundle1_eyebrow', __( 'Best Seller', 'lumea' ) ),
-		'name'    => get_theme_mod( 'lumea_bundle1_name',    __( 'The Morning Ritual', 'lumea' ) ),
-		'desc'    => get_theme_mod( 'lumea_bundle1_desc',    __( 'A complete AM routine — cleanse, treat and protect. Three products chosen for synergy and results you will feel by day seven.', 'lumea' ) ),
-		'value'   => get_theme_mod( 'lumea_bundle1_value',   __( '$142', 'lumea' ) ),
-		'price'   => get_theme_mod( 'lumea_bundle1_price',   __( '$118', 'lumea' ) ),
-		'cat'     => get_theme_mod( 'lumea_bundle1_cat',     'bestseller' ),
-		'img'     => get_theme_mod( 'lumea_bundle1_img',     LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main1.jpg' ),
-		'saving'  => get_theme_mod( 'lumea_bundle1_saving',  __( 'Save $24', 'lumea' ) ),
+		'name'    => get_theme_mod( 'lumea_bundle1_name', __( 'The Morning Ritual', 'lumea' ) ),
+		'desc'    => get_theme_mod( 'lumea_bundle1_desc', __( 'A complete AM routine — cleanse, treat and protect. Three products chosen for synergy and results you will feel by day seven.', 'lumea' ) ),
+		'value'   => get_theme_mod( 'lumea_bundle1_value', __( '$142', 'lumea' ) ),
+		'price'   => get_theme_mod( 'lumea_bundle1_price', __( '$118', 'lumea' ) ),
+		'cat'     => get_theme_mod( 'lumea_bundle1_cat', 'bestseller' ),
+		'img'     => get_theme_mod( 'lumea_bundle1_img', LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main1.jpg' ),
+		'saving'  => get_theme_mod( 'lumea_bundle1_saving', __( 'Save $24', 'lumea' ) ),
 	),
 	array(
 		'key'     => 'night',
 		'eyebrow' => get_theme_mod( 'lumea_bundle2_eyebrow', __( 'Fan Favourite', 'lumea' ) ),
-		'name'    => get_theme_mod( 'lumea_bundle2_name',    __( 'The Night Repair', 'lumea' ) ),
-		'desc'    => get_theme_mod( 'lumea_bundle2_desc',    __( 'Let your skin recover overnight. Bakuchiol serum, barrier repair oil and a deeply hydrating sleep mask — wake up to visibly plumper skin.', 'lumea' ) ),
-		'value'   => get_theme_mod( 'lumea_bundle2_value',   __( '$168', 'lumea' ) ),
-		'price'   => get_theme_mod( 'lumea_bundle2_price',   __( '$138', 'lumea' ) ),
-		'cat'     => get_theme_mod( 'lumea_bundle2_cat',     'latest' ),
-		'img'     => get_theme_mod( 'lumea_bundle2_img',     LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main2.jpg' ),
-		'saving'  => get_theme_mod( 'lumea_bundle2_saving',  __( 'Save $30', 'lumea' ) ),
+		'name'    => get_theme_mod( 'lumea_bundle2_name', __( 'The Night Repair', 'lumea' ) ),
+		'desc'    => get_theme_mod( 'lumea_bundle2_desc', __( 'Let your skin recover overnight. Bakuchiol serum, barrier repair oil and a deeply hydrating sleep mask — wake up to visibly plumper skin.', 'lumea' ) ),
+		'value'   => get_theme_mod( 'lumea_bundle2_value', __( '$168', 'lumea' ) ),
+		'price'   => get_theme_mod( 'lumea_bundle2_price', __( '$138', 'lumea' ) ),
+		'cat'     => get_theme_mod( 'lumea_bundle2_cat', 'latest' ),
+		'img'     => get_theme_mod( 'lumea_bundle2_img', LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main2.jpg' ),
+		'saving'  => get_theme_mod( 'lumea_bundle2_saving', __( 'Save $30', 'lumea' ) ),
 	),
 	array(
 		'key'     => 'gift',
 		'eyebrow' => get_theme_mod( 'lumea_bundle3_eyebrow', __( 'Perfect Gift', 'lumea' ) ),
-		'name'    => get_theme_mod( 'lumea_bundle3_name',    __( 'The Glow Edit', 'lumea' ) ),
-		'desc'    => get_theme_mod( 'lumea_bundle3_desc',    __( 'Everything they need for luminous, healthy skin — packaged in our signature gift box with a handwritten card on request.', 'lumea' ) ),
-		'value'   => get_theme_mod( 'lumea_bundle3_value',   __( '$195', 'lumea' ) ),
-		'price'   => get_theme_mod( 'lumea_bundle3_price',   __( '$158', 'lumea' ) ),
-		'cat'     => get_theme_mod( 'lumea_bundle3_cat',     '' ),
-		'img'     => get_theme_mod( 'lumea_bundle3_img',     LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg' ),
-		'saving'  => get_theme_mod( 'lumea_bundle3_saving',  __( 'Save $37', 'lumea' ) ),
+		'name'    => get_theme_mod( 'lumea_bundle3_name', __( 'The Glow Edit', 'lumea' ) ),
+		'desc'    => get_theme_mod( 'lumea_bundle3_desc', __( 'Everything they need for luminous, healthy skin — packaged in our signature gift box with a handwritten card on request.', 'lumea' ) ),
+		'value'   => get_theme_mod( 'lumea_bundle3_value', __( '$195', 'lumea' ) ),
+		'price'   => get_theme_mod( 'lumea_bundle3_price', __( '$158', 'lumea' ) ),
+		'cat'     => get_theme_mod( 'lumea_bundle3_cat', '' ),
+		'img'     => get_theme_mod( 'lumea_bundle3_img', LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg' ),
+		'saving'  => get_theme_mod( 'lumea_bundle3_saving', __( 'Save $37', 'lumea' ) ),
 	),
 );
 ?>
@@ -69,7 +69,8 @@ $bundles = array(
 		<section class="lumea-policy-section">
 			<div class="lumea-policy-section-inner">
 				<div class="lumea-bundle-grid">
-					<?php foreach ( $bundles as $bundle ) :
+					<?php
+					foreach ( $bundles as $bundle ) :
 						$cat_slug = sanitize_key( $bundle['cat'] );
 						$cat_link = '';
 						if ( $cat_slug && taxonomy_exists( 'product_cat' ) ) {
@@ -83,15 +84,17 @@ $bundles = array(
 
 						$products = array();
 						if ( class_exists( 'WooCommerce' ) && function_exists( 'wc_get_products' ) && $cat_slug ) {
-							$products = wc_get_products( array(
-								'category' => array( $cat_slug ),
-								'limit'    => 3,
-								'status'   => 'publish',
-								'orderby'  => 'menu_order',
-								'order'    => 'ASC',
-							) );
+							$products = wc_get_products(
+								array(
+									'category' => array( $cat_slug ),
+									'limit'    => 3,
+									'status'   => 'publish',
+									'orderby'  => 'menu_order',
+									'order'    => 'ASC',
+								)
+							);
 						}
-					?>
+						?>
 					<div class="lumea-bundle-card">
 						<div class="lumea-bundle-card-img-wrap">
 							<img
@@ -175,9 +178,10 @@ $bundles = array(
 							<li><?php esc_html_e( 'Never expires', 'lumea' ); ?></li>
 							<li><?php esc_html_e( 'Redeemable on anything', 'lumea' ); ?></li>
 						</ul>
-						<?php if ( class_exists( 'WooCommerce' ) ) :
+						<?php
+						if ( class_exists( 'WooCommerce' ) ) :
 							$gift_card_page = get_page_by_path( 'gift-card' );
-						?>
+							?>
 						<a href="<?php echo esc_url( $gift_card_page ? get_permalink( $gift_card_page ) : lumea_get_shop_url() ); ?>" class="lumea-btn btn-outline lumea-gifting-btn">
 							<?php esc_html_e( 'Buy a Gift Card', 'lumea' ); ?>
 						</a>
@@ -193,11 +197,13 @@ $bundles = array(
 			<h2><?php esc_html_e( 'We\'ll build the perfect set for you', 'lumea' ); ?></h2>
 			<p><?php esc_html_e( 'Tell us who it\'s for and we\'ll recommend the ideal ritual — for any skin type, budget or occasion.', 'lumea' ); ?></p>
 			<?php
-			lumea_btn( array(
-				'label' => __( 'Get Personalised Advice', 'lumea' ),
-				'href'  => esc_url( get_permalink( get_page_by_path( 'contact' ) ) ?: home_url( '/contact/' ) ),
-				'style' => 'dark',
-			) );
+			lumea_btn(
+				array(
+					'label' => __( 'Get Personalised Advice', 'lumea' ),
+					'href'  => lumea_get_page_url( 'contact' ),
+					'style' => 'dark',
+				)
+			);
 			?>
 		</div>
 

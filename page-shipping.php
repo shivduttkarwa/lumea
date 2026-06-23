@@ -9,7 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 get_header();
 
-$support_email = sanitize_email( get_theme_mod( 'lumea_support_email', get_option( 'admin_email' ) ) );
+$support_email  = sanitize_email( get_theme_mod( 'lumea_support_email', get_option( 'admin_email' ) ) );
 $free_threshold = sanitize_text_field( get_theme_mod( 'lumea_free_shipping_threshold', '$75' ) );
 ?>
 
@@ -197,11 +197,13 @@ $free_threshold = sanitize_text_field( get_theme_mod( 'lumea_free_shipping_thres
 			<h2><?php esc_html_e( 'We are here to help', 'lumea' ); ?></h2>
 			<p><?php esc_html_e( 'Our customer care team replies within 24 hours, Monday to Friday.', 'lumea' ); ?></p>
 			<?php
-			lumea_btn( array(
-				'label' => __( 'Contact Us', 'lumea' ),
-				'href'  => esc_url( get_permalink( get_page_by_path( 'contact' ) ) ?: home_url( '/contact/' ) ),
-				'style' => 'dark',
-			) );
+			lumea_btn(
+				array(
+					'label' => __( 'Contact Us', 'lumea' ),
+					'href'  => lumea_get_page_url( 'contact' ),
+					'style' => 'dark',
+				)
+			);
 			?>
 		</div>
 

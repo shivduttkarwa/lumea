@@ -22,7 +22,6 @@ if ( ! is_checkout() ) {
 }
 
 $checkout = WC()->checkout();
-remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
 do_action( 'woocommerce_before_checkout_form', $checkout );
 ?>
 
@@ -76,7 +75,7 @@ do_action( 'woocommerce_before_checkout_form', $checkout );
 
 					<?php if ( $checkout->get_checkout_fields() ) : ?>
 
-					<?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
+						<?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
 
 					<!-- Contact -->
 					<div class="lumea-checkout-block">
@@ -85,13 +84,19 @@ do_action( 'woocommerce_before_checkout_form', $checkout );
 							<?php esc_html_e( 'Contact', 'lumea' ); ?>
 						</h2>
 						<div class="lumea-checkout-fields">
-							<?php woocommerce_form_field( 'billing_email', array(
-								'type'        => 'email',
-								'label'       => __( 'Email address', 'lumea' ),
-								'placeholder' => __( 'you@example.com', 'lumea' ),
-								'required'    => true,
-								'class'       => array( 'lumea-field-full' ),
-							), $checkout->get_value( 'billing_email' ) ); ?>
+							<?php
+							woocommerce_form_field(
+								'billing_email',
+								array(
+									'type'        => 'email',
+									'label'       => __( 'Email address', 'lumea' ),
+									'placeholder' => __( 'you@example.com', 'lumea' ),
+									'required'    => true,
+									'class'       => array( 'lumea-field-full' ),
+								),
+								$checkout->get_value( 'billing_email' )
+							);
+							?>
 						</div>
 					</div>
 
@@ -106,7 +111,7 @@ do_action( 'woocommerce_before_checkout_form', $checkout );
 						</div>
 					</div>
 
-					<?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) : ?>
+						<?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) : ?>
 					<div class="lumea-checkout-block">
 						<h2 class="lumea-checkout-block-title">
 							<span class="lumea-checkout-block-num">03</span>
@@ -121,19 +126,14 @@ do_action( 'woocommerce_before_checkout_form', $checkout );
 					<!-- Payment -->
 					<div class="lumea-checkout-block lumea-checkout-block--payment">
 						<h2 class="lumea-checkout-block-title">
-							<span class="lumea-checkout-block-num"><?php echo WC()->cart->needs_shipping() && WC()->cart->show_shipping() ? '04' : '03'; ?></span>
+							<span class="lumea-checkout-block-num"><?php echo esc_html( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ? '04' : '03' ); ?></span>
 							<?php esc_html_e( 'Payment', 'lumea' ); ?>
 						</h2>
 						<div class="lumea-checkout-payment-wrap">
-							<?php
-							if ( function_exists( 'woocommerce_checkout_payment' ) ) {
-								woocommerce_checkout_payment();
-							}
-							?>
+							<?php do_action( 'lumea_checkout_payment' ); ?>
 						</div>
 					</div>
-
-					<?php do_action( 'woocommerce_checkout_after_customer_details' ); ?>
+						<?php do_action( 'woocommerce_checkout_after_customer_details' ); ?>
 
 					<?php endif; ?>
 
@@ -143,65 +143,13 @@ do_action( 'woocommerce_before_checkout_form', $checkout );
 				<div class="lumea-checkout-right">
 					<div class="lumea-checkout-summary">
 
+						<?php do_action( 'woocommerce_checkout_before_order_review_heading' ); ?>
 						<h2 class="lumea-checkout-summary-title"><?php esc_html_e( 'Order Summary', 'lumea' ); ?></h2>
-
-						<!-- Items list -->
-						<div class="lumea-checkout-items">
-							<?php foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) :
-								$_product  = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
-								if ( ! $_product || ! $_product->exists() ) continue;
-								$img_id    = $_product->get_image_id();
-								$img_url   = $img_id ? wp_get_attachment_image_url( $img_id, 'thumbnail' ) : '';
-								$item_name = apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key );
-								$subtotal  = apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key );
-							?>
-							<div class="lumea-checkout-item">
-								<div class="lumea-checkout-item-img">
-									<?php if ( $img_url ) : ?>
-									<img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( wp_strip_all_tags( $item_name ) ); ?>" loading="lazy">
-									<?php endif; ?>
-									<span class="lumea-checkout-item-qty"><?php echo esc_html( $cart_item['quantity'] ); ?></span>
-								</div>
-								<div class="lumea-checkout-item-info">
-									<p class="lumea-checkout-item-name"><?php echo wp_kses_post( $item_name ); ?></p>
-									<?php echo wc_get_formatted_cart_item_data( $cart_item ); ?>
-								</div>
-								<div class="lumea-checkout-item-price"><?php echo wp_kses_post( $subtotal ); ?></div>
-							</div>
-							<?php endforeach; ?>
+						<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
+						<div id="order_review" class="woocommerce-checkout-review-order">
+							<?php do_action( 'woocommerce_checkout_order_review' ); ?>
 						</div>
-
-						<!-- Coupon -->
-						<?php if ( wc_coupons_enabled() ) : ?>
-						<div class="lumea-checkout-coupon">
-							<input type="text" name="lumea_coupon_code" id="lumeaCouponCode" class="lumea-checkout-coupon-input" placeholder="<?php esc_attr_e( 'Gift or discount code', 'lumea' ); ?>">
-							<button type="button" class="lumea-checkout-coupon-btn" id="lumeaApplyCoupon"><?php esc_html_e( 'Apply', 'lumea' ); ?></button>
-						</div>
-						<?php endif; ?>
-
-						<!-- Totals -->
-						<div class="lumea-checkout-totals">
-							<div class="lumea-checkout-total-row">
-								<span><?php esc_html_e( 'Subtotal', 'lumea' ); ?></span>
-								<span><?php echo wp_kses_post( WC()->cart->get_cart_subtotal() ); ?></span>
-							</div>
-							<?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) : ?>
-							<div class="lumea-checkout-total-row">
-								<span><?php esc_html_e( 'Shipping', 'lumea' ); ?></span>
-								<span><?php echo WC()->cart->get_shipping_total() > 0 ? wp_kses_post( wc_price( WC()->cart->get_shipping_total() ) ) : esc_html__( 'Free', 'lumea' ); ?></span>
-							</div>
-							<?php endif; ?>
-							<?php foreach ( WC()->cart->get_coupons() as $code => $coupon ) : ?>
-							<div class="lumea-checkout-total-row lumea-checkout-total-row--discount">
-								<span><?php echo esc_html( wc_cart_totals_coupon_label( $coupon, false ) ); ?></span>
-								<span>-<?php echo wp_kses_post( WC()->cart->get_coupon_discount_amount( $code ) ); ?></span>
-							</div>
-							<?php endforeach; ?>
-							<div class="lumea-checkout-total-row lumea-checkout-total-row--grand">
-								<strong><?php esc_html_e( 'Total', 'lumea' ); ?></strong>
-								<strong><?php echo wp_kses_post( WC()->cart->get_total() ); ?></strong>
-							</div>
-						</div>
+						<?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
 
 						<!-- Trust -->
 						<div class="lumea-checkout-trust-row">

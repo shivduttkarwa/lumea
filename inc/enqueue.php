@@ -12,14 +12,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function lumea_enqueue_assets() {
 
-	
 	wp_enqueue_style(
 		'lumea-clash-display',
 		LUMEA_THEME_URI . '/assets/vendor/fonts/clash-display/clash-display.css',
 		array(),
 		'1.0.0'
 	);
-
 
 	wp_enqueue_style(
 		'lumea-inter',
@@ -28,23 +26,21 @@ function lumea_enqueue_assets() {
 		'20.0.0'
 	);
 
-	
 	wp_enqueue_style(
 		'lumea-bootstrap',
 		LUMEA_THEME_URI . '/assets/vendor/bootstrap/bootstrap.min.css',
 		array(),
-		'5.3.3'
+		'5.3.8'
 	);
 
 	wp_enqueue_script(
 		'lumea-bootstrap',
 		LUMEA_THEME_URI . '/assets/vendor/bootstrap/bootstrap.bundle.min.js',
 		array(),
-		'5.3.3',
+		'5.3.8',
 		true
 	);
 
-	
 	wp_enqueue_style(
 		'lumea-tokens',
 		LUMEA_THEME_URI . '/assets/css/tokens.css',
@@ -66,7 +62,6 @@ function lumea_enqueue_assets() {
 		LUMEA_VERSION
 	);
 
-	
 	wp_enqueue_style(
 		'lumea-main',
 		LUMEA_THEME_URI . '/assets/css/main.css',
@@ -74,7 +69,6 @@ function lumea_enqueue_assets() {
 		LUMEA_VERSION
 	);
 
-	
 	wp_enqueue_style(
 		'lumea-buttons',
 		LUMEA_THEME_URI . '/assets/css/buttons.css',
@@ -82,7 +76,6 @@ function lumea_enqueue_assets() {
 		LUMEA_VERSION
 	);
 
-	
 	wp_enqueue_style(
 		'lumea-animations',
 		LUMEA_THEME_URI . '/assets/css/animations.css',
@@ -90,7 +83,6 @@ function lumea_enqueue_assets() {
 		LUMEA_VERSION
 	);
 
-	
 	wp_enqueue_style(
 		'lumea-blocks',
 		LUMEA_THEME_URI . '/assets/css/blocks.css',
@@ -98,25 +90,30 @@ function lumea_enqueue_assets() {
 		LUMEA_VERSION
 	);
 
-	
+	wp_enqueue_style(
+		'lumea-print',
+		LUMEA_THEME_URI . '/assets/css/print.css',
+		array( 'lumea-main' ),
+		LUMEA_VERSION,
+		'print'
+	);
+
 	wp_enqueue_script(
 		'gsap',
 		LUMEA_THEME_URI . '/assets/vendor/gsap/gsap.min.js',
 		array(),
-		'3.12.5',
+		'3.15.0',
 		true
 	);
-
 
 	wp_enqueue_script(
 		'gsap-scrolltrigger',
 		LUMEA_THEME_URI . '/assets/vendor/gsap/ScrollTrigger.min.js',
 		array( 'gsap' ),
-		'3.12.5',
+		'3.15.0',
 		true
 	);
 
-	
 	wp_enqueue_script(
 		'lumea-main',
 		LUMEA_THEME_URI . '/assets/js/main.js',
@@ -125,7 +122,6 @@ function lumea_enqueue_assets() {
 		true
 	);
 
-	
 	wp_enqueue_script(
 		'lumea-animations',
 		LUMEA_THEME_URI . '/assets/js/animations.js',
@@ -155,7 +151,7 @@ function lumea_enqueue_assets() {
 				'remove'               => __( 'Remove', 'lumea' ),
 				/* translators: %s: product name */
 				'removeFromWishlistOf' => __( 'Remove %s from wishlist', 'lumea' ),
-				
+
 				'showPassword'         => __( 'Show password', 'lumea' ),
 				'hidePassword'         => __( 'Hide password', 'lumea' ),
 				'pwWeak'               => __( 'Weak', 'lumea' ),
@@ -166,7 +162,6 @@ function lumea_enqueue_assets() {
 		)
 	);
 
-	
 	if ( is_front_page() ) {
 		wp_enqueue_script(
 			'lumea-hero',
@@ -176,13 +171,11 @@ function lumea_enqueue_assets() {
 			true
 		);
 
-		
-		
 		$lumea_hero_images = array();
 		$lumea_hero_labels = array();
 
 		$lumea_hero_image_keys = array(
-			1 => array( 'lumea_hero_image',   LUMEA_THEME_URI . '/assets/images/hero-slide-1.jpg' ),
+			1 => array( 'lumea_hero_image', LUMEA_THEME_URI . '/assets/images/hero-slide-1.jpg' ),
 			2 => array( 'lumea_hero_image_2', '' ),
 			3 => array( 'lumea_hero_image_3', '' ),
 			4 => array( 'lumea_hero_image_4', '' ),
@@ -190,11 +183,11 @@ function lumea_enqueue_assets() {
 		);
 
 		$hero_label_defaults = array(
-			1 => 'Glow',
-			2 => 'Hydrate',
-			3 => 'Nourish',
-			4 => 'Protect',
-			5 => 'Renew',
+			1 => __( 'Glow', 'lumea' ),
+			2 => __( 'Hydrate', 'lumea' ),
+			3 => __( 'Nourish', 'lumea' ),
+			4 => __( 'Protect', 'lumea' ),
+			5 => __( 'Renew', 'lumea' ),
 		);
 
 		foreach ( $lumea_hero_image_keys as $slide_num => $slot ) {
@@ -202,9 +195,9 @@ function lumea_enqueue_assets() {
 			if ( $url ) {
 				$lumea_hero_images[] = esc_url( $url );
 
-				$label_key = ( 1 === $slide_num ) ? 'lumea_hero_label' : 'lumea_hero_label_' . $slide_num;
-				$label_default = isset( $hero_label_defaults[ $slide_num ] ) ? $hero_label_defaults[ $slide_num ] : $hero_label_defaults[1];
-				$label         = sanitize_text_field( get_theme_mod( $label_key, $label_default ) );
+				$label_key           = ( 1 === $slide_num ) ? 'lumea_hero_label' : 'lumea_hero_label_' . $slide_num;
+				$label_default       = isset( $hero_label_defaults[ $slide_num ] ) ? $hero_label_defaults[ $slide_num ] : $hero_label_defaults[1];
+				$label               = sanitize_text_field( get_theme_mod( $label_key, $label_default ) );
 				$lumea_hero_labels[] = '' !== $label ? $label : $label_default;
 			}
 		}
@@ -235,20 +228,20 @@ function lumea_enqueue_assets() {
 		);
 
 		$lumea_slide_defaults = array(
-			1 => array( LUMEA_THEME_URI . '/assets/images/editorial-slide-1.jpg',    'Botanical skincare rituals designed for luminous skin, soft texture, and everyday radiance.' ),
-			2 => array( LUMEA_THEME_URI . '/assets/images/editorial-slide-2.jpg',    'Clean formulas, soft botanicals, and refined essentials for a calm beauty routine.' ),
-			3 => array( LUMEA_THEME_URI . '/assets/images/editorial-slide-3.jpg', 'A curated edit of everyday glow products made for modern skincare rituals.' ),
-			4 => array( LUMEA_THEME_URI . '/assets/images/editorial-slide-4.jpg',    'Soft hydration, botanical balance, and skin-first essentials for natural radiance.' ),
-			5 => array( LUMEA_THEME_URI . '/assets/images/editorial-slide-5.jpg',   'A fresh beauty wardrobe made for skin that feels balanced, bright, and alive.' ),
-			6 => array( LUMEA_THEME_URI . '/assets/images/editorial-slide-6.jpg',    'Glow-focused skincare where timeless botanicals meet a modern beauty edge.' ),
+			1 => array( LUMEA_THEME_URI . '/assets/images/editorial-slide-1.jpg', __( 'Botanical skincare rituals designed for luminous skin, soft texture, and everyday radiance.', 'lumea' ) ),
+			2 => array( LUMEA_THEME_URI . '/assets/images/editorial-slide-2.jpg', __( 'Clean formulas, soft botanicals, and refined essentials for a calm beauty routine.', 'lumea' ) ),
+			3 => array( LUMEA_THEME_URI . '/assets/images/editorial-slide-3.jpg', __( 'A curated edit of everyday glow products made for modern skincare rituals.', 'lumea' ) ),
+			4 => array( LUMEA_THEME_URI . '/assets/images/editorial-slide-4.jpg', __( 'Soft hydration, botanical balance, and skin-first essentials for natural radiance.', 'lumea' ) ),
+			5 => array( LUMEA_THEME_URI . '/assets/images/editorial-slide-5.jpg', __( 'A fresh beauty wardrobe made for skin that feels balanced, bright, and alive.', 'lumea' ) ),
+			6 => array( LUMEA_THEME_URI . '/assets/images/editorial-slide-6.jpg', __( 'Glow-focused skincare where timeless botanicals meet a modern beauty edge.', 'lumea' ) ),
 		);
 
-		$lumea_slides = array();
+		$lumea_slides        = array();
 		$lumea_shop_fallback = lumea_get_shop_url();
 		foreach ( $lumea_slide_defaults as $n => $d ) {
 			$lumea_slides[] = array(
 				'number' => str_pad( $n, 2, '0', STR_PAD_LEFT ),
-				'text'   => sanitize_textarea_field( get_theme_mod( 'lumea_slide_' . $n . '_text',  $d[1] ) ),
+				'text'   => sanitize_textarea_field( get_theme_mod( 'lumea_slide_' . $n . '_text', $d[1] ) ),
 				'image'  => esc_url( get_theme_mod( 'lumea_slide_' . $n . '_image', $d[0] ) ),
 				'url'    => esc_url( get_theme_mod( 'lumea_slide_' . $n . '_url', $lumea_shop_fallback ) ),
 			);
@@ -256,18 +249,17 @@ function lumea_enqueue_assets() {
 
 		wp_localize_script( 'lumea-slider', 'lumea_slider', array( 'slides' => $lumea_slides ) );
 
-		
 		wp_enqueue_style(
 			'swiper',
 			LUMEA_THEME_URI . '/assets/vendor/swiper/swiper-bundle.min.css',
 			array(),
-			'11.0.0'
+			'12.2.0'
 		);
 		wp_enqueue_script(
 			'swiper',
 			LUMEA_THEME_URI . '/assets/vendor/swiper/swiper-bundle.min.js',
 			array(),
-			'11.0.0',
+			'12.2.0',
 			true
 		);
 		wp_enqueue_script(
@@ -278,7 +270,6 @@ function lumea_enqueue_assets() {
 			true
 		);
 
-		
 		wp_enqueue_script(
 			'lumea-ritual',
 			LUMEA_THEME_URI . '/assets/js/ritual.js',
@@ -288,18 +279,6 @@ function lumea_enqueue_assets() {
 		);
 	}
 
-	
-	if ( function_exists( 'is_checkout' ) && is_checkout() ) {
-		wp_enqueue_script(
-			'lumea-checkout',
-			LUMEA_THEME_URI . '/assets/js/checkout.js',
-			array(),
-			LUMEA_VERSION,
-			true
-		);
-	}
-
-	
 	if ( function_exists( 'is_product' ) && is_product() ) {
 		wp_enqueue_script(
 			'lumea-single-product',
@@ -310,7 +289,16 @@ function lumea_enqueue_assets() {
 		);
 	}
 
-	
+	if ( is_page_template( 'page-faq.php' ) ) {
+		wp_enqueue_script(
+			'lumea-faq',
+			LUMEA_THEME_URI . '/assets/js/faq.js',
+			array(),
+			LUMEA_VERSION,
+			true
+		);
+	}
+
 	if ( function_exists( 'is_cart' ) && is_cart() ) {
 		wp_enqueue_script(
 			'lumea-cart-page',
@@ -336,7 +324,6 @@ function lumea_enqueue_assets() {
 		);
 	}
 
-	
 	if ( function_exists( 'is_account_page' ) && is_account_page() ) {
 		wp_enqueue_script(
 			'lumea-account-edit',
@@ -382,7 +369,6 @@ function lumea_enqueue_editor_assets() {
 		LUMEA_VERSION
 	);
 
-	
 	wp_enqueue_style(
 		'lumea-editor-blocks',
 		LUMEA_THEME_URI . '/assets/css/blocks.css',

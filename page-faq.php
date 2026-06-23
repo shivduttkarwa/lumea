@@ -16,83 +16,95 @@ get_header();
 
 $support_email  = sanitize_email( get_theme_mod( 'lumea_support_email', get_option( 'admin_email' ) ) );
 $faq_categories = array(
-	'skincare'  => array(
-		'label' => 'Skincare',
+	'skincare' => array(
+		'label' => __( 'Skincare', 'lumea' ),
 		'items' => array(
 			array(
-				'q' => 'How do I know which products are right for my skin type?',
-				'a' => 'Start with our Skin Quiz — a 2-minute questionnaire that analyses your concerns and environment to recommend a personalised ritual. You can also browse by Skin Concern in our Shop. If you\'re ever unsure, email our skincare specialists at ' . $support_email . '.',
+				'q' => __( 'How do I know which products are right for my skin type?', 'lumea' ),
+				'a' => sprintf(
+					/* translators: %s: support email address. */
+					__( 'Start with our Skin Quiz — a 2-minute questionnaire that analyses your concerns and environment to recommend a personalised ritual. You can also browse by Skin Concern in our Shop. If you are ever unsure, email our skincare specialists at %s.', 'lumea' ),
+					$support_email
+				),
 			),
 			array(
-				'q' => 'Are Luméa products safe for sensitive skin?',
-				'a' => 'Yes. Every formula is dermatologist-tested and free from synthetic fragrance, alcohol denat., parabens, and sulphates — the most common sensitisers. Our sensitive skin range is additionally tested with an independent clinical panel and carries a 0-reaction certification.',
+				'q' => __( 'Are Luméa products safe for sensitive skin?', 'lumea' ),
+				'a' => __( 'Yes. Every formula is dermatologist-tested and free from synthetic fragrance, alcohol denat., parabens, and sulphates — the most common sensitisers. Our sensitive skin range is additionally tested with an independent clinical panel and carries a 0-reaction certification.', 'lumea' ),
 			),
 			array(
-				'q' => 'How long before I see results?',
-				'a' => 'Most customers notice improved texture and radiance within 14 days of consistent use. Clinical improvements — reduced fine lines, firmer skin, visibly even tone — are typically measured at 28 days. We recommend using each product for a minimum of one full cycle.',
+				'q' => __( 'How long before I see results?', 'lumea' ),
+				'a' => __( 'Most customers notice improved texture and radiance within 14 days of consistent use. Clinical improvements — reduced fine lines, firmer skin, visibly even tone — are typically measured at 28 days. We recommend using each product for a minimum of one full cycle.', 'lumea' ),
 			),
 			array(
-				'q' => 'Can I use Luméa products during pregnancy?',
-				'a' => 'We always recommend consulting your healthcare provider before adding new skincare during pregnancy or breastfeeding. As a general guide, our Vitamin C serums and Hydration Collection are widely considered safe, while actives like retinol alternatives (Bakuchiol) warrant a conversation with your doctor.',
+				'q' => __( 'Can I use Luméa products during pregnancy?', 'lumea' ),
+				'a' => __( 'We always recommend consulting your healthcare provider before adding new skincare during pregnancy or breastfeeding. As a general guide, our Vitamin C serums and Hydration Collection are widely considered safe, while actives like retinol alternatives (Bakuchiol) warrant a conversation with your doctor.', 'lumea' ),
 			),
 			array(
-				'q' => 'Are your products vegan?',
-				'a' => 'All Luméa products are 100% vegan. We do not use any animal-derived ingredients (including beeswax, lanolin, or carmine) and are certified by The Vegan Society.',
+				'q' => __( 'Are your products vegan?', 'lumea' ),
+				'a' => __( 'All Luméa products are 100% vegan. We do not use any animal-derived ingredients (including beeswax, lanolin, or carmine) and are certified by The Vegan Society.', 'lumea' ),
 			),
 		),
 	),
-	'shipping'  => array(
-		'label' => 'Shipping',
+	'shipping' => array(
+		'label' => __( 'Shipping', 'lumea' ),
 		'items' => array(
 			array(
-				'q' => 'How long does delivery take?',
-				'a' => 'Standard shipping: 3–5 business days. Express: 1–2 business days. International orders: 7–14 business days depending on destination. All orders are dispatched from our Sydney warehouse within 1 business day of being placed.',
+				'q' => __( 'How long does delivery take?', 'lumea' ),
+				'a' => __( 'Standard shipping: 3–5 business days. Express: 1–2 business days. International orders: 7–14 business days depending on destination. All orders are dispatched from our Sydney warehouse within 1 business day of being placed.', 'lumea' ),
 			),
 			array(
-				'q' => 'Do you offer free shipping?',
-				'a' => 'Yes — free standard shipping on all Australian orders over $50. International free shipping thresholds vary by region and are shown at checkout.',
+				'q' => __( 'Do you offer free shipping?', 'lumea' ),
+				'a' => __( 'Yes — free standard shipping on all Australian orders over $50. International free shipping thresholds vary by region and are shown at checkout.', 'lumea' ),
 			),
 			array(
-				'q' => 'Can I track my order?',
-				'a' => 'Absolutely. You\'ll receive a shipping confirmation email with a tracking link as soon as your order leaves our warehouse. You can also view order status any time in My Account.',
+				'q' => __( 'Can I track my order?', 'lumea' ),
+				'a' => __( 'Absolutely. You will receive a shipping confirmation email with a tracking link as soon as your order leaves our warehouse. You can also view order status any time in My Account.', 'lumea' ),
 			),
 			array(
-				'q' => 'Do you ship internationally?',
-				'a' => 'We ship to 40+ countries. Shipping costs and estimated delivery times are calculated at checkout based on your location. Please note customs duties and import taxes are the customer\'s responsibility.',
+				'q' => __( 'Do you ship internationally?', 'lumea' ),
+				'a' => __( 'We ship to 40+ countries. Shipping costs and estimated delivery times are calculated at checkout based on your location. Please note customs duties and import taxes are the customer responsibility.', 'lumea' ),
 			),
 		),
 	),
-	'returns'   => array(
-		'label' => 'Returns',
+	'returns'  => array(
+		'label' => __( 'Returns', 'lumea' ),
 		'items' => array(
 			array(
-				'q' => 'What is your return policy?',
-				'a' => 'We offer a 30-day happiness guarantee. If you\'re not satisfied with a product for any reason, contact us within 30 days of delivery for a full refund or exchange. Products must be at least 50% full.',
+				'q' => __( 'What is your return policy?', 'lumea' ),
+				'a' => __( 'We offer a 30-day happiness guarantee. If you are not satisfied with a product for any reason, contact us within 30 days of delivery for a full refund or exchange. Products must be at least 50% full.', 'lumea' ),
 			),
 			array(
-				'q' => 'How do I start a return?',
-				'a' => 'Email ' . $support_email . ' with your order number and reason for return. Our team will respond within 24 hours with a prepaid return label (Australia only) and next steps.',
+				'q' => __( 'How do I start a return?', 'lumea' ),
+				'a' => sprintf(
+					/* translators: %s: support email address. */
+					__( 'Email %s with your order number and reason for return. Our team will respond within 24 hours with a prepaid return label (Australia only) and next steps.', 'lumea' ),
+					$support_email
+				),
 			),
 			array(
-				'q' => 'When will I receive my refund?',
-				'a' => 'Refunds are processed within 2 business days of receiving the returned item. Funds typically appear in your account within 5–7 business days depending on your bank.',
+				'q' => __( 'When will I receive my refund?', 'lumea' ),
+				'a' => __( 'Refunds are processed within 2 business days of receiving the returned item. Funds typically appear in your account within 5–7 business days depending on your bank.', 'lumea' ),
 			),
 		),
 	),
-	'account'   => array(
-		'label' => 'Account & Orders',
+	'account'  => array(
+		'label' => __( 'Account & Orders', 'lumea' ),
 		'items' => array(
 			array(
-				'q' => 'How do I create an account?',
-				'a' => 'Visit the My Account page and click "Create Account". You\'ll need your email address and a password. You can also create an account during checkout.',
+				'q' => __( 'How do I create an account?', 'lumea' ),
+				'a' => __( 'Visit the My Account page and click “Create Account”. You will need your email address and a password. You can also create an account during checkout.', 'lumea' ),
 			),
 			array(
-				'q' => 'I forgot my password. How do I reset it?',
-				'a' => 'On the login page, click "Forgot password?" and enter your email address. You\'ll receive a reset link within a few minutes. Check your spam folder if it doesn\'t appear.',
+				'q' => __( 'I forgot my password. How do I reset it?', 'lumea' ),
+				'a' => __( 'On the login page, click “Forgot password?” and enter your email address. You will receive a reset link within a few minutes. Check your spam folder if it does not appear.', 'lumea' ),
 			),
 			array(
-				'q' => 'Can I modify or cancel my order?',
-				'a' => 'Orders can be modified or cancelled within 1 hour of placement. After that, our warehouse begins picking and packing and changes can no longer be made. Contact us immediately at ' . $support_email . ' if you need to make a change.',
+				'q' => __( 'Can I modify or cancel my order?', 'lumea' ),
+				'a' => sprintf(
+					/* translators: %s: support email address. */
+					__( 'Orders can be modified or cancelled within 1 hour of placement. After that, our warehouse begins picking and packing and changes can no longer be made. Contact us immediately at %s if you need to make a change.', 'lumea' ),
+					$support_email
+				),
 			),
 		),
 	),
@@ -116,29 +128,44 @@ $faq_categories = array(
 
 			<!-- Category tabs -->
 			<div class="lumea-faq-tabs lumea-reveal-js lumea-reveal--static-js" role="tablist" aria-label="<?php esc_attr_e( 'FAQ Categories', 'lumea' ); ?>">
-				<?php $first = true; foreach ( $faq_categories as $key => $cat ) : ?>
-				<button class="lumea-faq-tab <?php echo $first ? 'is-active' : ''; ?>"
+				<?php
+				$first = true;
+				foreach ( $faq_categories as $key => $faq_category ) :
+					?>
+				<button type="button" class="lumea-faq-tab <?php echo esc_attr( $first ? 'is-active' : '' ); ?>"
 						role="tab"
-						aria-selected="<?php echo $first ? 'true' : 'false'; ?>"
+						aria-selected="<?php echo esc_attr( $first ? 'true' : 'false' ); ?>"
+						tabindex="<?php echo esc_attr( $first ? '0' : '-1' ); ?>"
 						aria-controls="lumea-faq-panel-<?php echo esc_attr( $key ); ?>"
 						id="lumea-faq-tab-<?php echo esc_attr( $key ); ?>"
 						data-faq-tab="<?php echo esc_attr( $key ); ?>">
-					<?php echo esc_html( $cat['label'] ); ?>
+					<?php echo esc_html( $faq_category['label'] ); ?>
 				</button>
-				<?php $first = false; endforeach; ?>
+					<?php
+					$first = false;
+				endforeach;
+				?>
 			</div>
 
 			<!-- Panels -->
-			<?php $first = true; foreach ( $faq_categories as $key => $cat ) : ?>
-			<div class="lumea-faq-panel <?php echo $first ? 'is-active' : ''; ?>"
-				 id="lumea-faq-panel-<?php echo esc_attr( $key ); ?>"
-				 role="tabpanel"
-				 aria-labelledby="lumea-faq-tab-<?php echo esc_attr( $key ); ?>">
-				<?php foreach ( $cat['items'] as $i => $faq ) :
-					$item_id = 'faq-' . $key . '-' . $i;
+			<?php
+			$first = true;
+			foreach ( $faq_categories as $key => $faq_category ) :
 				?>
+			<div class="lumea-faq-panel <?php echo esc_attr( $first ? 'is-active' : '' ); ?>"
+				id="lumea-faq-panel-<?php echo esc_attr( $key ); ?>"
+				role="tabpanel"
+				aria-labelledby="lumea-faq-tab-<?php echo esc_attr( $key ); ?>"
+				<?php
+				if ( ! $first ) :
+					?>
+						hidden<?php endif; ?>>
+				<?php
+				foreach ( $faq_category['items'] as $i => $faq ) :
+					$item_id = 'faq-' . $key . '-' . $i;
+					?>
 				<div class="lumea-faq-item" data-faq-item>
-					<button class="lumea-faq-question"
+					<button type="button" class="lumea-faq-question"
 							aria-expanded="false"
 							aria-controls="<?php echo esc_attr( $item_id ); ?>"
 							id="<?php echo esc_attr( $item_id . '-btn' ); ?>">
@@ -146,10 +173,10 @@ $faq_categories = array(
 						<svg class="lumea-faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 					</button>
 					<div class="lumea-faq-answer"
-						 id="<?php echo esc_attr( $item_id ); ?>"
-						 role="region"
-						 aria-labelledby="<?php echo esc_attr( $item_id . '-btn' ); ?>"
-						 hidden>
+						id="<?php echo esc_attr( $item_id ); ?>"
+						role="region"
+						aria-labelledby="<?php echo esc_attr( $item_id . '-btn' ); ?>"
+						hidden>
 						<div class="lumea-faq-answer-inner">
 							<p><?php echo esc_html( $faq['a'] ); ?></p>
 						</div>
@@ -157,7 +184,10 @@ $faq_categories = array(
 				</div>
 				<?php endforeach; ?>
 			</div>
-			<?php $first = false; endforeach; ?>
+				<?php
+				$first = false;
+			endforeach;
+			?>
 
 		</div>
 	</div>
@@ -170,7 +200,7 @@ $faq_categories = array(
 				<h2 class="lumea-faq-cta-title"><?php esc_html_e( 'Still have questions?', 'lumea' ); ?></h2>
 				<p class="lumea-faq-cta-text"><?php esc_html_e( 'Our skincare specialists reply within 24 hours.', 'lumea' ); ?></p>
 			</div>
-			<a href="<?php echo esc_url( get_permalink( get_page_by_path( 'contact' ) ) ?: home_url( '/contact/' ) ); ?>" class="lumea-faq-cta-btn">
+			<a href="<?php echo esc_url( lumea_get_page_url( 'contact' ) ); ?>" class="lumea-faq-cta-btn">
 				<?php esc_html_e( 'Contact Us', 'lumea' ); ?>
 				<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
 			</a>
@@ -178,60 +208,5 @@ $faq_categories = array(
 	</div>
 
 </main>
-
-<script>
-(function () {
-  'use strict';
-
-  /* ── FAQ Tabs ───────────────────────────────────────────── */
-  var tabs   = document.querySelectorAll('[data-faq-tab]');
-  var panels = document.querySelectorAll('.lumea-faq-panel');
-
-  tabs.forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      var key = tab.getAttribute('data-faq-tab');
-
-      tabs.forEach(function (t) {
-        t.classList.remove('is-active');
-        t.setAttribute('aria-selected', 'false');
-      });
-      panels.forEach(function (p) { p.classList.remove('is-active'); });
-
-      tab.classList.add('is-active');
-      tab.setAttribute('aria-selected', 'true');
-      var panel = document.getElementById('lumea-faq-panel-' + key);
-      if (panel) panel.classList.add('is-active');
-    });
-  });
-
-  /* ── FAQ Accordion ──────────────────────────────────────── */
-  document.querySelectorAll('[data-faq-item]').forEach(function (item) {
-    var btn    = item.querySelector('.lumea-faq-question');
-    var answer = item.querySelector('.lumea-faq-answer');
-    if (!btn || !answer) return;
-
-    btn.addEventListener('click', function () {
-      var isOpen = !answer.hasAttribute('hidden');
-
-      /* Close siblings */
-      item.closest('.lumea-faq-panel').querySelectorAll('[data-faq-item]').forEach(function (sibling) {
-        var sibAnswer = sibling.querySelector('.lumea-faq-answer');
-        var sibBtn    = sibling.querySelector('.lumea-faq-question');
-        if (sibAnswer && sibBtn) {
-          sibAnswer.setAttribute('hidden', '');
-          sibBtn.setAttribute('aria-expanded', 'false');
-          sibling.classList.remove('is-open');
-        }
-      });
-
-      if (!isOpen) {
-        answer.removeAttribute('hidden');
-        btn.setAttribute('aria-expanded', 'true');
-        item.classList.add('is-open');
-      }
-    });
-  });
-})();
-</script>
 
 <?php get_footer(); ?>

@@ -9,6 +9,63 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Keep WooCommerce's public hook architecture while replacing only its
+ * default visual callbacks with the theme's custom presentation.
+ */
+function lumea_woocommerce_presentation_setup() {
+	// The theme supplies its own page wrappers and archive header.
+	remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
+	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
+	remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
+	remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
+	remove_action( 'woocommerce_shop_loop_header', 'woocommerce_product_taxonomy_archive_header', 10 );
+	remove_action( 'woocommerce_shop_loop_header', 'woocommerce_product_archive_description', 10 );
+
+	// The custom filter bar and pagination replace these core visual callbacks.
+	remove_action( 'woocommerce_before_shop_loop', 'woocommerce_output_all_notices', 10 );
+	remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
+	remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+	remove_action( 'woocommerce_after_shop_loop', 'woocommerce_pagination', 10 );
+	remove_action( 'woocommerce_no_products_found', 'wc_no_products_found', 10 );
+
+	// Product cards provide their own visible markup; public actions remain in
+	// the template so extensions can continue to attach content.
+	remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
+	remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10 );
+	remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10 );
+	remove_action( 'woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10 );
+	remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
+	remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
+	remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
+	remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
+
+	// The single-product template retains the same public actions but supplies
+	// the visible gallery, summary, tabs/reviews, and related-product layout.
+	remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
+	remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50 );
+	remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
+	remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
+	remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+
+	// Keep the checkout order-review hook intact while placing its core payment
+	// callback in the theme's visually designed payment panel.
+	remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
+	add_action( 'lumea_checkout_payment', 'woocommerce_checkout_payment', 20 );
+
+	// The theme renders cart totals in its summary card; preserve the public
+	// collaterals action for extension callbacks without duplicating totals.
+	remove_action( 'woocommerce_cart_collaterals', 'woocommerce_cart_totals', 10 );
+}
+add_action( 'wp', 'lumea_woocommerce_presentation_setup' );
+
 
 function lumea_get_product_card_data( $product ) {
 	if ( ! class_exists( 'WooCommerce' ) || ! function_exists( 'wc_get_product' ) ) {
@@ -146,7 +203,7 @@ function lumea_render_product_card_actions( $args = array() ) {
 			$atc_classes[] = 'ajax_add_to_cart';
 		}
 
-		$atc_url = add_query_arg( 'add-to-cart', $product_id, $product_url );
+		$atc_url  = add_query_arg( 'add-to-cart', $product_id, $product_url );
 		$atc_aria = sprintf(
 			/* translators: %s: product name */
 			__( 'Add %s to cart', 'lumea' ),
@@ -155,12 +212,12 @@ function lumea_render_product_card_actions( $args = array() ) {
 		?>
 		<div class="lumea-card-atc-wrap">
 			<a href="<?php echo esc_url( $atc_url ); ?>"
-			   class="<?php echo esc_attr( implode( ' ', array_filter( $atc_classes ) ) ); ?>"
-			   data-product_id="<?php echo esc_attr( $product_id ); ?>"
-			   data-product_type="<?php echo esc_attr( $product_type ); ?>"
-			   data-quantity="1"
-			   aria-label="<?php echo esc_attr( $atc_aria ); ?>"
-			   rel="nofollow"><?php echo esc_html( $button_label ); ?></a>
+				class="<?php echo esc_attr( implode( ' ', array_filter( $atc_classes ) ) ); ?>"
+				data-product_id="<?php echo esc_attr( $product_id ); ?>"
+				data-product_type="<?php echo esc_attr( $product_type ); ?>"
+				data-quantity="1"
+				aria-label="<?php echo esc_attr( $atc_aria ); ?>"
+				rel="nofollow"><?php echo esc_html( $button_label ); ?></a>
 			<div class="lumea-qty-stepper" aria-label="<?php esc_attr_e( 'Quantity', 'lumea' ); ?>" data-lumea-qty>
 				<button class="lumea-qty-btn lumea-qty-minus" type="button" aria-label="<?php esc_attr_e( 'Decrease', 'lumea' ); ?>">&#8722;</button>
 				<span class="lumea-qty-num">1</span>
@@ -185,7 +242,7 @@ function lumea_cart_fragments( $fragments ) {
 		return $fragments;
 	}
 
-	$count = WC()->cart->get_cart_contents_count();
+	$count                              = WC()->cart->get_cart_contents_count();
 	$fragments['span.lumea-cart-count'] = '<span class="lumea-cart-count' . ( $count ? ' lumea-cart-count--visible' : '' ) . '">' . esc_html( $count ) . '</span>';
 
 	ob_start();
@@ -235,7 +292,7 @@ function lumea_mini_cart_items() {
 					</div>
 				</div>
 				<a href="<?php echo esc_url( $remove ); ?>" class="lumea-drawer-item-remove" data-product_id="<?php echo esc_attr( $product_id ); ?>" aria-label="<?php esc_attr_e( 'Remove item', 'lumea' ); ?>">
-					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
 				</a>
 			</div>
 			<?php

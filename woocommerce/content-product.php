@@ -27,6 +27,8 @@ $can_add_to_cart = $product->is_purchasable() && $product->is_in_stock();
 
 ?>
 <li class="<?php echo esc_attr( implode( ' ', wc_get_product_class( 'lumea-shop-card lumea-reveal-js lumea-reveal--static-js', $product ) ) ); ?>">
+	<?php do_action( 'woocommerce_before_shop_loop_item' ); ?>
+	<?php do_action( 'woocommerce_before_shop_loop_item_title' ); ?>
 	<?php if ( function_exists( 'lumea_render_product_card' ) ) : ?>
 		<?php
 		lumea_render_product_card(
@@ -40,4 +42,7 @@ $can_add_to_cart = $product->is_purchasable() && $product->is_in_stock();
 		);
 		?>
 	<?php endif; ?>
+	<?php do_action( 'woocommerce_shop_loop_item_title' ); ?>
+	<?php do_action( 'woocommerce_after_shop_loop_item_title' ); ?>
+	<?php do_action( 'woocommerce_after_shop_loop_item' ); ?>
 </li>

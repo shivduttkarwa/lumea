@@ -143,13 +143,6 @@ a {
   }
 }
 
-.lumea-js:not(.customize-preview) .lumea-header-logo,
-.lumea-js:not(.customize-preview) .lumea-nav-list li,
-.lumea-js:not(.customize-preview) .lumea-header-actions > * {
-  opacity: 0;
-  visibility: hidden;
-}
-
 .lumea-header {
   position: fixed;
   top: 0;
@@ -2126,7 +2119,7 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23241816' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
-  outline: none;
+  outline: 0.125rem solid transparent;
   transition: border-color 0.2s ease;
 }
 
@@ -3278,7 +3271,7 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   background: transparent;
   -webkit-appearance: none;
   appearance: none;
-  outline: none;
+  outline: 0.125rem solid transparent;
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   font-size: 1rem;
@@ -3295,7 +3288,7 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 .lumea-card-atc-wrap .lumea-qty-btn:focus,
 .lumea-card-atc-wrap .lumea-qty-btn:active {
   background: transparent;
-  outline: none;
+  outline: 0.125rem solid transparent;
   box-shadow: none;
   transform: scale(1.2);
 }
@@ -3805,10 +3798,16 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 }
 
 .lumea-footer-col--nav {
+  padding-top: 0.25rem;
+}
+
+.lumea-footer-menu {
   display: flex;
   flex-direction: column;
   gap: 0.875rem;
-  padding-top: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .lumea-footer-col--nav a {
@@ -3856,6 +3855,32 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 
 .lumea-footer-email:hover {
   color: #fffaf7;
+}
+
+.lumea-footer-widgets {
+  display: grid;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.lumea-footer-widgets .widget {
+  color: rgba(255, 250, 247, 0.65);
+}
+
+.lumea-footer-widgets .widget-title {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: #fffaf7;
+}
+
+.lumea-footer-widgets ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lumea-footer-widgets a {
+  color: inherit;
 }
 
 .lumea-footer-social {
@@ -4076,7 +4101,7 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   width: 3.25rem; text-align: center;
   border: none; border-left: 0.0625rem solid var(--lumea-border); border-right: 0.0625rem solid var(--lumea-border);
   background: transparent; font-family: Inter, sans-serif; font-size: 0.9375rem; font-weight: 600; color: var(--lumea-text);
-  outline: none; padding: 0; height: 2.625rem; -moz-appearance: textfield; appearance: textfield;
+  outline: 0.125rem solid transparent; padding: 0; height: 2.625rem; -moz-appearance: textfield; appearance: textfield;
 }
 .lumea-qty-input::-webkit-inner-spin-button,
 .lumea-qty-input::-webkit-outer-spin-button { -webkit-appearance: none; appearance: none; margin: 0; }
@@ -4443,7 +4468,7 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   font-size: 0.875rem;
   background: var(--lumea-bg);
   color: var(--lumea-text);
-  outline: none;
+  outline: 0.125rem solid transparent;
   transition: border-color 0.18s, box-shadow 0.18s;
   box-sizing: border-box;
 }
@@ -4532,7 +4557,6 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   transition: opacity 0.2s ease;
 }
 .admin-bar .lumea-cart-page { padding-top: 0; }
-.lumea-cart-page.is-updating .lumea-pdp-breadcrumb,
 .lumea-cart-page.is-updating .lumea-cart-hero,
 .lumea-cart-page.is-updating .lumea-cart-body {
   opacity: 0.58;
@@ -4721,7 +4745,7 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--lumea-text);
-  outline: none;
+  outline: 0.125rem solid transparent;
   padding: 0;
 }
 .lumea-cart-row-total {
@@ -4758,67 +4782,50 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 .lumea-cart-actions {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
   padding-top: 1.5rem;
 }
-.lumea-cart-continue {
-  display: inline-flex;
+.lumea-cart-actions .coupon {
+  display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: Inter, sans-serif;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--lumea-muted);
-  text-decoration: none;
-  transition: color 0.18s;
+  flex: 0 1 26rem;
+  min-width: 0;
 }
-.lumea-cart-continue:hover { color: var(--lumea-text); }
-.lumea-cart-update {
-  padding: 0.625rem 1.5rem;
+.lumea-cart-actions .lumea-cart-coupon-input {
+  flex: 1;
+  min-width: 0;
+  min-height: 3rem;
+  padding: 0.75rem 1rem;
   border: 0.0625rem solid var(--lumea-border);
-  border-radius: 6.25rem;
+  border-radius: 0.4375rem;
+  outline: 0.125rem solid transparent;
   background: #ffffff;
   font-family: Inter, sans-serif;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 0.8125rem;
   color: var(--lumea-text);
-  cursor: pointer;
-  transition: background 0.18s, border-color 0.18s, color 0.18s;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
+.lumea-cart-actions .lumea-cart-coupon-input:focus,
+.lumea-cart-actions .lumea-cart-coupon-input:focus-visible {
+  outline: none;
+  border-color: var(--lumea-accent-dark);
+  box-shadow: none;
+}
+.lumea-cart-actions .lumea-cart-coupon-input::placeholder {
+  color: var(--lumea-muted);
+  opacity: 0.8;
+}
+.lumea-cart-continue {
+  gap: 0.5rem;
+  margin-right: auto;
+}
+.lumea-cart-continue svg { flex-shrink: 0; }
 .lumea-cart-update:disabled {
   opacity: 0.55;
   cursor: not-allowed;
-}
-.lumea-cart-update.is-loading {
-  opacity: 1;
-  color: transparent;
-  position: relative;
-  background: var(--lumea-text);
-  border-color: var(--lumea-text);
-}
-.lumea-cart-update.is-loading::after {
-  content: "Updating...";
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-}
-.lumea-cart-update.is-ready {
-  background: var(--lumea-text);
-  color: #ffffff;
-  border-color: var(--lumea-text);
-}
-.lumea-cart-update:hover {
-  background: var(--lumea-text);
-  color: #fff;
-  border-color: var(--lumea-text);
-}
-.lumea-js-ready .lumea-cart-actions {
-  justify-content: flex-start;
 }
 .lumea-js-ready .lumea-cart-update {
   display: none;
@@ -4909,63 +4916,9 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   padding-top: 1rem;
 }
 .lumea-cart-summary .wc-proceed-to-checkout { margin-top: 1.25rem; }
-.lumea-cart-summary .checkout-button,
-.lumea-cart-summary .wc-proceed-to-checkout a {
-  display: flex;
+.lumea-cart-summary .wc-proceed-to-checkout .lumea-btn {
   width: 100%;
-  align-items: center;
-  justify-content: center;
-  gap: 0.625rem;
-  padding: 1rem 1.5rem;
-  background: var(--lumea-text);
-  color: #fff;
-  border: none;
-  border-radius: 6.25rem;
-  font-family: Inter, sans-serif;
-  font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
 }
-.lumea-cart-summary .checkout-button:hover,
-.lumea-cart-summary .wc-proceed-to-checkout a:hover {
-  background: var(--lumea-accent-dark);
-  transform: translateY(-0.0625rem);
-}
-.lumea-cart-summary .coupon { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
-.lumea-cart-summary .coupon #coupon_code {
-  flex: 1;
-  border: 0.0625rem solid var(--lumea-border);
-  border-radius: 6.25rem;
-  padding: 0.625rem 1rem;
-  font-family: Inter, sans-serif;
-  font-size: 0.8125rem;
-  color: var(--lumea-text);
-  background: var(--lumea-bg);
-  outline: none;
-  transition: border-color 0.18s;
-}
-.lumea-cart-summary .coupon #coupon_code:focus { border-color: var(--lumea-accent); }
-.lumea-cart-summary .coupon [name="apply_coupon"] {
-  padding: 0.625rem 1.125rem;
-  border: 0.0625rem solid var(--lumea-border);
-  border-radius: 6.25rem;
-  background: transparent;
-  font-family: Inter, sans-serif;
-  font-size: 0.75rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.18s, color 0.18s;
-  white-space: nowrap;
-}
-.lumea-cart-summary .coupon [name="apply_coupon"]:hover {
-  background: var(--lumea-text);
-  color: #fff;
-  border-color: var(--lumea-text);
-}
-
 .lumea-cart-page .woocommerce-notices-wrapper {
   width: min(100% - 3rem, var(--lumea-container));
   margin: 0.875rem auto 0;
@@ -5240,6 +5193,30 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   .lumea-cart-row-qty   { grid-column: 2; grid-row: 3; justify-content: flex-start; }
   .lumea-cart-row-total { display: none; }
   .lumea-cart-remove { top: 1.25rem; }
+  .lumea-cart-actions {
+    align-items: stretch;
+  }
+  .lumea-cart-actions .coupon {
+    flex-basis: 100%;
+    width: 100%;
+  }
+  .lumea-cart-continue {
+    margin-right: 0;
+  }
+  .lumea-cart-update {
+    margin-left: auto;
+  }
+}
+@media (max-width: 480px) {
+  .lumea-cart-actions .coupon {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .lumea-cart-actions .coupon .lumea-btn,
+  .lumea-cart-continue,
+  .lumea-cart-update {
+    width: 100%;
+  }
 }
 
 .lumea-checkout-page {
@@ -5373,7 +5350,7 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   font-size: 0.875rem;
   color: var(--lumea-text);
   background: var(--lumea-bg);
-  outline: none;
+  outline: 0.125rem solid transparent;
   appearance: none;
   -webkit-appearance: none;
   transition: border-color 0.18s, box-shadow 0.18s;
@@ -5408,7 +5385,7 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   font-size: 0.875rem;
   color: var(--lumea-text);
   transition: border-color 0.18s, box-shadow 0.18s;
-  outline: none;
+  outline: 0.125rem solid transparent;
 }
 .lumea-checkout-block .select2-container--default .select2-selection--single .select2-selection__rendered {
   line-height: 1.5;
@@ -5620,7 +5597,7 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   font-size: 0.8125rem;
   color: var(--lumea-text);
   background: var(--lumea-bg);
-  outline: none;
+  outline: 0.125rem solid transparent;
   transition: border-color 0.18s;
 }
 .lumea-checkout-coupon-input:focus { border-color: var(--lumea-accent); }
@@ -5711,6 +5688,10 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
 .lumea-ty-hero-inner {
   width: min(100% - 3rem, var(--lumea-container));
   margin-inline: auto;
+}
+.lumea-ty-hero-inner--fallback {
+  padding: 5rem 1.5rem;
+  text-align: center;
 }
 .lumea-ty-icon {
   width: 4.5rem;
@@ -5991,6 +5972,7 @@ body.home .lumea-header.is-scrolled .lumea-nav-toggle-bar {
   background: var(--lumea-text);
   color: #fff;
 }
+.lumea-ty-shop-btn--spaced { margin-top: 2rem; }
 
 @media (max-width: 1024px) {
   .lumea-ty-body-inner { grid-template-columns: 1fr; }
@@ -6375,7 +6357,7 @@ body.woocommerce-order-received .lumea-thankyou-page .woocommerce-customer-detai
   font-size: 0.875rem;
   color: var(--lumea-text);
   background: var(--lumea-bg);
-  outline: none;
+  outline: 0.125rem solid transparent;
   transition: border-color 0.18s;
 }
 .lumea-account-content .woocommerce-form-row input:focus { border-color: var(--lumea-accent); }
@@ -6809,7 +6791,7 @@ body.woocommerce-account .lumea-header {
   font-size: 0.875rem;
   color: var(--lumea-text);
   background: #fff;
-  outline: none;
+  outline: 0.125rem solid transparent;
   transition: border-color 0.18s, box-shadow 0.18s;
   box-sizing: border-box;
 }
@@ -7869,7 +7851,7 @@ body.single-post .lumea-header {
   font-size: 0.875rem;
   color: var(--lumea-text);
   background: var(--lumea-bg);
-  outline: none;
+  outline: 0.125rem solid transparent;
   transition: border-color 0.18s, box-shadow 0.18s;
   box-sizing: border-box;
 }
@@ -7911,6 +7893,7 @@ body.single-post .lumea-header {
 }
 .lumea-contact-info-card--dark { background: var(--lumea-text); border-color: var(--lumea-text); }
 .lumea-contact-info-title { margin: 0 0 1.5rem; font-family: "ClashDisplay-Variable", "Clash Display", Inter, sans-serif; font-size: 1.125rem; font-weight: 400; letter-spacing: -0.02em; color: var(--lumea-text); }
+.lumea-contact-info-title--light { color: #fff; }
 .lumea-contact-info-item { display: flex; align-items: flex-start; gap: 0.875rem; margin-bottom: 1.25rem; }
 .lumea-contact-info-item:last-child { margin-bottom: 0; }
 .lumea-contact-info-item svg { color: var(--lumea-accent-dark); flex-shrink: 0; margin-top: 0.125rem; }
@@ -8151,7 +8134,7 @@ a.lumea-contact-info-value:hover { color: var(--lumea-accent-dark); }
   font-family: var(--lumea-font-body);
   font-size: 0.9375rem;
   color: #fff;
-  outline: none;
+  outline: 0.125rem solid transparent;
   min-width: 0;
 }
 .lumea-search-input::placeholder { color: rgba(255, 255, 255, 0.32); }
@@ -8610,6 +8593,9 @@ body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-header-ico
 body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-header-icon-btn,
 body.page.page-about .lumea-header:not(.is-scrolled) .lumea-header-icon-btn,
 body.lumea-about-template .lumea-header:not(.is-scrolled) .lumea-header-icon-btn,
+body.lumea-wishlist-template .lumea-header:not(.is-scrolled) .lumea-header-icon-btn,
+body.lumea-faq-template .lumea-header:not(.is-scrolled) .lumea-header-icon-btn,
+body.lumea-contact-template .lumea-header:not(.is-scrolled) .lumea-header-icon-btn,
 body.blog .lumea-header:not(.is-scrolled) .lumea-header-icon-btn,
 body.archive:not(.woocommerce-page):not(.post-type-archive-product) .lumea-header:not(.is-scrolled) .lumea-header-icon-btn,
 body.single-post .lumea-header:not(.is-scrolled) .lumea-header-icon-btn,
@@ -8623,6 +8609,9 @@ body.post-type-archive-product .lumea-header:not(.is-scrolled) .lumea-header-ico
 body.page.page-template-page-about-php .lumea-header:not(.is-scrolled) .lumea-header-icon-btn:hover,
 body.page.page-about .lumea-header:not(.is-scrolled) .lumea-header-icon-btn:hover,
 body.lumea-about-template .lumea-header:not(.is-scrolled) .lumea-header-icon-btn:hover,
+body.lumea-wishlist-template .lumea-header:not(.is-scrolled) .lumea-header-icon-btn:hover,
+body.lumea-faq-template .lumea-header:not(.is-scrolled) .lumea-header-icon-btn:hover,
+body.lumea-contact-template .lumea-header:not(.is-scrolled) .lumea-header-icon-btn:hover,
 body.blog .lumea-header:not(.is-scrolled) .lumea-header-icon-btn:hover,
 body.archive:not(.woocommerce-page):not(.post-type-archive-product) .lumea-header:not(.is-scrolled) .lumea-header-icon-btn:hover,
 body.single-post .lumea-header:not(.is-scrolled) .lumea-header-icon-btn:hover,
@@ -8636,6 +8625,9 @@ body.post-type-archive-product .lumea-header.is-scrolled .lumea-header-icon-btn,
 body.page.page-template-page-about-php .lumea-header.is-scrolled .lumea-header-icon-btn,
 body.page.page-about .lumea-header.is-scrolled .lumea-header-icon-btn,
 body.lumea-about-template .lumea-header.is-scrolled .lumea-header-icon-btn,
+body.lumea-wishlist-template .lumea-header.is-scrolled .lumea-header-icon-btn,
+body.lumea-faq-template .lumea-header.is-scrolled .lumea-header-icon-btn,
+body.lumea-contact-template .lumea-header.is-scrolled .lumea-header-icon-btn,
 body.blog .lumea-header.is-scrolled .lumea-header-icon-btn,
 body.archive:not(.woocommerce-page):not(.post-type-archive-product) .lumea-header.is-scrolled .lumea-header-icon-btn,
 body.single-post .lumea-header.is-scrolled .lumea-header-icon-btn,
@@ -8872,7 +8864,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   flex: 1;
   background: none;
   border: none;
-  outline: none;
+  outline: 0.125rem solid transparent;
   font-family: var(--lumea-font-heading);
   font-size: clamp(2rem, 5vw, 3.25rem);
   font-weight: 400;
@@ -9482,7 +9474,6 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   }
 }
 
-.lumea-btn,
 .wp-block-button.is-style-lumea-btn-black .wp-block-button__link,
 .wp-block-button.is-style-lumea-btn-white .wp-block-button__link,
 .wp-block-button.is-style-lumea-btn-outline .wp-block-button__link {
@@ -9505,7 +9496,6 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
 }
 
-.lumea-btn:focus-visible,
 .wp-block-button.is-style-lumea-btn-black .wp-block-button__link:focus-visible,
 .wp-block-button.is-style-lumea-btn-white .wp-block-button__link:focus-visible,
 .wp-block-button.is-style-lumea-btn-outline .wp-block-button__link:focus-visible {
@@ -9513,14 +9503,12 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   outline-offset: 0.1875rem;
 }
 
-.lumea-btn--black,
 .wp-block-button.is-style-lumea-btn-black .wp-block-button__link {
   background: var(--lumea-text);
   color: #ffffff;
   border-color: var(--lumea-text);
 }
 
-.lumea-btn--black:hover,
 .wp-block-button.is-style-lumea-btn-black .wp-block-button__link:hover {
   background: #8f4d43;
   border-color: #8f4d43;
@@ -9528,14 +9516,12 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   transform: translateY(-0.0625rem);
 }
 
-.lumea-btn--white,
 .wp-block-button.is-style-lumea-btn-white .wp-block-button__link {
   background: #ffffff;
   color: var(--lumea-text);
   border-color: #ffffff;
 }
 
-.lumea-btn--white:hover,
 .wp-block-button.is-style-lumea-btn-white .wp-block-button__link:hover {
   background: #f7f3ef;
   border-color: #f7f3ef;
@@ -9543,14 +9529,12 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   transform: translateY(-0.0625rem);
 }
 
-.lumea-btn--outline,
 .wp-block-button.is-style-lumea-btn-outline .wp-block-button__link {
   background: transparent;
   color: var(--lumea-text);
   border-color: rgba(36, 24, 22, 0.36);
 }
 
-.lumea-btn--outline:hover,
 .wp-block-button.is-style-lumea-btn-outline .wp-block-button__link:hover {
   background: var(--lumea-text);
   color: #ffffff;
@@ -9570,6 +9554,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   margin: 0 0 1rem;
 }
 .lumea-about-label--warm { color: var(--lumea-accent-dark); }
+.lumea-about-label--light { color: rgba(255, 255, 255, 0.82); }
 
 .lumea-about-body { font-size: 0.875rem; line-height: 1.9; color: var(--lumea-muted); margin: 0 0 1rem; }
 
@@ -10087,7 +10072,8 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   text-align: center;
 }
 
-.lumea-auth-ref-content h1 {
+.lumea-auth-ref-content h1,
+.lumea-auth-ref-content h2 {
   margin: 0 0 1rem;
   font-family: var(--lumea-font-heading);
   font-weight: 700;
@@ -10127,7 +10113,8 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   will-change: transform;
 }
 
-.lumea-auth-ref-page h1 {
+.lumea-auth-ref-page h1,
+.lumea-auth-ref-page h2 {
   color: #fff;
   text-shadow: 0 0.0625rem 0.25rem rgba(0, 0, 0, 0.18);
 }
@@ -10174,7 +10161,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 }
 
 .lumea-auth-ref-input:focus {
-  outline: none;
+  outline: 0.125rem solid transparent;
   border-color: var(--lumea-accent, #c98578);
   box-shadow: 0 0 0 0.1875rem rgba(201, 133, 120, 0.16);
 }
@@ -10568,4 +10555,38 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 @media (max-width: 480px) {
   .lumea-shipping-methods { grid-template-columns: 1fr; }
   .lumea-ing-never-list { grid-template-columns: 1fr; }
+}
+
+/* Consistent keyboard focus treatment across native and custom controls. */
+body[class] :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 0.125rem solid var(--lumea-accent-dark);
+  outline-offset: 0.1875rem;
+}
+
+body[class] .lumea-cart-actions input.lumea-cart-coupon-input:focus-visible {
+  outline: none;
+  outline-offset: 0;
+  border-color: var(--lumea-accent-dark);
+  box-shadow: none;
+}
+
+/* Core WooCommerce checkout markup inside the Luméa summary card. */
+.lumea-checkout-summary .woocommerce-checkout-review-order-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1.25rem;
+  font-family: Inter, sans-serif;
+}
+
+.lumea-checkout-summary .woocommerce-checkout-review-order-table th,
+.lumea-checkout-summary .woocommerce-checkout-review-order-table td {
+  padding: 0.75rem 0;
+  border-bottom: 0.0625rem solid var(--lumea-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.lumea-checkout-summary .woocommerce-checkout-review-order-table td:last-child,
+.lumea-checkout-summary .woocommerce-checkout-review-order-table th:last-child {
+  text-align: right;
 }

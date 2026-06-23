@@ -267,7 +267,7 @@ hr {
   background: var(--lumea-accent);
   border-color: var(--lumea-accent);
   color: #fff;
-  outline: none;
+  outline: 0.125rem solid transparent;
 }
 
 .wp-block-button__link:focus-visible {
@@ -623,7 +623,7 @@ hr {
   font-size: 0.9rem;
   color: var(--lumea-text);
   background: var(--lumea-surface);
-  outline: none;
+  outline: 0.125rem solid transparent;
   transition: border-color var(--lumea-anim-default);
 }
 
@@ -1138,3 +1138,11 @@ hr {
   color: var(--lumea-text);
   font-weight: 600;
 }
+.has-lumea-ivory-color { color: #fffaf7; }
+.has-lumea-ivory-background-color { background-color: #fffaf7; }
+.has-lumea-ink-color { color: #241816; }
+.has-lumea-ink-background-color { background-color: #241816; }
+.has-lumea-accent-color { color: #aa6258; }
+.has-lumea-accent-background-color { background-color: #aa6258; }
+.has-lumea-muted-color { color: #7d6b66; }
+.has-lumea-muted-background-color { background-color: #7d6b66; }

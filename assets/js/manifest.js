@@ -35,7 +35,7 @@
       if ( wordIndex !== words.length - 1 ) {
         const space     = document.createElement( 'span' );
         space.className = 'lumea-space';
-        space.innerHTML = '&nbsp;';
+        space.textContent = '\u00a0';
         line.appendChild( space );
       }
     } );

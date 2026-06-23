@@ -4,7 +4,7 @@ Theme Name:  Luméa
 Theme URI:   https://themeforest.net/user/shivdutt/portfolio
 Author:      Shivdutt Karwa
 Author URI:  https://themeforest.net/user/shivdutt
-Version:     1.1.5
+Version:     1.2.0
 License:     GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,11 +19,25 @@ wishlist UI, and an extensive Customizer panel with 56+ settings
 across 9 sections — giving shop owners full control without touching code.
 
 
+== FEATURES ==
+
+- Responsive beauty and skincare storefront design
+- WooCommerce shop, product, cart, checkout, account, and order templates
+- Extension-compatible WooCommerce action and filter integration
+- Editorial homepage slider and animated hero
+- Homepage bestseller, latest-product, ritual, and manifesto sections
+- AJAX cart quantity controls and wishlist interface through Lumea Core
+- Accessible keyboard navigation, form labels, focus states, and skip links
+- Block editor styles for core WordPress blocks
+- Translation-ready theme and companion plugin
+- One Click Demo Import integration
+
+
 == REQUIREMENTS ==
 
 - WordPress 6.8 or higher
 - PHP 8.0 or higher
-- Lumea Core 1.0.2 or higher (bundled companion plugin)
+- Lumea Core 1.0.3 or higher (bundled companion plugin)
 - WooCommerce 10.0 or higher (required for e-commerce features)
 - Modern browser (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+)
 
@@ -186,7 +200,6 @@ The following custom page templates are included:
 
 == WIDGET AREAS ==
 
-- Sidebar        — General-purpose sidebar for blog posts and pages.
 - Footer Column  — Widget area displayed in the footer column area.
 
 
@@ -197,6 +210,7 @@ The following WooCommerce core templates are customised for Luméa:
   woocommerce/archive-product.php
   woocommerce/content-product.php
   woocommerce/single-product.php
+  woocommerce/content-single-product.php
   woocommerce/cart/cart.php
   woocommerce/cart/cart-empty.php
   woocommerce/checkout/form-checkout.php
@@ -226,20 +240,21 @@ To translate:
 
 == THIRD-PARTY LIBRARIES & CREDITS ==
 
-The following third-party libraries are used in this theme. All are released
-under free, open-source licenses compatible with the GPL.
+The following third-party libraries are used in this theme. Bootstrap, Swiper,
+and Inter are open-source. GSAP and Clash Display are distributed under their
+respective vendor licenses. See license.txt and THIRD-PARTY-NOTICES.txt.
 
-1. GSAP (GreenSock Animation Platform) v3.12.5
+1. GSAP (GreenSock Animation Platform) v3.15.0
    Source:  https://gsap.com
-   License: GSAP Standard License — free for all use including commercial
+   License: GSAP Standard License (custom commercial-use license)
    https://gsap.com/community/standard-license/
 
-2. Bootstrap v5.3.3
+2. Bootstrap v5.3.8
    Source:  https://getbootstrap.com
    License: MIT License
    https://github.com/twbs/bootstrap/blob/main/LICENSE
 
-3. Swiper v11
+3. Swiper v12.2.0
    Source:  https://swiperjs.com
    License: MIT License
    https://github.com/nolimits4web/swiper/blob/master/LICENSE
@@ -266,7 +281,17 @@ under free, open-source licenses compatible with the GPL.
 
 == CHANGELOG ==
 
-= 1.1.5 =
+= 1.2.0 — 2026-06-22 =
+* Security: Completed request sanitization, late escaping, and safe DOM construction.
+* Compatibility: Restored WooCommerce archive, product, cart, checkout, and order hooks.
+* Accessibility: Added persistent labels, valid hidden states, skip-link targets, focus rings,
+  keyboard-operable FAQ tabs, and WCAG-compliant accent contrast.
+* Translation: Converted frontend and Customizer defaults to extractable translation strings.
+* Packaging: Unified Lumea Core 1.0.3 and rebuilt the bundled plugin archive.
+* Documentation: Added Features, licensing notices, and dated changelog entries.
+* Dependencies: Updated bundled GSAP, Bootstrap, and Swiper releases.
+
+= 1.1.5 — 2026-06-22 =
 * Feature: Added One Click Demo Import support (OCDI) with a complete demo content pack.
 * Feature: Demo import sets front page, posts page, permalinks, nav menus, and WooCommerce
   page IDs automatically in the after-import hook.
@@ -274,7 +299,7 @@ under free, open-source licenses compatible with the GPL.
   and skin barrier science to demonstrate the Journal layout.
 * Feature: Added "One Click Demo Import" as a recommended plugin via TGMPA.
 
-= 1.1.4 =
+= 1.1.4 — 2026-06-22 =
 * Fix: Prevented the cart drawer from opening automatically after the first add-to-cart event.
 * Fix: Improved AJAX cart quantity updates for fast repeated product-card stepper clicks.
 * Fix: Corrected wishlist price output so currency symbols render normally instead of HTML entities.
@@ -283,7 +308,7 @@ under free, open-source licenses compatible with the GPL.
 * Translation: Updated the theme POT file and added a POT file for the bundled Lumea Core plugin.
 * Documentation: Documented all bundled custom page templates and current plugin requirements.
 
-= 1.1.1 =
+= 1.1.1 — 2026-06-22 =
 * Security: Escaped all unescaped echo output points (esc_url, esc_attr, wp_kses).
 * Security: Fixed email header injection risk on Contact page (removed name from Reply-To).
 * Security: Added wp_unslash() before sanitize_*() on all $_GET/$_POST reads.
@@ -292,7 +317,7 @@ under free, open-source licenses compatible with the GPL.
 * Security: Removed demo-only checkout override functions that bypassed gateway settings.
 * Feature: Support/contact email is now configurable via Customizer > Footer.
 * Feature: Bestseller and Latest product category names are now configurable via Customizer.
-* Feature: Added Schema.org JSON-LD Product markup on single product pages.
+* Feature: Added WooCommerce product presentation enhancements.
 * Feature: Added TGM Plugin Activation for required plugins notification.
 * Feature: Added bundled Lumea Core companion plugin for wishlist AJAX, cart quantity AJAX, contact form handling, and product placement flags.
 * Compatibility: Removed theme-owned demo gateway, automatic WooCommerce page rewriting, and product category mutation logic.
@@ -302,7 +327,7 @@ under free, open-source licenses compatible with the GPL.
 * Asset: Removed developer-only Python utility scripts from the theme package.
 * Compatibility: Tested up to WordPress 7.0.
 
-= 1.1.0 =
+= 1.1.0 — 2026-06-22 =
 * Initial ThemeForest release.
 
 

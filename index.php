@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 ?>
 
-<section class="lumea-page-section">
+<main class="lumea-page-section" id="lumeaPage">
 	<div class="lumea-container">
 
 		<?php if ( have_posts() ) : ?>
@@ -45,14 +45,12 @@ get_header();
 		<?php else : ?>
 
 			<div class="lumea-empty-state">
-				<h1><?php esc_html_e( 'Welcome to Luméa', 'lumea' ); ?></h1>
-				<p><?php esc_html_e( 'A premium beauty and skincare WooCommerce theme is now active.', 'lumea' ); ?></p>
+				<h1><?php esc_html_e( 'Nothing found', 'lumea' ); ?></h1>
+				<p><?php esc_html_e( 'No posts are available yet.', 'lumea' ); ?></p>
 			</div>
-
 		<?php endif; ?>
 
 	</div>
-</section>
-
+</main>
 <?php
 get_footer();

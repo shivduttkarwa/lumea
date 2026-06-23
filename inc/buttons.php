@@ -31,7 +31,7 @@ function lumea_btn( $args = array() ) {
 		'attrs' => array(),
 		'echo'  => true,
 	);
-	$args = wp_parse_args( $args, $defaults );
+	$args     = wp_parse_args( $args, $defaults );
 
 	$valid_styles = array( 'dark', 'black', 'white', 'outline', 'soft', 'accent', 'arrow-right', 'arrow-left' );
 	$style        = in_array( $args['style'], $valid_styles, true ) ? $args['style'] : 'dark';
@@ -39,7 +39,6 @@ function lumea_btn( $args = array() ) {
 	$label        = esc_html( $args['label'] );
 	$extra_cls    = $args['class'] ? ' ' . sanitize_text_field( $args['class'] ) : '';
 
-	
 	$style_class_map = array(
 		'dark'        => 'btn-dark btn-black',
 		'black'       => 'btn-black btn-dark',
@@ -50,9 +49,8 @@ function lumea_btn( $args = array() ) {
 		'arrow-right' => 'btn-arrow btn-arrow-right',
 		'arrow-left'  => 'btn-arrow btn-arrow-left',
 	);
-	$modifier = isset( $style_class_map[ $style ] ) ? $style_class_map[ $style ] : 'btn-dark btn-black';
+	$modifier        = isset( $style_class_map[ $style ] ) ? $style_class_map[ $style ] : 'btn-dark btn-black';
 
-	
 	$attr_str = '';
 	if ( 'a' === $tag ) {
 		$attr_str .= ' href="' . esc_url( $args['href'] ) . '"';
@@ -65,7 +63,6 @@ function lumea_btn( $args = array() ) {
 		}
 	}
 
-	
 	$arrow_right_svg = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">'
 		. '<path d="M5 12H19"/>'
 		. '<path d="M13 6L19 12L13 18"/>'
@@ -76,7 +73,6 @@ function lumea_btn( $args = array() ) {
 		. '<path d="M11 6L5 12L11 18"/>'
 		. '</svg>';
 
-	
 	$inner = '';
 	if ( 'arrow-left' === $style ) {
 		$inner = $arrow_left_svg . $label;
@@ -99,9 +95,23 @@ function lumea_btn( $args = array() ) {
 		echo wp_kses(
 			$html,
 			array(
-				'a'      => array( 'class' => true, 'href'  => true, 'type' => true, 'data-*' => true ),
-				'button' => array( 'class' => true, 'type'  => true, 'data-*' => true ),
-				'svg'    => array( 'viewbox' => true, 'fill' => true, 'aria-hidden' => true, 'class' => true ),
+				'a'      => array(
+					'class'  => true,
+					'href'   => true,
+					'type'   => true,
+					'data-*' => true,
+				),
+				'button' => array(
+					'class'  => true,
+					'type'   => true,
+					'data-*' => true,
+				),
+				'svg'    => array(
+					'viewbox'     => true,
+					'fill'        => true,
+					'aria-hidden' => true,
+					'class'       => true,
+				),
 				'path'   => array( 'd' => true ),
 			)
 		);

@@ -12,14 +12,38 @@ get_header();
 $story_image = esc_url( get_theme_mod( 'lumea_ingredients_image', LUMEA_THEME_URI . '/assets/images/model-portrait.jpg' ) );
 
 $never_list = array(
-	array( 'label' => __( 'Synthetic fragrance', 'lumea' ),        'icon' => 'M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636' ),
-	array( 'label' => __( 'Parabens', 'lumea' ),                   'icon' => 'M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636' ),
-	array( 'label' => __( 'Sulfates (SLS/SLES)', 'lumea' ),        'icon' => 'M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636' ),
-	array( 'label' => __( 'Mineral oil', 'lumea' ),                'icon' => 'M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636' ),
-	array( 'label' => __( 'Phthalates', 'lumea' ),                 'icon' => 'M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636' ),
-	array( 'label' => __( 'Formaldehyde', 'lumea' ),               'icon' => 'M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636' ),
-	array( 'label' => __( 'Petrolatum', 'lumea' ),                 'icon' => 'M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636' ),
-	array( 'label' => __( '1,400+ questionable chemicals', 'lumea' ), 'icon' => 'M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636' ),
+	array(
+		'label' => __( 'Synthetic fragrance', 'lumea' ),
+		'icon'  => 'M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636',
+	),
+	array(
+		'label' => __( 'Parabens', 'lumea' ),
+		'icon'  => 'M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636',
+	),
+	array(
+		'label' => __( 'Sulfates (SLS/SLES)', 'lumea' ),
+		'icon'  => 'M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636',
+	),
+	array(
+		'label' => __( 'Mineral oil', 'lumea' ),
+		'icon'  => 'M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636',
+	),
+	array(
+		'label' => __( 'Phthalates', 'lumea' ),
+		'icon'  => 'M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636',
+	),
+	array(
+		'label' => __( 'Formaldehyde', 'lumea' ),
+		'icon'  => 'M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636',
+	),
+	array(
+		'label' => __( 'Petrolatum', 'lumea' ),
+		'icon'  => 'M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636',
+	),
+	array(
+		'label' => __( '1,400+ questionable chemicals', 'lumea' ),
+		'icon'  => 'M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636',
+	),
 );
 
 $actives = array(
@@ -160,28 +184,28 @@ $actives = array(
 			<div class="lumea-policy-section-inner">
 				<div class="lumea-policy-section-header">
 					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--lumea-accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-					<h2><?php esc_html_e( 'Certifications', 'lumea' ); ?></h2>
+					<h2><?php esc_html_e( 'Our Commitments', 'lumea' ); ?></h2>
 				</div>
 				<div class="lumea-certs-grid">
 					<div class="lumea-cert-card">
 						<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--lumea-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-						<h3><?php esc_html_e( 'Leaping Bunny', 'lumea' ); ?></h3>
-						<p><?php esc_html_e( 'Certified cruelty-free across all products and supply chain.', 'lumea' ); ?></p>
+						<h3><?php esc_html_e( 'Cruelty-Free Standard', 'lumea' ); ?></h3>
+						<p><?php esc_html_e( 'Products are developed without animal testing by our team.', 'lumea' ); ?></p>
 					</div>
 					<div class="lumea-cert-card">
 						<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--lumea-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-						<h3><?php esc_html_e( 'Vegan Certified', 'lumea' ); ?></h3>
-						<p><?php esc_html_e( 'No animal-derived ingredients. Certified by The Vegan Society.', 'lumea' ); ?></p>
+						<h3><?php esc_html_e( 'Vegan Formulas', 'lumea' ); ?></h3>
+						<p><?php esc_html_e( 'Formulated without animal-derived ingredients.', 'lumea' ); ?></p>
 					</div>
 					<div class="lumea-cert-card">
 						<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--lumea-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V8"/><path d="M22 4v16"/></svg>
-						<h3><?php esc_html_e( 'Carbon Neutral', 'lumea' ); ?></h3>
-						<p><?php esc_html_e( 'Offset 100% of emissions across production and shipping.', 'lumea' ); ?></p>
+						<h3><?php esc_html_e( 'Lower-Impact Shipping', 'lumea' ); ?></h3>
+						<p><?php esc_html_e( 'Packaging and delivery choices are designed to reduce waste.', 'lumea' ); ?></p>
 					</div>
 					<div class="lumea-cert-card">
 						<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--lumea-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-						<h3><?php esc_html_e( '1% for the Planet', 'lumea' ); ?></h3>
-						<p><?php esc_html_e( '1% of every sale donated to reforestation and ocean conservation.', 'lumea' ); ?></p>
+						<h3><?php esc_html_e( 'Community Giving', 'lumea' ); ?></h3>
+						<p><?php esc_html_e( 'A portion of annual giving supports environmental initiatives.', 'lumea' ); ?></p>
 					</div>
 				</div>
 			</div>
@@ -192,11 +216,13 @@ $actives = array(
 			<h2><?php esc_html_e( 'Experience the difference', 'lumea' ); ?></h2>
 			<p><?php esc_html_e( 'Every product is built around these actives. Find your ritual today.', 'lumea' ); ?></p>
 			<?php
-			lumea_btn( array(
-				'label' => __( 'Shop the Collection', 'lumea' ),
-				'href'  => esc_url( lumea_get_shop_url() ),
-				'style' => 'dark',
-			) );
+			lumea_btn(
+				array(
+					'label' => __( 'Shop the Collection', 'lumea' ),
+					'href'  => esc_url( lumea_get_shop_url() ),
+					'style' => 'dark',
+				)
+			);
 			?>
 		</div>
 

@@ -34,10 +34,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<!-- Hero -->
 	<div class="lumea-account-hero">
 		<div class="lumea-account-hero-inner">
-			<?php if ( is_user_logged_in() ) :
-				$current_user = wp_get_current_user();
-				$first_name   = $current_user->first_name ?: $current_user->display_name;
-			?>
+			<?php
+			if ( is_user_logged_in() ) :
+				$lumea_user = wp_get_current_user();
+				$first_name = $lumea_user->first_name ? $lumea_user->first_name : $lumea_user->display_name;
+				?>
 			<p class="lumea-cart-eyebrow"><?php esc_html_e( 'Welcome back', 'lumea' ); ?></p>
 			<h1 class="lumea-account-title"><?php echo esc_html( $first_name ); ?></h1>
 			<?php else : ?>
@@ -56,13 +57,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php do_action( 'woocommerce_before_account_navigation' ); ?>
 				<nav>
 					<?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
-					<?php
-					$wc_menu_classes = function_exists( 'wc_get_account_menu_item_classes' ) ? wc_get_account_menu_item_classes( $endpoint ) : '';
-					$is_current      = false !== strpos( (string) $wc_menu_classes, 'is-active' );
-					?>
+						<?php
+						$wc_menu_classes = function_exists( 'wc_get_account_menu_item_classes' ) ? wc_get_account_menu_item_classes( $endpoint ) : '';
+						$is_current      = false !== strpos( (string) $wc_menu_classes, 'is-active' );
+						?>
 					<a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"
-					   class="<?php echo esc_attr( trim( 'lumea-account-nav-item ' . $wc_menu_classes ) ); ?>"
-					   <?php echo $is_current ? 'aria-current="page"' : ''; ?>>
+						class="<?php echo esc_attr( trim( 'lumea-account-nav-item ' . $wc_menu_classes ) ); ?>"
+						<?php
+						if ( $is_current ) :
+							?>
+							aria-current="page"<?php endif; ?>>
 						<?php echo esc_html( $label ); ?>
 						<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
 					</a>

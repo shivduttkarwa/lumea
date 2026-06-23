@@ -33,7 +33,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<?php if ( $order ) : ?>
 
-	<?php do_action( 'woocommerce_before_thankyou', $order->get_id() ); ?>
+		<?php do_action( 'woocommerce_before_thankyou', $order->get_id() ); ?>
 
 	<!-- Confirmation hero -->
 	<div class="lumea-ty-hero">
@@ -45,11 +45,13 @@ defined( 'ABSPATH' ) || exit;
 			<h1 class="lumea-ty-title"><?php esc_html_e( 'Your order is confirmed', 'lumea' ); ?></h1>
 			<p class="lumea-ty-subtitle">
 				<?php
-				echo wp_kses_post( sprintf(
+				echo wp_kses_post(
+					sprintf(
 					/* translators: %s: customer billing email address */
-					__( 'We&rsquo;ve sent a confirmation to <strong>%s</strong>. Your ritual is on its way.', 'lumea' ),
-					esc_html( $order->get_billing_email() )
-				) );
+						__( 'We&rsquo;ve sent a confirmation to <strong>%s</strong>. Your ritual is on its way.', 'lumea' ),
+						esc_html( $order->get_billing_email() )
+					)
+				);
 				?>
 			</p>
 
@@ -83,91 +85,16 @@ defined( 'ABSPATH' ) || exit;
 
 			<!-- Order details column -->
 			<div class="lumea-ty-left">
-
-				<!-- Order meta -->
-				<div class="lumea-ty-block">
-					<div class="lumea-ty-meta-grid">
-						<div class="lumea-ty-meta-item">
-							<span class="lumea-ty-meta-label"><?php esc_html_e( 'Order number', 'lumea' ); ?></span>
-							<span class="lumea-ty-meta-value">#<?php echo esc_html( $order->get_order_number() ); ?></span>
-						</div>
-						<div class="lumea-ty-meta-item">
-							<span class="lumea-ty-meta-label"><?php esc_html_e( 'Date', 'lumea' ); ?></span>
-							<span class="lumea-ty-meta-value"><?php echo esc_html( wc_format_datetime( $order->get_date_created() ) ); ?></span>
-						</div>
-						<div class="lumea-ty-meta-item">
-							<span class="lumea-ty-meta-label"><?php esc_html_e( 'Total', 'lumea' ); ?></span>
-							<span class="lumea-ty-meta-value"><?php echo wp_kses_post( $order->get_formatted_order_total() ); ?></span>
-						</div>
-						<div class="lumea-ty-meta-item">
-							<span class="lumea-ty-meta-label"><?php esc_html_e( 'Payment', 'lumea' ); ?></span>
-							<span class="lumea-ty-meta-value"><?php echo esc_html( $order->get_payment_method_title() ); ?></span>
-						</div>
-					</div>
-				</div>
-
-				<!-- Order items -->
-				<div class="lumea-ty-block">
-					<h2 class="lumea-ty-block-title"><?php esc_html_e( 'Your Order', 'lumea' ); ?></h2>
-					<div class="lumea-ty-items">
-						<?php foreach ( $order->get_items() as $item_id => $item ) :
-							$product  = $item->get_product();
-							$img_id   = $product ? $product->get_image_id() : 0;
-							$img_url  = $img_id ? wp_get_attachment_image_url( $img_id, 'thumbnail' ) : '';
-						?>
-						<div class="lumea-ty-item">
-							<div class="lumea-ty-item-img">
-								<?php if ( $img_url ) : ?>
-								<img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $item->get_name() ); ?>" loading="lazy">
-								<?php endif; ?>
-								<span class="lumea-checkout-item-qty"><?php echo esc_html( $item->get_quantity() ); ?></span>
-							</div>
-							<div class="lumea-ty-item-info">
-								<p class="lumea-ty-item-name"><?php echo esc_html( $item->get_name() ); ?></p>
-								<?php echo wc_display_item_meta( $item, array( 'echo' => false ) ); ?>
-							</div>
-							<div class="lumea-ty-item-price"><?php echo wp_kses_post( $order->get_formatted_line_subtotal( $item ) ); ?></div>
-						</div>
-						<?php endforeach; ?>
-					</div>
-
-					<!-- Totals -->
-					<div class="lumea-ty-totals">
-						<?php foreach ( $order->get_order_item_totals() as $key => $total ) : ?>
-						<div class="lumea-ty-total-row <?php echo $key === 'order_total' ? 'lumea-ty-total-row--grand' : ''; ?>">
-							<span><?php echo esc_html( $total['label'] ); ?></span>
-							<span><?php echo wp_kses_post( $total['value'] ); ?></span>
-						</div>
-						<?php endforeach; ?>
-					</div>
-				</div>
-
-				<!-- Delivery address -->
-				<div class="lumea-ty-block">
-					<h2 class="lumea-ty-block-title"><?php esc_html_e( 'Delivery Address', 'lumea' ); ?></h2>
-					<address class="lumea-ty-address">
-						<?php echo wp_kses_post( $order->get_formatted_shipping_address() ?: $order->get_formatted_billing_address() ); ?>
-					</address>
-				</div>
-
-				<?php
-				
-				
-				
-				remove_action( 'woocommerce_thankyou', 'woocommerce_order_details_table', 10 );
-
-				do_action( 'woocommerce_thankyou_' . $order->get_payment_method(), $order->get_id() );
-				do_action( 'woocommerce_thankyou', $order->get_id() );
-				?>
+				<?php do_action( 'woocommerce_thankyou_' . $order->get_payment_method(), $order->get_id() ); ?>
+				<?php do_action( 'woocommerce_thankyou', $order->get_id() ); ?>
 
 			</div><!-- /.lumea-ty-left -->
-
 			<!-- CTA column -->
 			<div class="lumea-ty-right">
 
 				<!-- What's next -->
 				<div class="lumea-ty-next-card">
-					<h3 class="lumea-ty-next-title"><?php esc_html_e( 'What happens next?', 'lumea' ); ?></h3>
+					<h2 class="lumea-ty-next-title"><?php esc_html_e( 'What happens next?', 'lumea' ); ?></h2>
 					<ol class="lumea-ty-steps-list">
 						<li>
 							<span class="lumea-ty-step-num">01</span>
@@ -216,11 +143,11 @@ defined( 'ABSPATH' ) || exit;
 
 	<!-- Fallback (no order object) -->
 	<div class="lumea-ty-fallback">
-		<div class="lumea-ty-hero-inner" style="text-align:center;padding:80px 24px;">
+		<div class="lumea-ty-hero-inner lumea-ty-hero-inner--fallback">
 			<p class="lumea-cart-eyebrow"><?php esc_html_e( 'Thank You', 'lumea' ); ?></p>
 			<h1 class="lumea-ty-title"><?php esc_html_e( 'Your order is confirmed', 'lumea' ); ?></h1>
 			<p class="lumea-ty-subtitle"><?php esc_html_e( 'A confirmation email is on its way.', 'lumea' ); ?></p>
-			<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="lumea-ty-shop-btn" style="margin-top:32px;"><?php esc_html_e( 'Continue Shopping', 'lumea' ); ?></a>
+			<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="lumea-ty-shop-btn lumea-ty-shop-btn--spaced"><?php esc_html_e( 'Continue Shopping', 'lumea' ); ?></a>
 		</div>
 	</div>
 

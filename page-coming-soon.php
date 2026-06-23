@@ -29,7 +29,7 @@ defined( 'ABSPATH' ) || exit;
 		<?php
 		$cs_bg = get_theme_mod( 'lumea_hero_image', LUMEA_THEME_URI . '/assets/images/hero-slide-1.jpg' );
 		if ( $cs_bg ) :
-		?>
+			?>
 		<img src="<?php echo esc_url( $cs_bg ); ?>" alt="" class="lumea-cs-bg-img" aria-hidden="true" loading="eager">
 		<?php endif; ?>
 		<div class="lumea-cs-overlay"></div>
@@ -53,7 +53,7 @@ defined( 'ABSPATH' ) || exit;
 				the_post();
 				$cs_title    = get_the_title();
 				$cs_subtitle = get_the_excerpt();
-			?>
+				?>
 
 			<p class="lumea-cs-eyebrow"><?php esc_html_e( 'Something beautiful is coming', 'lumea' ); ?></p>
 
@@ -61,13 +61,25 @@ defined( 'ABSPATH' ) || exit;
 				<?php echo $cs_title ? esc_html( $cs_title ) : esc_html( get_bloginfo( 'name' ) ); ?>
 			</h1>
 
-			<?php if ( $cs_subtitle ) : ?>
+				<?php if ( $cs_subtitle ) : ?>
 			<p class="lumea-cs-sub"><?php echo esc_html( $cs_subtitle ); ?></p>
 			<?php endif; ?>
 
 			<!-- Email capture -->
-			<?php if ( function_exists( 'wc_get_page_permalink' ) ) : ?>
-			<form class="lumea-cs-form" action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get">
+				<?php if ( function_exists( 'wc_get_page_permalink' ) ) : ?>
+					<?php
+					$lumea_notify_status = isset( $_GET['lumea_notify'] ) ? sanitize_key( wp_unslash( $_GET['lumea_notify'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					if ( 'success' === $lumea_notify_status ) :
+						?>
+				<p class="lumea-cs-form-status" role="status"><?php esc_html_e( 'Thank you. We will let you know when we launch.', 'lumea' ); ?></p>
+					<?php elseif ( 'invalid' === $lumea_notify_status ) : ?>
+				<p class="lumea-cs-form-status" role="alert"><?php esc_html_e( 'Please enter a valid email address.', 'lumea' ); ?></p>
+			<?php elseif ( 'error' === $lumea_notify_status ) : ?>
+				<p class="lumea-cs-form-status" role="alert"><?php esc_html_e( 'We could not save your request. Please try again.', 'lumea' ); ?></p>
+			<?php endif; ?>
+			<form class="lumea-cs-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
+				<input type="hidden" name="action" value="lumea_notify">
+					<?php wp_nonce_field( 'lumea_notify', 'lumea_notify_nonce' ); ?>
 				<input
 					type="email"
 					name="lumea_notify_email"
@@ -89,7 +101,7 @@ defined( 'ABSPATH' ) || exit;
 		$cs_tiktok    = get_theme_mod( 'lumea_footer_tiktok', '' );
 		$cs_pinterest = get_theme_mod( 'lumea_footer_pinterest', '' );
 		if ( $cs_instagram || $cs_tiktok || $cs_pinterest ) :
-		?>
+			?>
 		<div class="lumea-cs-social">
 			<?php if ( $cs_instagram ) : ?>
 			<a href="<?php echo esc_url( $cs_instagram ); ?>" class="lumea-cs-social-link" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Instagram', 'lumea' ); ?>">

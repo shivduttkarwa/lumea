@@ -8,4 +8,4 @@
 
 defined( 'ABSPATH' ) || exit;
 
-include get_theme_file_path( 'archive.php' );
+require get_theme_file_path( 'archive.php' );

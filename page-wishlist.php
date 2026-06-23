@@ -10,16 +10,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$shop_url           = lumea_get_shop_url();
-$wishlist_hero      = get_theme_mod( 'lumea_wishlist_hero_bg', LUMEA_THEME_URI . '/assets/images/ritual/wishlist-hero.png' );
-$wishlist_eyebrow   = get_theme_mod( 'lumea_wishlist_hero_eyebrow', __( 'Saved Favourites', 'lumea' ) );
-$wishlist_title     = get_theme_mod( 'lumea_wishlist_hero_title', __( 'Your Wishlist', 'lumea' ) );
-$wishlist_desc      = get_theme_mod( 'lumea_wishlist_hero_desc', __( 'Products you saved for your next ritual.', 'lumea' ) );
+$shop_url         = lumea_get_shop_url();
+$wishlist_hero    = get_theme_mod( 'lumea_wishlist_hero_bg', LUMEA_THEME_URI . '/assets/images/ritual/wishlist-hero.jpg' );
+$wishlist_eyebrow = get_theme_mod( 'lumea_wishlist_hero_eyebrow', __( 'Saved Favourites', 'lumea' ) );
+$wishlist_title   = get_theme_mod( 'lumea_wishlist_hero_title', __( 'Your Wishlist', 'lumea' ) );
+$wishlist_desc    = get_theme_mod( 'lumea_wishlist_hero_desc', __( 'Products you saved for your next ritual.', 'lumea' ) );
 
 get_header();
 ?>
 
-<main class="lumea-wishlist-page" id="lumeaWishlistPage">
+<main class="lumea-wishlist-page" id="lumeaPage">
 	<div class="lumea-shop-hero" style="--shop-bg: url('<?php echo esc_url( $wishlist_hero ); ?>')">
 		<div class="lumea-shop-hero-overlay"></div>
 		<div class="lumea-shop-hero-inner">
@@ -44,16 +44,16 @@ get_header();
 	</section>
 
 	<?php if ( class_exists( 'WooCommerce' ) ) : ?>
-	<?php
-	$similar_query = new WP_Query(
-		array(
-			'post_type'      => 'product',
-			'post_status'    => 'publish',
-			'posts_per_page' => 4,
-			'orderby'        => 'rand',
-		)
-	);
-	?>
+		<?php
+		$similar_query = new WP_Query(
+			array(
+				'post_type'      => 'product',
+				'post_status'    => 'publish',
+				'posts_per_page' => 4,
+				'orderby'        => 'rand',
+			)
+		);
+		?>
 	<section class="lumea-wishlist-similar" aria-label="<?php esc_attr_e( 'Similar products', 'lumea' ); ?>" data-lumea-wishlist-below hidden>
 		<div class="lumea-container">
 			<div class="lumea-wishlist-similar-head">

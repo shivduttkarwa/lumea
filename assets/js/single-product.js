@@ -33,12 +33,16 @@
 		lbImg.src = mainImg.src;
 		lb.classList.add( 'is-open' );
 		lb.setAttribute( 'aria-hidden', 'false' );
+		lb.removeAttribute( 'inert' );
 		document.body.style.overflow = 'hidden';
+		if ( lbClose ) lbClose.focus();
 	}
 	function closeLb() {
 		lb.classList.remove( 'is-open' );
 		lb.setAttribute( 'aria-hidden', 'true' );
+		lb.setAttribute( 'inert', '' );
 		document.body.style.overflow = '';
+		if ( zoomBtn ) zoomBtn.focus();
 	}
 	if ( zoomBtn ) zoomBtn.addEventListener( 'click', openLb );
 	if ( lbClose ) lbClose.addEventListener( 'click', closeLb );

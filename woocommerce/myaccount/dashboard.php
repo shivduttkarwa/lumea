@@ -21,20 +21,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$current_user = wp_get_current_user();
-$first_name   = $current_user->first_name ?: $current_user->display_name;
-$shop_url     = wc_get_page_permalink( 'shop' );
+$lumea_user = wp_get_current_user();
+$first_name = $lumea_user->first_name ? $lumea_user->first_name : $lumea_user->display_name;
+$shop_url   = wc_get_page_permalink( 'shop' );
 
 if ( ! $shop_url ) {
 	$shop_url = home_url( '/shop/' );
 }
 
-$orders = wc_get_orders( array(
-	'customer' => get_current_user_id(),
-	'limit'    => 3,
-	'orderby'  => 'date',
-	'order'    => 'DESC',
-) );
+$orders = wc_get_orders(
+	array(
+		'customer' => get_current_user_id(),
+		'limit'    => 3,
+		'orderby'  => 'date',
+		'order'    => 'DESC',
+	)
+);
 ?>
 
 <div class="lumea-dashboard">
@@ -42,8 +44,10 @@ $orders = wc_get_orders( array(
 	<!-- Welcome -->
 	<div class="lumea-dashboard-welcome">
 		<h2 class="lumea-dashboard-hi">
-			<?php /* translators: %s customer first name */
-			printf( esc_html__( 'Hello, %s', 'lumea' ), esc_html( $first_name ) ); ?>
+			<?php
+			/* translators: %s customer first name */
+			printf( esc_html__( 'Hello, %s', 'lumea' ), esc_html( $first_name ) );
+			?>
 		</h2>
 		<p class="lumea-dashboard-intro">
 			<?php esc_html_e( 'From your account dashboard you can view your recent orders, manage your shipping and billing addresses, and edit your account details.', 'lumea' ); ?>
@@ -65,7 +69,7 @@ $orders = wc_get_orders( array(
 			<span class="lumea-dashboard-stat-label"><?php esc_html_e( 'Total spent', 'lumea' ); ?></span>
 		</div>
 		<div class="lumea-dashboard-stat-card">
-			<span class="lumea-dashboard-stat-num"><?php echo esc_html( $current_user->user_registered ? wp_date( 'Y', strtotime( $current_user->user_registered . ' UTC' ) ) : '—' ); ?></span>
+			<span class="lumea-dashboard-stat-num"><?php echo esc_html( $lumea_user->user_registered ? wp_date( 'Y', strtotime( $lumea_user->user_registered . ' UTC' ) ) : '—' ); ?></span>
 			<span class="lumea-dashboard-stat-label"><?php esc_html_e( 'Member since', 'lumea' ); ?></span>
 		</div>
 	</div>
@@ -81,13 +85,14 @@ $orders = wc_get_orders( array(
 			</a>
 		</div>
 		<div class="lumea-dashboard-orders">
-			<?php foreach ( $orders as $order ) :
-				$order_items = $order->get_items();
+			<?php
+			foreach ( $orders as $dashboard_order ) :
+				$order_items = $dashboard_order->get_items();
 				$first_item  = reset( $order_items );
 				$product     = $first_item ? wc_get_product( $first_item->get_product_id() ) : null;
 				$img_id      = $product ? $product->get_image_id() : 0;
 				$img_url     = $img_id ? wp_get_attachment_image_url( $img_id, 'thumbnail' ) : '';
-			?>
+				?>
 			<div class="lumea-dashboard-order-row">
 				<div class="lumea-dashboard-order-img">
 					<?php if ( $img_url ) : ?>
@@ -95,19 +100,23 @@ $orders = wc_get_orders( array(
 					<?php endif; ?>
 				</div>
 				<div class="lumea-dashboard-order-info">
-					<p class="lumea-dashboard-order-num"><?php /* translators: %s: order number */
-					printf( esc_html__( 'Order #%s', 'lumea' ), esc_html( $order->get_order_number() ) ); ?></p>
-					<p class="lumea-dashboard-order-date"><?php echo esc_html( wc_format_datetime( $order->get_date_created() ) ); ?></p>
+					<p class="lumea-dashboard-order-num">
+					<?php
+					/* translators: %s: order number */
+					printf( esc_html__( 'Order #%s', 'lumea' ), esc_html( $dashboard_order->get_order_number() ) );
+					?>
+					</p>
+					<p class="lumea-dashboard-order-date"><?php echo esc_html( wc_format_datetime( $dashboard_order->get_date_created() ) ); ?></p>
 				</div>
 				<div class="lumea-dashboard-order-status">
-					<span class="lumea-dashboard-order-badge lumea-dashboard-order-badge--<?php echo esc_attr( $order->get_status() ); ?>">
-						<?php echo esc_html( wc_get_order_status_name( $order->get_status() ) ); ?>
+					<span class="lumea-dashboard-order-badge lumea-dashboard-order-badge--<?php echo esc_attr( $dashboard_order->get_status() ); ?>">
+						<?php echo esc_html( wc_get_order_status_name( $dashboard_order->get_status() ) ); ?>
 					</span>
 				</div>
 				<div class="lumea-dashboard-order-total">
-					<?php echo wp_kses_post( $order->get_formatted_order_total() ); ?>
+					<?php echo wp_kses_post( $dashboard_order->get_formatted_order_total() ); ?>
 				</div>
-				<a href="<?php echo esc_url( $order->get_view_order_url() ); ?>" class="lumea-dashboard-order-link" aria-label="<?php /* translators: %s: order number */ printf( esc_attr__( 'View order %s', 'lumea' ), $order->get_order_number() ); ?>">
+				<a href="<?php echo esc_url( $dashboard_order->get_view_order_url() ); ?>" class="lumea-dashboard-order-link" aria-label="<?php /* translators: %s: order number */ printf( esc_attr__( 'View order %s', 'lumea' ), esc_attr( $dashboard_order->get_order_number() ) ); ?>">
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
 				</a>
 			</div>
@@ -145,10 +154,10 @@ $orders = wc_get_orders( array(
 	</div>
 
 	<?php
-	
+
 	do_action( 'woocommerce_account_dashboard' );
 
-	
+
 	do_action( 'woocommerce_before_my_account' );
 	do_action( 'woocommerce_after_my_account' );
 	?>

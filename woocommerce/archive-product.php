@@ -19,6 +19,8 @@ defined( 'ABSPATH' ) || exit;
 
 get_header();
 
+do_action( 'woocommerce_before_main_content' );
+
 $current_cat = get_queried_object();
 $is_category = is_product_category();
 
@@ -28,7 +30,7 @@ if ( $is_category && ! empty( $current_cat->slug ) ) {
 		'bestseller' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover3.jpg',
 		'latest'     => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover5.jpg',
 	);
-	$default_bg  = isset( $cat_defaults[ $cat_slug ] )
+	$default_bg   = isset( $cat_defaults[ $cat_slug ] )
 		? $cat_defaults[ $cat_slug ]
 		: LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg';
 	$shop_hero_bg = get_theme_mod( 'lumea_cat_' . $cat_slug . '_hero_bg', $default_bg );
@@ -36,43 +38,45 @@ if ( $is_category && ! empty( $current_cat->slug ) ) {
 	$shop_hero_bg = get_theme_mod( 'lumea_shop_hero_bg', LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg' );
 }
 
-$shop_cats = get_terms( array(
-	'taxonomy'   => 'product_cat',
-	'hide_empty' => true,
-	'parent'     => 0,
-	'exclude'    => array( get_option( 'default_product_cat' ) ),
-) );
+$shop_cats = get_terms(
+	array(
+		'taxonomy'   => 'product_cat',
+		'hide_empty' => true,
+		'parent'     => 0,
+		'exclude'    => array( get_option( 'default_product_cat' ) ),
+	)
+);
 
-$active_orderby   = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) : get_option( 'woocommerce_default_catalog_orderby', 'menu_order' );
-$active_min_price = isset( $_GET['min_price'] ) ? absint( wp_unslash( $_GET['min_price'] ) ) : '';
-$active_max_price = isset( $_GET['max_price'] ) ? absint( wp_unslash( $_GET['max_price'] ) ) : '';
+$active_orderby   = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) : get_option( 'woocommerce_default_catalog_orderby', 'menu_order' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+$active_min_price = isset( $_GET['min_price'] ) ? absint( wp_unslash( $_GET['min_price'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+$active_max_price = isset( $_GET['max_price'] ) ? absint( wp_unslash( $_GET['max_price'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 $orderby_options = array(
-	'menu_order' => __( 'Featured',        'lumea' ),
-	'date'       => __( 'Newest',          'lumea' ),
-	'price'      => __( 'Price: Low — High','lumea' ),
-	'price-desc' => __( 'Price: High — Low','lumea' ),
-	'popularity' => __( 'Best Selling',    'lumea' ),
-	'rating'     => __( 'Top Rated',       'lumea' ),
+	'menu_order' => __( 'Featured', 'lumea' ),
+	'date'       => __( 'Newest', 'lumea' ),
+	'price'      => __( 'Price: Low — High', 'lumea' ),
+	'price-desc' => __( 'Price: High — Low', 'lumea' ),
+	'popularity' => __( 'Best Selling', 'lumea' ),
+	'rating'     => __( 'Top Rated', 'lumea' ),
 );
 
 $price_ranges = array(
 	''        => __( 'All Prices', 'lumea' ),
-	'0-25'    => __( 'Under $25',  'lumea' ),
-	'25-50'   => __( '$25 — $50',  'lumea' ),
+	'0-25'    => __( 'Under $25', 'lumea' ),
+	'25-50'   => __( '$25 — $50', 'lumea' ),
 	'50-100'  => __( '$50 — $100', 'lumea' ),
-	'100-999' => __( 'Over $100',  'lumea' ),
+	'100-999' => __( 'Over $100', 'lumea' ),
 );
 
 $active_price_key = '';
-if ( $active_min_price !== '' || $active_max_price !== '' ) {
+if ( '' !== $active_min_price || '' !== $active_max_price ) {
 	$active_price_key = $active_min_price . '-' . $active_max_price;
 }
 
 $base_url = $is_category ? get_term_link( $current_cat ) : get_permalink( wc_get_page_id( 'shop' ) );
 ?>
 
-<main class="lumea-shop" id="lumeaShop">
+<main class="lumea-shop" id="lumeaPage">
 
 	<!-- Full-bleed hero -->
 	<div class="lumea-shop-hero" style="--shop-bg: url('<?php echo esc_url( $shop_hero_bg ); ?>')">
@@ -82,6 +86,7 @@ $base_url = $is_category ? get_term_link( $current_cat ) : get_permalink( wc_get
 			<p class="lumea-shop-hero-eyebrow lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php esc_html_e( 'The Collection', 'lumea' ); ?></p>
 			<h1 class="lumea-shop-hero-title lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php woocommerce_page_title(); ?></h1>
 			<?php endif; ?>
+			<?php do_action( 'woocommerce_shop_loop_header' ); ?>
 			<?php $cat_desc = get_the_archive_description(); if ( $cat_desc ) : ?>
 			<div class="lumea-shop-hero-desc lumea-reveal-js lumea-reveal--fade-js lumea-reveal--hero-js"><?php echo wp_kses_post( $cat_desc ); ?></div>
 			<?php endif; ?>
@@ -95,19 +100,23 @@ $base_url = $is_category ? get_term_link( $current_cat ) : get_permalink( wc_get
 			<!-- Category pills -->
 			<div class="lumea-filter-cats">
 				<a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>"
-				   class="lumea-filter-pill<?php echo ! $is_category ? ' is-active' : ''; ?>">
+					class="lumea-filter-pill<?php echo esc_attr( ! $is_category ? ' is-active' : '' ); ?>">
 					<?php esc_html_e( 'All', 'lumea' ); ?>
 				</a>
-				<?php if ( ! is_wp_error( $shop_cats ) ) :
-					foreach ( $shop_cats as $cat ) :
-						$is_active = $is_category && $current_cat->term_id === $cat->term_id;
-				?>
-				<a href="<?php echo esc_url( get_term_link( $cat ) ); ?>"
-				   class="lumea-filter-pill<?php echo $is_active ? ' is-active' : ''; ?>">
-					<?php echo esc_html( $cat->name ); ?>
-					<span class="lumea-filter-pill-count"><?php echo esc_html( $cat->count ); ?></span>
+				<?php
+				if ( ! is_wp_error( $shop_cats ) ) :
+					foreach ( $shop_cats as $shop_cat ) :
+						$is_active = $is_category && $current_cat->term_id === $shop_cat->term_id;
+						?>
+				<a href="<?php echo esc_url( get_term_link( $shop_cat ) ); ?>"
+					class="lumea-filter-pill<?php echo esc_attr( $is_active ? ' is-active' : '' ); ?>">
+						<?php echo esc_html( $shop_cat->name ); ?>
+					<span class="lumea-filter-pill-count"><?php echo esc_html( $shop_cat->count ); ?></span>
 				</a>
-				<?php endforeach; endif; ?>
+						<?php
+				endforeach;
+endif;
+				?>
 			</div>
 
 			<!-- Right side controls -->
@@ -115,20 +124,27 @@ $base_url = $is_category ? get_term_link( $current_cat ) : get_permalink( wc_get
 
 				<!-- Price filter -->
 				<div class="lumea-filter-dropdown" data-lumea-dropdown>
-					<button class="lumea-filter-btn<?php echo $active_price_key ? ' is-active' : ''; ?>" data-lumea-dropdown-trigger>
+					<button type="button" class="lumea-filter-btn<?php echo esc_attr( $active_price_key ? ' is-active' : '' ); ?>" data-lumea-dropdown-trigger>
 						<?php echo $active_price_key ? esc_html( $price_ranges[ $active_price_key ] ?? __( 'Price', 'lumea' ) ) : esc_html__( 'Price', 'lumea' ); ?>
-						<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lumea-filter-chevron"><polyline points="6 9 12 15 18 9"/></svg>
+						<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lumea-filter-chevron" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 					</button>
 					<div class="lumea-filter-dropdown-panel" data-lumea-dropdown-panel>
-						<?php foreach ( $price_ranges as $key => $label ) :
+						<?php
+						foreach ( $price_ranges as $key => $label ) :
 							$parts   = $key ? explode( '-', $key ) : array();
-							$pparams = $key ? array( 'min_price' => $parts[0], 'max_price' => $parts[1] ) : array( 'min_price' => '', 'max_price' => '' );
-						?>
-						<a href="<?php echo lumea_filter_url( $base_url, $pparams ); ?>"
-						   class="lumea-filter-option<?php echo ( $active_price_key === $key ) ? ' is-active' : ''; ?>">
+							$pparams = $key ? array(
+								'min_price' => $parts[0],
+								'max_price' => $parts[1],
+							) : array(
+								'min_price' => '',
+								'max_price' => '',
+							);
+							?>
+						<a href="<?php echo esc_url( lumea_filter_url( $base_url, $pparams ) ); ?>"
+							class="lumea-filter-option<?php echo esc_attr( ( $active_price_key === $key ) ? ' is-active' : '' ); ?>">
 							<?php echo esc_html( $label ); ?>
 							<?php if ( $active_price_key === $key ) : ?>
-							<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+							<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
 							<?php endif; ?>
 						</a>
 						<?php endforeach; ?>
@@ -137,17 +153,17 @@ $base_url = $is_category ? get_term_link( $current_cat ) : get_permalink( wc_get
 
 				<!-- Sort -->
 				<div class="lumea-filter-dropdown" data-lumea-dropdown>
-					<button class="lumea-filter-btn<?php echo $active_orderby !== 'menu_order' ? ' is-active' : ''; ?>" data-lumea-dropdown-trigger>
+					<button type="button" class="lumea-filter-btn<?php echo esc_attr( 'menu_order' !== $active_orderby ? ' is-active' : '' ); ?>" data-lumea-dropdown-trigger>
 						<?php echo esc_html( $orderby_options[ $active_orderby ] ?? __( 'Sort', 'lumea' ) ); ?>
-						<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lumea-filter-chevron"><polyline points="6 9 12 15 18 9"/></svg>
+						<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lumea-filter-chevron" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 					</button>
 					<div class="lumea-filter-dropdown-panel" data-lumea-dropdown-panel>
 						<?php foreach ( $orderby_options as $val => $label ) : ?>
-						<a href="<?php echo lumea_filter_url( $base_url, array( 'orderby' => $val ) ); ?>"
-						   class="lumea-filter-option<?php echo $active_orderby === $val ? ' is-active' : ''; ?>">
+						<a href="<?php echo esc_url( lumea_filter_url( $base_url, array( 'orderby' => $val ) ) ); ?>"
+							class="lumea-filter-option<?php echo esc_attr( $val === $active_orderby ? ' is-active' : '' ); ?>">
 							<?php echo esc_html( $label ); ?>
-							<?php if ( $active_orderby === $val ) : ?>
-							<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+							<?php if ( $val === $active_orderby ) : ?>
+							<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
 							<?php endif; ?>
 						</a>
 						<?php endforeach; ?>
@@ -162,27 +178,40 @@ $base_url = $is_category ? get_term_link( $current_cat ) : get_permalink( wc_get
 
 		<!-- Active filters strip -->
 		<?php
-		$has_active = $active_price_key || $is_category || $active_orderby !== 'menu_order';
-		if ( $has_active ) : ?>
+		$has_active = $active_price_key || $is_category || 'menu_order' !== $active_orderby;
+		if ( $has_active ) :
+			?>
 		<div class="lumea-active-filters">
 			<div class="lumea-filter-bar-inner">
 				<span class="lumea-active-filters-label"><?php esc_html_e( 'Active:', 'lumea' ); ?></span>
 				<?php if ( $is_category ) : ?>
 				<a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="lumea-active-tag">
 					<?php echo esc_html( $current_cat->name ); ?>
-					<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+					<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
 				</a>
 				<?php endif; ?>
 				<?php if ( $active_price_key ) : ?>
-				<a href="<?php echo lumea_filter_url( $base_url, array( 'min_price' => '', 'max_price' => '' ) ); ?>" class="lumea-active-tag">
+				<a href="
+					<?php
+					echo esc_url(
+						lumea_filter_url(
+							$base_url,
+							array(
+								'min_price' => '',
+								'max_price' => '',
+							)
+						)
+					);
+					?>
+							" class="lumea-active-tag">
 					<?php echo esc_html( $price_ranges[ $active_price_key ] ); ?>
-					<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+					<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
 				</a>
 				<?php endif; ?>
-				<?php if ( $active_orderby !== 'menu_order' ) : ?>
-				<a href="<?php echo lumea_filter_url( $base_url, array( 'orderby' => '' ) ); ?>" class="lumea-active-tag">
+				<?php if ( 'menu_order' !== $active_orderby ) : ?>
+				<a href="<?php echo esc_url( lumea_filter_url( $base_url, array( 'orderby' => '' ) ) ); ?>" class="lumea-active-tag">
 					<?php echo esc_html( $orderby_options[ $active_orderby ] ); ?>
-					<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+					<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
 				</a>
 				<?php endif; ?>
 				<a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="lumea-clear-filters"><?php esc_html_e( 'Clear all', 'lumea' ); ?></a>
@@ -196,15 +225,22 @@ $base_url = $is_category ? get_term_link( $current_cat ) : get_permalink( wc_get
 		<div class="lumea-container">
 
 			<?php if ( woocommerce_product_loop() ) : ?>
+				<?php do_action( 'woocommerce_before_shop_loop' ); ?>
 				<?php woocommerce_product_loop_start(); ?>
-					<?php while ( have_posts() ) : the_post(); ?>
+					<?php
+					while ( have_posts() ) :
+						the_post();
+						?>
+						<?php do_action( 'woocommerce_shop_loop' ); ?>
 						<?php wc_get_template_part( 'content', 'product' ); ?>
 					<?php endwhile; ?>
 				<?php woocommerce_product_loop_end(); ?>
 				<div class="lumea-shop-pagination">
 					<?php woocommerce_pagination(); ?>
 				</div>
+				<?php do_action( 'woocommerce_after_shop_loop' ); ?>
 			<?php else : ?>
+				<?php do_action( 'woocommerce_no_products_found' ); ?>
 				<div class="lumea-shop-empty">
 					<p><?php esc_html_e( 'No products found.', 'lumea' ); ?></p>
 					<a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="lumea-shop-empty-link"><?php esc_html_e( 'Browse all products', 'lumea' ); ?></a>
@@ -216,4 +252,8 @@ $base_url = $is_category ? get_term_link( $current_cat ) : get_permalink( wc_get
 
 </main>
 
-<?php get_footer(); ?>
+<?php
+do_action( 'woocommerce_after_main_content' );
+do_action( 'woocommerce_sidebar' );
+get_footer();
+?>

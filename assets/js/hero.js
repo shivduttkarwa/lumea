@@ -21,7 +21,7 @@
 
   function splitIntoChars( el ) {
     const text = el.textContent.trim();
-    el.innerHTML = '';
+    el.replaceChildren();
     return Array.from( text ).map( function ( ch ) {
       var s = document.createElement( 'span' );
       s.style.cssText = 'display:inline-block;will-change:transform,opacity,filter;opacity:0;';

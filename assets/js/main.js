@@ -72,6 +72,30 @@
       .replace(/'/g, '&#39;');
   }
 
+  function parseMarkup(markup) {
+    var parsed = new DOMParser().parseFromString('<div data-lumea-parser-root>' + String(markup || '') + '</div>', 'text/html');
+    var source = parsed.querySelector('[data-lumea-parser-root]');
+    var fragment = document.createDocumentFragment();
+
+    if (!source) {
+      return fragment;
+    }
+
+    Array.prototype.slice.call(source.childNodes).forEach(function (node) {
+      fragment.appendChild(document.importNode(node, true));
+    });
+
+    return fragment;
+  }
+
+  function replaceChildrenFromNode(target, source) {
+    var fragment = document.createDocumentFragment();
+    Array.prototype.slice.call(source.childNodes).forEach(function (node) {
+      fragment.appendChild(document.importNode(node, true));
+    });
+    target.replaceChildren(fragment);
+  }
+
   function sanitizeClassToken(value) {
     return String(value || '').toLowerCase().replace(/[^a-z0-9_-]/g, '') || 'simple';
   }
@@ -147,54 +171,6 @@
     });
   }
 
-  function renderWishlistDrawer(items) {
-    var list = document.querySelector('[data-lumea-wishlist-items]');
-    var empty = document.querySelector('[data-lumea-wishlist-empty]');
-
-    if (!list || !empty) {
-      return;
-    }
-
-    if (!items.length) {
-      list.innerHTML = '';
-      empty.hidden = false;
-      return;
-    }
-
-    empty.hidden = true;
-
-    list.innerHTML = items.map(function (item) {
-      var actionLabel = item.can_add_to_cart ? (item.cart_text || i18n('addToCart', 'Add to Cart')) : i18n('viewProduct', 'View Product');
-      var actionUrl = item.can_add_to_cart ? item.cart_url : item.url;
-      var actionAria = item.cart_aria || actionLabel;
-      var buttonClass = 'lumea-wishlist-item-btn';
-      var removeLabel = i18nWithName('removeFromWishlistOf', 'Remove %s from wishlist', item.name);
-
-      if (item.can_add_to_cart) {
-        buttonClass += ' add_to_cart_button button product_type_' + sanitizeClassToken(item.type);
-        if (item.supports_ajax) {
-          buttonClass += ' ajax_add_to_cart';
-        }
-      }
-
-      return [
-        '<article class="lumea-wishlist-item">',
-          item.image ? '<a href="' + escapeHtml(item.url) + '"><img class="lumea-wishlist-item-img" src="' + escapeHtml(item.image) + '" alt="' + escapeHtml(item.name) + '" loading="lazy"></a>' : '',
-          '<div class="lumea-wishlist-item-info">',
-            '<h3 class="lumea-wishlist-item-name"><a href="' + escapeHtml(item.url) + '">' + escapeHtml(item.name) + '</a></h3>',
-            '<p class="lumea-wishlist-item-price">' + escapeHtml(item.price) + '</p>',
-            '<a href="' + escapeHtml(actionUrl) + '" class="' + escapeHtml(buttonClass) + '"' + (item.can_add_to_cart ? ' data-product_id="' + item.id + '" data-product_type="' + escapeHtml(sanitizeClassToken(item.type)) + '" data-quantity="1" rel="nofollow"' : '') + ' aria-label="' + escapeHtml(actionAria) + '">',
-              escapeHtml(actionLabel),
-            '</a>',
-          '</div>',
-          '<button class="lumea-wishlist-item-remove" type="button" data-lumea-wishlist-remove="' + item.id + '" aria-label="' + escapeHtml(removeLabel) + '">',
-            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>',
-          '</button>',
-        '</article>'
-      ].join('');
-    }).join('');
-  }
-
   function revealWishlistBelow() {
     var below = document.querySelector('[data-lumea-wishlist-below]');
     if (below) {
@@ -212,7 +188,7 @@
     }
 
     if (!items.length) {
-      list.innerHTML = '';
+      list.replaceChildren();
       empty.hidden = false;
       revealWishlistBelow();
       return;
@@ -220,7 +196,7 @@
 
     empty.hidden = true;
 
-    list.innerHTML = items.map(function (item) {
+    var wishlistMarkup = items.map(function (item) {
       var actionLabel = item.can_add_to_cart ? (item.cart_text || i18n('addToCart', 'Add to Cart')) : i18n('viewProduct', 'View Product');
       var actionAria = item.cart_aria || actionLabel;
       var removeLabel = i18nWithName('removeFromWishlistOf', 'Remove %s from wishlist', item.name);
@@ -280,14 +256,9 @@
       ].join('');
     }).join('');
 
-    revealWishlistBelow();
-  }
+    list.replaceChildren(parseMarkup(wishlistMarkup));
 
-  function renderWishlistLoadingState() {
-    var drawerList = document.querySelector('[data-lumea-wishlist-items]');
-    if (drawerList) {
-      drawerList.innerHTML = '<p class="lumea-wishlist-loading">' + escapeHtml(i18n('loadingFavourites', 'Loading favourites...')) + '</p>';
-    }
+    revealWishlistBelow();
   }
 
   function fetchWishlistItems(ids) {
@@ -328,15 +299,11 @@
     setWishlistCountText(ids.length);
 
     if (!ids.length) {
-      renderWishlistDrawer([]);
       renderWishlistPage([]);
       return;
     }
 
-    renderWishlistLoadingState();
-
     fetchWishlistItems(ids).then(function (items) {
-      renderWishlistDrawer(items);
       renderWishlistPage(items);
     });
   }
@@ -412,6 +379,7 @@
       navToggle.classList.toggle('is-open', isOpen);
       navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       mobileNav.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+      mobileNav.toggleAttribute('inert', !isOpen);
       document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 
@@ -421,6 +389,7 @@
         navToggle.classList.remove('is-open');
         navToggle.setAttribute('aria-expanded', 'false');
         mobileNav.setAttribute('aria-hidden', 'true');
+        mobileNav.setAttribute('inert', '');
         document.body.style.overflow = '';
       });
     });
@@ -437,6 +406,7 @@
     }
     searchOverlay.classList.add('is-open');
     searchOverlay.setAttribute('aria-hidden', 'false');
+    searchOverlay.removeAttribute('inert');
     document.body.style.overflow = 'hidden';
 
     var input = searchOverlay.querySelector('input[type="search"]');
@@ -453,6 +423,7 @@
     }
     searchOverlay.classList.remove('is-open');
     searchOverlay.setAttribute('aria-hidden', 'true');
+    searchOverlay.setAttribute('inert', '');
     document.body.style.overflow = '';
   }
 
@@ -487,6 +458,7 @@
     accountTrigger.setAttribute('aria-expanded', 'false');
     accountDropdown.classList.remove('is-open');
     accountDropdown.setAttribute('aria-hidden', 'true');
+    accountDropdown.setAttribute('inert', '');
   }
 
   function toggleAccountDropdown() {
@@ -498,6 +470,7 @@
     accountTrigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
     accountDropdown.classList.toggle('is-open', willOpen);
     accountDropdown.setAttribute('aria-hidden', willOpen ? 'false' : 'true');
+    accountDropdown.toggleAttribute('inert', !willOpen);
   }
 
   if (accountTrigger && accountDropdown) {
@@ -572,17 +545,40 @@
   var authRefButtons = document.querySelectorAll('[data-lumea-auth-ref-open]');
 
   if (authRefContainer && authRefButtons.length) {
+    function setAuthRefState( target ) {
+      var showRegister = target === 'register';
+      var loginPanel = authRefContainer.querySelector( '.lumea-auth-ref-login' );
+      var registerPanel = authRefContainer.querySelector( '.lumea-auth-ref-register' );
+      var frontPage = authRefContainer.querySelector( '.lumea-auth-ref-page-front' );
+      var backPage = authRefContainer.querySelector( '.lumea-auth-ref-page-back' );
+
+      [ loginPanel, frontPage ].forEach( function ( panel ) {
+        if ( ! panel ) return;
+        panel.setAttribute( 'aria-hidden', showRegister ? 'true' : 'false' );
+        panel.toggleAttribute( 'inert', showRegister );
+      } );
+
+      [ registerPanel, backPage ].forEach( function ( panel ) {
+        if ( ! panel ) return;
+        panel.setAttribute( 'aria-hidden', showRegister ? 'false' : 'true' );
+        panel.toggleAttribute( 'inert', ! showRegister );
+      } );
+
+      authRefContainer.classList.toggle( 'active', showRegister );
+      authRefContainer.classList.toggle( 'close', ! showRegister );
+
+      var focusTarget = showRegister
+        ? document.getElementById( 'reg_username' )
+        : document.getElementById( 'username' );
+      if ( focusTarget ) {
+        window.setTimeout( function () { focusTarget.focus(); }, 650 );
+      }
+    }
+
     authRefButtons.forEach(function (button) {
       button.addEventListener('click', function () {
         var target = button.getAttribute('data-lumea-auth-ref-open');
-        if (target === 'register') {
-          authRefContainer.classList.remove('close');
-          authRefContainer.classList.add('active');
-          return;
-        }
-
-        authRefContainer.classList.remove('active');
-        authRefContainer.classList.add('close');
+        setAuthRefState( target );
       });
     });
   }
@@ -624,6 +620,7 @@
     drawer.classList.add('is-open');
     overlay.classList.add('is-open');
     drawer.setAttribute('aria-hidden', 'false');
+    drawer.removeAttribute('inert');
     overlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   }
@@ -635,6 +632,7 @@
     drawer.classList.remove('is-open');
     overlay.classList.remove('is-open');
     drawer.setAttribute('aria-hidden', 'true');
+    drawer.setAttribute('inert', '');
     overlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
@@ -674,10 +672,9 @@
         return;
       }
 
-      var temp = document.createElement('div');
-      temp.innerHTML = fragments[selector];
-      if (temp.firstChild) {
-        element.parentNode.replaceChild(temp.firstChild, element);
+      var fragment = parseMarkup(fragments[selector]);
+      if (fragment.firstChild) {
+        element.parentNode.replaceChild(fragment.firstChild, element);
       }
     });
   }
@@ -876,14 +873,9 @@
           var pageList  = document.querySelector('[data-lumea-wishlist-page-items]');
           var pageEmpty = document.querySelector('[data-lumea-wishlist-page-empty]');
           if (pageList && !pageList.querySelector('.lumea-wishlist-page-item')) {
-            pageList.innerHTML = '';
+            pageList.replaceChildren();
             if (pageEmpty) { pageEmpty.hidden = false; }
             revealWishlistBelow();
-          }
-          if (!newIds.length) {
-            renderWishlistDrawer([]);
-          } else {
-            fetchWishlistItems(newIds).then(function (items) { renderWishlistDrawer(items); });
           }
         });
         return;
@@ -985,6 +977,7 @@
       navToggle.classList.remove('is-open');
       navToggle.setAttribute('aria-expanded', 'false');
       mobileNav.setAttribute('aria-hidden', 'true');
+      mobileNav.setAttribute('inert', '');
       document.body.style.overflow = '';
     }
   });
@@ -1032,8 +1025,8 @@
           var nb  = doc.querySelector('.lumea-shop-body');
           var nf  = doc.querySelector('#lumeaFilterBar');
 
-          if (nb) { shopBody.innerHTML  = nb.innerHTML; }
-          if (nf) { filterBar.innerHTML = nf.innerHTML; }
+          if (nb) { replaceChildrenFromNode(shopBody, nb); }
+          if (nf) { replaceChildrenFromNode(filterBar, nf); }
 
           if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
             var newFade   = Array.prototype.slice.call(shopBody.querySelectorAll('.lumea-reveal--fade-js'));

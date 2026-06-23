@@ -25,24 +25,18 @@ $item_count = $cart->get_cart_contents_count();
 <div class="lumea-cart-page">
 	<?php do_action( 'woocommerce_before_cart' ); ?>
 
-	<!-- Breadcrumb -->
-	<nav class="lumea-pdp-breadcrumb" aria-label="<?php esc_attr_e( 'Breadcrumb', 'lumea' ); ?>">
-		<div class="lumea-pdp-bc-inner">
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'lumea' ); ?></a>
-			<svg class="lumea-pdp-bc-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-			<span aria-current="page"><?php esc_html_e( 'Your Bag', 'lumea' ); ?></span>
-		</div>
-	</nav>
-
 	<div class="lumea-cart-hero">
 		<div class="lumea-cart-hero-inner">
 			<p class="lumea-cart-eyebrow"><?php esc_html_e( 'Review & Checkout', 'lumea' ); ?></p>
 			<h1 class="lumea-cart-title">
 				<?php
-				echo esc_html( sprintf(
-					_n( 'Your Bag (%d item)', 'Your Bag (%d items)', $item_count, 'lumea' ),
-					$item_count
-				) );
+				echo esc_html(
+					sprintf(
+					/* translators: %d: number of items in the cart. */
+						_n( 'Your Bag (%d item)', 'Your Bag (%d items)', $item_count, 'lumea' ),
+						$item_count
+					)
+				);
 				?>
 			</h1>
 		</div>
@@ -71,13 +65,15 @@ $item_count = $cart->get_cart_contents_count();
 
 					<?php do_action( 'woocommerce_before_cart_contents' ); ?>
 
-					<?php foreach ( $cart_items as $cart_item_key => $cart_item ) :
+					<?php
+					foreach ( $cart_items as $cart_item_key => $cart_item ) :
 						$_product   = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
 						$product_id = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
 						$permalink  = apply_filters( 'woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );
 
-						if ( ! $_product || ! $_product->exists() || $cart_item['quantity'] === 0 ) continue;
-
+						if ( ! $_product || ! $_product->exists() || 0 === $cart_item['quantity'] ) {
+							continue;
+						}
 						$thumbnail  = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image( 'woocommerce_thumbnail' ), $cart_item, $cart_item_key );
 						$price      = apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key );
 						$subtotal   = apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key );
@@ -85,13 +81,14 @@ $item_count = $cart->get_cart_contents_count();
 
 						$cats     = get_the_terms( $product_id, 'product_cat' );
 						$cat_name = ( $cats && ! is_wp_error( $cats ) ) ? $cats[0]->name : '';
-					?>
+						?>
 
 					<div class="<?php echo esc_attr( $item_class ); ?>" data-key="<?php echo esc_attr( $cart_item_key ); ?>">
 
 						<!-- Remove -->
 						<?php
-						$remove_link = apply_filters( 'woocommerce_cart_item_remove_link',
+						$remove_link = apply_filters(
+							'woocommerce_cart_item_remove_link',
 							sprintf(
 								'<a href="%s" class="lumea-cart-remove" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">
 									<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -128,7 +125,8 @@ $item_count = $cart->get_cart_contents_count();
 							<?php else : ?>
 							<span class="lumea-cart-row-title"><?php echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key ) ); ?></span>
 							<?php endif; ?>
-							<?php echo wc_get_formatted_cart_item_data( $cart_item ); ?>
+							<?php echo wp_kses_post( wc_get_formatted_cart_item_data( $cart_item ) ); ?>
+							<?php do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key ); ?>
 						</div>
 
 						<!-- Unit price -->
@@ -143,7 +141,8 @@ $item_count = $cart->get_cart_contents_count();
 									<svg width="12" height="2" viewBox="0 0 12 2" fill="none" aria-hidden="true"><rect width="12" height="2" rx="1" fill="currentColor"/></svg>
 								</button>
 								<?php
-								echo apply_filters( 'woocommerce_cart_item_quantity',
+								$quantity_input = apply_filters(
+									'woocommerce_cart_item_quantity',
 									sprintf(
 										'<input type="number" class="qty lumea-qty-input" name="cart[%s][qty]" value="%s" min="%s" max="%s" step="1" aria-label="%s">',
 										esc_attr( $cart_item_key ),
@@ -154,6 +153,21 @@ $item_count = $cart->get_cart_contents_count();
 									),
 									$cart_item_key,
 									$cart_item
+								);
+								echo wp_kses(
+									$quantity_input,
+									array(
+										'input' => array(
+											'type'       => true,
+											'class'      => true,
+											'name'       => true,
+											'value'      => true,
+											'min'        => true,
+											'max'        => true,
+											'step'       => true,
+											'aria-label' => true,
+										),
+									)
 								);
 								?>
 								<button type="button" class="lumea-qty-btn lumea-qty-plus" aria-label="<?php esc_attr_e( 'Increase', 'lumea' ); ?>">
@@ -175,15 +189,25 @@ $item_count = $cart->get_cart_contents_count();
 
 					<!-- Actions row -->
 					<div class="lumea-cart-actions">
-						<a href="<?php echo esc_url( apply_filters( 'woocommerce_return_to_shop_redirect', wc_get_page_permalink( 'shop' ) ) ); ?>" class="lumea-cart-continue">
+						<?php
+						if ( wc_coupons_enabled() ) :
+							?>
+						<div class="coupon">
+							<label class="screen-reader-text" for="coupon_code"><?php esc_html_e( 'Coupon code', 'lumea' ); ?></label>
+							<input type="text" name="coupon_code" class="input-text lumea-cart-coupon-input" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'lumea' ); ?>">
+							<button type="submit" class="lumea-btn btn-black" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'lumea' ); ?>"><?php esc_html_e( 'Apply coupon', 'lumea' ); ?></button>
+							<?php do_action( 'woocommerce_cart_coupon' ); ?>
+						</div>
+						<?php endif; ?>
+						<a href="<?php echo esc_url( apply_filters( 'woocommerce_return_to_shop_redirect', wc_get_page_permalink( 'shop' ) ) ); ?>" class="lumea-btn btn-outline lumea-cart-continue">
 							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
 							<?php esc_html_e( 'Continue Shopping', 'lumea' ); ?>
 						</a>
-						<button type="submit" class="lumea-cart-update button" name="update_cart" value="<?php esc_attr_e( 'Update bag', 'lumea' ); ?>">
+						<button type="submit" class="lumea-btn btn-outline lumea-cart-update" name="update_cart" value="<?php esc_attr_e( 'Update bag', 'lumea' ); ?>">
 							<?php esc_html_e( 'Update Bag', 'lumea' ); ?>
 						</button>
+						<?php do_action( 'woocommerce_cart_actions' ); ?>
 					</div>
-
 					<?php do_action( 'woocommerce_after_cart_contents' ); ?>
 
 					<?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
@@ -195,6 +219,7 @@ $item_count = $cart->get_cart_contents_count();
 			</div><!-- /.lumea-cart-items-col -->
 
 			<!-- Order summary -->
+			<?php do_action( 'woocommerce_before_cart_collaterals' ); ?>
 			<div class="lumea-cart-summary-col">
 				<div class="lumea-cart-summary">
 
@@ -226,6 +251,7 @@ $item_count = $cart->get_cart_contents_count();
 
 				</div>
 			</div><!-- /.lumea-cart-summary-col -->
+			<?php do_action( 'woocommerce_cart_collaterals' ); ?>
 
 		</div>
 	</div><!-- /.lumea-cart-body -->
@@ -235,4 +261,3 @@ $item_count = $cart->get_cart_contents_count();
 	<?php do_action( 'woocommerce_after_cart' ); ?>
 
 </div><!-- /.lumea-cart-page -->
-

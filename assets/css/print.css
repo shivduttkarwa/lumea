@@ -1,0 +1,35 @@
+@media print {
+  .lumea-header,
+  .lumea-footer,
+  .lumea-cart-drawer,
+  .lumea-cart-overlay,
+  .lumea-search-overlay,
+  .lumea-wishlist-drawer,
+  .lumea-mobile-nav,
+  video,
+  button,
+  .lumea-pdp-related,
+  .lumea-post-share,
+  .lumea-checkout-steps {
+    display: none;
+  }
+
+  body,
+  main,
+  article,
+  section {
+    background: #fff;
+    color: #000;
+    box-shadow: none;
+  }
+
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  img {
+    max-width: 100%;
+    break-inside: avoid;
+  }
+}

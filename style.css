@@ -4,7 +4,7 @@ Theme URI: https://themeforest.net/user/shivdutt/portfolio
 Author: Shivdutt Karwa
 Author URI: https://themeforest.net/user/shivdutt
 Description: A premium beauty and skincare WooCommerce WordPress theme for modern cosmetic, wellness, and personal care brands.
-Version: 1.1.5
+Version: 1.2.0
 Requires at least: 6.8
 Tested up to: 7.0
 Requires PHP: 8.0
@@ -31,20 +31,20 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 Luméa bundles the following third-party resources:
 
-Bootstrap v5.3.3
+Bootstrap v5.3.8
 License: MIT License
 Source:  https://getbootstrap.com
 Copyright (c) 2011-2024 The Bootstrap Authors
 
-Swiper v11
+Swiper v12.2.0
 License: MIT License
 Source:  https://swiperjs.com
 Copyright (c) 2014-2024 Vladimir Kharlampidi
 
-GSAP v3.12.5
-License: GSAP Standard License — free for all use including commercial
+GSAP v3.15.0
+License: GSAP Standard License (custom commercial-use license)
 Source:  https://gsap.com
-Copyright (c) GreenSock
+Copyright (c) 2008-2026 GreenSock
 
 Clash Display (font)
 License: Fontshare Free License — free for personal and commercial use

@@ -26,7 +26,7 @@ if ( post_password_required() ) {
 				printf(
 					/* translators: %s: number of comments. */
 					esc_html__( '%s Comments', 'lumea' ),
-					number_format_i18n( $lumea_comment_count )
+					esc_html( number_format_i18n( $lumea_comment_count ) )
 				);
 			}
 			?>
@@ -54,18 +54,19 @@ if ( post_password_required() ) {
 	<?php endif; ?>
 
 	<?php
+	$commenter = wp_get_current_commenter();
 	comment_form(
 		array(
-			'title_reply'          => esc_html__( 'Leave a Comment', 'lumea' ),
-			'title_reply_before'   => '<h2 class="lumea-comment-reply-title" id="reply-title">',
-			'title_reply_after'    => '</h2>',
-			'cancel_reply_before'  => ' &mdash; ',
-			'cancel_reply_after'   => '',
-			'label_submit'         => esc_html__( 'Post Comment', 'lumea' ),
-			'class_submit'         => 'lumea-btn lumea-btn--dark',
-			'class_form'           => 'lumea-comment-form',
-			'class_container'      => 'lumea-comment-form-wrap',
-			'fields'               => array(
+			'title_reply'         => esc_html__( 'Leave a Comment', 'lumea' ),
+			'title_reply_before'  => '<h2 class="lumea-comment-reply-title" id="reply-title">',
+			'title_reply_after'   => '</h2>',
+			'cancel_reply_before' => ' &mdash; ',
+			'cancel_reply_after'  => '',
+			'label_submit'        => esc_html__( 'Post Comment', 'lumea' ),
+			'class_submit'        => 'lumea-btn lumea-btn--dark',
+			'class_form'          => 'lumea-comment-form',
+			'class_container'     => 'lumea-comment-form-wrap',
+			'fields'              => array(
 				'author' => '<p class="comment-form-author"><label for="author">' . esc_html__( 'Name', 'lumea' ) . ' <span class="required" aria-hidden="true">*</span></label><input id="author" name="author" type="text" value="' . esc_attr( isset( $commenter['comment_author'] ) ? $commenter['comment_author'] : '' ) . '" size="30" maxlength="245" autocomplete="name" required /></p>',
 				'email'  => '<p class="comment-form-email"><label for="email">' . esc_html__( 'Email', 'lumea' ) . ' <span class="required" aria-hidden="true">*</span></label><input id="email" name="email" type="email" value="' . esc_attr( isset( $commenter['comment_author_email'] ) ? $commenter['comment_author_email'] : '' ) . '" size="30" maxlength="100" autocomplete="email" required /></p>',
 			),

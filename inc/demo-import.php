@@ -24,7 +24,7 @@ function lumea_ocdi_import_files() {
 			'local_import_widget_file'     => LUMEA_THEME_DIR . '/demo-import/widgets.wie',
 			'local_import_customizer_file' => LUMEA_THEME_DIR . '/demo-import/customizer.dat',
 			'import_preview_image_url'     => LUMEA_THEME_URI . '/screenshot.png',
-			'import_notice'               => __( 'Import takes 1–2 minutes — please do not navigate away. Demo images are placeholders. Replace them with your own licensed photography before going live.', 'lumea' ),
+			'import_notice'                => __( 'Import takes 1–2 minutes — please do not navigate away. Demo images are placeholders. Replace them with your own licensed photography before going live.', 'lumea' ),
 			'preview_url'                  => 'https://themeforest.net/user/shivdutt/portfolio',
 		),
 	);
@@ -68,21 +68,51 @@ function lumea_ocdi_create_menus() {
 		'Primary Menu' => array(
 			'location' => 'primary',
 			'pages'    => array(
-				array( 'slug' => 'shop',        'label' => __( 'Shop', 'lumea' ) ),
-				array( 'slug' => 'ingredients', 'label' => __( 'Ingredients', 'lumea' ) ),
-				array( 'slug' => 'bundles',     'label' => __( 'Bundles', 'lumea' ) ),
-				array( 'slug' => 'about',       'label' => __( 'About', 'lumea' ) ),
-				array( 'slug' => 'blog',        'label' => __( 'Journal', 'lumea' ) ),
+				array(
+					'slug'  => 'shop',
+					'label' => __( 'Shop', 'lumea' ),
+				),
+				array(
+					'slug'  => 'ingredients',
+					'label' => __( 'Ingredients', 'lumea' ),
+				),
+				array(
+					'slug'  => 'bundles',
+					'label' => __( 'Bundles', 'lumea' ),
+				),
+				array(
+					'slug'  => 'about',
+					'label' => __( 'About', 'lumea' ),
+				),
+				array(
+					'slug'  => 'blog',
+					'label' => __( 'Journal', 'lumea' ),
+				),
 			),
 		),
 		'Footer Menu'  => array(
 			'location' => 'footer',
 			'pages'    => array(
-				array( 'slug' => 'shipping-returns', 'label' => __( 'Shipping & Returns', 'lumea' ) ),
-				array( 'slug' => 'ingredients',      'label' => __( 'Our Ingredients', 'lumea' ) ),
-				array( 'slug' => 'faq',              'label' => __( 'FAQ', 'lumea' ) ),
-				array( 'slug' => 'privacy-policy',   'label' => __( 'Privacy Policy', 'lumea' ) ),
-				array( 'slug' => 'contact',          'label' => __( 'Contact', 'lumea' ) ),
+				array(
+					'slug'  => 'shipping-returns',
+					'label' => __( 'Shipping & Returns', 'lumea' ),
+				),
+				array(
+					'slug'  => 'ingredients',
+					'label' => __( 'Our Ingredients', 'lumea' ),
+				),
+				array(
+					'slug'  => 'faq',
+					'label' => __( 'FAQ', 'lumea' ),
+				),
+				array(
+					'slug'  => 'privacy-policy',
+					'label' => __( 'Privacy Policy', 'lumea' ),
+				),
+				array(
+					'slug'  => 'contact',
+					'label' => __( 'Contact', 'lumea' ),
+				),
 			),
 		),
 	);
@@ -118,7 +148,7 @@ function lumea_ocdi_create_menus() {
 					'menu-item-status'    => 'publish',
 				)
 			);
-			$position++;
+			++$position;
 		}
 
 		$locations[ $def['location'] ] = $menu_id;
@@ -134,14 +164,17 @@ function lumea_ocdi_set_wc_pages() {
 	}
 
 	$wc_page_map = array(
-		'woocommerce_shop_page_id'      => array( 'shop',       'Shop' ),
-		'woocommerce_cart_page_id'      => array( 'cart',       'Cart' ),
-		'woocommerce_checkout_page_id'  => array( 'checkout',   'Checkout' ),
+		'woocommerce_shop_page_id'      => array( 'shop', 'Shop' ),
+		'woocommerce_cart_page_id'      => array( 'cart', 'Cart' ),
+		'woocommerce_checkout_page_id'  => array( 'checkout', 'Checkout' ),
 		'woocommerce_myaccount_page_id' => array( 'my-account', 'My Account' ),
 	);
 
 	foreach ( $wc_page_map as $option => $slugs ) {
-		$page = get_page_by_path( $slugs[0] ) ?: lumea_get_page_by_title( $slugs[1] );
+		$page = get_page_by_path( $slugs[0] );
+		if ( ! $page ) {
+			$page = lumea_get_page_by_title( $slugs[1] );
+		}
 		if ( $page ) {
 			update_option( $option, $page->ID );
 		}
@@ -173,9 +206,4 @@ function lumea_ocdi_set_theme_mods() {
 add_filter( 'ocdi/plugin_intro_text', '__return_empty_string' );
 
 
-add_action( 'ocdi/before_content_import_execution', 'lumea_ocdi_extend_time_limit' );
-function lumea_ocdi_extend_time_limit() {
-	if ( function_exists( 'set_time_limit' ) ) {
-		set_time_limit( 300 );
-	}
-}
+// One Click Demo Import manages execution time and resource limits.

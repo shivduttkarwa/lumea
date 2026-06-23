@@ -16,18 +16,40 @@ if ( ! isset( $content_width ) ) {
 
 function lumea_theme_setup() {
 
-	
 	load_theme_textdomain( 'lumea', get_template_directory() . '/languages' );
 
-	
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'responsive-embeds' );
 	add_theme_support( 'align-wide' );
 	add_theme_support( 'wp-block-styles' );
+	add_theme_support(
+		'editor-color-palette',
+		array(
+			array(
+				'name'  => esc_html__( 'Lumea Ivory', 'lumea' ),
+				'slug'  => 'lumea-ivory',
+				'color' => '#fffaf7',
+			),
+			array(
+				'name'  => esc_html__( 'Lumea Ink', 'lumea' ),
+				'slug'  => 'lumea-ink',
+				'color' => '#241816',
+			),
+			array(
+				'name'  => esc_html__( 'Lumea Accent', 'lumea' ),
+				'slug'  => 'lumea-accent',
+				'color' => '#aa6258',
+			),
+			array(
+				'name'  => esc_html__( 'Lumea Muted', 'lumea' ),
+				'slug'  => 'lumea-muted',
+				'color' => '#7d6b66',
+			),
+		)
+	);
 
-	
 	add_theme_support(
 		'custom-logo',
 		array(
@@ -38,7 +60,6 @@ function lumea_theme_setup() {
 		)
 	);
 
-	
 	add_theme_support(
 		'html5',
 		array(
@@ -52,7 +73,6 @@ function lumea_theme_setup() {
 		)
 	);
 
-	
 	add_theme_support(
 		'woocommerce',
 		array(
@@ -69,18 +89,10 @@ function lumea_theme_setup() {
 		)
 	);
 
-
-	add_theme_support( 'wc-product-gallery-zoom' );
-	add_theme_support( 'wc-product-gallery-lightbox' );
-	add_theme_support( 'wc-product-gallery-slider' );
-
-
 	add_theme_support( 'post-formats', array( 'aside', 'gallery', 'quote', 'image', 'video' ) );
-
 
 	add_editor_style( 'assets/css/editor-style.css' );
 
-	
 	register_nav_menus(
 		array(
 			'primary' => esc_html__( 'Primary Menu', 'lumea' ),
@@ -92,17 +104,6 @@ add_action( 'after_setup_theme', 'lumea_theme_setup' );
 
 
 function lumea_widgets_init() {
-	register_sidebar(
-		array(
-			'name'          => esc_html__( 'Sidebar', 'lumea' ),
-			'id'            => 'lumea-sidebar',
-			'description'   => esc_html__( 'Widgets in this area appear in the blog sidebar.', 'lumea' ),
-			'before_widget' => '<section id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</section>',
-			'before_title'  => '<h2 class="widget-title">',
-			'after_title'   => '</h2>',
-		)
-	);
 
 	register_sidebar(
 		array(
@@ -151,7 +152,9 @@ function lumea_wishlist_body_class( $classes ) {
 }
 add_filter( 'body_class', 'lumea_wishlist_body_class' );
 
-add_filter( 'comment_form_defaults', function ( $defaults ) {
+function lumea_comment_form_defaults( $defaults ) {
+
 	$defaults['submit_button'] = '<button name="%1$s" type="submit" id="%2$s" class="lumea-btn btn-black">%4$s</button>';
 	return $defaults;
-} );
+}
+add_filter( 'comment_form_defaults', 'lumea_comment_form_defaults' );

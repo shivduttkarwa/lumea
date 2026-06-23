@@ -4,15 +4,42 @@
 	var cartData = window.lumeaCartData || {};
 	var i18n     = cartData.i18n || {};
 
+	function escapeMarkup( value ) {
+		return String( value || '' )
+			.replace( /&/g, '&amp;' )
+			.replace( /</g, '&lt;' )
+			.replace( />/g, '&gt;' )
+			.replace( /"/g, '&quot;' )
+			.replace( /'/g, '&#39;' );
+	}
+
+	function parseMarkup( markup ) {
+		var parsed   = new DOMParser().parseFromString( '<div data-lumea-parser-root>' + String( markup || '' ) + '</div>', 'text/html' );
+		var source   = parsed.querySelector( '[data-lumea-parser-root]' );
+		var fragment = document.createDocumentFragment();
+		if ( ! source ) return fragment;
+		Array.prototype.slice.call( source.childNodes ).forEach( function ( node ) {
+			fragment.appendChild( document.importNode( node, true ) );
+		} );
+		return fragment;
+	}
+
+	function replaceChildrenFromNode( target, source ) {
+		var fragment = document.createDocumentFragment();
+		Array.prototype.slice.call( source.childNodes ).forEach( function ( node ) {
+			fragment.appendChild( document.importNode( node, true ) );
+		} );
+		target.replaceChildren( fragment );
+	}
+
 	function applyFragments( fragments ) {
 		if ( ! fragments || typeof fragments !== 'object' ) return;
 		Object.keys( fragments ).forEach( function ( selector ) {
 			var el = document.querySelector( selector );
 			if ( ! el ) return;
-			var tmp = document.createElement( 'div' );
-			tmp.innerHTML = fragments[ selector ];
-			if ( tmp.firstChild ) {
-				el.parentNode.replaceChild( tmp.firstChild, el );
+			var fragment = parseMarkup( fragments[ selector ] );
+			if ( fragment.firstChild ) {
+				el.parentNode.replaceChild( fragment.firstChild, el );
 			}
 		} );
 	}
@@ -32,20 +59,19 @@
 
 		function updateTotalsMarkup( markup ) {
 			if ( ! totalsWrap || ! markup ) return;
-			var tmp  = document.createElement( 'div' );
-			tmp.innerHTML = markup;
+			var tmp       = parseMarkup( markup );
 			var curTable  = totalsWrap.querySelector( '.shop_table.shop_table_responsive' );
 			var nextTable = tmp.querySelector( '.shop_table.shop_table_responsive' );
 			if ( ! curTable || ! nextTable ) {
-				totalsWrap.innerHTML = markup;
+				totalsWrap.replaceChildren( tmp );
 				return;
 			}
 			var curBody  = curTable.querySelector( 'tbody' );
 			var nextBody = nextTable.querySelector( 'tbody' );
 			if ( curBody && nextBody ) {
-				curBody.innerHTML = nextBody.innerHTML;
+				replaceChildrenFromNode( curBody, nextBody );
 			} else {
-				totalsWrap.innerHTML = markup;
+				totalsWrap.replaceChildren( tmp );
 			}
 		}
 
@@ -115,24 +141,24 @@
 							'<div class="lumea-cart-empty-icon" aria-hidden="true">' +
 								'<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>' +
 							'</div>' +
-							'<p class="lumea-cart-empty-eyebrow">' + ( i18n.yourBag || '' ) + '</p>' +
-							'<h2 class="lumea-cart-empty-title">' + ( i18n.nothingYet || '' ) + '</h2>' +
-							'<p class="lumea-cart-empty-text">' + ( i18n.emptyText || '' ) + '</p>' +
+							'<p class="lumea-cart-empty-eyebrow">' + escapeMarkup( i18n.yourBag ) + '</p>' +
+							'<h2 class="lumea-cart-empty-title">' + escapeMarkup( i18n.nothingYet ) + '</h2>' +
+							'<p class="lumea-cart-empty-text">' + escapeMarkup( i18n.emptyText ) + '</p>' +
 							'<div class="lumea-cart-empty-actions">' +
-								'<a href="' + shopUrl + '" class="lumea-cart-empty-btn-primary">' + ( i18n.shopAll || '' ) + '</a>' +
+								'<a href="' + escapeMarkup( shopUrl ) + '" class="lumea-cart-empty-btn-primary">' + escapeMarkup( i18n.shopAll ) + '</a>' +
 							'</div>' +
 						'</div>' +
 						'<div class="lumea-cart-empty-visual" aria-hidden="true">' +
-							'<img src="' + heroImg + '" alt="" class="lumea-cart-empty-img" loading="lazy">' +
+							'<img src="' + escapeMarkup( heroImg ) + '" alt="" class="lumea-cart-empty-img" loading="lazy">' +
 							'<div class="lumea-cart-empty-visual-badge">' +
 								'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' +
-								( i18n.freeReturns || '' ) +
+								escapeMarkup( i18n.freeReturns ) +
 							'</div>' +
 						'</div>' +
 					'</div>' +
 				'</div>';
 
-			root.insertAdjacentHTML( 'beforeend', markup );
+			root.appendChild( parseMarkup( markup ) );
 		}
 
 		function submitRowUpdate( row ) {
@@ -176,7 +202,7 @@
 					} else {
 						var totalNode = row.querySelector( '.lumea-cart-row-total' );
 						if ( totalNode && typeof data.row_subtotal_html !== 'undefined' ) {
-							totalNode.innerHTML = data.row_subtotal_html;
+							totalNode.replaceChildren( parseMarkup( data.row_subtotal_html ) );
 						}
 						if ( typeof data.quantity !== 'undefined' ) {
 							input.value = String( data.quantity );
@@ -234,6 +260,11 @@
 		} );
 
 		cartForm.addEventListener( 'submit', function ( e ) {
+			var submitter = e.submitter;
+			if ( submitter && ( 'apply_coupon' === submitter.name || 'update_cart' === submitter.name ) ) {
+				return;
+			}
+
 			e.preventDefault();
 			cartForm.querySelectorAll( '.lumea-cart-row' ).forEach( function ( row ) {
 				queueRowUpdate( row, true );

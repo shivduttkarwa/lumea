@@ -26,27 +26,30 @@ $shop_url = esc_url( lumea_get_shop_url() );
 		<div class="row h-100">
 			<div class="col-12 position-relative">
 
-		<h3 class="hero-label" id="heroLabel" data-lumea-hero-label><?php echo esc_html( get_theme_mod( 'lumea_hero_label', 'Glow' ) ); ?></h3>
-
+		<p class="hero-label" id="heroLabel" data-lumea-hero-label><?php echo esc_html( get_theme_mod( 'lumea_hero_label', __( 'Glow', 'lumea' ) ) ); ?></p>
 		<div class="subtitles">
-			<span><?php echo esc_html( get_theme_mod( 'lumea_hero_subtitle_1', 'Skincare' ) ); ?></span>
-			<span><?php echo esc_html( get_theme_mod( 'lumea_hero_subtitle_2', 'Cosmetics' ) ); ?></span>
-			<span><?php echo esc_html( get_theme_mod( 'lumea_hero_subtitle_3', 'Beauty' ) ); ?></span>
+			<span><?php echo esc_html( get_theme_mod( 'lumea_hero_subtitle_1', __( 'Skincare', 'lumea' ) ) ); ?></span>
+			<span><?php echo esc_html( get_theme_mod( 'lumea_hero_subtitle_2', __( 'Cosmetics', 'lumea' ) ) ); ?></span>
+			<span><?php echo esc_html( get_theme_mod( 'lumea_hero_subtitle_3', __( 'Beauty', 'lumea' ) ) ); ?></span>
 		</div>
 
 		<h1 class="hero-title">LUMÉA</h1>
 
 		<div class="cta-wrap">
-			<?php lumea_btn( array(
-				'label' => get_theme_mod( 'lumea_hero_cta_text', 'Shop Collection' ),
-				'href'  => $shop_url,
-				'style' => 'outline',
-			) ); ?>
+			<?php
+			lumea_btn(
+				array(
+					'label' => get_theme_mod( 'lumea_hero_cta_text', __( 'Shop Collection', 'lumea' ) ),
+					'href'  => $shop_url,
+					'style' => 'outline',
+				)
+			);
+			?>
 		</div>
 			</div>
 		</div>
 	</div>
-	<button class="lumea-scroll-down" aria-label="<?php esc_attr_e( 'Scroll down', 'lumea' ); ?>">
+	<button type="button" class="lumea-scroll-down" aria-label="<?php esc_attr_e( 'Scroll down', 'lumea' ); ?>">
 		<span class="lumea-scroll-dot"></span>
 		<span class="lumea-scroll-dot"></span>
 		<span class="lumea-scroll-dot"></span>
@@ -58,9 +61,9 @@ $shop_url = esc_url( lumea_get_shop_url() );
 	<div class="lumea-container-wide container-fluid">
 		<div class="row">
 			<div class="col-12 col-xl-10">
-				<span class="lumea-eyebrow"><?php echo esc_html( get_theme_mod( 'lumea_slider_eyebrow', 'Editorial Collection' ) ); ?></span>
-				<h2 class="lumea-section-title"><?php echo esc_html( get_theme_mod( 'lumea_slider_title', 'The Edit' ) ); ?></h2>
-				<p class="lumea-section-desc"><?php echo esc_html( get_theme_mod( 'lumea_slider_desc', 'Curated botanicals and skin-first formulas for luminous, everyday beauty.' ) ); ?></p>
+				<span class="lumea-eyebrow"><?php echo esc_html( get_theme_mod( 'lumea_slider_eyebrow', __( 'Editorial Collection', 'lumea' ) ) ); ?></span>
+				<h2 class="lumea-section-title"><?php echo esc_html( get_theme_mod( 'lumea_slider_title', __( 'The Edit', 'lumea' ) ) ); ?></h2>
+				<p class="lumea-section-desc"><?php echo esc_html( get_theme_mod( 'lumea_slider_desc', __( 'Curated botanicals and skin-first formulas for luminous, everyday beauty.', 'lumea' ) ) ); ?></p>
 			</div>
 		</div>
 	</div>
@@ -71,28 +74,28 @@ $shop_url = esc_url( lumea_get_shop_url() );
 	<div class="lumea-slider-stage is-loading" id="lumeaSlider">
 		<div class="lumea-slides" id="lumeaSlides"></div>
 
-		<div class="lumea-hit-area" aria-hidden="true">
-			<button type="button" data-direction="prev"></button>
-			<button type="button" data-direction="next"></button>
+		<div class="lumea-hit-area">
+			<button type="button" data-direction="prev" aria-label="<?php esc_attr_e( 'Previous slide', 'lumea' ); ?>"></button>
+			<button type="button" data-direction="next" aria-label="<?php esc_attr_e( 'Next slide', 'lumea' ); ?>"></button>
 		</div>
 
 		<article class="lumea-content-card" id="lumeaCard">
 			<div class="lumea-card-body">
 				<span class="lumea-slide-number lumea-reveal-js lumea-reveal--static-js" id="lumeaNumber">01</span>
 				<p class="lumea-card-text lumea-reveal-js lumea-reveal--static-js" id="lumeaText">
-					<?php echo esc_html( get_theme_mod( 'lumea_slide_1_text', 'Botanical skincare rituals designed for luminous skin, soft texture, and everyday radiance.' ) ); ?>
+					<?php echo esc_html( get_theme_mod( 'lumea_slide_1_text', __( 'Botanical skincare rituals designed for luminous skin, soft texture, and everyday radiance.', 'lumea' ) ) ); ?>
 				</p>
 			</div>
 			<a href="<?php echo esc_url( $shop_url ); ?>"
-			   id="lumeaCardButton"
-			   class="lumea-card-button lumea-reveal-js lumea-reveal--static-js"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></a>
+				id="lumeaCardButton"
+				class="lumea-card-button lumea-reveal-js lumea-reveal--static-js"><?php esc_html_e( 'Shop Now', 'lumea' ); ?></a>
 		</article>
 
 		<div class="lumea-mobile-arrows" aria-label="<?php esc_attr_e( 'Slider controls', 'lumea' ); ?>">
 			<button type="button" class="lumea-mobile-arrow lumea-mobile-arrow--prev" data-direction="prev"
-			        aria-label="<?php esc_attr_e( 'Previous slide', 'lumea' ); ?>"></button>
+					aria-label="<?php esc_attr_e( 'Previous slide', 'lumea' ); ?>"></button>
 			<button type="button" class="lumea-mobile-arrow lumea-mobile-arrow--next" data-direction="next"
-			        aria-label="<?php esc_attr_e( 'Next slide', 'lumea' ); ?>"></button>
+					aria-label="<?php esc_attr_e( 'Next slide', 'lumea' ); ?>"></button>
 		</div>
 
 		<div class="lumea-cursor-arrow" id="lumeaCursorArrow" aria-hidden="true"></div>
@@ -102,9 +105,9 @@ $shop_url = esc_url( lumea_get_shop_url() );
 <!-- Section Intro: Curated Glow -->
 <div class="lumea-section-intro lumea-section-intro-js">
 	<div class="lumea-container">
-		<span class="lumea-eyebrow"><?php echo esc_html( get_theme_mod( 'lumea_curated_eyebrow', 'Bestsellers' ) ); ?></span>
-		<h2 class="lumea-section-title"><?php echo esc_html( get_theme_mod( 'lumea_curated_title', 'Curated Glow' ) ); ?></h2>
-		<p class="lumea-section-desc"><?php echo esc_html( get_theme_mod( 'lumea_curated_desc', 'Handpicked essentials for a luminous, skin-first daily ritual.' ) ); ?></p>
+		<span class="lumea-eyebrow"><?php echo esc_html( get_theme_mod( 'lumea_curated_eyebrow', __( 'Bestsellers', 'lumea' ) ) ); ?></span>
+		<h2 class="lumea-section-title"><?php echo esc_html( get_theme_mod( 'lumea_curated_title', __( 'Curated Glow', 'lumea' ) ) ); ?></h2>
+		<p class="lumea-section-desc"><?php echo esc_html( get_theme_mod( 'lumea_curated_desc', __( 'Handpicked essentials for a luminous, skin-first daily ritual.', 'lumea' ) ) ); ?></p>
 	</div>
 </div>
 
@@ -113,11 +116,11 @@ $shop_url = esc_url( lumea_get_shop_url() );
 	<div class="lumea-curated-row">
 
 		<?php
-		
+
 		$p1_image = get_theme_mod( 'lumea_product1_image', LUMEA_THEME_URI . '/assets/images/hero-slide-1.jpg' );
-		$p1_name  = get_theme_mod( 'lumea_product1_name',  'Radiance Serum' );
+		$p1_name  = get_theme_mod( 'lumea_product1_name', __( 'Radiance Serum', 'lumea' ) );
 		$p1_price = get_theme_mod( 'lumea_product1_price', '$48.00' );
-		$p1_desc  = get_theme_mod( 'lumea_product1_desc',  'A lightweight botanical serum for dewy, luminous, everyday skin.' );
+		$p1_desc  = get_theme_mod( 'lumea_product1_desc', __( 'A lightweight botanical serum for dewy, luminous, everyday skin.', 'lumea' ) );
 		$p1_url   = lumea_product_url( 'lumea_product1_url' );
 		?>
 		<a class="lumea-product-tile" href="<?php echo esc_url( $p1_url ); ?>">
@@ -132,7 +135,7 @@ $shop_url = esc_url( lumea_get_shop_url() );
 			<div class="lumea-product-info">
 				<div class="lumea-product-meta">
 					<h3 class="lumea-product-name"><?php echo esc_html( $p1_name ); ?></h3>
-					<p class="lumea-product-price"><?php echo esc_html( $p1_price ); ?></p>
+					<p class="lumea-product-price"><?php echo wp_kses_post( lumea_format_price_value( $p1_price ) ); ?></p>
 					<p class="lumea-product-desc"><?php echo esc_html( $p1_desc ); ?></p>
 				</div>
 				<div class="lumea-buy-wrap">
@@ -142,11 +145,11 @@ $shop_url = esc_url( lumea_get_shop_url() );
 		</a>
 
 		<?php
-		
+
 		$p2_image = get_theme_mod( 'lumea_product2_image', LUMEA_THEME_URI . '/assets/images/model-portrait.jpg' );
-		$p2_name  = get_theme_mod( 'lumea_product2_name',  'Velvet Cream' );
+		$p2_name  = get_theme_mod( 'lumea_product2_name', __( 'Velvet Cream', 'lumea' ) );
 		$p2_price = get_theme_mod( 'lumea_product2_price', '$42.00' );
-		$p2_desc  = get_theme_mod( 'lumea_product2_desc',  'Rich daily moisture with a soft-touch finish and botanical comfort.' );
+		$p2_desc  = get_theme_mod( 'lumea_product2_desc', __( 'Rich daily moisture with a soft-touch finish and botanical comfort.', 'lumea' ) );
 		$p2_url   = lumea_product_url( 'lumea_product2_url' );
 		?>
 		<a class="lumea-product-tile" href="<?php echo esc_url( $p2_url ); ?>">
@@ -161,7 +164,7 @@ $shop_url = esc_url( lumea_get_shop_url() );
 			<div class="lumea-product-info">
 				<div class="lumea-product-meta">
 					<h3 class="lumea-product-name"><?php echo esc_html( $p2_name ); ?></h3>
-					<p class="lumea-product-price"><?php echo esc_html( $p2_price ); ?></p>
+					<p class="lumea-product-price"><?php echo wp_kses_post( lumea_format_price_value( $p2_price ) ); ?></p>
 					<p class="lumea-product-desc"><?php echo esc_html( $p2_desc ); ?></p>
 				</div>
 				<div class="lumea-buy-wrap">
@@ -176,9 +179,9 @@ $shop_url = esc_url( lumea_get_shop_url() );
 <!-- Section Intro: Bestsellers -->
 <div class="lumea-section-intro lumea-section-intro-js">
 	<div class="lumea-container">
-		<span class="lumea-eyebrow"><?php echo esc_html( get_theme_mod( 'lumea_best_eyebrow', 'Customer Favourites' ) ); ?></span>
-		<h2 class="lumea-section-title"><?php echo esc_html( get_theme_mod( 'lumea_best_title', 'Shop Bestsellers' ) ); ?></h2>
-		<p class="lumea-section-desc"><?php echo esc_html( get_theme_mod( 'lumea_best_desc', 'Our most-loved formulas, trusted by thousands worldwide.' ) ); ?></p>
+		<span class="lumea-eyebrow"><?php echo esc_html( get_theme_mod( 'lumea_best_eyebrow', __( 'Customer Favourites', 'lumea' ) ) ); ?></span>
+		<h2 class="lumea-section-title"><?php echo esc_html( get_theme_mod( 'lumea_best_title', __( 'Shop Bestsellers', 'lumea' ) ) ); ?></h2>
+		<p class="lumea-section-desc"><?php echo esc_html( get_theme_mod( 'lumea_best_desc', __( 'Our most-loved formulas, trusted by thousands worldwide.', 'lumea' ) ) ); ?></p>
 	</div>
 </div>
 
@@ -186,41 +189,41 @@ $shop_url = esc_url( lumea_get_shop_url() );
 <?php
 $lumea_best_defaults = array(
 	1 => array(
-		'name'        => 'Radiance Serum',
+		'name'        => __( 'Radiance Serum', 'lumea' ),
 		'price'       => '$48.00',
-		'badge'       => 'Serum',
+		'badge'       => __( 'Serum', 'lumea' ),
 		'main_image'  => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main1.jpg',
 		'hover_image' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover1.jpg',
 		'url'         => '',
 	),
 	2 => array(
-		'name'        => 'Velvet Face Cream',
+		'name'        => __( 'Velvet Face Cream', 'lumea' ),
 		'price'       => '$42.00',
-		'badge'       => 'Cream',
+		'badge'       => __( 'Cream', 'lumea' ),
 		'main_image'  => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main2.jpg',
 		'hover_image' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover2.jpg',
 		'url'         => '',
 	),
 	3 => array(
-		'name'        => 'Glow Sunscreen SPF 50',
+		'name'        => __( 'Glow Sunscreen SPF 50', 'lumea' ),
 		'price'       => '$44.00',
-		'badge'       => 'SPF 50',
+		'badge'       => __( 'SPF 50', 'lumea' ),
 		'main_image'  => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main3.jpg',
 		'hover_image' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover3.jpg',
 		'url'         => '',
 	),
 	4 => array(
-		'name'        => 'Luminous Glow Toner',
+		'name'        => __( 'Luminous Glow Toner', 'lumea' ),
 		'price'       => '$34.00',
-		'badge'       => 'Toner',
+		'badge'       => __( 'Toner', 'lumea' ),
 		'main_image'  => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main4.jpg',
 		'hover_image' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover4.jpg',
 		'url'         => '',
 	),
 	5 => array(
-		'name'        => 'Skin Glow Face Oil',
+		'name'        => __( 'Skin Glow Face Oil', 'lumea' ),
 		'price'       => '$52.00',
-		'badge'       => 'Face Oil',
+		'badge'       => __( 'Face Oil', 'lumea' ),
 		'main_image'  => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main5.jpg',
 		'hover_image' => LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover5.jpg',
 		'url'         => '',
@@ -230,31 +233,35 @@ $lumea_best_defaults = array(
 
 $lumea_best_products = array();
 if ( class_exists( 'WooCommerce' ) ) {
-	$_bq = new WP_Query( array(
-		'post_type'      => 'product',
-		'posts_per_page' => 5,
-		'post_status'    => 'publish',
-		'meta_query'     => array( array(
-			'key'   => '_lumea_is_bestseller',
-			'value' => 'yes',
-		) ),
-	) );
+	$_bq = new WP_Query(
+		array(
+			'post_type'      => 'product',
+			'posts_per_page' => 5,
+			'post_status'    => 'publish',
+			'meta_query'     => array(
+				array(
+					'key'   => '_lumea_is_bestseller',
+					'value' => 'yes',
+				),
+			),
+		)
+	);
 
 	while ( $_bq->have_posts() ) {
 		$_bq->the_post();
-		$_bp      = wc_get_product( get_the_ID() );
-		$_bpgal   = $_bp->get_gallery_image_ids();
-		$_bpterms = get_the_terms( get_the_ID(), 'product_cat' );
+		$_bp                   = wc_get_product( get_the_ID() );
+		$_bpgal                = $_bp->get_gallery_image_ids();
+		$_bpterms              = get_the_terms( get_the_ID(), 'product_cat' );
 		$lumea_best_products[] = array(
-			'id'          => get_the_ID(),
-			'name'        => get_the_title(),
-			'price'       => $_bp->get_price_html(),
-			'badge'       => $_bp->is_on_sale() ? esc_html__( 'Sale', 'lumea' ) : ( ! empty( $_bpterms ) ? $_bpterms[0]->name : '' ),
-			'is_sale'     => $_bp->is_on_sale(),
-			'main_image'  => get_the_post_thumbnail_url( get_the_ID(), 'woocommerce_single' ),
-			'hover_image' => ! empty( $_bpgal ) ? wp_get_attachment_image_url( $_bpgal[0], 'woocommerce_single' ) : '',
-			'url'         => get_permalink(),
-			'type'        => $_bp->get_type(),
+			'id'              => get_the_ID(),
+			'name'            => get_the_title(),
+			'price'           => $_bp->get_price_html(),
+			'badge'           => $_bp->is_on_sale() ? esc_html__( 'Sale', 'lumea' ) : ( ! empty( $_bpterms ) ? $_bpterms[0]->name : '' ),
+			'is_sale'         => $_bp->is_on_sale(),
+			'main_image'      => get_the_post_thumbnail_url( get_the_ID(), 'woocommerce_single' ),
+			'hover_image'     => ! empty( $_bpgal ) ? wp_get_attachment_image_url( $_bpgal[0], 'woocommerce_single' ) : '',
+			'url'             => get_permalink(),
+			'type'            => $_bp->get_type(),
 			'can_add_to_cart' => $_bp->is_purchasable() && $_bp->is_in_stock(),
 			'supports_ajax'   => $_bp->supports( 'ajax_add_to_cart' ) && $_bp->is_purchasable() && $_bp->is_in_stock(),
 		);
@@ -275,11 +282,11 @@ if ( class_exists( 'WooCommerce' ) ) {
 						foreach ( $lumea_best_defaults as $n => $d ) :
 							$lumea_best_source[] = array(
 								'id'          => 0,
-								'name'        => esc_html( get_theme_mod( 'lumea_best' . $n . '_name',        $d['name'] ) ),
-								'price'       => esc_html( get_theme_mod( 'lumea_best' . $n . '_price',       $d['price'] ) ),
-								'badge'       => esc_html( get_theme_mod( 'lumea_best' . $n . '_badge',       $d['badge'] ) ),
+								'name'        => esc_html( get_theme_mod( 'lumea_best' . $n . '_name', $d['name'] ) ),
+								'price'       => lumea_format_price_value( get_theme_mod( 'lumea_best' . $n . '_price', $d['price'] ) ),
+								'badge'       => esc_html( get_theme_mod( 'lumea_best' . $n . '_badge', $d['badge'] ) ),
 								'is_sale'     => false,
-								'main_image'  => esc_url( get_theme_mod( 'lumea_best' . $n . '_main_image',  $d['main_image'] ) ),
+								'main_image'  => esc_url( get_theme_mod( 'lumea_best' . $n . '_main_image', $d['main_image'] ) ),
 								'hover_image' => esc_url( get_theme_mod( 'lumea_best' . $n . '_hover_image', $d['hover_image'] ) ),
 								'url'         => lumea_product_url( 'lumea_best' . $n . '_url' ),
 								'type'        => 'simple',
@@ -287,21 +294,22 @@ if ( class_exists( 'WooCommerce' ) ) {
 						endforeach;
 					endif;
 					?>
-					<?php foreach ( $lumea_best_source as $bp ) :
-						$bp_id    = (int) $bp['id'];
+					<?php
+					foreach ( $lumea_best_source as $bp ) :
+						$bp_id       = (int) $bp['id'];
 						$bp_name_raw = wp_strip_all_tags( (string) $bp['name'] );
-						$bp_name  = esc_html( $bp_name_raw );
-						$bp_url   = esc_url( $bp['url'] );
-						$bp_badge = $bp['badge'];
-						$bp_main  = esc_url( $bp['main_image'] );
-						$bp_hover = esc_url( isset( $bp['hover_image'] ) ? $bp['hover_image'] : '' );
-					?>
+						$bp_name     = esc_html( $bp_name_raw );
+						$bp_url      = esc_url( $bp['url'] );
+						$bp_badge    = $bp['badge'];
+						$bp_main     = esc_url( $bp['main_image'] );
+						$bp_hover    = esc_url( isset( $bp['hover_image'] ) ? $bp['hover_image'] : '' );
+						?>
 					<div class="swiper-slide">
 						<article class="lumea-best-card lumea-reveal-js lumea-reveal--static-js">
 							<div class="lumea-card-media-wrap">
 							<a href="<?php echo esc_url( $bp_url ); ?>" class="lumea-best-media-link">
 								<?php if ( $bp_badge ) : ?>
-								<span class="lumea-best-badge<?php echo ! empty( $bp['is_sale'] ) ? ' lumea-best-badge--sale' : ''; ?>" aria-hidden="true"><?php echo esc_html( $bp_badge ); ?></span>
+								<span class="lumea-best-badge<?php echo esc_attr( ! empty( $bp['is_sale'] ) ? ' lumea-best-badge--sale' : '' ); ?>"><?php echo esc_html( $bp_badge ); ?></span>
 								<?php endif; ?>
 								<div class="lumea-best-media">
 									<img class="lumea-best-img lumea-best-img--main" src="<?php echo esc_url( $bp_main ); ?>" alt="<?php echo esc_attr( $bp_name ); ?>" loading="lazy" />
@@ -323,15 +331,15 @@ if ( class_exists( 'WooCommerce' ) ) {
 									<?php
 									lumea_render_product_card_actions(
 										array(
-											'product_id'      => $bp_id,
-											'product_url'     => $bp_url,
-											'product_name'    => $bp_name_raw,
-											'product_type'    => isset( $bp['type'] ) ? $bp['type'] : 'simple',
-											'button_class'    => 'lumea-btn btn-black',
-											'button_label'    => __( 'Add to Cart', 'lumea' ),
-											'fallback_label'  => __( 'Shop Now', 'lumea' ),
+											'product_id'   => $bp_id,
+											'product_url'  => $bp_url,
+											'product_name' => $bp_name_raw,
+											'product_type' => isset( $bp['type'] ) ? $bp['type'] : 'simple',
+											'button_class' => 'lumea-btn btn-black',
+											'button_label' => __( 'Add to Cart', 'lumea' ),
+											'fallback_label' => __( 'Shop Now', 'lumea' ),
 											'can_add_to_cart' => isset( $bp['can_add_to_cart'] ) ? (bool) $bp['can_add_to_cart'] : true,
-											'supports_ajax'   => isset( $bp['supports_ajax'] ) ? (bool) $bp['supports_ajax'] : true,
+											'supports_ajax' => isset( $bp['supports_ajax'] ) ? (bool) $bp['supports_ajax'] : true,
 										)
 									);
 									?>
@@ -347,12 +355,12 @@ if ( class_exists( 'WooCommerce' ) ) {
 				</div>
 			</div>
 
-			<div class="lumea-best-nav" aria-hidden="true">
+			<div class="lumea-best-nav">
 				<button class="lumea-best-nav-btn lumea-best-prev" type="button" aria-label="<?php esc_attr_e( 'Previous', 'lumea' ); ?>">
-					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
 				</button>
 				<button class="lumea-best-nav-btn lumea-best-next" type="button" aria-label="<?php esc_attr_e( 'Next', 'lumea' ); ?>">
-					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 				</button>
 			</div>
 			</div>
@@ -372,10 +380,10 @@ $lumea_cta_bg = get_theme_mod( 'lumea_cta_bg_image', LUMEA_THEME_URI . '/assets/
 	<div class="lumea-fullcta-overlay"></div>
 	<div class="lumea-fullcta-inner">
 		<h2 class="lumea-fullcta-heading lumea-reveal-js lumea-reveal--static-js">
-			<?php echo esc_html( get_theme_mod( 'lumea_cta_heading_1', 'For' ) ); ?> <em><?php echo esc_html( get_theme_mod( 'lumea_cta_heading_2', 'every' ) ); ?></em> <?php echo esc_html( get_theme_mod( 'lumea_cta_heading_3', 'skin.' ) ); ?>
+			<?php echo esc_html( get_theme_mod( 'lumea_cta_heading_1', __( 'For', 'lumea' ) ) ); ?> <em><?php echo esc_html( get_theme_mod( 'lumea_cta_heading_2', __( 'every', 'lumea' ) ) ); ?></em> <?php echo esc_html( get_theme_mod( 'lumea_cta_heading_3', __( 'skin.', 'lumea' ) ) ); ?>
 		</h2>
 		<a href="<?php echo esc_url( $shop_url ); ?>" class="lumea-fullcta-btn lumea-reveal-js lumea-reveal--static-js">
-			<span><?php echo esc_html( get_theme_mod( 'lumea_cta_btn', 'Shop All Products' ) ); ?></span>
+			<span><?php echo esc_html( get_theme_mod( 'lumea_cta_btn', __( 'Shop All Products', 'lumea' ) ) ); ?></span>
 			<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 		</a>
 	</div>
@@ -386,76 +394,76 @@ $lumea_cta_bg = get_theme_mod( 'lumea_cta_bg_image', LUMEA_THEME_URI . '/assets/
 <?php
 $lumea_latest = array(
 	1 => array(
-		'name'      => get_theme_mod( 'lumea_latest1_name',      'Hydra Glow Mist' ),
-		'price'     => get_theme_mod( 'lumea_latest1_price',     '$36.00' ),
+		'name'      => get_theme_mod( 'lumea_latest1_name', __( 'Hydra Glow Mist', 'lumea' ) ),
+		'price'     => lumea_format_price_value( get_theme_mod( 'lumea_latest1_price', '$36.00' ) ),
 		'old_price' => get_theme_mod( 'lumea_latest1_old_price', '' ),
-		'badge'     => get_theme_mod( 'lumea_latest1_badge',     'New' ),
-		'image'     => get_theme_mod( 'lumea_latest1_image',     LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main1.jpg' ),
-		'hover'     => get_theme_mod( 'lumea_latest1_hover',     LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover1.jpg' ),
-		'url'       => get_theme_mod( 'lumea_latest1_url',       '#' ),
+		'badge'     => get_theme_mod( 'lumea_latest1_badge', __( 'New', 'lumea' ) ),
+		'image'     => get_theme_mod( 'lumea_latest1_image', LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main1.jpg' ),
+		'hover'     => get_theme_mod( 'lumea_latest1_hover', LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover1.jpg' ),
+		'url'       => get_theme_mod( 'lumea_latest1_url', '#' ),
 	),
 	2 => array(
-		'name'      => get_theme_mod( 'lumea_latest2_name',      'Peptide Eye Cream' ),
-		'price'     => get_theme_mod( 'lumea_latest2_price',     '$48.00' ),
-		'old_price' => get_theme_mod( 'lumea_latest2_old_price', '$58.00' ),
-		'badge'     => get_theme_mod( 'lumea_latest2_badge',     'Sale' ),
-		'image'     => get_theme_mod( 'lumea_latest2_image',     LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main2.jpg' ),
-		'hover'     => get_theme_mod( 'lumea_latest2_hover',     LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover2.jpg' ),
-		'url'       => get_theme_mod( 'lumea_latest2_url',       '#' ),
+		'name'      => get_theme_mod( 'lumea_latest2_name', __( 'Peptide Eye Cream', 'lumea' ) ),
+		'price'     => lumea_format_price_value( get_theme_mod( 'lumea_latest2_price', '$48.00' ) ),
+		'old_price' => lumea_format_price_value( get_theme_mod( 'lumea_latest2_old_price', '$58.00' ) ),
+		'badge'     => get_theme_mod( 'lumea_latest2_badge', __( 'Sale', 'lumea' ) ),
+		'image'     => get_theme_mod( 'lumea_latest2_image', LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main2.jpg' ),
+		'hover'     => get_theme_mod( 'lumea_latest2_hover', LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover2.jpg' ),
+		'url'       => get_theme_mod( 'lumea_latest2_url', '#' ),
 	),
 	3 => array(
-		'name'      => get_theme_mod( 'lumea_latest3_name',      'Barrier Repair Balm' ),
-		'price'     => get_theme_mod( 'lumea_latest3_price',     '$54.00' ),
+		'name'      => get_theme_mod( 'lumea_latest3_name', __( 'Barrier Repair Balm', 'lumea' ) ),
+		'price'     => lumea_format_price_value( get_theme_mod( 'lumea_latest3_price', '$54.00' ) ),
 		'old_price' => get_theme_mod( 'lumea_latest3_old_price', '' ),
-		'badge'     => get_theme_mod( 'lumea_latest3_badge',     'New' ),
-		'image'     => get_theme_mod( 'lumea_latest3_image',     LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main3.jpg' ),
-		'hover'     => get_theme_mod( 'lumea_latest3_hover',     LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover3.jpg' ),
-		'url'       => get_theme_mod( 'lumea_latest3_url',       '#' ),
+		'badge'     => get_theme_mod( 'lumea_latest3_badge', __( 'New', 'lumea' ) ),
+		'image'     => get_theme_mod( 'lumea_latest3_image', LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main3.jpg' ),
+		'hover'     => get_theme_mod( 'lumea_latest3_hover', LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover3.jpg' ),
+		'url'       => get_theme_mod( 'lumea_latest3_url', '#' ),
 	),
 	4 => array(
-		'name'      => get_theme_mod( 'lumea_latest4_name',      'AHA Resurfacing Serum' ),
-		'price'     => get_theme_mod( 'lumea_latest4_price',     '$62.00' ),
-		'old_price' => get_theme_mod( 'lumea_latest4_old_price', '$72.00' ),
-		'badge'     => get_theme_mod( 'lumea_latest4_badge',     '-14%' ),
-		'image'     => get_theme_mod( 'lumea_latest4_image',     LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main4.jpg' ),
-		'hover'     => get_theme_mod( 'lumea_latest4_hover',     LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover4.jpg' ),
-		'url'       => get_theme_mod( 'lumea_latest4_url',       '#' ),
+		'name'      => get_theme_mod( 'lumea_latest4_name', __( 'AHA Resurfacing Serum', 'lumea' ) ),
+		'price'     => lumea_format_price_value( get_theme_mod( 'lumea_latest4_price', '$62.00' ) ),
+		'old_price' => lumea_format_price_value( get_theme_mod( 'lumea_latest4_old_price', '$72.00' ) ),
+		'badge'     => get_theme_mod( 'lumea_latest4_badge', '-14%' ),
+		'image'     => get_theme_mod( 'lumea_latest4_image', LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main4.jpg' ),
+		'hover'     => get_theme_mod( 'lumea_latest4_hover', LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover4.jpg' ),
+		'url'       => get_theme_mod( 'lumea_latest4_url', '#' ),
 	),
 	5 => array(
-		'name'      => get_theme_mod( 'lumea_latest5_name',      'Brightening Vitamin C' ),
-		'price'     => get_theme_mod( 'lumea_latest5_price',     '$58.00' ),
+		'name'      => get_theme_mod( 'lumea_latest5_name', __( 'Brightening Vitamin C', 'lumea' ) ),
+		'price'     => lumea_format_price_value( get_theme_mod( 'lumea_latest5_price', '$58.00' ) ),
 		'old_price' => get_theme_mod( 'lumea_latest5_old_price', '' ),
-		'badge'     => get_theme_mod( 'lumea_latest5_badge',     'New' ),
-		'image'     => get_theme_mod( 'lumea_latest5_image',     LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main5.jpg' ),
-		'hover'     => get_theme_mod( 'lumea_latest5_hover',     LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover5.jpg' ),
-		'url'       => get_theme_mod( 'lumea_latest5_url',       '#' ),
+		'badge'     => get_theme_mod( 'lumea_latest5_badge', __( 'New', 'lumea' ) ),
+		'image'     => get_theme_mod( 'lumea_latest5_image', LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main5.jpg' ),
+		'hover'     => get_theme_mod( 'lumea_latest5_hover', LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover5.jpg' ),
+		'url'       => get_theme_mod( 'lumea_latest5_url', '#' ),
 	),
 	6 => array(
-		'name'      => get_theme_mod( 'lumea_latest6_name',      'Niacinamide 10% Serum' ),
-		'price'     => get_theme_mod( 'lumea_latest6_price',     '$42.00' ),
-		'old_price' => get_theme_mod( 'lumea_latest6_old_price', '$50.00' ),
-		'badge'     => get_theme_mod( 'lumea_latest6_badge',     'Sale' ),
-		'image'     => get_theme_mod( 'lumea_latest6_image',     LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main1.jpg' ),
-		'hover'     => get_theme_mod( 'lumea_latest6_hover',     LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover1.jpg' ),
-		'url'       => get_theme_mod( 'lumea_latest6_url',       '#' ),
+		'name'      => get_theme_mod( 'lumea_latest6_name', __( 'Niacinamide 10% Serum', 'lumea' ) ),
+		'price'     => lumea_format_price_value( get_theme_mod( 'lumea_latest6_price', '$42.00' ) ),
+		'old_price' => lumea_format_price_value( get_theme_mod( 'lumea_latest6_old_price', '$50.00' ) ),
+		'badge'     => get_theme_mod( 'lumea_latest6_badge', __( 'Sale', 'lumea' ) ),
+		'image'     => get_theme_mod( 'lumea_latest6_image', LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main1.jpg' ),
+		'hover'     => get_theme_mod( 'lumea_latest6_hover', LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover1.jpg' ),
+		'url'       => get_theme_mod( 'lumea_latest6_url', '#' ),
 	),
 	7 => array(
-		'name'      => get_theme_mod( 'lumea_latest7_name',      'Retinol Night Cream' ),
-		'price'     => get_theme_mod( 'lumea_latest7_price',     '$66.00' ),
+		'name'      => get_theme_mod( 'lumea_latest7_name', __( 'Retinol Night Cream', 'lumea' ) ),
+		'price'     => lumea_format_price_value( get_theme_mod( 'lumea_latest7_price', '$66.00' ) ),
 		'old_price' => get_theme_mod( 'lumea_latest7_old_price', '' ),
-		'badge'     => get_theme_mod( 'lumea_latest7_badge',     'New' ),
-		'image'     => get_theme_mod( 'lumea_latest7_image',     LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main2.jpg' ),
-		'hover'     => get_theme_mod( 'lumea_latest7_hover',     LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover2.jpg' ),
-		'url'       => get_theme_mod( 'lumea_latest7_url',       '#' ),
+		'badge'     => get_theme_mod( 'lumea_latest7_badge', __( 'New', 'lumea' ) ),
+		'image'     => get_theme_mod( 'lumea_latest7_image', LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main2.jpg' ),
+		'hover'     => get_theme_mod( 'lumea_latest7_hover', LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover2.jpg' ),
+		'url'       => get_theme_mod( 'lumea_latest7_url', '#' ),
 	),
 	8 => array(
-		'name'      => get_theme_mod( 'lumea_latest8_name',      'Calming Rose Toner' ),
-		'price'     => get_theme_mod( 'lumea_latest8_price',     '$32.00' ),
-		'old_price' => get_theme_mod( 'lumea_latest8_old_price', '$38.00' ),
-		'badge'     => get_theme_mod( 'lumea_latest8_badge',     '-16%' ),
-		'image'     => get_theme_mod( 'lumea_latest8_image',     LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main3.jpg' ),
-		'hover'     => get_theme_mod( 'lumea_latest8_hover',     LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover3.jpg' ),
-		'url'       => get_theme_mod( 'lumea_latest8_url',       '#' ),
+		'name'      => get_theme_mod( 'lumea_latest8_name', __( 'Calming Rose Toner', 'lumea' ) ),
+		'price'     => lumea_format_price_value( get_theme_mod( 'lumea_latest8_price', '$32.00' ) ),
+		'old_price' => lumea_format_price_value( get_theme_mod( 'lumea_latest8_old_price', '$38.00' ) ),
+		'badge'     => get_theme_mod( 'lumea_latest8_badge', '-16%' ),
+		'image'     => get_theme_mod( 'lumea_latest8_image', LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-main3.jpg' ),
+		'hover'     => get_theme_mod( 'lumea_latest8_hover', LUMEA_THEME_URI . '/assets/images/bestsellers/bestsellers-hover3.jpg' ),
+		'url'       => get_theme_mod( 'lumea_latest8_url', '#' ),
 	),
 );
 ?>
@@ -476,35 +484,41 @@ $lumea_latest = array(
 		<?php
 		$lumea_lp_source = array();
 		if ( class_exists( 'WooCommerce' ) ) {
-			$lumea_lp_query = new WP_Query( array(
-				'post_type'      => 'product',
-				'posts_per_page' => 8,
-				'orderby'        => 'date',
-				'order'          => 'DESC',
-				'post_status'    => 'publish',
-				'meta_query'     => array( array(
-					'key'   => '_lumea_is_latest',
-					'value' => 'yes',
-				) ),
-			) );
+			$lumea_lp_query = new WP_Query(
+				array(
+					'post_type'      => 'product',
+					'posts_per_page' => 8,
+					'orderby'        => 'date',
+					'order'          => 'DESC',
+					'post_status'    => 'publish',
+					'meta_query'     => array(
+						array(
+							'key'   => '_lumea_is_latest',
+							'value' => 'yes',
+						),
+					),
+				)
+			);
 			while ( $lumea_lp_query->have_posts() ) {
 				$lumea_lp_query->the_post();
-				$_lp           = wc_get_product( get_the_ID() );
-				$_lp_gallery   = $_lp->get_gallery_image_ids();
+				$_lp               = wc_get_product( get_the_ID() );
+				$_lp_gallery       = $_lp->get_gallery_image_ids();
+				$_lp_cats          = get_the_terms( get_the_ID(), 'product_cat' );
+				$_lp_category      = ( $_lp_cats && ! is_wp_error( $_lp_cats ) ) ? $_lp_cats[0]->name : '';
 				$lumea_lp_source[] = array(
-					'id'        => get_the_ID(),
-					'name'      => get_the_title(),
-					'price'     => $_lp->get_price_html(),
-					'old_price' => $_lp->is_on_sale() ? wc_price( $_lp->get_regular_price() ) : '',
-					'is_sale'   => $_lp->is_on_sale(),
-					'badge'     => $_lp->is_on_sale() ? esc_html__( 'Sale', 'lumea' ) : esc_html__( 'New', 'lumea' ),
-					'image'     => get_the_post_thumbnail_url( get_the_ID(), 'woocommerce_single' ),
-					'hover'     => ! empty( $_lp_gallery ) ? wp_get_attachment_image_url( $_lp_gallery[0], 'woocommerce_single' ) : '',
-					'url'       => get_permalink(),
-					'type'      => $_lp->get_type(),
+					'id'              => get_the_ID(),
+					'name'            => get_the_title(),
+					'price'           => $_lp->get_price_html(),
+					'old_price'       => $_lp->is_on_sale() ? wc_price( $_lp->get_regular_price() ) : '',
+					'is_sale'         => $_lp->is_on_sale(),
+					'badge'           => $_lp->is_on_sale() ? esc_html__( 'Sale', 'lumea' ) : esc_html__( 'New', 'lumea' ),
+					'image'           => get_the_post_thumbnail_url( get_the_ID(), 'woocommerce_single' ),
+					'hover'           => ! empty( $_lp_gallery ) ? wp_get_attachment_image_url( $_lp_gallery[0], 'woocommerce_single' ) : '',
+					'url'             => get_permalink(),
+					'type'            => $_lp->get_type(),
 					'can_add_to_cart' => $_lp->is_purchasable() && $_lp->is_in_stock(),
 					'supports_ajax'   => $_lp->supports( 'ajax_add_to_cart' ) && $_lp->is_purchasable() && $_lp->is_in_stock(),
-					'category'  => ( ( $_lp_cats = get_the_terms( get_the_ID(), 'product_cat' ) ) && ! is_wp_error( $_lp_cats ) ) ? $_lp_cats[0]->name : '',
+					'category'        => $_lp_category,
 				);
 			}
 			wp_reset_postdata();
@@ -551,33 +565,33 @@ $lumea_latest = array(
 
 <!-- The Ritual Section -->
 <?php
-$ritual_steps = array(
+$ritual_steps        = array(
 	1 => array(
 		'id'    => 'lumea-cleanse',
-		'title' => get_theme_mod( 'lumea_ritual_step1_title', 'Cleanse' ),
-		'text'  => get_theme_mod( 'lumea_ritual_step1_text', 'Begin with pure intention. Our gentle botanical cleansers dissolve impurities without stripping the skin\'s natural balance, leaving a fresh, receptive canvas.' ),
+		'title' => get_theme_mod( 'lumea_ritual_step1_title', __( 'Cleanse', 'lumea' ) ),
+		'text'  => get_theme_mod( 'lumea_ritual_step1_text', __( 'Begin with pure intention. Our gentle botanical cleansers dissolve impurities without stripping the skin’s natural balance, leaving a fresh, receptive canvas.', 'lumea' ) ),
 	),
 	2 => array(
 		'id'    => 'lumea-tone',
-		'title' => get_theme_mod( 'lumea_ritual_step2_title', 'Tone & Prep' ),
-		'text'  => get_theme_mod( 'lumea_ritual_step2_text', 'Restore skin\'s equilibrium. Botanical tonics and essence waters refine pores, balance pH, and prime skin to absorb every active that follows.' ),
+		'title' => get_theme_mod( 'lumea_ritual_step2_title', __( 'Tone & Prep', 'lumea' ) ),
+		'text'  => get_theme_mod( 'lumea_ritual_step2_text', __( 'Restore skin’s equilibrium. Botanical tonics and essence waters refine pores, balance pH, and prime skin to absorb every active that follows.', 'lumea' ) ),
 	),
 	3 => array(
 		'id'    => 'lumea-treat',
-		'title' => get_theme_mod( 'lumea_ritual_step3_title', 'Treat & Correct' ),
-		'text'  => get_theme_mod( 'lumea_ritual_step3_text', 'Targeted actives where they matter most. Concentrated serums address luminosity, firmness, and even tone at the cellular level.' ),
+		'title' => get_theme_mod( 'lumea_ritual_step3_title', __( 'Treat & Correct', 'lumea' ) ),
+		'text'  => get_theme_mod( 'lumea_ritual_step3_text', __( 'Targeted actives where they matter most. Concentrated serums address luminosity, firmness, and even tone at the cellular level.', 'lumea' ) ),
 	),
 	4 => array(
 		'id'    => 'lumea-restore',
-		'title' => get_theme_mod( 'lumea_ritual_step4_title', 'Restore & Protect' ),
-		'text'  => get_theme_mod( 'lumea_ritual_step4_text', 'Seal the ritual with nourishment. Rich creams and facial oils lock in actives, rebuild the moisture barrier, and leave skin visibly calm, plump, and glowing.' ),
+		'title' => get_theme_mod( 'lumea_ritual_step4_title', __( 'Restore & Protect', 'lumea' ) ),
+		'text'  => get_theme_mod( 'lumea_ritual_step4_text', __( 'Seal the ritual with nourishment. Rich creams and facial oils lock in actives, rebuild the moisture barrier, and leave skin visibly calm, plump, and glowing.', 'lumea' ) ),
 	),
 );
 $ritual_img_defaults = array(
 	1 => array( 'lumea-cleanse', LUMEA_THEME_URI . '/assets/images/ritual/ritual-cleanse-1.jpg', LUMEA_THEME_URI . '/assets/images/ritual/ritual-cleanse-2.jpg' ),
-	2 => array( 'lumea-tone',    LUMEA_THEME_URI . '/assets/images/ritual/ritual-tone-1.jpg', LUMEA_THEME_URI . '/assets/images/ritual/ritual-tone-2.jpg' ),
-	3 => array( 'lumea-treat',   LUMEA_THEME_URI . '/assets/images/ritual/ritual-treat-1.jpg',    LUMEA_THEME_URI . '/assets/images/ritual/ritual-treat-2.jpg' ),
-	4 => array( 'lumea-restore', LUMEA_THEME_URI . '/assets/images/ritual/ritual-restore-1.jpg',   LUMEA_THEME_URI . '/assets/images/ritual/ritual-restore-2.jpg' ),
+	2 => array( 'lumea-tone', LUMEA_THEME_URI . '/assets/images/ritual/ritual-tone-1.jpg', LUMEA_THEME_URI . '/assets/images/ritual/ritual-tone-2.jpg' ),
+	3 => array( 'lumea-treat', LUMEA_THEME_URI . '/assets/images/ritual/ritual-treat-1.jpg', LUMEA_THEME_URI . '/assets/images/ritual/ritual-treat-2.jpg' ),
+	4 => array( 'lumea-restore', LUMEA_THEME_URI . '/assets/images/ritual/ritual-restore-1.jpg', LUMEA_THEME_URI . '/assets/images/ritual/ritual-restore-2.jpg' ),
 );
 ?>
 <section class="lumea-ritual" id="lumeaRitual" aria-label="<?php esc_attr_e( 'Luméa skincare ritual', 'lumea' ); ?>">
@@ -588,16 +602,16 @@ $ritual_img_defaults = array(
 		<aside class="lumea-ritual-left">
 			<div class="lumea-section-intro-js">
 				<h2 class="lumea-ritual-heading lumea-section-title">
-					<?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_1', 'your daily' ) ); ?>
-					<em><?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_2', 'skin ritual' ) ); ?></em>
+					<?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_1', __( 'your daily', 'lumea' ) ) ); ?>
+					<em><?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_2', __( 'skin ritual', 'lumea' ) ) ); ?></em>
 				</h2>
 				<p class="lumea-ritual-intro lumea-section-desc">
-					<?php echo esc_html( get_theme_mod( 'lumea_ritual_intro', 'Four intentional steps, one luminous result. A complete routine designed around the skin you have.' ) ); ?>
+					<?php echo esc_html( get_theme_mod( 'lumea_ritual_intro', __( 'Four intentional steps, one luminous result. A complete routine designed around the skin you have.', 'lumea' ) ) ); ?>
 				</p>
 			</div>
 			<div class="lumea-ritual-accordion">
 				<?php foreach ( $ritual_steps as $n => $step ) : ?>
-				<div class="lumea-ritual-acc<?php echo $n === 1 ? ' is-active' : ''; ?>" data-target="<?php echo esc_attr( $step['id'] ); ?>">
+				<div class="lumea-ritual-acc<?php echo esc_attr( 1 === $n ? ' is-active' : '' ); ?>" data-target="<?php echo esc_attr( $step['id'] ); ?>">
 					<button class="lumea-ritual-acc-head" type="button">
 						<span class="lumea-ritual-acc-title"><?php echo esc_html( $step['title'] ); ?></span>
 					</button>
@@ -611,16 +625,17 @@ $ritual_img_defaults = array(
 
 		<div class="lumea-ritual-right">
 			<div class="lumea-ritual-image-stack">
-				<?php foreach ( $ritual_img_defaults as $n => $grp ) :
+				<?php
+				foreach ( $ritual_img_defaults as $n => $grp ) :
 					$img1 = esc_url( get_theme_mod( 'lumea_ritual_step' . $n . '_image1', $grp[1] ) );
 					$img2 = esc_url( get_theme_mod( 'lumea_ritual_step' . $n . '_image2', $grp[2] ) );
-				?>
+					?>
 				<div class="lumea-ritual-image-group" id="<?php echo esc_attr( $grp[0] ); ?>">
 					<div class="lumea-ritual-image-wrap">
-						<img src="<?php echo esc_url( $img1 ); ?>" alt="<?php echo esc_attr( $ritual_steps[ $n ]['title'] ); ?> skincare step" loading="lazy" />
+						<img src="<?php echo esc_url( $img1 ); ?>" alt="<?php echo esc_attr( sprintf( /* translators: %s: ritual step title */ __( '%s skincare step', 'lumea' ), $ritual_steps[ $n ]['title'] ) ); ?>" loading="lazy" />
 					</div>
 					<div class="lumea-ritual-image-wrap">
-						<img src="<?php echo esc_url( $img2 ); ?>" alt="<?php echo esc_attr( $ritual_steps[ $n ]['title'] ); ?> ritual detail" loading="lazy" />
+						<img src="<?php echo esc_url( $img2 ); ?>" alt="<?php echo esc_attr( sprintf( /* translators: %s: ritual step title */ __( '%s ritual detail', 'lumea' ), $ritual_steps[ $n ]['title'] ) ); ?>" loading="lazy" />
 					</div>
 				</div>
 				<?php endforeach; ?>
@@ -633,18 +648,19 @@ $ritual_img_defaults = array(
 	<div class="lumea-ritual-mobile">
 		<div class="lumea-section-intro-js">
 			<h2 class="lumea-ritual-heading lumea-section-title">
-				<?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_1', 'your daily' ) ); ?>
-				<em><?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_2', 'skin ritual' ) ); ?></em>
+				<?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_1', __( 'your daily', 'lumea' ) ) ); ?>
+				<em><?php echo esc_html( get_theme_mod( 'lumea_ritual_heading_2', __( 'skin ritual', 'lumea' ) ) ); ?></em>
 			</h2>
 			<p class="lumea-ritual-intro lumea-section-desc">
-				<?php echo esc_html( get_theme_mod( 'lumea_ritual_intro', 'Four intentional steps, one luminous result. A complete routine designed around the skin you have.' ) ); ?>
+				<?php echo esc_html( get_theme_mod( 'lumea_ritual_intro', __( 'Four intentional steps, one luminous result. A complete routine designed around the skin you have.', 'lumea' ) ) ); ?>
 			</p>
 		</div>
 		<div class="lumea-ritual-mobile-list">
-			<?php foreach ( $ritual_steps as $n => $step ) :
+			<?php
+			foreach ( $ritual_steps as $n => $step ) :
 				$img1 = esc_url( get_theme_mod( 'lumea_ritual_step' . $n . '_image1', $ritual_img_defaults[ $n ][1] ) );
 				$img2 = esc_url( get_theme_mod( 'lumea_ritual_step' . $n . '_image2', $ritual_img_defaults[ $n ][2] ) );
-			?>
+				?>
 			<article class="lumea-ritual-mobile-card">
 				<div class="lumea-ritual-xfade-wrap">
 					<img src="<?php echo esc_url( $img1 ); ?>" alt="<?php echo esc_attr( $step['title'] ); ?>" class="lumea-ritual-xfade lumea-ritual-xfade--a" loading="lazy" />
@@ -664,13 +680,13 @@ $ritual_img_defaults = array(
 <!-- Manifest Section -->
 <?php
 $manifest_bg = get_theme_mod( 'lumea_manifest_image', LUMEA_THEME_URI . '/assets/images/editorial-slide-5.jpg' );
-$kicker_1    = get_theme_mod( 'lumea_manifest_kicker_1', '.make your skin comfortable' );
-$kicker_2    = get_theme_mod( 'lumea_manifest_kicker_2', 'trust your glow and feel calm' );
-$kicker_3    = get_theme_mod( 'lumea_manifest_kicker_3', 'in every skincare ritual+' );
-$title_1     = get_theme_mod( 'lumea_manifest_title_1', 'modern ritual' );
-$title_2     = get_theme_mod( 'lumea_manifest_title_2', 'for timeless' );
-$title_3     = get_theme_mod( 'lumea_manifest_title_3', 'radiance' );
-$title_aria  = esc_attr( $title_1 . ' ' . $title_2 . ' ' . $title_3 );
+$kicker_1    = get_theme_mod( 'lumea_manifest_kicker_1', __( '.make your skin comfortable', 'lumea' ) );
+$kicker_2    = get_theme_mod( 'lumea_manifest_kicker_2', __( 'trust your glow and feel calm', 'lumea' ) );
+$kicker_3    = get_theme_mod( 'lumea_manifest_kicker_3', __( 'in every skincare ritual+', 'lumea' ) );
+$title_1     = get_theme_mod( 'lumea_manifest_title_1', __( 'modern ritual', 'lumea' ) );
+$title_2     = get_theme_mod( 'lumea_manifest_title_2', __( 'for timeless', 'lumea' ) );
+$title_3     = get_theme_mod( 'lumea_manifest_title_3', __( 'radiance', 'lumea' ) );
+$title_aria  = $title_1 . ' ' . $title_2 . ' ' . $title_3;
 ?>
 <section class="lumea-manifest" id="lumeaManifest">
 	<div class="lumea-manifest-bg">
@@ -687,7 +703,7 @@ $title_aria  = esc_attr( $title_1 . ' ' . $title_2 . ' ' . $title_3 );
 			<span class="lumea-line" data-split><?php echo esc_html( $kicker_3 ); ?></span>
 		</p>
 
-		<h2 class="lumea-title" aria-label="<?php echo $title_aria; ?>">
+		<h2 class="lumea-title" aria-label="<?php echo esc_attr( $title_aria ); ?>">
 			<span class="lumea-line" data-split><?php echo esc_html( $title_1 ); ?></span>
 			<span class="lumea-line" data-split><?php echo esc_html( $title_2 ); ?></span>
 			<span class="lumea-line" data-split><?php echo esc_html( $title_3 ); ?></span>

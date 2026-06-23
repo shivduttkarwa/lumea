@@ -76,9 +76,9 @@ get_header();
 				</div>
 
 				<div class="lumea-contact-info-card lumea-contact-info-card--dark lumea-reveal-js lumea-reveal--static-js">
-					<h3 class="lumea-contact-info-title" style="color:#fff;"><?php esc_html_e( 'Quick Links', 'lumea' ); ?></h3>
+					<h3 class="lumea-contact-info-title lumea-contact-info-title--light"><?php esc_html_e( 'Quick Links', 'lumea' ); ?></h3>
 					<div class="lumea-contact-quick-links">
-						<a href="<?php echo esc_url( get_permalink( get_page_by_path( 'faq' ) ) ?: home_url( '/faq/' ) ); ?>" class="lumea-contact-quick-link">
+						<a href="<?php echo esc_url( lumea_get_page_url( 'faq' ) ); ?>" class="lumea-contact-quick-link">
 							<span><?php esc_html_e( 'Browse FAQs', 'lumea' ); ?></span>
 							<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
 						</a>

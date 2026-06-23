@@ -2,8 +2,10 @@
 /**
  * Plugin Name: Lumea Core
  * Description: Companion functionality for the Lumea theme.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Shivdutt Karwa
+ * License: GPL-2.0-or-later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: lumea-core
  * Domain Path: /languages
  *
@@ -104,7 +106,7 @@ add_action( 'wp_ajax_nopriv_lumea_update_cart_qty', 'lumea_core_update_cart_qty'
 
 
 function lumea_core_update_cart_line_qty() {
-	$cart_nonce = isset( $_POST['cart_nonce'] ) ? wp_unslash( $_POST['cart_nonce'] ) : '';
+	$cart_nonce = isset( $_POST['cart_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['cart_nonce'] ) ) : '';
 	if ( ! $cart_nonce || ! wp_verify_nonce( $cart_nonce, 'woocommerce-cart' ) ) {
 		wp_send_json_error( 'invalid_nonce' );
 	}
@@ -113,7 +115,7 @@ function lumea_core_update_cart_line_qty() {
 		wp_send_json_error( 'missing_cart' );
 	}
 
-	$cart_item_key = isset( $_POST['cart_item_key'] ) ? wc_clean( wp_unslash( $_POST['cart_item_key'] ) ) : '';
+	$cart_item_key = isset( $_POST['cart_item_key'] ) ? sanitize_text_field( wp_unslash( $_POST['cart_item_key'] ) ) : '';
 	$quantity      = isset( $_POST['quantity'] ) ? intval( wp_unslash( $_POST['quantity'] ) ) : 0;
 
 	if ( '' === $cart_item_key ) {
@@ -208,7 +210,7 @@ function lumea_core_get_wishlist_items() {
 
 	$ids = array();
 	if ( isset( $_POST['ids'] ) ) {
-		$raw_ids = wp_unslash( $_POST['ids'] );
+		$raw_ids = map_deep( wp_unslash( $_POST['ids'] ), 'sanitize_text_field' );
 		$ids     = is_array( $raw_ids ) ? $raw_ids : explode( ',', (string) $raw_ids );
 	}
 
@@ -221,7 +223,7 @@ function lumea_core_get_wishlist_items() {
 			continue;
 		}
 
-		$price_text = html_entity_decode(
+		$price_text      = html_entity_decode(
 			wp_strip_all_tags( $product->get_price_html() ),
 			ENT_QUOTES,
 			get_bloginfo( 'charset' )
@@ -233,13 +235,14 @@ function lumea_core_get_wishlist_items() {
 			? sprintf( __( 'Add %s to cart', 'lumea-core' ), $product->get_name() )
 			/* translators: %s: product name */
 			: sprintf( __( 'View %s', 'lumea-core' ), $product->get_name() );
+		$image_url = wp_get_attachment_image_url( $product->get_image_id(), 'woocommerce_thumbnail' );
 
 		$items[] = array(
 			'id'              => $id,
 			'name'            => $product->get_name(),
 			'url'             => get_permalink( $id ),
 			'price'           => $price_text,
-			'image'           => wp_get_attachment_image_url( $product->get_image_id(), 'woocommerce_thumbnail' ) ?: '',
+			'image'           => $image_url ? $image_url : '',
 			'type'            => $product->get_type(),
 			'can_add_to_cart' => $can_add_to_cart,
 			'supports_ajax'   => $can_add_to_cart && $product->supports( 'ajax_add_to_cart' ),
@@ -268,7 +271,7 @@ add_filter( 'woocommerce_product_data_tabs', 'lumea_core_product_data_tab' );
 
 
 function lumea_core_product_data_panel() {
-	if ( ! current_user_can( 'edit_products' ) ) {
+	if ( ! current_user_can( 'edit_post', get_the_ID() ) ) {
 		return;
 	}
 
@@ -298,7 +301,8 @@ add_action( 'woocommerce_product_data_panels', 'lumea_core_product_data_panel' )
 
 
 function lumea_core_save_product_meta( $post_id ) {
-	if ( ! isset( $_POST['lumea_core_product_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['lumea_core_product_nonce'] ), 'lumea_core_save_product_meta' ) ) {
+	$product_nonce = isset( $_POST['lumea_core_product_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['lumea_core_product_nonce'] ) ) : '';
+	if ( ! wp_verify_nonce( $product_nonce, 'lumea_core_save_product_meta' ) ) {
 		return;
 	}
 
@@ -313,16 +317,16 @@ add_action( 'woocommerce_process_product_meta', 'lumea_core_save_product_meta' )
 
 
 function lumea_core_render_contact_form() {
-	$sent    = false;
-	$errors  = array();
-	$name    = '';
-	$email   = '';
-	$subject = '';
-	$message = '';
+	$sent           = false;
+	$errors         = array();
+	$name           = '';
+	$email          = '';
+	$subject        = '';
+	$message        = '';
 	$request_method = isset( $_SERVER['REQUEST_METHOD'] ) ? sanitize_key( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) : '';
 
 	if ( 'post' === $request_method && isset( $_POST['lumea_contact_action'] ) ) {
-		$contact_nonce = isset( $_POST['lumea_contact_nonce'] ) ? wp_unslash( $_POST['lumea_contact_nonce'] ) : '';
+		$contact_nonce = isset( $_POST['lumea_contact_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['lumea_contact_nonce'] ) ) : '';
 
 		if ( ! wp_verify_nonce( $contact_nonce, 'lumea_contact' ) ) {
 			$errors[] = __( 'Security check failed. Please refresh the page and try again.', 'lumea-core' );
@@ -349,15 +353,23 @@ function lumea_core_render_contact_form() {
 					sprintf( 'Reply-To: %s', $email ),
 				);
 				$body    = sprintf(
-					"Name: %s\nEmail: %s\nSubject: %s\n\n%s",
+					/* translators: 1: sender name, 2: sender email, 3: selected subject, 4: message. */
+					__( "Name: %1\$s\nEmail: %2\$s\nSubject: %3\$s\n\n%4\$s", 'lumea-core' ),
 					$name,
 					$email,
 					$subject,
 					$message
 				);
 
-				wp_mail( $to, '[Lumea Contact] ' . ( $subject ? $subject : __( 'New message', 'lumea-core' ) ), $body, $headers );
-				$sent = true;
+				$mail_subject = sprintf(
+					/* translators: %s: contact form subject. */
+					__( '[Lumea Contact] %s', 'lumea-core' ),
+					$subject ? $subject : __( 'New message', 'lumea-core' )
+				);
+				$sent = wp_mail( $to, $mail_subject, $body, $headers );
+				if ( ! $sent ) {
+					$errors[] = __( 'Your message could not be sent. Please try again.', 'lumea-core' );
+				}
 			}
 		}
 	}
@@ -434,3 +446,82 @@ function lumea_core_contact_form_shortcode() {
 	return ob_get_clean();
 }
 add_shortcode( 'lumea_contact_form', 'lumea_core_contact_form_shortcode' );
+
+
+/**
+ * Render post-sharing actions in the theme's presentation slot.
+ */
+function lumea_core_render_post_share_actions() {
+	if ( ! is_singular( 'post' ) ) {
+		return;
+	}
+
+	$post_url     = get_permalink();
+	$post_title   = get_the_title();
+	$x_url        = add_query_arg(
+		array(
+			'url'  => $post_url,
+			'text' => $post_title,
+		),
+		'https://twitter.com/intent/tweet'
+	);
+	$facebook_url = add_query_arg( 'u', $post_url, 'https://www.facebook.com/sharer/sharer.php' );
+	?>
+	<div class="lumea-post-share">
+		<span class="lumea-post-share-label"><?php esc_html_e( 'Share', 'lumea-core' ); ?></span>
+		<a href="<?php echo esc_url( $x_url ); ?>" target="_blank" rel="noopener noreferrer" class="lumea-post-share-btn" aria-label="<?php esc_attr_e( 'Share on X', 'lumea-core' ); ?>">
+			<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.258 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+		</a>
+		<a href="<?php echo esc_url( $facebook_url ); ?>" target="_blank" rel="noopener noreferrer" class="lumea-post-share-btn" aria-label="<?php esc_attr_e( 'Share on Facebook', 'lumea-core' ); ?>">
+			<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+		</a>
+	</div>
+	<?php
+}
+add_action( 'lumea_post_share_actions', 'lumea_core_render_post_share_actions' );
+
+
+/**
+ * Process the coming-soon notification form.
+ */
+function lumea_core_handle_notify_request() {
+	$nonce = isset( $_POST['lumea_notify_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['lumea_notify_nonce'] ) ) : '';
+
+	if ( ! wp_verify_nonce( $nonce, 'lumea_notify' ) ) {
+		wp_die(
+			esc_html__( 'Security check failed. Please return and try again.', 'lumea-core' ),
+			esc_html__( 'Request denied', 'lumea-core' ),
+			array( 'response' => 403 )
+		);
+	}
+
+	$email  = isset( $_POST['lumea_notify_email'] ) ? sanitize_email( wp_unslash( $_POST['lumea_notify_email'] ) ) : '';
+	$status = 'invalid';
+
+	if ( is_email( $email ) ) {
+		$recipient = sanitize_email( get_option( 'admin_email' ) );
+		$subject   = __( 'New launch notification request', 'lumea-core' );
+		$body      = sprintf(
+			/* translators: %s: subscriber email address. */
+			__( 'Please notify this visitor when the site launches: %s', 'lumea-core' ),
+			$email
+		);
+		$headers = array(
+			'Content-Type: text/plain; charset=UTF-8',
+			sprintf( 'Reply-To: %s', $email ),
+		);
+
+		$status = wp_mail( $recipient, $subject, $body, $headers ) ? 'success' : 'error';
+	}
+
+	$redirect = wp_get_referer();
+	if ( ! $redirect ) {
+		$redirect = home_url( '/' );
+	}
+
+	$redirect = remove_query_arg( 'lumea_notify', $redirect );
+	wp_safe_redirect( add_query_arg( 'lumea_notify', $status, $redirect ) );
+	exit;
+}
+add_action( 'admin_post_lumea_notify', 'lumea_core_handle_notify_request' );
+add_action( 'admin_post_nopriv_lumea_notify', 'lumea_core_handle_notify_request' );

@@ -28,12 +28,16 @@
   function createSlides() {
     slidesData.forEach( function ( slide, index ) {
       const slideEl         = document.createElement( 'div' );
+      const slideInner      = document.createElement( 'div' );
+      const image           = document.createElement( 'img' );
       slideEl.className     = 'lumea-slide';
       slideEl.dataset.index = index;
-      slideEl.innerHTML     =
-        '<div class="lumea-slide-inner">' +
-          '<img src="' + slide.image + '" alt="Luméa slide ' + ( index + 1 ) + '" draggable="false">' +
-        '</div>';
+      slideInner.className  = 'lumea-slide-inner';
+      image.src             = slide.image;
+      image.alt             = 'Luméa slide ' + ( index + 1 );
+      image.draggable       = false;
+      slideInner.appendChild( image );
+      slideEl.appendChild( slideInner );
       slidesRoot.appendChild( slideEl );
     } );
   }

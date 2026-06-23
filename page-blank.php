@@ -25,7 +25,10 @@ defined( 'ABSPATH' ) || exit;
 <a class="skip-link screen-reader-text" href="#lumeaBlankMain"><?php esc_html_e( 'Skip to content', 'lumea' ); ?></a>
 
 <main id="lumeaBlankMain" role="main">
-	<?php while ( have_posts() ) : the_post(); ?>
+	<?php
+	while ( have_posts() ) :
+		the_post();
+		?>
 	<article <?php post_class(); ?>>
 		<?php the_content(); ?>
 	</article>
