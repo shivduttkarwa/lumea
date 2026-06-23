@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Template Name: About Us
  * About Us page — Luméa.
@@ -53,8 +53,8 @@ $a = array(
 	'val3_p'         => get_theme_mod( 'lumea_about_val3_p', __( 'Premium should not cost the planet. We use ocean-bound glass packaging, carbon-neutral shipping, and donate 1% of every sale to reforestation.', 'lumea' ) ),
 
 	'ing_label'      => get_theme_mod( 'lumea_about_ing_label', __( 'Ingredient Philosophy', 'lumea' ) ),
-	'ing_h2'         => get_theme_mod( 'lumea_about_ing_h2', __( 'We believe in ingredients you can pronounce', 'lumea' ) ),
-	'ing_body'       => get_theme_mod( 'lumea_about_ing_body', __( 'Our ingredient selection starts in the field, not the lab. We work backwards from the plant — understanding its native habitat, harvest season, and traditional therapeutic uses before evaluating its bioactive potential.', 'lumea' ) ),
+	'ing_h2'         => get_theme_mod( 'lumea_about_ing_h2', __( 'Pure by design.', 'lumea' ) ),
+	'ing_body'       => get_theme_mod( 'lumea_about_ing_body', __( '48 botanical actives, sourced from twelve countries, formulated without compromise.', 'lumea' ) ),
 	'ing_bullets'    => get_theme_mod( 'lumea_about_ing_bullets', __( "No synthetic fragrance\nNo parabens or sulfates\nCruelty-free formulation standard\nSustainably sourced, traceable supply chain", 'lumea' ) ),
 	'ing1_name'      => get_theme_mod( 'lumea_about_ing1_name', __( 'Bulgarian Rose Otto', 'lumea' ) ),
 	'ing1_desc'      => get_theme_mod( 'lumea_about_ing1_desc', __( 'Sourced from the Rose Valley at peak bloom. 3.5 tonnes of petals yield one kilogram of oil.', 'lumea' ) ),
@@ -155,9 +155,9 @@ $a = array(
 	<!-- ⑥ VALUES ────────────────────────────────────────────── -->
 	<section class="lumea-about-values" style="--lumea-about-bg:url('<?php echo esc_url( $a['values_bg'] ); ?>')">
 		<div class="lumea-about-values-wrap">
-			<div class="lumea-about-values-head lumea-section-intro-js">
-				<p class="lumea-about-label lumea-about-label--light lumea-eyebrow"><?php echo esc_html( $a['values_label'] ); ?></p>
-				<h2 class="lumea-about-values-h2 lumea-section-title"><?php echo nl2br( esc_html( $a['values_h2'] ) ); ?></h2>
+			<div class="lumea-section-intro lumea-section-intro-js">
+				<span class="lumea-eyebrow"><?php echo esc_html( $a['values_label'] ); ?></span>
+				<h2 class="lumea-section-title"><?php echo nl2br( esc_html( $a['values_h2'] ) ); ?></h2>
 			</div>
 			<div class="lumea-about-values-grid">
 				<?php
@@ -167,7 +167,7 @@ $a = array(
 					array( 'III', '03', $a['val3_h3'], $a['val3_p'] ),
 				) as $v ) :
 					?>
-				<div class="lumea-about-val lumea-reveal-js lumea-reveal--static-js">
+				<div class="lumea-about-val lumea-about-val-reveal-js">
 					<div class="lumea-about-val-wm"><?php echo esc_html( $v[0] ); ?></div>
 					<span class="lumea-about-val-idx"><?php echo esc_html( $v[1] ); ?></span>
 					<h3 class="lumea-about-val-h3"><?php echo esc_html( $v[2] ); ?></h3>
@@ -179,19 +179,18 @@ $a = array(
 	</section>
 
 	<!-- ⑦ INGREDIENTS ───────────────────────────────────────── -->
+	<div class="lumea-section-intro lumea-section-intro-js">
+		<div class="lumea-container">
+			<span class="lumea-eyebrow"><?php echo esc_html( $a['ing_label'] ); ?></span>
+			<h2 class="lumea-section-title"><?php echo esc_html( $a['ing_h2'] ); ?></h2>
+			<p class="lumea-section-desc"><?php echo esc_html( $a['ing_body'] ); ?></p>
+		</div>
+	</div>
+
 	<section class="lumea-about-ingredients">
-		<div class="lumea-about-ingredients-wrap">
-			<div class="lumea-about-ing-left lumea-section-intro-js">
-				<p class="lumea-about-label lumea-about-label--warm lumea-eyebrow"><?php echo esc_html( $a['ing_label'] ); ?></p>
-				<h2 class="lumea-about-ing-h2 lumea-section-title"><?php echo esc_html( $a['ing_h2'] ); ?></h2>
-				<p class="lumea-about-body lumea-section-desc"><?php echo esc_html( $a['ing_body'] ); ?></p>
-				<ul class="lumea-about-check-list lumea-reveal-js lumea-reveal--static-js">
-					<?php foreach ( lumea_lines( $a['ing_bullets'] ) as $bullet ) : ?>
-					<li><?php echo esc_html( $bullet ); ?></li>
-					<?php endforeach; ?>
-				</ul>
-			</div>
-			<div class="lumea-about-ing-right">
+		<div class="lumea-about-ing-inner">
+
+			<div class="lumea-about-ing-grid">
 				<?php
 				$ingredients = array(
 					array( 'I', $a['ing1_name'], $a['ing1_desc'] ),
@@ -199,16 +198,21 @@ $a = array(
 					array( 'III', $a['ing3_name'], $a['ing3_desc'] ),
 				);
 				foreach ( $ingredients as $ing ) :
-					?>
-				<div class="lumea-about-ing-entry lumea-reveal-js lumea-reveal--static-js">
+				?>
+				<div class="lumea-about-ing-card lumea-about-ing-card-reveal-js">
 					<span class="lumea-about-ing-tag"><?php echo esc_html( $ing[0] ); ?></span>
-					<div>
-						<h3 class="lumea-about-ing-name"><?php echo esc_html( $ing[1] ); ?></h3>
-						<p class="lumea-about-ing-desc"><?php echo esc_html( $ing[2] ); ?></p>
-					</div>
+					<h3 class="lumea-about-ing-name"><?php echo esc_html( $ing[1] ); ?></h3>
+					<p class="lumea-about-ing-desc"><?php echo esc_html( $ing[2] ); ?></p>
 				</div>
 				<?php endforeach; ?>
 			</div>
+
+			<ul class="lumea-about-check-list">
+				<?php foreach ( lumea_lines( $a['ing_bullets'] ) as $bullet ) : ?>
+				<li><?php echo esc_html( $bullet ); ?></li>
+				<?php endforeach; ?>
+			</ul>
+
 		</div>
 	</section>
 

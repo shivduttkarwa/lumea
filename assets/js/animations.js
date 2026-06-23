@@ -642,4 +642,56 @@
 
   } )();
 
+
+  /* ── About values cards — staggered fade-up on grid enter ── */
+  ( function initAboutValReveal() {
+
+    var cards = gsap.utils.toArray( '.lumea-about-val-reveal-js' );
+    if ( ! cards.length ) return;
+
+    gsap.set( cards, { autoAlpha: 0, y: 32 } );
+
+    ScrollTrigger.create( {
+      trigger: '.lumea-about-values-grid',
+      start:   'top 75%',
+      once:    true,
+      onEnter: function () {
+        gsap.to( cards, {
+          autoAlpha: 1,
+          y:         0,
+          duration:  0.75,
+          ease:      'power3.out',
+          stagger:   0.15,
+        } );
+      },
+    } );
+
+  } )();
+
+
+  /* ── About ingredients cards — staggered fade-up ── */
+  ( function initAboutIngCardReveal() {
+
+    var cards = gsap.utils.toArray( '.lumea-about-ing-card-reveal-js' );
+    if ( ! cards.length ) return;
+
+    gsap.set( cards, { autoAlpha: 0, y: 28 } );
+
+    ScrollTrigger.create( {
+      trigger: '.lumea-about-ing-grid',
+      start:   'top 80%',
+      once:    true,
+      onEnter: function () {
+        gsap.to( cards, {
+          autoAlpha: 1,
+          y:         0,
+          duration:  0.7,
+          ease:      'power3.out',
+          stagger:   0.14,
+        } );
+      },
+    } );
+
+  } )();
+
 } )();

@@ -10179,19 +10179,21 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   pointer-events: none;
 }
 .lumea-about-values-wrap { position: relative; z-index: 1; max-width: 75rem; margin-inline: auto; }
-.lumea-about-values-head {
-  padding-bottom: 3.5rem;
+.lumea-about-values .lumea-section-intro {
+  background: transparent;
+  padding: 0 0 3.5rem;
   margin-bottom: 4rem;
   border-bottom: 0.0625rem solid rgba(255,255,255,0.08);
 }
-.lumea-about-values-h2 {
-  margin: 0.5rem 0 0;
-  font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
+.lumea-about-values .lumea-eyebrow {
+  color: rgba(255,255,255,0.6);
+}
+.lumea-about-values .lumea-section-title {
+  color: #fff;
   font-size: clamp(2.25rem, 5.5vw, 4.5rem);
-  font-weight: 300;
+  margin: 0.5rem 0 0;
   letter-spacing: -0.05em;
   line-height: 1.03;
-  color: #fff;
 }
 .lumea-about-values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.125rem; }
 .lumea-about-val {
@@ -10235,65 +10237,67 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
 }
 .lumea-about-val-p { margin: 0; font-size: 0.875rem; line-height: 1.8; color: rgba(255,255,255,0.42); }
 
-.lumea-about-ingredients { background: #fff; padding: clamp(5rem, 10vw, 7.5rem) clamp(1.5rem, 6vw, 6rem); }
-.lumea-about-ingredients-wrap {
+.lumea-about-ingredients {
+  background: #fff;
+  padding: 0 clamp(1.5rem, 6vw, 6rem) clamp(4rem, 8vw, 6rem);
+}
+.lumea-about-ing-inner {
   max-width: 75rem;
   margin-inline: auto;
+}
+.lumea-about-ing-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(2.5rem, 7vw, 6.25rem);
-  align-items: start;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 0.0625rem solid var(--lumea-border);
+  border-left: 0.0625rem solid var(--lumea-border);
 }
-.lumea-about-ing-h2 {
-  margin: 0 0 1.25rem;
-  font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(1.75rem, 3.8vw, 2.75rem);
-  font-weight: 400;
-  letter-spacing: -0.04em;
-  line-height: 1.1;
-  color: var(--lumea-text);
-}
-.lumea-about-check-list { list-style: none; margin: 1.25rem 0 0; padding: 0; }
-.lumea-about-check-list li {
-  font-size: 0.9125rem;
-  font-weight: 500;
-  color: var(--lumea-text);
-  padding: 0.9375rem 0;
-  border-bottom: 0.0625rem solid var(--lumea-border);
-  display: flex;
-  align-items: center;
-  gap: 0.875rem;
-}
-.lumea-about-check-list li::before { content: ''; width: 1.5rem; height: 0.0625rem; background: var(--lumea-accent); flex-shrink: 0; }
-.lumea-about-check-list li:first-child { border-top: 0.0625rem solid var(--lumea-border); }
-.lumea-about-ing-right { display: flex; flex-direction: column; }
-.lumea-about-ing-entry {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.25rem;
-  padding: 1.75rem 0;
+.lumea-about-ing-card {
+  padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
+  border-right: 0.0625rem solid var(--lumea-border);
   border-bottom: 0.0625rem solid var(--lumea-border);
 }
-.lumea-about-ing-entry:first-child { border-top: 0.0625rem solid var(--lumea-border); }
 .lumea-about-ing-tag {
+  display: block;
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
   font-size: 0.6875rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   color: var(--lumea-accent);
-  flex-shrink: 0;
-  width: 1.75rem;
-  padding-top: 0.125rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
 }
 .lumea-about-ing-name {
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.75rem;
   font-family: "ClashDisplay-Variable","Clash Display",Inter,sans-serif;
-  font-size: clamp(1rem, 2vw, 1.375rem);
+  font-size: clamp(1.125rem, 2.2vw, 1.625rem);
   font-weight: 400;
   letter-spacing: -0.03em;
+  line-height: 1.15;
   color: var(--lumea-text);
 }
-.lumea-about-ing-desc { margin: 0; font-size: 0.8125rem; line-height: 1.7; color: var(--lumea-muted); }
+.lumea-about-ing-desc { margin: 0; font-size: 0.875rem; line-height: 1.75; color: var(--lumea-muted); }
+.lumea-about-check-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  border-left: 0.0625rem solid var(--lumea-border);
+  border-bottom: 0.0625rem solid var(--lumea-border);
+}
+.lumea-about-check-list li {
+  flex: 1;
+  min-width: 12rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--lumea-text);
+  padding: 1.125rem 1.5rem;
+  border-right: 0.0625rem solid var(--lumea-border);
+  border-top: 0.0625rem solid var(--lumea-border);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.lumea-about-check-list li::before { content: ''; width: 1.25rem; height: 0.0625rem; background: var(--lumea-accent); flex-shrink: 0; }
 
 .lumea-about-press { background: var(--lumea-bg); border-top: 0.0625rem solid var(--lumea-border); padding: 3.75rem 0; overflow: hidden; }
 .lumea-about-press-label {
@@ -10387,7 +10391,7 @@ body.home .lumea-header.is-scrolled .lumea-header-icon-btn {
   .lumea-about-stat-cell:nth-child(3) { border-top: 0.0625rem solid rgba(255,255,255,0.07); }
   .lumea-about-stat-cell:nth-child(4) { border-top: 0.0625rem solid rgba(255,255,255,0.07); border-right: none; }
   .lumea-about-values-grid { grid-template-columns: 1fr 1fr; }
-  .lumea-about-ingredients-wrap { grid-template-columns: 1fr; }
+  .lumea-about-ing-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
   .lumea-about-hero { min-height: calc(90vh - 4.5rem); align-items: flex-end; }
