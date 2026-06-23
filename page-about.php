@@ -67,7 +67,7 @@ $a = array(
 
 	'cta_bg'         => get_theme_mod( 'lumea_about_cta_bg', LUMEA_THEME_URI . '/assets/images/bestsellers/cta-bg.jpg' ),
 	'cta_label'      => get_theme_mod( 'lumea_about_cta_label', __( 'Begin Your Ritual', 'lumea' ) ),
-	'cta_h2'         => get_theme_mod( 'lumea_about_cta_h2', __( "Ready to meet\nyour skin's new favourites?", 'lumea' ) ),
+	'cta_h2'         => get_theme_mod( 'lumea_about_cta_h2', __( 'Your ritual awaits.', 'lumea' ) ),
 	'cta_btn1'       => get_theme_mod( 'lumea_about_cta_btn1', __( 'Shop All Products', 'lumea' ) ),
 	'cta_btn2'       => get_theme_mod( 'lumea_about_cta_btn2', __( 'Get In Touch', 'lumea' ) ),
 );
@@ -241,10 +241,10 @@ endfor;
 			<p class="lumea-about-label lumea-about-label--light lumea-eyebrow"><?php echo esc_html( $a['cta_label'] ); ?></p>
 			<h2 class="lumea-about-cta-h2 lumea-section-title"><?php echo nl2br( esc_html( $a['cta_h2'] ) ); ?></h2>
 			<div class="lumea-about-cta-btns lumea-reveal-js lumea-reveal--static-js">
-				<a href="<?php echo esc_url( lumea_get_shop_url() ); ?>" class="lumea-about-btn lumea-about-btn--accent">
+				<a href="<?php echo esc_url( lumea_get_shop_url() ); ?>" class="lumea-btn btn-accent">
 					<?php echo esc_html( $a['cta_btn1'] ); ?>
 				</a>
-				<a href="<?php echo esc_url( lumea_get_page_url( 'contact' ) ); ?>" class="lumea-about-btn lumea-about-btn--ghost">
+				<a href="<?php echo esc_url( lumea_get_page_url( 'contact' ) ); ?>" class="lumea-btn btn-white">
 					<?php echo esc_html( $a['cta_btn2'] ); ?>
 				</a>
 			</div>
